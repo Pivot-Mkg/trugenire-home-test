@@ -1,8 +1,56 @@
-const trustSegments = [
-  "Developers & Asset Owners",
-  "Lenders & Banks",
-  "NBFCs & Alternative Capital",
-  "Funds & Institutional Investors",
+const trustGroups = [
+  {
+    label: "Developers & Asset Owners",
+    logos: [
+      { src: "./assets/images/trusted-logos/brookfield.png", alt: "Brookfield" },
+      { src: "./assets/images/trusted-logos/upes.png", alt: "UPES" },
+      { src: "./assets/images/trusted-logos/merusri.png", alt: "Merusri" },
+      { src: "./assets/images/trusted-logos/hcltech.png", alt: "HCLTech" },
+      { src: "./assets/images/trusted-logos/clearpack.png", alt: "Clearpack Group" },
+      { src: "./assets/images/trusted-logos/transcon.png", alt: "Transcon" },
+      { src: "./assets/images/trusted-logos/bc.png", alt: "B.C.C." },
+      { src: "./assets/images/trusted-logos/kanakia.png", alt: "Kanakia" },
+    ],
+  },
+  {
+    label: "Lenders & Banks",
+    logos: [
+      { src: "./assets/images/trusted-logos/hdfc_capital.png", alt: "HDFC Capital" },
+      { src: "./assets/images/trusted-logos/sbicap_ventures.png", alt: "SBICAP Ventures" },
+      { src: "./assets/images/trusted-logos/icici_venture.png", alt: "ICICI Venture" },
+      { src: "./assets/images/trusted-logos/motilal_more.png", alt: "Motilal Oswal More" },
+      { src: "./assets/images/trusted-logos/hdfc_bank.png", alt: "HDFC Bank" },
+      { src: "./assets/images/trusted-logos/icici_bank.png", alt: "ICICI Bank" },
+      { src: "./assets/images/trusted-logos/yes_bank.png", alt: "YES BANK" },
+      { src: "./assets/images/trusted-logos/tata_capital.png", alt: "Tata Capital" },
+    ],
+  },
+  {
+    label: "NBFCs & Alternative Capital",
+    logos: [
+      { src: "./assets/images/trusted-logos/eaaa_alternatives.png", alt: "EAAA Alternatives" },
+      { src: "./assets/images/trusted-logos/tata_capital.png", alt: "Tata Capital" },
+      { src: "./assets/images/trusted-logos/edelweiss.png", alt: "Edelweiss" },
+      { src: "./assets/images/trusted-logos/nifco.png", alt: "NiFCO" },
+      { src: "./assets/images/trusted-logos/experion.png", alt: "Experion" },
+      { src: "./assets/images/trusted-logos/hdfc_capital.png", alt: "HDFC Capital" },
+      { src: "./assets/images/trusted-logos/sbicap_ventures.png", alt: "SBICAP Ventures" },
+      { src: "./assets/images/trusted-logos/motilal_more.png", alt: "Motilal Oswal More" },
+    ],
+  },
+  {
+    label: "Funds & Institutional Investors",
+    logos: [
+      { src: "./assets/images/trusted-logos/avenue_capital.png", alt: "Avenue Capital Group" },
+      { src: "./assets/images/trusted-logos/cerberus.png", alt: "Cerberus" },
+      { src: "./assets/images/trusted-logos/acre.png", alt: "ACRE" },
+      { src: "./assets/images/trusted-logos/jc_flowers.png", alt: "J.C. Flowers & Co." },
+      { src: "./assets/images/trusted-logos/bailey_properties.png", alt: "Bailey Properties, Inc. (USA)" },
+      { src: "./assets/images/trusted-logos/eaaa_alternatives.png", alt: "EAAA Alternatives" },
+      { src: "./assets/images/trusted-logos/hdfc_capital.png", alt: "HDFC Capital" },
+      { src: "./assets/images/trusted-logos/motilal_more.png", alt: "Motilal Oswal More" },
+    ],
+  },
 ];
 
 const offerings = [
@@ -117,17 +165,58 @@ function initImpactCounters() {
 
 function initTrustTabs() {
   const root = document.getElementById("trustTabs");
-  if (!root) return;
+  const logoGrid = document.getElementById("trustLogoGrid");
+  if (!root || !logoGrid) return;
 
   let active = 0;
+  const reduceMotion =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let switchTimer = null;
+  let enterTimer = null;
 
-  function render() {
-    root.innerHTML = trustSegments
-      .map((segment, idx) => {
+  function renderLogos(animate = false) {
+    const group = trustGroups[active];
+    const markup = group.logos
+      .map(
+        (logo, idx) => `
+          <article class="tb-trusted-logo-card" style="--tb-logo-delay:${idx * 40}ms">
+            <img src="${logo.src}" alt="${logo.alt}" loading="lazy">
+          </article>
+        `,
+      )
+      .join("");
+
+    if (!animate || reduceMotion) {
+      logoGrid.classList.remove("is-switching", "is-entering");
+      logoGrid.innerHTML = markup;
+      return;
+    }
+
+    if (switchTimer) clearTimeout(switchTimer);
+    if (enterTimer) clearTimeout(enterTimer);
+
+    logoGrid.classList.remove("is-entering");
+    logoGrid.classList.add("is-switching");
+
+    switchTimer = setTimeout(() => {
+      logoGrid.innerHTML = markup;
+      logoGrid.classList.remove("is-switching");
+      void logoGrid.offsetWidth;
+      logoGrid.classList.add("is-entering");
+      enterTimer = setTimeout(() => {
+        logoGrid.classList.remove("is-entering");
+      }, 440);
+    }, 160);
+  }
+
+  function render(animateLogos = false) {
+    root.innerHTML = trustGroups
+      .map((group, idx) => {
         const isActive = idx === active;
         return `
-          <button type="button" class="tb-trust-btn w-100${isActive ? " is-active" : ""}" data-trust-index="${idx}">
-            <span>${segment}</span>${isActive ? ' <span class="tb-arrow">&rarr;</span>' : ""}
+          <button type="button" class="tb-trust-btn w-100${isActive ? " is-active" : ""}" data-trust-index="${idx}" aria-pressed="${isActive}">
+            <span>${group.label}</span>${isActive ? ' <span class="tb-arrow">&rarr;</span>' : ""}
           </button>
         `;
       })
@@ -135,10 +224,14 @@ function initTrustTabs() {
 
     root.querySelectorAll("[data-trust-index]").forEach((button) => {
       button.addEventListener("click", () => {
-        active = Number(button.getAttribute("data-trust-index"));
-        render();
+        const next = Number(button.getAttribute("data-trust-index"));
+        if (next === active) return;
+        active = next;
+        render(true);
       });
     });
+
+    renderLogos(animateLogos);
   }
 
   render();
