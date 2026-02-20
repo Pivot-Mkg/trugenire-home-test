@@ -50,10 +50,22 @@ const offerings = [
 let offeringIndex = 0;
 
 const heroStageImages = [
-  { src: "./assets/images/hero_stage_1.png", alt: "Plan stage illustration" },
-  { src: "./assets/images/hero_stage_2.png", alt: "Build stage illustration" },
-  { src: "./assets/images/hero_stage_3.png", alt: "Monetize stage illustration" },
-  { src: "./assets/images/hero_stage_4.png", alt: "Exit stage illustration" },
+  {
+    src: "./assets/images/home-page/hero-banner-right-1.png",
+    alt: "Monetize stage illustration",
+  },
+  {
+    src: "./assets/images/home-page/hero-banner-right-1.png",
+    alt: "Plan stage illustration",
+  },
+  {
+    src: "./assets/images/home-page/hero-banner-right-1.png",
+    alt: "Build stage illustration",
+  },
+  {
+    src: "./assets/images/home-page/hero-banner-right-1.png",
+    alt: "Exit stage illustration",
+  },
 ];
 
 function initMenu() {
@@ -97,7 +109,7 @@ function initImpactCounters() {
         observer.disconnect();
       });
     },
-    { threshold: 0.3 }
+    { threshold: 0.3 },
   );
 
   observer.observe(counters[0]);
@@ -133,7 +145,9 @@ function initTrustTabs() {
 }
 
 function initLifecycleToggles() {
-  const toggles = Array.from(document.querySelectorAll(".tb-lifecycle-item[data-phase-index]"));
+  const toggles = Array.from(
+    document.querySelectorAll(".tb-lifecycle-item[data-phase-index]"),
+  );
   const grid = document.querySelector(".tb-lifecycle-grid");
   const heroStageImage = document.getElementById("tbHeroStageImage");
   if (!toggles.length) return;
@@ -179,7 +193,7 @@ function renderOfferingTabs() {
         <button type="button" class="tb-offering-tab${idx === offeringIndex ? " is-active" : ""}" data-offering-index="${idx}">
           ${offering.tab}
         </button>
-      `
+      `,
     )
     .join("");
 
@@ -208,7 +222,7 @@ function renderOfferings() {
             <span class="tb-capability-icon" aria-hidden="true">${item.icon}</span>
             <p>${item.text}</p>
           </article>
-        `
+        `,
       )
       .join("");
   }
