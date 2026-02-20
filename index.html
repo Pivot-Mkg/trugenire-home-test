@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TruBoard Technologies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Prata&family=Roboto:wght@700&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/css/app.css">
+</head>
+
+<body>
+  <div class="tb-top-shell">
+    <header class="tb-header">
+      <div class="container-xl">
+        <div class="tb-header-card">
+          <a href="#" class="tb-logo" aria-label="TruBoard home">
+            <img src="./assets/images/00af332c1a9f3126ee7549c6a79f390066c45c4b-BBxVev8d.png" alt="TruBoard Technologies">
+          </a>
+          <button id="menuToggle" class="tb-menu-toggle d-lg-none" type="button" aria-expanded="false"
+            aria-controls="mainNav" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <nav id="mainNav" class="tb-nav">
+            <a href="#">Services <span class="tb-nav-caret">&#9662;</span></a>
+            <a href="#">Product <span class="tb-nav-caret">&#9662;</span></a>
+            <a href="#">Resources <span class="tb-nav-caret">&#9662;</span></a>
+            <a href="#" class="btn tb-btn tb-btn-blue tb-nav-btn">Contact Us</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <section class="tb-hero">
+      <div class="container-xl">
+        <div class="row g-4 g-xl-5 align-items-stretch tb-hero-main">
+          <div class="col-lg-7 mt-10" style="margin-top: 40px;">
+            <p class="tb-hero-kicker">Unified Real Estate</p>
+            <h1 class="tb-hero-title">Asset Management &amp; Intelligence</h1>
+            <p class="tb-hero-text">
+              TruBoard brings together execution, asset oversight, and real-time intelligence to help developers,
+              lenders,
+              and investors build better, monitor smarter, and protect capital across the real estate lifecycle.
+            </p>
+            <div class="tb-hero-actions">
+              <a href="#" class="btn tb-btn tb-btn-blue">Contact Us</a>
+              <a href="#" class="btn tb-btn tb-btn-ghost">Explore TruGenie <span>&rarr;</span></a>
+            </div>
+
+            <div class="tb-lifecycle">
+              <div class="tb-lifecycle-grid phase-0">
+                <button type="button" class="tb-lifecycle-item is-active" data-phase-index="0" aria-pressed="true">
+                  <div class="tb-lifecycle-card">
+                    <img src="./assets/images/lifecycle_icon_1.png" alt="Plan">
+                  </div>
+                  <h3>Plan</h3>
+                  <p>Feasibility<br>Risk assessment<br>Capital structuring</p>
+                </button>
+                <button type="button" class="tb-lifecycle-item" data-phase-index="1" aria-pressed="false">
+                  <div class="tb-lifecycle-card">
+                    <img src="./assets/images/lifecycle_icon_2.png" alt="Build">
+                  </div>
+                  <h3>Build</h3>
+                  <p>Construction oversight<br>Cost &amp; schedule control<br>Execution risk visibility</p>
+                </button>
+                <button type="button" class="tb-lifecycle-item" data-phase-index="2" aria-pressed="false">
+                  <div class="tb-lifecycle-card">
+                    <img src="./assets/images/lifecycle_icon_3.png" alt="Monetize">
+                  </div>
+                  <h3>Monetize</h3>
+                  <p>Sales velocity<br>Collections tracking<br>Cashflow intelligence</p>
+                </button>
+                <button type="button" class="tb-lifecycle-item" data-phase-index="3" aria-pressed="false">
+                  <div class="tb-lifecycle-card">
+                    <img src="./assets/images/lifecycle_icon_4.png" alt="Exit">
+                  </div>
+                  <h3>Exit</h3>
+                  <p>Asset performance<br>Governance &amp; compliance<br>Value optimization</p>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="tb-hero-art">
+              <img id="tbHeroStageImage" src="./assets/images/hero_stage_1.png" alt="Plan stage illustration">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="tb-impact">
+    <div class="container-xl">
+      <h2 class="tb-title">Our Impact</h2>
+      <div class="row g-3 g-lg-5 mt-1">
+        <div class="col-md-4">
+          <article class="tb-impact-card">
+            <p class="tb-impact-value">$<span class="count-up" data-target="4">0</span>Bn+</p>
+            <p class="tb-impact-label">assets under oversight</p>
+          </article>
+        </div>
+        <div class="col-md-4">
+          <article class="tb-impact-card">
+            <p class="tb-impact-value">~<span class="count-up" data-target="200">0</span>Mn</p>
+            <p class="tb-impact-label">sq ft overseeing valued</p>
+          </article>
+        </div>
+        <div class="col-md-4">
+          <article class="tb-impact-card">
+            <p class="tb-impact-value">~$<span class="count-up" data-target="5">0</span>Bn</p>
+            <p class="tb-impact-label">across the USA and India</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tb-trusted">
+    <div class="container-xl">
+      <h2 class="tb-title">TruBoard Technologies Trusted by</h2>
+      <div class="row g-4 align-items-start">
+        <div class="col-lg-4">
+          <div id="trustTabs" class="tb-trust-tabs"></div>
+        </div>
+        <div class="col-lg-8">
+          <div class="tb-trusted-cards">
+            <img src="./assets/images/trusted_cards.png" alt="Trusted client logos">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tb-problem">
+    <div class="container-xl">
+      <div class="row g-4 g-xl-5 align-items-center">
+        <div class="col-lg-6">
+          <h2 class="tb-title">Assets fail from fragmented,<br>not flawed execution</h2>
+          <p class="tb-problem-text">
+            Real estate projects break down when execution is disconnected, visibility is limited, and decisions arrive
+            too late.
+            Even well-capitalized assets suffer when teams, data, and accountability operate in silos.
+          </p>
+          <ul class="tb-issue-list">
+            <li><span class="tb-issue-icon">T</span> Cost and schedule overruns</li>
+            <li><span class="tb-issue-icon">G</span> Capital leakage and weak governance</li>
+            <li><span class="tb-issue-icon">D</span> Disconnected teams and data silos</li>
+            <li><span class="tb-issue-icon">!</span> Reactive reporting instead of real-time insight</li>
+          </ul>
+          <p class="tb-issue-callout">TruBoard exists to fix this.</p>
+        </div>
+        <div class="col-lg-6">
+          <div class="tb-problem-diagram">
+            <img src="./assets/images/fragment_diagram.png" alt="TruBoard operating core">
+          </div>
+        </div>
+      </div>
+      <div class="tb-integrated">
+        <h2 class="tb-title text-center">Two Integrated Capabilities. One Operating Layer.</h2>
+        <p class="tb-integrated-subtitle text-center">
+          Execution on the ground, intelligence in real time - unified into one system.
+        </p>
+        <div class="row g-3 g-lg-4 justify-content-center">
+          <div class="col-lg-5">
+            <article class="tb-integrated-card tb-integrated-card-blue">
+              <h3>Services</h3>
+              <p>
+                End-to-end real estate services combining Project Management Consultancy and Asset Management to
+                deliver execution certainty, improved governance, and capital protection across the asset lifecycle.
+              </p>
+              <a href="#">Learn more &rarr;</a>
+            </article>
+          </div>
+          <div class="col-lg-5">
+            <article class="tb-integrated-card">
+              <h3>TruGenie</h3>
+              <p>
+                An AI-enabled real estate intelligence platform providing real-time dashboards, workflow automation,
+                and early-warning signals across construction, sales, and cashflows.
+              </p>
+              <a href="#">Explore TruGenie &rarr;</a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tb-why">
+    <div class="container-xl">
+      <h2 class="tb-title text-center">Why TruBoard</h2>
+      <div class="tb-why-grid">
+        <article class="tb-why-card tb-why-card-1">
+          <span class="tb-why-icon">A</span>
+          <p>Deep real estate execution expertise</p>
+        </article>
+        <article class="tb-why-card tb-why-card-2">
+          <span class="tb-why-icon">B</span>
+          <p>Institutional capital mindset</p>
+        </article>
+        <article class="tb-why-card tb-why-card-3">
+          <span class="tb-why-icon">C</span>
+          <p>Technology-first approach</p>
+        </article>
+        <article class="tb-why-center">
+          <div class="tb-why-ring tb-why-ring-outer">
+            <div class="tb-why-ring tb-why-ring-inner">
+              <div class="tb-why-core">
+                <img src="./assets/images/logo_mark_dark.png" alt="TruBoard mark">
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="tb-why-card tb-why-card-4">
+          <span class="tb-why-icon">D</span>
+          <p>Independent, objective reporting</p>
+        </article>
+        <article class="tb-why-card tb-why-card-5">
+          <span class="tb-why-icon">G</span>
+          <p>Proven experience across large, complex portfolios</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="tb-offerings">
+    <div class="container-xl">
+      <h2 class="tb-title text-center">TruBoard Real Estate Offerings</h2>
+      <div id="offeringTabs" class="tb-offering-tabs"></div>
+      <div class="row g-4 g-xl-5 align-items-start tb-offering-layout">
+        <div class="col-lg-6">
+          <div class="tb-offering-image">
+            <img src="./assets/images/3cbca7f201f5ca5ba3bd536029cc7d7f7312cf0e-THkfI-pg.png" alt="Real estate dashboard">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h3 id="offeringTitle" class="tb-offering-title"></h3>
+          <p id="offeringDescription" class="tb-offering-description"></p>
+          <div id="offeringCapabilities" class="tb-capability-grid"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tb-cta">
+    <div class="container-xl text-center">
+      <h2 class="tb-title">Ready to bring clarity and control to your real estate assets?</h2>
+      <div class="tb-cta-actions">
+        <a href="#" class="btn tb-btn tb-btn-ghost">Request a TruGenie Demo</a>
+        <a href="#" class="btn tb-btn tb-btn-blue">Talk to Our Services Team</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="tb-footer">
+    <div class="container-xl">
+      <div class="row g-4 tb-footer-top">
+        <div class="col-lg-5">
+          <a href="#" class="tb-footer-logo" aria-label="TruBoard home">
+            <img src="./assets/images/1a36bc184ac42a93ebf62d57aae0e30c740ff2ab-B2Jtxq84.png" alt="TruBoard Technologies">
+          </a>
+          <p class="tb-footer-subtitle">Real Estate Asset Management Services</p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Solutions</a></li>
+            <li><a href="#">Industries</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+          <h3>Contact Us</h3>
+          <p class="tb-footer-contact">
+            321, SOLITAIRE CORPORATE PARK, ANDHERI GHATKOPAR LINK ROAD, CHAKALA, Chakala MIDC,
+            Mumbai, Mumbai Suburban, Maharashtra, 400093
+          </p>
+        </div>
+      </div>
+      <div class="tb-footer-bottom">
+        <p>(c) 2025 Ion Exchange. All rights reserved.</p>
+        <div class="tb-socials" aria-label="Social links">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Twitter">x</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Instagram">ig</a>
+        </div>
+        <div class="tb-policies">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./assets/js/app.js" defer></script>
+</body>
+
+</html>
