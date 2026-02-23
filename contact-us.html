@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | TruBoard Technologies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Prata&family=Roboto:wght@700&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/css/app.css">
+  <style>
+    .tb-contact-shell {
+      padding-top: clamp(6.2rem, 9vh, 7.6rem);
+      padding-bottom: clamp(2rem, 4vh, 3rem);
+      overflow-x: clip;
+    }
+
+    .tb-contact-hero {
+      position: relative;
+      width: 100%;
+      height: clamp(13.5rem, 34vw, 22rem);
+      min-height: 13.5rem;
+      max-height: 22rem;
+      overflow: hidden;
+    }
+
+    .tb-contact-hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: saturate(1.05);
+    }
+
+    .tb-contact-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(12, 27, 86, 0.62) 0%, rgba(12, 27, 86, 0.28) 52%, rgba(12, 27, 86, 0.54) 100%);
+    }
+
+    .tb-contact-hero-content {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .tb-contact-hero-content h1 {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      line-height: 1.06;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-shadow: 0 8px 22px rgba(8, 20, 63, 0.35);
+    }
+
+    .tb-contact-banner {
+      padding: clamp(1rem, 2.8vw, 2.4rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tb-contact-banner>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    .tb-contact-title {
+      margin: 0;
+      color: #0C1B56;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.08;
+      font-weight: 700;
+    }
+
+    .tb-contact-subtitle {
+      margin: 0;
+      color: #5d6e86;
+      font-size: var(--tb-fs-18);
+      line-height: 1.5;
+      max-width: 54rem;
+    }
+
+    .tb-contact-grid {
+      margin-top: clamp(1.1rem, 2.2vw, 1.7rem);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .tb-contact-form {
+      border-radius: 22px;
+      border: 1px solid #d5e2f8;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.98) 0%, rgba(244, 249, 255, 0.96) 44%, rgba(255, 255, 255, 0.98) 100%);
+      box-shadow: 0 22px 54px rgba(12, 43, 115, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.88);
+      padding: clamp(1.2rem, 2.4vw, 1.9rem);
+      display: grid;
+      gap: clamp(0.9rem, 1.4vw, 1.1rem);
+      align-content: start;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .tb-contact-form::before {
+      content: "";
+      position: absolute;
+      left: -18%;
+      top: -38%;
+      width: 62%;
+      height: 70%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(47, 107, 228, 0.15) 0%, rgba(47, 107, 228, 0) 74%);
+      pointer-events: none;
+    }
+
+    .tb-contact-form::after {
+      content: "";
+      position: absolute;
+      right: -16%;
+      bottom: -56%;
+      width: 58%;
+      height: 76%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(15, 39, 111, 0.09) 0%, rgba(15, 39, 111, 0) 74%);
+      pointer-events: none;
+    }
+
+    .tb-contact-form > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .tb-contact-form-head {
+      display: grid;
+      gap: 0.38rem;
+    }
+
+    .tb-contact-form-head h2 {
+      margin: 0;
+      color: #0C1B56;
+      font-size: clamp(1.3rem, 2vw, 1.7rem);
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .tb-contact-form-head p {
+      margin: 0;
+      color: #5d6e86;
+      font-size: 0.96rem;
+      line-height: 1.5;
+      max-width: 48rem;
+    }
+
+    .tb-contact-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.86rem 0.92rem;
+    }
+
+    .tb-contact-form .tb-field {
+      display: grid;
+      gap: 0.42rem;
+    }
+
+    .tb-contact-form .tb-field.is-full {
+      grid-column: 1 / -1;
+    }
+
+    .tb-contact-form label {
+      color: #1b3f8b;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .tb-contact-form input,
+    .tb-contact-form textarea {
+      width: 100%;
+      border: 1px solid #d2def3;
+      border-radius: 14px;
+      background: #fbfdff;
+      color: #20314d;
+      font-size: 0.95rem;
+      line-height: 1.35;
+      padding: 0.78rem 0.9rem;
+      outline: none;
+      box-shadow: inset 0 1px 2px rgba(18, 47, 106, 0.04);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .tb-contact-form input::placeholder,
+    .tb-contact-form textarea::placeholder {
+      color: #8a97ad;
+    }
+
+    .tb-contact-form input:hover,
+    .tb-contact-form textarea:hover {
+      border-color: #b9cbea;
+      background: #fff;
+    }
+
+    .tb-contact-form input:focus,
+    .tb-contact-form textarea:focus {
+      border-color: #2f6be4;
+      box-shadow: 0 0 0 4px rgba(47, 107, 228, 0.15), inset 0 1px 2px rgba(18, 47, 106, 0.02);
+      background-color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .tb-contact-form textarea {
+      min-height: 136px;
+      resize: vertical;
+    }
+
+    .tb-contact-form .tb-btn {
+      justify-self: start;
+      min-width: 12.5rem;
+      min-height: 2.5rem;
+      margin-top: 0.15rem;
+      padding-inline: 1.2rem;
+    }
+
+    .tb-contact-office-block {
+      margin-top: 1.15rem;
+      border-radius: 16px;
+      border: 1px solid #dfe6f2;
+      background: #FFF;
+      box-shadow: var(--tb-shadow-soft);
+      padding: 1rem;
+    }
+
+    .tb-contact-city-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    .tb-contact-city-btn {
+      border: 1px solid #2f6be4;
+      background: #FFF;
+      color: #1d3e86;
+      font-size: var(--tb-fs-16);
+      font-weight: 500;
+      line-height: 1;
+      border-radius: 999px;
+      padding: 0.68rem 1rem;
+      min-width: 10rem;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .tb-contact-city-btn:hover {
+      background: #edf3ff;
+      border-color: #2f6be4;
+    }
+
+    .tb-contact-city-btn.is-active {
+      background: #2f6be4;
+      border-color: #2f6be4;
+      color: #fff;
+    }
+
+    .tb-contact-city-content {
+      margin-top: 0.9rem;
+      text-align: center;
+    }
+
+    .tb-contact-city-content h3 {
+      margin: 0;
+      color: #0C1B56;
+      font-size: var(--tb-fs-24);
+      line-height: 1.2;
+      font-weight: 600;
+    }
+
+    .tb-contact-city-content p {
+      margin: 0.45rem auto 0;
+      color: #5d6e86;
+      font-size: var(--tb-fs-16);
+      line-height: 1.45;
+      max-width: 66rem;
+    }
+
+    .tb-contact-map-shell {
+      margin-top: 0.85rem;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #dfe6f2;
+      background: #FDFDFD;
+    }
+
+    .tb-contact-map-shell iframe {
+      width: 100%;
+      height: 420px;
+      border: 0;
+      display: block;
+    }
+
+    @media (max-width: 991.98px) {
+      .tb-contact-shell {
+        padding-top: 5.75rem;
+      }
+
+      .tb-contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tb-contact-city-btn {
+        min-width: 9rem;
+      }
+
+      .tb-contact-map-shell iframe {
+        height: 340px;
+      }
+    }
+
+    @media (max-width: 575.98px) {
+      .tb-contact-shell {
+        padding-top: 5.35rem;
+        padding-bottom: 1.3rem;
+      }
+
+      .tb-contact-hero {
+        height: clamp(10rem, 50vw, 12.5rem);
+        min-height: 10rem;
+        max-height: 12.5rem;
+      }
+
+      .tb-contact-banner::before {
+        background-size: 28px 28px;
+      }
+
+      .tb-contact-subtitle {
+        font-size: var(--tb-fs-16);
+      }
+
+      .tb-contact-form .tb-btn {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .tb-contact-form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tb-contact-form {
+        border-radius: 16px;
+        padding: 1rem 0.88rem;
+      }
+
+      .tb-contact-form-head h2 {
+        font-size: var(--tb-fs-20);
+      }
+
+      .tb-contact-form-head p {
+        font-size: 0.9rem;
+      }
+
+      .tb-contact-city-tabs {
+        justify-content: flex-start;
+      }
+
+      .tb-contact-city-btn {
+        min-width: 0;
+        width: auto;
+        padding: 0.58rem 0.88rem;
+      }
+
+      .tb-contact-city-content h3 {
+        font-size: var(--tb-fs-20);
+      }
+
+      .tb-contact-map-shell iframe {
+        height: 280px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="tb-header">
+    <div class="container-xl">
+      <div class="tb-header-card">
+        <a href="./index.html" class="tb-logo" aria-label="TruBoard home">
+          <img src="./assets/images/00af332c1a9f3126ee7549c6a79f390066c45c4b-BBxVev8d.png" alt="TruBoard Technologies">
+        </a>
+        <button id="menuToggle" class="tb-menu-toggle d-lg-none" type="button" aria-expanded="false"
+          aria-controls="mainNav" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav id="mainNav" class="tb-nav">
+          <div class="tb-nav-item tb-has-dropdown">
+            <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true">
+              Services
+              <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                  viewBox="0 0 14 14" fill="none">
+                  <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg></span>
+            </button>
+            <div class="tb-nav-dropdown" role="menu" aria-label="Services menu">
+              <a href="#">Project Management</a>
+              <a href="#">Asset Management</a>
+              <a href="#">Capital Advisory</a>
+            </div>
+          </div>
+
+          <div class="tb-nav-item tb-has-dropdown">
+            <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true">
+              Product
+              <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                  viewBox="0 0 14 14" fill="none">
+                  <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg></span>
+            </button>
+            <div class="tb-nav-dropdown" role="menu" aria-label="Product menu">
+              <a href="#">TruGenie</a>
+              <a href="#">PDMS</a>
+              <a href="#">Advisory Suite</a>
+            </div>
+          </div>
+
+          <div class="tb-nav-item tb-has-dropdown">
+            <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true">
+              Resources
+              <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                  viewBox="0 0 14 14" fill="none">
+                  <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg></span>
+            </button>
+            <div class="tb-nav-dropdown" role="menu" aria-label="Resources menu">
+              <a href="#">Case Studies</a>
+              <a href="#">Insights</a>
+              <a href="#">Contact Support</a>
+            </div>
+          </div>
+
+          <a href="#" class="btn tb-btn tb-btn-blue tb-nav-btn">Contact Us</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="tb-contact-shell">
+    <section class="tb-contact-hero" aria-label="Contact hero">
+      <img src="./assets/images/hero_illustration.png" alt="Contact Us">
+      <div class="tb-contact-hero-content">
+        <h1>Contact Us</h1>
+      </div>
+    </section>
+
+    <div class="container-xl">
+      <section class="tb-contact-banner" aria-label="Contact banner">
+        <p class="tb-contact-subtitle">
+          Share your portfolio priorities and our team will connect with a tailored approach across services, platform,
+          and execution support.
+        </p>
+
+        <div class="tb-contact-grid">
+          <form class="tb-contact-form" action="#" method="post">
+            <div class="tb-contact-form-head">
+              <h2>Tell Us About Your Requirement</h2>
+              <p>Our team will reach out with a tailored response for your use case.</p>
+            </div>
+
+            <div class="tb-contact-form-grid">
+              <div class="tb-field">
+                <label for="contactName">Full Name</label>
+                <input id="contactName" name="name" type="text" placeholder="Enter your full name">
+              </div>
+              <div class="tb-field">
+                <label for="contactEmail">Work Email</label>
+                <input id="contactEmail" name="email" type="email" placeholder="Enter your work email">
+              </div>
+              <div class="tb-field">
+                <label for="contactCompany">Company</label>
+                <input id="contactCompany" name="company" type="text" placeholder="Enter your company name">
+              </div>
+              <div class="tb-field is-full">
+                <label for="contactMessage">Message</label>
+                <textarea id="contactMessage" name="message" placeholder="Tell us what you need help with"></textarea>
+              </div>
+            </div>
+
+            <button type="submit" class="btn tb-btn tb-btn-blue">Send Message</button>
+          </form>
+        </div>
+
+        <section class="tb-contact-office-block" aria-label="Office locations">
+          <div class="tb-contact-city-tabs" role="tablist" aria-label="Office cities">
+            <button type="button" class="tb-contact-city-btn is-active" role="tab" aria-selected="true" data-city-btn
+              data-city="Gurugram"
+              data-address="Unit 502-506, 5th Floor, Unitech Commercial Tower 2, Arya Samaj Road, Block B, Greenwood City, Sector 45, Gurugram, Haryana 122003"
+              data-map="https://maps.google.com/maps?q=Unitech%20Commercial%20Tower%202%20Gurugram&t=&z=14&ie=UTF8&iwloc=&output=embed">
+              Gurugram
+            </button>
+            <button type="button" class="tb-contact-city-btn" role="tab" aria-selected="false" data-city-btn
+              data-city="Hyderabad"
+              data-address="6th Floor, My Home Twitza, Hitech City Main Road, Madhapur, Hyderabad, Telangana 500081"
+              data-map="https://maps.google.com/maps?q=My%20Home%20Twitza%20Madhapur%20Hyderabad&t=&z=14&ie=UTF8&iwloc=&output=embed">
+              Hyderabad
+            </button>
+            <button type="button" class="tb-contact-city-btn" role="tab" aria-selected="false" data-city-btn
+              data-city="Mumbai"
+              data-address="321, Solitaire Corporate Park, Andheri Ghatkopar Link Road, Chakala MIDC, Mumbai, Maharashtra 400093"
+              data-map="https://maps.google.com/maps?q=Solitaire%20Corporate%20Park%20Andheri%20Mumbai&t=&z=14&ie=UTF8&iwloc=&output=embed">
+              Mumbai
+            </button>
+            <button type="button" class="tb-contact-city-btn" role="tab" aria-selected="false" data-city-btn
+              data-city="Bengaluru" data-address="4th Floor, Prestige Meridian 2, MG Road, Bengaluru, Karnataka 560001"
+              data-map="https://maps.google.com/maps?q=Prestige%20Meridian%202%20MG%20Road%20Bengaluru&t=&z=14&ie=UTF8&iwloc=&output=embed">
+              Bengaluru
+            </button>
+            <button type="button" class="tb-contact-city-btn" role="tab" aria-selected="false" data-city-btn
+              data-city="New Jersey" data-address="101 Hudson Street, 21st Floor, Jersey City, New Jersey 07302, USA"
+              data-map="https://maps.google.com/maps?q=101%20Hudson%20Street%20Jersey%20City%20New%20Jersey&t=&z=14&ie=UTF8&iwloc=&output=embed">
+              New Jersey
+            </button>
+          </div>
+
+          <div class="tb-contact-city-content">
+            <h3 id="officeCityName">Gurugram</h3>
+            <p id="officeCityAddress">
+              Unit 502-506, 5th Floor, Unitech Commercial Tower 2, Arya Samaj Road, Block B, Greenwood City,
+              Sector 45, Gurugram, Haryana 122003
+            </p>
+          </div>
+
+          <div class="tb-contact-map-shell">
+            <iframe id="officeMapFrame" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://maps.google.com/maps?q=Unitech%20Commercial%20Tower%202%20Gurugram&t=&z=14&ie=UTF8&iwloc=&output=embed"
+              title="Office map"></iframe>
+          </div>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <footer class="tb-footer">
+    <div class="container-xl">
+      <div class="row g-4 tb-footer-top">
+        <div class="col-lg-12">
+          <a href="./index.html" class="tb-footer-logo" aria-label="TruBoard home">
+            <img src="./assets/images/1a36bc184ac42a93ebf62d57aae0e30c740ff2ab-B2Jtxq84.png"
+              alt="TruBoard Technologies">
+          </a>
+          <p class="tb-footer-subtitle">Real Estate Asset Management Services</p>
+        </div>
+        <div class="col-lh-1"></div>
+        <div class="col-sm-6 col-lg-4">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="#">Solutions</a></li>
+            <li><a href="#">Industries</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-6 col-lg-6">
+          <h3>Contact Us</h3>
+          <p class="tb-footer-contact">
+            321, SOLITAIRE CORPORATE PARK, ANDHERI GHATKOPAR LINK ROAD, CHAKALA, Chakala MIDC,
+            Mumbai, Mumbai Suburban, Maharashtra, 400093
+          </p>
+        </div>
+      </div>
+      <div class="tb-footer-bottom">
+        <p>(c) 2025 Ion Exchange. All rights reserved.</p>
+        <div class="tb-socials" aria-label="Social links">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Twitter">x</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Instagram">ig</a>
+        </div>
+        <div class="tb-policies">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cityButtons = Array.from(document.querySelectorAll("[data-city-btn]"));
+      const cityName = document.getElementById("officeCityName");
+      const cityAddress = document.getElementById("officeCityAddress");
+      const mapFrame = document.getElementById("officeMapFrame");
+      if (!cityButtons.length || !cityName || !cityAddress || !mapFrame) return;
+
+      function setOffice(button) {
+        const city = button.getAttribute("data-city") || "";
+        const address = button.getAttribute("data-address") || "";
+        const map = button.getAttribute("data-map") || "";
+
+        cityButtons.forEach((item) => {
+          const active = item === button;
+          item.classList.toggle("is-active", active);
+          item.setAttribute("aria-selected", String(active));
+        });
+
+        cityName.textContent = city;
+        cityAddress.textContent = address;
+        mapFrame.src = map;
+      }
+
+      cityButtons.forEach((button) => {
+        button.addEventListener("click", () => setOffice(button));
+      });
+    });
+  </script>
+  <script src="./assets/js/app.js" defer></script>
+</body>
+
+</html>

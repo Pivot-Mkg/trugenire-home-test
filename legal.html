@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal & Compliance | TruBoard Technologies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Prata&family=Roboto:wght@700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/app.css">
+    <style>
+        .tb-legal-shell {
+            background: radial-gradient(74.52% 74.52% at 50% 25.48%, #E9F0FF 0%, #FFF 100%);
+            padding-top: clamp(6.2rem, 9vh, 7.6rem);
+            padding-bottom: clamp(2rem, 4vh, 3rem);
+        }
+
+        .tb-legal-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .tb-legal-header .tb-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.08;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .tb-legal-subtitle {
+            margin: 0.55rem 0 0;
+            color: #5d6e86;
+            font-size: var(--tb-fs-18);
+            line-height: 1.5;
+            max-width: 52rem;
+        }
+
+        .tb-legal-layout {
+            display: grid;
+            grid-template-columns: 17.5rem minmax(0, 1fr);
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .tb-legal-nav {
+            border-radius: 14px;
+            border: 1px solid #F6F7F7;
+            background: #FDFDFD;
+            box-shadow: 0 8px 20px rgba(12, 43, 115, 0.08);
+            padding: 0.95rem;
+            position: sticky;
+            top: 5.75rem;
+        }
+
+        .tb-legal-nav-label {
+            margin: 0 0 0.55rem;
+            color: #5d6e86;
+            font-size: var(--tb-fs-16);
+            font-weight: 600;
+        }
+
+        .tb-legal-nav-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 0.35rem;
+        }
+
+        .tb-legal-nav-list a {
+            display: block;
+            color: #1d3e86;
+            font-size: var(--tb-fs-16);
+            line-height: 1.35;
+            padding: 0.5rem 0.6rem;
+            border-radius: 10px;
+            border: 1px solid transparent;
+        }
+
+        .tb-legal-nav-list a:hover {
+            background: #edf3ff;
+            border-color: #dfe6f2;
+        }
+
+        .tb-legal-nav-list a.is-active {
+            color: #005BAB;
+            background: #edf3ff;
+            border-color: #dfe6f2;
+            font-weight: 600;
+        }
+
+        .tb-legal-card {
+            border-radius: 16px;
+            border: 1px solid #F6F7F7;
+            background: #FFF;
+            box-shadow: var(--tb-shadow-soft);
+            padding: clamp(1rem, 2.4vw, 2.2rem);
+        }
+
+        .tb-legal-card-head {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #dfe6f2;
+            padding-bottom: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .tb-legal-card-head h2 {
+            margin: 0;
+            color: #0C1B56;
+            font-size: clamp(1.3rem, 2vw, 1.7rem);
+            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .tb-legal-chip {
+            border-radius: 999px;
+            border: 1px solid #dfe6f2;
+            background: #FDFDFD;
+            color: #5d6e86;
+            font-size: var(--tb-fs-16);
+            line-height: 1;
+            padding: 0.45rem 0.7rem;
+        }
+
+        .tb-legal-article h3 {
+            margin: 1.15rem 0 0.45rem;
+            color: #0C1B56;
+            font-size: clamp(1.05rem, 1.2vw, 1.2rem);
+            line-height: 1.2;
+            font-weight: 600;
+        }
+
+        .tb-legal-article p {
+            margin: 0;
+            color: #5d6e86;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .tb-legal-article ul {
+            margin: 0.5rem 0 0;
+            padding-left: 1.15rem;
+            color: #5d6e86;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .tb-legal-article li {
+            margin-bottom: 0.28rem;
+        }
+
+        .tb-legal-note {
+            margin-top: 1.15rem;
+            border-radius: 12px;
+            border: 1px solid #dfe6f2;
+            background: #FDFDFD;
+            padding: 0.8rem;
+        }
+
+        .tb-legal-note p {
+            margin: 0;
+        }
+
+        .tb-legal-note a {
+            color: #005BAB;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        @media (max-width: 991.98px) {
+            .tb-legal-shell {
+                padding-top: 5.75rem;
+            }
+
+            .tb-legal-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .tb-legal-nav {
+                position: static;
+                top: auto;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .tb-legal-header .tb-title {
+                font-size: clamp(1.85rem, 8.2vw, 2.35rem);
+            }
+
+            .tb-legal-subtitle {
+                font-size: var(--tb-fs-16);
+            }
+
+            .tb-legal-card-head h2 {
+                font-size: var(--tb-fs-20);
+            }
+
+            .tb-legal-article h3 {
+                font-size: var(--tb-fs-18);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="tb-header">
+        <div class="container-xl">
+            <div class="tb-header-card">
+                <a href="./index.html" class="tb-logo" aria-label="TruBoard home">
+                    <img src="./assets/images/00af332c1a9f3126ee7549c6a79f390066c45c4b-BBxVev8d.png"
+                        alt="TruBoard Technologies">
+                </a>
+                <button id="menuToggle" class="tb-menu-toggle d-lg-none" type="button" aria-expanded="false"
+                    aria-controls="mainNav" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav id="mainNav" class="tb-nav">
+                    <div class="tb-nav-item tb-has-dropdown">
+                        <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true">
+                            Services
+                            <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 14 14" fill="none">
+                                    <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg></span>
+                        </button>
+                        <div class="tb-nav-dropdown" role="menu" aria-label="Services menu">
+                            <a href="#">Project Management</a>
+                            <a href="#">Asset Management</a>
+                            <a href="#">Capital Advisory</a>
+                        </div>
+                    </div>
+
+                    <div class="tb-nav-item tb-has-dropdown">
+                        <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true">
+                            Product
+                            <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 14 14" fill="none">
+                                    <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg></span>
+                        </button>
+                        <div class="tb-nav-dropdown" role="menu" aria-label="Product menu">
+                            <a href="#">TruGenie</a>
+                            <a href="#">PDMS</a>
+                            <a href="#">Advisory Suite</a>
+                        </div>
+                    </div>
+
+                    <div class="tb-nav-item tb-has-dropdown">
+                        <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true">
+                            Resources
+                            <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 14 14" fill="none">
+                                    <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg></span>
+                        </button>
+                        <div class="tb-nav-dropdown" role="menu" aria-label="Resources menu">
+                            <a href="#">Case Studies</a>
+                            <a href="#">Insights</a>
+                            <a href="#">Contact Support</a>
+                        </div>
+                    </div>
+
+                    <a href="#" class="btn tb-btn tb-btn-blue tb-nav-btn">Contact Us</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="tb-legal-shell">
+        <div class="container-xl">
+            <div class="tb-legal-header">
+                <h1 class="tb-title">Legal & Compliance</h1>
+                <!-- <p class="tb-legal-subtitle">
+                    Transparency and trust are core to how we work. Review our policy documents to understand how
+                    TruBoard
+                    protects your data, rights, and operations.
+                </p> -->
+            </div>
+
+            <div class="tb-legal-layout">
+                <aside class="tb-legal-nav">
+                    <p class="tb-legal-nav-label">Documents</p>
+                    <ul class="tb-legal-nav-list">
+                        <li><a class="is-active" href="#privacy-policy">Privacy Policy</a></li>
+                        <li><a href="#terms-of-service">Terms of Service</a></li>
+                        <li><a href="#data-security">Data Security</a></li>
+                        <li><a href="#cookie-policy">Cookie Policy</a></li>
+                        <li><a href="#acceptable-use">Acceptable Use</a></li>
+                    </ul>
+                </aside>
+
+                <section class="tb-legal-card" id="privacy-policy" aria-label="Legal content">
+                    <div class="tb-legal-card-head">
+                        <h2>Privacy Policy</h2>
+                        <!-- <span class="tb-legal-chip">Last Updated: October 24, 2023</span> -->
+                    </div>
+
+                    <article class="tb-legal-article">
+                        <p>
+                            At TruBoard Technologies, we prioritize the trust you place in us. This policy describes how
+                            we collect,
+                            use, and protect information when you use our platform and services.
+                        </p>
+
+                        <h3>1. Information We Collect</h3>
+                        <ul>
+                            <li>Account information: name, email, phone, and company details.</li>
+                            <li>Usage information: activity, features accessed, and interaction data.</li>
+                            <li>Device information: browser, OS, and basic technical identifiers.</li>
+                            <li>Transaction information: purchase and billing-related records.</li>
+                        </ul>
+
+                        <h3 id="terms-of-service">2. How We Use Information</h3>
+                        <ul>
+                            <li>To provide, maintain, and improve services.</li>
+                            <li>To process transactions and send confirmations.</li>
+                            <li>To share product updates, support notices, and security alerts.</li>
+                            <li>To respond to user requests and provide customer support.</li>
+                        </ul>
+
+                        <h3>3. Information Sharing</h3>
+                        <p>
+                            We do not sell personal data. Information may be shared only with consent, for service
+                            delivery, or when
+                            legally required.
+                        </p>
+
+                        <h3 id="data-security">4. Data Security</h3>
+                        <ul>
+                            <li>Encrypted transport for sensitive workflows.</li>
+                            <li>Strict access controls and role-based permissions.</li>
+                            <li>Operational and contractual confidentiality safeguards.</li>
+                        </ul>
+
+                        <h3 id="cookie-policy">5. Cookie Policy</h3>
+                        <p>
+                            Cookies and similar technologies are used for authentication, session continuity,
+                            performance, and user
+                            experience improvement.
+                        </p>
+
+                        <h3 id="acceptable-use">6. Acceptable Use</h3>
+                        <p>
+                            Users must not misuse platform access, attempt unauthorized access, or transmit malicious
+                            content through
+                            TruBoard systems.
+                        </p>
+
+                        <div class="tb-legal-note">
+                            <p>
+                                Questions on legal or privacy matters:
+                                <a href="mailto:legal@truboard.com">legal@truboard.com</a>
+                            </p>
+                        </div>
+                    </article>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="tb-footer">
+        <div class="container-xl">
+            <div class="row g-4 tb-footer-top">
+                <div class="col-lg-12">
+                    <a href="./index.html" class="tb-footer-logo" aria-label="TruBoard home">
+                        <img src="./assets/images/1a36bc184ac42a93ebf62d57aae0e30c740ff2ab-B2Jtxq84.png"
+                            alt="TruBoard Technologies">
+                    </a>
+                    <p class="tb-footer-subtitle">Real Estate Asset Management Services</p>
+                </div>
+                <div class="col-lh-1"></div>
+                <div class="col-sm-6 col-lg-4">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="./index.html">Home</a></li>
+                        <li><a href="#">Solutions</a></li>
+                        <li><a href="#">Industries</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <h3>Contact Us</h3>
+                    <p class="tb-footer-contact">
+                        321, SOLITAIRE CORPORATE PARK, ANDHERI GHATKOPAR LINK ROAD, CHAKALA, Chakala MIDC,
+                        Mumbai, Mumbai Suburban, Maharashtra, 400093
+                    </p>
+                </div>
+            </div>
+            <div class="tb-footer-bottom">
+                <p>(c) 2025 Ion Exchange. All rights reserved.</p>
+                <div class="tb-socials" aria-label="Social links">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Twitter">x</a>
+                    <a href="#" aria-label="LinkedIn">in</a>
+                    <a href="#" aria-label="Instagram">ig</a>
+                </div>
+                <div class="tb-policies">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./assets/js/app.js" defer></script>
+</body>
+
+</html>
