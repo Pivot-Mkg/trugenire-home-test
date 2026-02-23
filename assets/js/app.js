@@ -2,11 +2,17 @@ const trustGroups = [
   {
     label: "Developers & Asset Owners",
     logos: [
-      { src: "./assets/images/trusted-logos/brookfield.png", alt: "Brookfield" },
+      {
+        src: "./assets/images/trusted-logos/brookfield.png",
+        alt: "Brookfield",
+      },
       { src: "./assets/images/trusted-logos/upes.png", alt: "UPES" },
       { src: "./assets/images/trusted-logos/merusri.png", alt: "Merusri" },
       { src: "./assets/images/trusted-logos/hcltech.png", alt: "HCLTech" },
-      { src: "./assets/images/trusted-logos/clearpack.png", alt: "Clearpack Group" },
+      {
+        src: "./assets/images/trusted-logos/clearpack.png",
+        alt: "Clearpack Group",
+      },
       { src: "./assets/images/trusted-logos/transcon.png", alt: "Transcon" },
       { src: "./assets/images/trusted-logos/bc.png", alt: "B.C.C." },
       { src: "./assets/images/trusted-logos/kanakia.png", alt: "Kanakia" },
@@ -15,40 +21,91 @@ const trustGroups = [
   {
     label: "Lenders & Banks",
     logos: [
-      { src: "./assets/images/trusted-logos/hdfc_capital.png", alt: "HDFC Capital" },
-      { src: "./assets/images/trusted-logos/sbicap_ventures.png", alt: "SBICAP Ventures" },
-      { src: "./assets/images/trusted-logos/icici_venture.png", alt: "ICICI Venture" },
-      { src: "./assets/images/trusted-logos/motilal_more.png", alt: "Motilal Oswal More" },
+      {
+        src: "./assets/images/trusted-logos/hdfc_capital.png",
+        alt: "HDFC Capital",
+      },
+      {
+        src: "./assets/images/trusted-logos/sbicap_ventures.png",
+        alt: "SBICAP Ventures",
+      },
+      {
+        src: "./assets/images/trusted-logos/icici_venture.png",
+        alt: "ICICI Venture",
+      },
+      {
+        src: "./assets/images/trusted-logos/motilal_more.png",
+        alt: "Motilal Oswal More",
+      },
       { src: "./assets/images/trusted-logos/hdfc_bank.png", alt: "HDFC Bank" },
-      { src: "./assets/images/trusted-logos/icici_bank.png", alt: "ICICI Bank" },
+      {
+        src: "./assets/images/trusted-logos/icici_bank.png",
+        alt: "ICICI Bank",
+      },
       { src: "./assets/images/trusted-logos/yes_bank.png", alt: "YES BANK" },
-      { src: "./assets/images/trusted-logos/tata_capital.png", alt: "Tata Capital" },
+      {
+        src: "./assets/images/trusted-logos/tata_capital.png",
+        alt: "Tata Capital",
+      },
     ],
   },
   {
     label: "NBFCs & Alternative Capital",
     logos: [
-      { src: "./assets/images/trusted-logos/eaaa_alternatives.png", alt: "EAAA Alternatives" },
-      { src: "./assets/images/trusted-logos/tata_capital.png", alt: "Tata Capital" },
+      {
+        src: "./assets/images/trusted-logos/eaaa_alternatives.png",
+        alt: "EAAA Alternatives",
+      },
+      {
+        src: "./assets/images/trusted-logos/tata_capital.png",
+        alt: "Tata Capital",
+      },
       { src: "./assets/images/trusted-logos/edelweiss.png", alt: "Edelweiss" },
       { src: "./assets/images/trusted-logos/nifco.png", alt: "NiFCO" },
       { src: "./assets/images/trusted-logos/experion.png", alt: "Experion" },
-      { src: "./assets/images/trusted-logos/hdfc_capital.png", alt: "HDFC Capital" },
-      { src: "./assets/images/trusted-logos/sbicap_ventures.png", alt: "SBICAP Ventures" },
-      { src: "./assets/images/trusted-logos/motilal_more.png", alt: "Motilal Oswal More" },
+      {
+        src: "./assets/images/trusted-logos/hdfc_capital.png",
+        alt: "HDFC Capital",
+      },
+      {
+        src: "./assets/images/trusted-logos/sbicap_ventures.png",
+        alt: "SBICAP Ventures",
+      },
+      {
+        src: "./assets/images/trusted-logos/motilal_more.png",
+        alt: "Motilal Oswal More",
+      },
     ],
   },
   {
     label: "Funds & Institutional Investors",
     logos: [
-      { src: "./assets/images/trusted-logos/avenue_capital.png", alt: "Avenue Capital Group" },
+      {
+        src: "./assets/images/trusted-logos/avenue_capital.png",
+        alt: "Avenue Capital Group",
+      },
       { src: "./assets/images/trusted-logos/cerberus.png", alt: "Cerberus" },
       { src: "./assets/images/trusted-logos/acre.png", alt: "ACRE" },
-      { src: "./assets/images/trusted-logos/jc_flowers.png", alt: "J.C. Flowers & Co." },
-      { src: "./assets/images/trusted-logos/bailey_properties.png", alt: "Bailey Properties, Inc. (USA)" },
-      { src: "./assets/images/trusted-logos/eaaa_alternatives.png", alt: "EAAA Alternatives" },
-      { src: "./assets/images/trusted-logos/hdfc_capital.png", alt: "HDFC Capital" },
-      { src: "./assets/images/trusted-logos/motilal_more.png", alt: "Motilal Oswal More" },
+      {
+        src: "./assets/images/trusted-logos/jc_flowers.png",
+        alt: "J.C. Flowers & Co.",
+      },
+      {
+        src: "./assets/images/trusted-logos/bailey_properties.png",
+        alt: "Bailey Properties, Inc. (USA)",
+      },
+      {
+        src: "./assets/images/trusted-logos/eaaa_alternatives.png",
+        alt: "EAAA Alternatives",
+      },
+      {
+        src: "./assets/images/trusted-logos/hdfc_capital.png",
+        alt: "HDFC Capital",
+      },
+      {
+        src: "./assets/images/trusted-logos/motilal_more.png",
+        alt: "Motilal Oswal More",
+      },
     ],
   },
 ];
@@ -59,12 +116,49 @@ const offerings = [
     title: "TruGenie - Real Estate Intelligence",
     description:
       "TruGenie transforms raw project data into actionable insights.\n\nKey capabilities:",
+    image: {
+      src: "./assets/images/3cbca7f201f5ca5ba3bd536029cc7d7f7312cf0e-THkfI-pg.png",
+      alt: "TruGenie real estate intelligence dashboard",
+    },
     capabilities: [
-      { text: "Construction progress & cost tracking", icon: "B" },
-      { text: "Sales velocity and collection monitoring", icon: "U" },
-      { text: "Cashflow and fund-flow intelligence", icon: "F" },
-      { text: "NOC and approval workflows", icon: "N" },
-      { text: "Compliance, covenant & risk tracking", icon: "C" },
+      {
+        text: "Construction progress & cost tracking",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <path d="M11.667 11.6667V5.83341C11.667 5.524 11.7899 5.22725 12.0087 5.00846C12.2275 4.78966 12.5242 4.66675 12.8337 4.66675H15.167C15.4764 4.66675 15.7732 4.78966 15.9919 5.00846C16.2107 5.22725 16.3337 5.524 16.3337 5.83341V11.6667" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M16.333 7C18.1895 7 19.97 7.7375 21.2828 9.05025C22.5955 10.363 23.333 12.1435 23.333 14V17.5" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M4.66699 17.5V14C4.66699 12.1435 5.40449 10.363 6.71724 9.05025C8.03 7.7375 9.81048 7 11.667 7" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24.4997 17.5H3.49967C2.85534 17.5 2.33301 18.0223 2.33301 18.6667V21C2.33301 21.6443 2.85534 22.1667 3.49967 22.1667H24.4997C25.144 22.1667 25.6663 21.6443 25.6663 21V18.6667C25.6663 18.0223 25.144 17.5 24.4997 17.5Z" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`,
+      },
+      {
+        text: "Sales velocity and collection monitoring",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <path d="M25.6663 8.16675L15.7497 18.0834L9.91634 12.2501L2.33301 19.8334" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M18.667 8.16675H25.667V15.1667" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`,
+      },
+      {
+        text: "Cashflow and fund-flow intelligence",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <path d="M22.1667 8.16667V4.66667C22.1667 4.35725 22.0438 4.0605 21.825 3.84171C21.6062 3.62292 21.3094 3.5 21 3.5H5.83333C5.21449 3.5 4.621 3.74583 4.18342 4.18342C3.74583 4.621 3.5 5.21449 3.5 5.83333C3.5 6.45217 3.74583 7.04566 4.18342 7.48325C4.621 7.92083 5.21449 8.16667 5.83333 8.16667H23.3333C23.6428 8.16667 23.9395 8.28958 24.1583 8.50838C24.3771 8.72717 24.5 9.02391 24.5 9.33333V14M24.5 14H21C20.3812 14 19.7877 14.2458 19.3501 14.6834C18.9125 15.121 18.6667 15.7145 18.6667 16.3333C18.6667 16.9522 18.9125 17.5457 19.3501 17.9832C19.7877 18.4208 20.3812 18.6667 21 18.6667H24.5C24.8094 18.6667 25.1062 18.5437 25.325 18.325C25.5438 18.1062 25.6667 17.8094 25.6667 17.5V15.1667C25.6667 14.8572 25.5438 14.5605 25.325 14.3417C25.1062 14.1229 24.8094 14 24.5 14Z" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M3.5 5.83325V22.1666C3.5 22.7854 3.74583 23.3789 4.18342 23.8165C4.621 24.2541 5.21449 24.4999 5.83333 24.4999H23.3333C23.6428 24.4999 23.9395 24.377 24.1583 24.1582C24.3771 23.9394 24.5 23.6427 24.5 23.3333V18.6666" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`,
+      },
+      {
+        text: "NOC and approval workflows",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <path d="M17.5003 2.33325H7.00033C6.38149 2.33325 5.78799 2.57908 5.35041 3.01667C4.91282 3.45425 4.66699 4.04775 4.66699 4.66659V23.3333C4.66699 23.9521 4.91282 24.5456 5.35041 24.9832C5.78799 25.4208 6.38149 25.6666 7.00033 25.6666H21.0003C21.6192 25.6666 22.2127 25.4208 22.6502 24.9832C23.0878 24.5456 23.3337 23.9521 23.3337 23.3333V8.16659L17.5003 2.33325Z" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M16.333 2.33325V6.99992C16.333 7.61876 16.5788 8.21225 17.0164 8.64983C17.454 9.08742 18.0475 9.33325 18.6663 9.33325H23.333" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M10.5 17.5001L12.8333 19.8334L17.5 15.1667" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`,
+      },
+      {
+        text: "Compliance, covenant & risk tracking",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <path d="M23.3337 15.1669C23.3337 21.0002 19.2503 23.9169 14.397 25.6085C14.1428 25.6947 13.8668 25.6905 13.6153 25.5969C8.75033 23.9169 4.66699 21.0002 4.66699 15.1669V7.0002C4.66699 6.69078 4.78991 6.39403 5.0087 6.17524C5.22749 5.95645 5.52424 5.83353 5.83366 5.83353C8.16699 5.83353 11.0837 4.43353 13.1137 2.6602C13.3608 2.44903 13.6752 2.33301 14.0003 2.33301C14.3254 2.33301 14.6398 2.44903 14.887 2.6602C16.9287 4.4452 19.8337 5.83353 22.167 5.83353C22.4764 5.83353 22.7732 5.95645 22.992 6.17524C23.2107 6.39403 23.3337 6.69078 23.3337 7.0002V15.1669Z" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M10.5 13.9998L12.8333 16.3332L17.5 11.6665" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`,
+      },
     ],
   },
   {
@@ -72,6 +166,10 @@ const offerings = [
     title: "PDMS - Project Development Management",
     description:
       "End-to-end project development management system for real estate.\n\nKey capabilities:",
+    image: {
+      src: "./assets/images/02eb02ba7669a0feb1767b41295d3a537ddbc7ac-BIFyo_yQ.png",
+      alt: "PDMS project planning and site execution visualization",
+    },
     capabilities: [
       { text: "Project planning & scheduling", icon: "P" },
       { text: "Resource allocation & tracking", icon: "R" },
@@ -85,8 +183,20 @@ const offerings = [
     title: "Advisory - Strategic Asset Services",
     description:
       "Expert advisory services for real estate asset optimization.\n\nKey capabilities:",
+    image: {
+      src: "./assets/images/98f09ac846bcbc03282de0ae1ad4f2ddf9c2a40d-B9SoSyqK.png",
+      alt: "Advisory portfolio and capital strategy visualization",
+    },
     capabilities: [
-      { text: "Portfolio strategy & optimization", icon: "S" },
+      {
+        text: "Portfolio strategy & optimization",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <path d="M11.667 11.6667V5.83341C11.667 5.524 11.7899 5.22725 12.0087 5.00846C12.2275 4.78966 12.5242 4.66675 12.8337 4.66675H15.167C15.4764 4.66675 15.7732 4.78966 15.9919 5.00846C16.2107 5.22725 16.3337 5.524 16.3337 5.83341V11.6667" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M16.333 7C18.1895 7 19.97 7.7375 21.2828 9.05025C22.5955 10.363 23.333 12.1435 23.333 14V17.5" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M4.66699 17.5V14C4.66699 12.1435 5.40449 10.363 6.71724 9.05025C8.03 7.7375 9.81048 7 11.667 7" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24.4997 17.5H3.49967C2.85534 17.5 2.33301 18.0223 2.33301 18.6667V21C2.33301 21.6443 2.85534 22.1667 3.49967 22.1667H24.4997C25.144 22.1667 25.6663 21.6443 25.6663 21V18.6667C25.6663 18.0223 25.144 17.5 24.4997 17.5Z" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`,
+      },
       { text: "Risk assessment & mitigation", icon: "!" },
       { text: "Market analysis & benchmarking", icon: "U" },
       { text: "Regulatory compliance advisory", icon: "N" },
@@ -96,6 +206,7 @@ const offerings = [
 ];
 
 let offeringIndex = 0;
+let offeringImageLoadToken = 0;
 
 const heroStageImages = [
   {
@@ -216,7 +327,13 @@ function initTrustTabs() {
         const isActive = idx === active;
         return `
           <button type="button" class="tb-trust-btn w-100${isActive ? " is-active" : ""}" data-trust-index="${idx}" aria-pressed="${isActive}">
-            <span>${group.label}</span>${isActive ? ' <span class="tb-arrow">&rarr;</span>' : ""}
+            <span>${group.label}</span>${
+              isActive
+                ? `<span class="tb-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="15" viewBox="0 0 18 15" fill="none">
+  <path d="M17.7071 8.07112C18.0976 7.68059 18.0976 7.04743 17.7071 6.65691L11.3431 0.292945C10.9526 -0.0975795 10.3195 -0.0975794 9.92893 0.292945C9.53841 0.683469 9.53841 1.31663 9.92893 1.70716L15.5858 7.36401L9.92893 13.0209C9.53841 13.4114 9.53841 14.0446 9.92893 14.4351C10.3195 14.8256 10.9526 14.8256 11.3431 14.4351L17.7071 8.07112ZM0 7.36401L8.74228e-08 8.36401L17 8.36401L17 7.36401L17 6.36401L-8.74228e-08 6.36401L0 7.36401Z" fill="#F39130"/>
+</svg></span>`
+                : ""
+            }
           </button>
         `;
       })
@@ -283,7 +400,12 @@ function renderOfferingTabs() {
   tabs.innerHTML = offerings
     .map(
       (offering, idx) => `
-        <button type="button" class="tb-offering-tab${idx === offeringIndex ? " is-active" : ""}" data-offering-index="${idx}">
+        <button
+          type="button"
+          class="tb-offering-tab${idx === offeringIndex ? " is-active" : ""}"
+          data-offering-index="${idx}"
+          aria-pressed="${idx === offeringIndex}"
+        >
           ${offering.tab}
         </button>
       `,
@@ -292,17 +414,61 @@ function renderOfferingTabs() {
 
   tabs.querySelectorAll("[data-offering-index]").forEach((button) => {
     button.addEventListener("click", () => {
-      offeringIndex = Number(button.getAttribute("data-offering-index"));
-      renderOfferings();
+      const nextIndex = Number(button.getAttribute("data-offering-index"));
+      if (nextIndex === offeringIndex) return;
+      offeringIndex = nextIndex;
+      renderOfferings(true);
     });
   });
 }
 
-function renderOfferings() {
+function updateOfferingImage(current, animate = false) {
+  const offeringImage = document.getElementById("offeringImage");
+  const imageShell = document.getElementById("offeringImageShell");
+  if (!offeringImage || !current.image) return;
+
+  const loadToken = ++offeringImageLoadToken;
+
+  if (!animate) {
+    offeringImage.src = current.image.src;
+    offeringImage.alt = current.image.alt;
+    if (imageShell) imageShell.classList.remove("is-switching");
+    return;
+  }
+
+  if (imageShell) imageShell.classList.add("is-switching");
+
+  const finish = () => {
+    if (loadToken !== offeringImageLoadToken) return;
+    offeringImage.onload = null;
+    offeringImage.onerror = null;
+    if (imageShell) imageShell.classList.remove("is-switching");
+  };
+
+  offeringImage.onload = finish;
+  offeringImage.onerror = finish;
+
+  requestAnimationFrame(() => {
+    offeringImage.src = current.image.src;
+    offeringImage.alt = current.image.alt;
+    if (offeringImage.complete) finish();
+  });
+}
+
+function renderOfferings(animate = false) {
   const current = offerings[offeringIndex];
   const title = document.getElementById("offeringTitle");
   const description = document.getElementById("offeringDescription");
   const capabilityGrid = document.getElementById("offeringCapabilities");
+  const contentPane = document.getElementById("offeringContentPane");
+
+  if (contentPane) {
+    if (animate) {
+      contentPane.classList.add("is-switching");
+    } else {
+      contentPane.classList.remove("is-switching");
+    }
+  }
 
   if (title) title.textContent = current.title;
   if (description) description.textContent = current.description;
@@ -320,7 +486,14 @@ function renderOfferings() {
       .join("");
   }
 
+  updateOfferingImage(current, animate);
   renderOfferingTabs();
+
+  if (contentPane && animate) {
+    requestAnimationFrame(() => {
+      contentPane.classList.remove("is-switching");
+    });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
