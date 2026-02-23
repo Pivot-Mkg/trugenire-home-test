@@ -107,7 +107,7 @@ a {
   justify-content: space-between;
   gap: 1rem;
   min-height: 3.25rem;
-  padding: 0.4rem 0.75rem 0.4rem 0.55rem;
+  padding: 1.2rem;
   box-shadow: 0 1px 0 rgba(12, 27, 86, 0.03);
 }
 
@@ -344,25 +344,13 @@ a {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.55rem;
   align-items: start;
-  background-repeat: no-repeat;
-  background-size: calc(100% - 64px) 54px;
-  background-position: center 36%;
-}
-
-.tb-lifecycle-grid.phase-0 {
-  background-image: url("../images/lifecycle_link_phase_0.svg");
-}
-
-.tb-lifecycle-grid.phase-1 {
-  background-image: url("../images/lifecycle_link_phase_1.svg");
-}
-
-.tb-lifecycle-grid.phase-2 {
-  background-image: url("../images/lifecycle_link_phase_2.svg");
-}
-
-.tb-lifecycle-grid.phase-3 {
-  background-image: url("../images/lifecycle_link_phase_3.svg");
+  --tb-connector-muted: #d7e4fb;
+  --tb-connector-active: #2f6be4;
+  --tb-connector-width: clamp(5.2rem, 8vw, 9rem);
+  --tb-connector-height: clamp(2.2rem, 3.2vw, 2.9rem);
+  --tb-connector-tail: clamp(0.65rem, 0.95vw, 1rem);
+  --tb-connector-top: 36%;
+  --tb-connector-weight: 2.4px;
 }
 
 .tb-lifecycle-item {
@@ -370,11 +358,53 @@ a {
   background: transparent;
   padding: 0;
   margin: 0;
+  position: relative;
   opacity: 0.42;
   cursor: pointer;
   transition: opacity 0.2s ease, transform 0.2s ease;
   text-align: inherit;
   font: inherit;
+}
+
+.tb-lifecycle-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 39%;
+  left: 129px;
+  width: 79px;
+  height: 18px;
+  border-bottom: var(--tb-connector-weight) solid var(--tb-connector-muted);
+  border-bottom-left-radius: 99%;
+  border-bottom-right-radius: 100% 100%;
+  transform: rotate(15deg);
+  transform-origin: left center;
+  pointer-events: none;
+  z-index: 99;
+  opacity: 0;
+}
+
+.tb-lifecycle-item.is-active:not(:last-child)::after,
+.tb-lifecycle-item.is-active:not(:last-child)::before {
+  opacity: 1;
+}
+
+/* .tb-lifecycle-item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--tb-connector-top) + var(--tb-connector-height) - 0.06rem);
+  left: calc(100% + var(--tb-connector-width) - var(--tb-connector-tail) - 0.85rem);
+  width: var(--tb-connector-tail);
+  border-top: var(--tb-connector-weight) solid var(--tb-connector-muted);
+  pointer-events: none;
+} */
+
+.tb-lifecycle-grid.phase-0 .tb-lifecycle-item:nth-child(1):not(:last-child)::after,
+.tb-lifecycle-grid.phase-0 .tb-lifecycle-item:nth-child(1):not(:last-child)::before,
+.tb-lifecycle-grid.phase-1 .tb-lifecycle-item:nth-child(2):not(:last-child)::after,
+.tb-lifecycle-grid.phase-1 .tb-lifecycle-item:nth-child(2):not(:last-child)::before,
+.tb-lifecycle-grid.phase-2 .tb-lifecycle-item:nth-child(3):not(:last-child)::after,
+.tb-lifecycle-grid.phase-2 .tb-lifecycle-item:nth-child(3):not(:last-child)::before {
+  border-color: var(--tb-connector-active);
 }
 
 .tb-lifecycle-item.is-active {
@@ -403,6 +433,8 @@ a {
   background: #FAFBFE;
   padding: 20px;
   box-shadow: 0 0 4px 0 rgba(205, 212, 224, 0.80);
+  position: relative;
+  z-index: 1;
 }
 
 .tb-lifecycle-item.is-active .tb-lifecycle-card {
@@ -421,6 +453,8 @@ a {
   font-size: var(--tb-fs-18);
   line-height: 1.1;
   font-weight: 700;
+  position: relative;
+  z-index: 1;
 }
 
 .tb-lifecycle-item p {
@@ -429,6 +463,8 @@ a {
   color: #5f718a;
   font-size: 14px;
   line-height: 1.35;
+  position: relative;
+  z-index: 1;
 }
 
 .tb-impact,
@@ -507,13 +543,14 @@ a {
   line-height: 1.2;
   font-weight: 500;
   padding: var(--tb-btn-pad-y) var(--tb-btn-pad-x);
-  background: #f7f9fd;
-  border-color: #edf1f7;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.6rem;
+  border-radius: 14px;
+  border: 1px solid #F6F7F7;
+  background: #FDFDFD;
 }
 
 .tb-trust-btn.is-active {
@@ -590,7 +627,7 @@ a {
   border-radius: 1rem;
   border: 1px solid #edf1f7;
   background: #fff;
-  box-shadow: 0 1px 0 rgba(10, 29, 74, 0.03);
+  box-shadow: 0 8px 20px rgba(12, 43, 115, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -624,6 +661,7 @@ a {
 .tb-problem-shell {
   background: radial-gradient(74.52% 74.52% at 50% 25.48%, #E9F0FF 0%, #FFF 100%);
   padding: 2.75rem 0 2.3rem;
+  padding-top: 3rem;
 }
 
 .tb-problem-text {
@@ -635,7 +673,7 @@ a {
 }
 
 .tb-issue-list {
-  margin: 1.2rem 0 0;
+  margin: 2rem 0 0;
   padding: 0;
   list-style: none;
   display: grid;
@@ -674,7 +712,8 @@ a {
 }
 
 .tb-problem-diagram {
-  max-width: 34rem;
+  max-width: 31rem;
+  padding-inline: clamp(0.9rem, 2.2vw, 1.75rem);
   margin-inline: auto;
   display: flex;
   justify-content: center;
@@ -719,26 +758,26 @@ a {
 .tb-problem-core span {
   color: #fff;
   font-family: Prata, serif;
-  font-size: clamp(28px, 3vw, 42px);
+  font-size: clamp(28px, 3vw, 28px);
   line-height: 1;
 }
 
 .tb-problem-node {
   position: absolute;
-  width: 88px;
-  height: 88px;
-  border-radius: 16px;
-  border: 1px solid #e6ebf3;
-  background: #fff;
-  box-shadow: 0 10px 24px rgba(12, 31, 73, 0.12);
+  width: 55px;
+  height: 55px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  border-radius: 10px;
+  border: 1px solid #E6E9EF;
+  background: #FFF;
+  box-shadow: 0 4px 14px 0 #D1D5DC;
 }
 
 .tb-problem-node-top {
   left: 50%;
-  top: -5px;
+  top: -25px;
   transform: translateX(-50%);
 }
 
@@ -753,13 +792,14 @@ a {
 }
 
 .tb-problem-node-bottom-right {
-  right: -20px;
+  right: 2px;
   bottom: 16%;
 }
 
 @media (max-width: 991.98px) {
   .tb-problem-diagram {
-    max-width: 26rem;
+    max-width: 23rem;
+    padding-inline: 0.7rem;
   }
 
   .tb-problem-node {
@@ -932,7 +972,7 @@ a {
   height: 48px;
   border-radius: 13px;
   background: #edf3ff;
-  border: 1px solid #e2ebff;
+  /* border: 1px solid #e2ebff; */
   color: #286fed;
 }
 
@@ -1039,7 +1079,7 @@ a {
 }
 
 .tb-offering-tab.is-active {
-  color: #0f5ea8;
+  color: #005BAB;
   border-radius: 14px;
   border: 1px solid #F6F7F7;
   background: #FDFDFD;
@@ -1321,7 +1361,11 @@ a {
   .tb-lifecycle-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.65rem;
-    background-image: none;
+  }
+
+  .tb-lifecycle-item::before,
+  .tb-lifecycle-item::after {
+    display: none;
   }
 
   .tb-hero-kicker,
