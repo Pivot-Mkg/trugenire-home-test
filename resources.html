@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources | TruBoard Technologies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Prata&family=Roboto:wght@700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/app.css">
+    <style>
+        .tb-res-top-shell {
+            background: radial-gradient(74.52% 74.52% at 50% 25.48%, #E9F0FF 0%, #FFF 100%);
+        }
+
+        .tb-res-hero {
+            padding: clamp(1rem, 2.3vw, 1.7rem) 0;
+        }
+
+        .tb-res-hero-card {
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+            box-shadow: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            gap: clamp(0.9rem, 2vw, 1.5rem);
+            align-items: center;
+            padding-top: 50px;
+
+        }
+
+        .tb-res-hero-copy {
+            display: grid;
+            gap: 0.5rem;
+            max-width: 38rem;
+        }
+
+        .tb-res-kicker {
+            margin: 0;
+            color: #2f6be4;
+            font-size: var(--tb-fs-16);
+            line-height: 1.2;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .tb-res-hero-copy h1 {
+            margin: 0;
+            color: var(--tb-heading-color);
+            font-size: var(--tb-heading-size-xl);
+            line-height: 1.13;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .tb-res-hero-copy p {
+            margin: 0.1rem 0 0;
+            color: #5d6e86;
+            font-size: var(--tb-fs-18);
+            line-height: 1.52;
+            max-width: 34rem;
+        }
+
+        .tb-res-news-form .tb-btn {
+            background: #fff;
+            color: #0f276f;
+            border-color: #0f276f;
+            box-shadow: none;
+        }
+
+        .tb-res-news-form .tb-btn:hover {
+            background: #edf3ff;
+            color: #0c1f58;
+            border-color: #0c1f58;
+        }
+
+        .tb-res-hero-art {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .tb-res-hero-art img {
+            width: min(100%, 26rem);
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .tb-res-filter-wrap {
+            margin-top: 1rem;
+            position: sticky;
+            top: 5.25rem;
+            z-index: 15;
+        }
+
+        .tb-res-filter {
+            border: 1px solid #dfe6f2;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.97);
+            box-shadow: 0 8px 22px rgba(12, 31, 73, 0.08);
+            backdrop-filter: blur(4px);
+            padding: 0.72rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+
+        .tb-res-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.44rem;
+        }
+
+        .tb-res-tab {
+            border: 1px solid transparent;
+            border-radius: 999px;
+            background: #f6f9ff;
+            color: #5d6e86;
+            font-size: var(--tb-fs-16);
+            line-height: 1;
+            font-weight: 500;
+            padding: 0.56rem 0.92rem;
+        }
+
+        .tb-res-tab:hover {
+            background: #edf3ff;
+            color: #1d4f98;
+        }
+
+        .tb-res-tab.is-active {
+            background: #2f6be4;
+            border-color: #2f6be4;
+            color: #fff;
+        }
+
+        .tb-res-sort {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin: 0;
+            color: #5d6e86;
+            font-size: var(--tb-fs-16);
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .tb-res-sort select {
+            border: 1px solid #d6e0f0;
+            border-radius: 999px;
+            background: #fff;
+            color: #2a3446;
+            font-size: var(--tb-fs-16);
+            line-height: 1;
+            padding: 0.5rem 1.95rem 0.5rem 0.76rem;
+            outline: none;
+        }
+
+        .tb-res-content {
+            margin-top: 1rem;
+        }
+
+        .tb-res-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .tb-res-card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.85rem;
+            padding-bottom: 40px;
+        }
+
+        .tb-res-card {
+            border: 1px solid #dfe6f2;
+            border-radius: 15px;
+            background: #fff;
+            box-shadow: var(--tb-shadow-soft);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .tb-res-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(12, 43, 115, 0.14);
+        }
+
+        .tb-res-card-media {
+            height: 148px;
+            position: relative;
+            border-bottom: 1px solid #edf2fb;
+            background: linear-gradient(135deg, #1d3e86 0%, #2f6be4 100%);
+        }
+
+        .tb-res-card-media.bg-2 {
+            background: linear-gradient(135deg, #f6f9ff 0%, #dbe8ff 100%);
+        }
+
+        .tb-res-card-media.bg-3 {
+            background: linear-gradient(135deg, #0c1b56 0%, #1d3e86 100%);
+        }
+
+        .tb-res-card-media.bg-4 {
+            background: linear-gradient(135deg, #10234d 0%, #2b4f9f 100%);
+        }
+
+        .tb-res-card-media.bg-5 {
+            background: linear-gradient(135deg, #eaf3ff 0%, #c7dcff 100%);
+        }
+
+        .tb-res-card-media.bg-6 {
+            background: linear-gradient(135deg, #edf2ff 0%, #d4e4ff 100%);
+        }
+
+        .tb-res-chip {
+            position: absolute;
+            left: 0.65rem;
+            top: 0.65rem;
+            border-radius: 999px;
+            border: 1px solid #d6e4ff;
+            background: rgba(255, 255, 255, 0.95);
+            color: #1d4f98;
+            font-size: 11px;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 0.32rem 0.54rem;
+        }
+
+        .tb-res-card-body {
+            padding: 0.75rem 0.78rem 0.82rem;
+            display: grid;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .tb-res-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            color: #7a879c;
+            font-size: 12px;
+            line-height: 1.2;
+        }
+
+        .tb-res-meta .dot {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: #a9b6cb;
+            align-self: center;
+            margin-top: 1px;
+        }
+
+        .tb-res-card h3 {
+            margin: 0;
+            color: var(--tb-heading-color);
+            font-size: var(--tb-heading-size-md);
+            line-height: 1.25;
+            font-weight: 600;
+        }
+
+        .tb-res-card p {
+            margin: 0;
+            color: #5d6e86;
+            font-size: var(--tb-fs-16);
+            line-height: 1.5;
+        }
+
+        .tb-res-card-link {
+            margin-top: auto;
+            color: #2f6be4;
+            font-size: var(--tb-fs-16);
+            font-weight: 600;
+            line-height: 1.2;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.28rem;
+            border-radius: 0.45rem;
+            padding: 0.15rem 0.1rem;
+        }
+
+        .tb-res-card-link:hover {
+            color: #1d4f98;
+            background: #edf3ff;
+        }
+
+        .tb-res-side {
+            display: grid;
+            gap: 0.82rem;
+            position: sticky;
+            top: 9.9rem;
+        }
+
+        .tb-res-side-card {
+            border-radius: 14px;
+            border: 1px solid #dfe6f2;
+            background: #fff;
+            box-shadow: var(--tb-shadow-soft);
+            padding: 0.82rem;
+        }
+
+        .tb-res-side-card.is-highlight {
+            background: linear-gradient(145deg, #f3f8ff 0%, #ffffff 100%);
+            border-color: #cfe0ff;
+        }
+
+        .tb-res-side-card h4 {
+            margin: 0;
+            color: var(--tb-heading-color);
+            font-size: var(--tb-heading-size-md);
+            line-height: 1.2;
+            font-weight: 600;
+        }
+
+        .tb-res-side-card p {
+            margin: 0.45rem 0 0;
+            color: #5d6e86;
+            font-size: var(--tb-fs-16);
+            line-height: 1.5;
+        }
+
+        .tb-res-side-card .tb-btn {
+            margin-top: 0.7rem;
+            width: 100%;
+        }
+
+        .tb-res-news-form {
+            margin-top: 0.7rem;
+            display: grid;
+            gap: 0.48rem;
+            border: 1px solid #cfe0ff;
+            border-radius: 12px;
+            background: linear-gradient(180deg, #eaf3ff 0%, #f3f8ff 100%);
+            padding: 0.48rem;
+        }
+
+        .tb-res-news-form input {
+            width: 100%;
+            border: 1px solid #d6e1f5;
+            border-radius: 12px;
+            background: #eef5ff;
+            color: #2a3446;
+            font-size: var(--tb-fs-16);
+            line-height: 1.3;
+            padding: 0.62rem 0.72rem;
+            outline: none;
+        }
+
+        .tb-res-news-form input:focus {
+            border-color: #2f6be4;
+            box-shadow: 0 0 0 4px rgba(47, 107, 228, 0.12);
+        }
+
+        .tb-res-note {
+            margin-top: 0.5rem;
+            color: #8b98ad;
+            font-size: 11px;
+            line-height: 1.35;
+        }
+
+        @media (max-width: 1199.98px) {
+            .tb-res-card-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 991.98px) {
+
+            .tb-res-hero-card {
+                grid-template-columns: 1fr;
+            }
+
+            .tb-res-hero-art {
+                justify-content: center;
+            }
+
+            .tb-res-hero-art img {
+                width: min(100%, 22rem);
+            }
+
+            .tb-res-filter-wrap {
+                top: 5.05rem;
+            }
+
+            .tb-res-filter {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .tb-res-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .tb-res-side {
+                position: static;
+                top: auto;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .tb-res-hero-card {
+                gap: 0.75rem;
+            }
+
+            .tb-res-kicker {
+                font-size: 12px;
+            }
+
+            .tb-res-hero-copy h1 {
+                font-size: var(--tb-heading-size-xl);
+            }
+
+            .tb-res-hero-copy p {
+                font-size: var(--tb-fs-16);
+            }
+
+            .tb-res-tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                width: 100%;
+                padding-bottom: 0.08rem;
+            }
+
+            .tb-res-tabs::-webkit-scrollbar {
+                display: none;
+            }
+
+            .tb-res-card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="tb-header">
+        <div class="container-xl">
+            <div class="tb-header-card">
+                <a href="./index.html" class="tb-logo" aria-label="TruBoard home">
+                    <img src="./assets/images/00af332c1a9f3126ee7549c6a79f390066c45c4b-BBxVev8d.png"
+                        alt="TruBoard Technologies">
+                </a>
+                <button id="menuToggle" class="tb-menu-toggle d-lg-none" type="button" aria-expanded="false"
+                    aria-controls="mainNav" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav id="mainNav" class="tb-nav">
+                    <div class="tb-nav-item tb-has-dropdown">
+                        <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true"
+                            aria-expanded="false" aria-controls="tb-menu-services">
+                            Services
+                            <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 14 14" fill="none">
+                                    <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg></span>
+                        </button>
+                        <div id="tb-menu-services" class="tb-nav-dropdown tb-mega-menu tb-mega-menu-services"
+                            role="menu" aria-label="Services menu">
+                            <div class="tb-mega-menu-grid">
+                                <section class="tb-mega-menu-col" aria-labelledby="tb-services-overview">
+                                    <h3 id="tb-services-overview" class="tb-mega-menu-heading">Services</h3>
+                                    <a href="./services.html" class="tb-mega-menu-link" role="menuitem">What We Solve</a>
+                                    <a href="./contruction-ai.html" class="tb-mega-menu-link"
+                                        role="menuitem">Development &amp; Execution</a>
+                                    <a href="./property-ai.html" class="tb-mega-menu-link" role="menuitem">Capital &amp;
+                                        Asset Management</a>
+                                </section>
+                            </div>
+                            <div class="tb-mega-menu-cta" role="presentation">
+                                <a href="./contact-us.html#contactTabServices" class="btn tb-btn tb-btn-blue" role="menuitem">Discuss Mandate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tb-nav-item tb-has-dropdown">
+                        <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true"
+                            aria-expanded="false" aria-controls="tb-menu-product">
+                            Product
+                            <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 14 14" fill="none">
+                                    <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg></span>
+                        </button>
+                        <div id="tb-menu-product" class="tb-nav-dropdown tb-mega-menu tb-mega-menu-product" role="menu"
+                            aria-label="Product menu">
+                            <div class="tb-mega-menu-grid">
+                                <section class="tb-mega-menu-col" aria-labelledby="tb-product-overview">
+                                    <h3 id="tb-product-overview" class="tb-mega-menu-heading">Product</h3>
+                                    <a href="./truegenie.html" class="tb-mega-menu-link" role="menuitem">TruGenie Overview</a>
+                                    <a href="./truegenie.html" class="tb-mega-menu-link" role="menuitem">Use Cases</a>
+                                    <a href="./truegenie.html" class="tb-mega-menu-link" role="menuitem">Platform Capabilities</a>
+                                </section>
+                            </div>
+                            <div class="tb-mega-menu-cta" role="presentation">
+                                <a href="./contact-us.html#contactTabDemo" class="btn tb-btn tb-btn-blue" role="menuitem">Book a Demo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tb-nav-item tb-has-dropdown">
+                        <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true"
+                            aria-expanded="false" aria-controls="tb-menu-resources">
+                            Resources
+                            <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 14 14" fill="none">
+                                    <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg></span>
+                        </button>
+                        <div id="tb-menu-resources" class="tb-nav-dropdown tb-mega-menu tb-mega-menu-resources"
+                            role="menu" aria-label="Resources menu">
+                            <div class="tb-mega-menu-grid">
+                                <section class="tb-mega-menu-col" aria-labelledby="tb-resources-overview">
+                                    <h3 id="tb-resources-overview" class="tb-mega-menu-heading">Resources</h3>
+                                    <a href="./resources.html" class="tb-mega-menu-link" role="menuitem">Case
+                                        Studies</a>
+                                    <a href="./resources.html" class="tb-mega-menu-link" role="menuitem">Insights</a>
+                  <a href="./about-use.html" class="tb-mega-menu-link" role="menuitem">About Us</a>
+                  <a href="./careers.html" class="tb-mega-menu-link" role="menuitem">Careers</a>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="./contact-us.html" class="btn tb-btn tb-btn-blue tb-nav-btn">Contact Us</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="tb-res-shell">
+        <div class="tb-res-top-shell">
+            <section class="tb-res-hero" aria-label="Resources hero">
+                <div class="container-xl">
+                    <div class="tb-res-hero-card">
+                        <div class="tb-res-hero-copy">
+
+                            <h1>Resources Hub</h1>
+                            <p>
+                                Market-leading analysis, platform updates, and case-backed insights for developers,
+                                lenders,
+                                investors, and asset managers.
+                            </p>
+                        </div>
+                        <div class="tb-res-hero-art">
+                            <img src="./assets/images/hero_illustration.png"
+                                alt="Resources insights banner illustration">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="tb-res-filter-wrap" aria-label="Resource filters">
+            <div class="container-xl">
+                <div class="tb-res-filter">
+                    <div class="tb-res-tabs" role="tablist" aria-label="Resource categories">
+                        <button type="button" class="tb-res-tab is-active" aria-selected="true" data-resource-tab
+                            data-filter="all">All Resources</button>
+                        <button type="button" class="tb-res-tab" aria-selected="false" data-resource-tab
+                            data-filter="case-study">Case Studies</button>
+                        <button type="button" class="tb-res-tab" aria-selected="false" data-resource-tab
+                            data-filter="market-insight">Market Insights</button>
+                        <button type="button" class="tb-res-tab" aria-selected="false" data-resource-tab
+                            data-filter="whitepaper">Whitepapers</button>
+                    </div>
+                    <label class="tb-res-sort">
+                        Sort by:
+                        <select aria-label="Sort resources" data-resource-sort>
+                            <option value="newest">Newest First</option>
+                            <option value="popularity">Popularity</option>
+                            <option value="alphabetical">Alphabetical</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <section class="tb-res-content" aria-label="Resources list">
+            <div class="container-xl">
+                <div class="tb-res-layout">
+                    <div class="tb-res-main">
+                        <div class="tb-res-card-grid">
+                            <article class="tb-res-card" data-category="market-insight" data-date="2023-10-24"
+                                data-popularity="94">
+                                <div class="tb-res-card-media">
+                                    <span class="tb-res-chip">Market Insight</span>
+                                </div>
+                                <div class="tb-res-card-body">
+                                    <div class="tb-res-meta">
+                                        <span>Oct 24, 2023</span><span class="dot"></span><span>5 min read</span>
+                                    </div>
+                                    <h3>Q3 Commercial Real Estate Outlook</h3>
+                                    <p>An in-depth view of cap rates, vacancy movement, and pricing momentum across
+                                        major markets.</p>
+                                    <a href="./services.html" class="tb-res-card-link">Read Report <span
+                                            aria-hidden="true">-></span></a>
+                                </div>
+                            </article>
+
+                            <article class="tb-res-card" data-category="whitepaper" data-date="2023-10-12"
+                                data-popularity="89">
+                                <div class="tb-res-card-media bg-2">
+                                    <span class="tb-res-chip">Whitepaper</span>
+                                </div>
+                                <div class="tb-res-card-body">
+                                    <div class="tb-res-meta">
+                                        <span>Oct 12, 2023</span><span class="dot"></span><span>PDF Download</span>
+                                    </div>
+                                    <h3>Scaling Asset Management with AI</h3>
+                                    <p>How predictive models and automation can improve risk visibility and operating
+                                        precision.</p>
+                                    <a href="./truegenie.html" class="tb-res-card-link">Download PDF <span
+                                            aria-hidden="true">-></span></a>
+                                </div>
+                            </article>
+
+                            <article class="tb-res-card" data-category="case-study" data-date="2023-09-28"
+                                data-popularity="92">
+                                <div class="tb-res-card-media bg-3">
+                                    <span class="tb-res-chip">Case Study</span>
+                                </div>
+                                <div class="tb-res-card-body">
+                                    <div class="tb-res-meta">
+                                        <span>Sep 28, 2023</span><span class="dot"></span><span>8 min read</span>
+                                    </div>
+                                    <h3>Downtown Plaza Revitalization</h3>
+                                    <p>How data-led asset oversight helped turn a distressed project into a resilient
+                                        mixed-use asset.</p>
+                                    <a href="./contruction-ai.html" class="tb-res-card-link">Read Story <span
+                                            aria-hidden="true">-></span></a>
+                                </div>
+                            </article>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="tb-footer">
+        <div class="container-xl">
+            <div class="row g-4 tb-footer-top">
+                <div class="col-lg-12">
+                    <a href="./index.html" class="tb-footer-logo" aria-label="TruBoard home">
+                        <img src="./assets/images/1a36bc184ac42a93ebf62d57aae0e30c740ff2ab-B2Jtxq84.png"
+                            alt="TruBoard Technologies">
+                    </a>
+                    <p class="tb-footer-subtitle">Real Estate Asset Management Services</p>
+                </div>
+                <div class="col-lh-1"></div>
+                <div class="col-sm-6 col-lg-4">
+                    <h3>Quick Links</h3>
+          <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./services.html">Services</a></li>
+            <li><a href="./truegenie.html">TruGenie</a></li>
+            <li><a href="./resources.html">Resources</a></li>
+            <li><a href="./about-use.html">About Us</a></li>
+            <li><a href="./careers.html">Careers</a></li>
+          </ul>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <h3>Contact Us</h3>
+                    <p class="tb-footer-contact">
+                        321, SOLITAIRE CORPORATE PARK, ANDHERI GHATKOPAR LINK ROAD, CHAKALA, Chakala MIDC,
+                        Mumbai, Mumbai Suburban, Maharashtra, 400093
+                    </p>
+                </div>
+            </div>
+            <div class="tb-footer-bottom">
+                <p>(c) 2025 TruBoard Technologies. All rights reserved.</p>
+                <div class="tb-socials" aria-label="Social links">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Twitter">x</a>
+                    <a href="#" aria-label="LinkedIn">in</a>
+                    <a href="#" aria-label="Instagram">ig</a>
+                </div>
+                <div class="tb-policies">
+                    <a href="./legal.html#privacy-policy">Privacy Policy</a>
+                    <a href="./legal.html#terms-of-service">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const grid = document.querySelector(".tb-res-card-grid");
+            const tabs = Array.from(document.querySelectorAll("[data-resource-tab]"));
+            const sortSelect = document.querySelector("[data-resource-sort]");
+            if (!grid || !tabs.length || !sortSelect) return;
+
+            const cards = Array.from(grid.querySelectorAll(".tb-res-card"));
+            let activeFilter = "all";
+            let activeSort = sortSelect.value || "newest";
+
+            function compareCards(a, b) {
+                if (activeSort === "alphabetical") {
+                    const titleA = (a.querySelector("h3")?.textContent || "").trim().toLowerCase();
+                    const titleB = (b.querySelector("h3")?.textContent || "").trim().toLowerCase();
+                    return titleA.localeCompare(titleB);
+                }
+
+                if (activeSort === "popularity") {
+                    const popA = Number(a.getAttribute("data-popularity") || 0);
+                    const popB = Number(b.getAttribute("data-popularity") || 0);
+                    return popB - popA;
+                }
+
+                const dateA = new Date(a.getAttribute("data-date") || "").getTime() || 0;
+                const dateB = new Date(b.getAttribute("data-date") || "").getTime() || 0;
+                return dateB - dateA;
+            }
+
+            function renderCards() {
+                const filtered = cards.filter((card) => {
+                    if (activeFilter === "all") return true;
+                    return card.getAttribute("data-category") === activeFilter;
+                });
+
+                const sorted = filtered.sort(compareCards);
+                grid.innerHTML = "";
+                sorted.forEach((card) => {
+                    card.hidden = false;
+                    grid.appendChild(card);
+                });
+            }
+
+            tabs.forEach((tab) => {
+                tab.addEventListener("click", () => {
+                    const filter = tab.getAttribute("data-filter") || "all";
+                    activeFilter = filter;
+
+                    tabs.forEach((item) => {
+                        const isActive = item === tab;
+                        item.classList.toggle("is-active", isActive);
+                        item.setAttribute("aria-selected", String(isActive));
+                    });
+
+                    renderCards();
+                });
+            });
+
+            sortSelect.addEventListener("change", () => {
+                activeSort = sortSelect.value || "newest";
+                renderCards();
+            });
+
+            renderCards();
+        });
+    </script>
+    <script src="./assets/js/app.js" defer></script>
+</body>
+
+</html>

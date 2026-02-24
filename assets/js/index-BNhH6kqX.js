@@ -11862,7 +11862,7 @@ function $4() {
       children: e.jsx("p", {
         className:
           "absolute font-['Inter:Regular',sans-serif] font-normal leading-[20px] left-0 not-italic text-[#99a1af] text-[14px] top-[0.5px] tracking-[-0.1504px]",
-        children: "© 2025 Ion Exchange. All rights reserved.",
+        children: "© 2025 TruBoard Technologies. All rights reserved.",
       }),
     }),
   });

@@ -232,9 +232,122 @@ function initMenu() {
   const mainNav = document.getElementById("mainNav");
   if (!menuToggle || !mainNav) return;
 
+  const desktopMedia = window.matchMedia("(min-width: 992px)");
+  const dropdownItems = Array.from(
+    mainNav.querySelectorAll(".tb-nav-item.tb-has-dropdown"),
+  );
+
+  function setDropdownState(item, isOpen) {
+    const trigger = item.querySelector(".tb-nav-trigger");
+    item.classList.toggle("is-open", isOpen);
+    if (trigger) {
+      trigger.setAttribute("aria-expanded", String(isOpen));
+    }
+  }
+
+  function closeAllDropdowns(exceptItem = null) {
+    dropdownItems.forEach((item) => {
+      if (exceptItem && item === exceptItem) return;
+      setDropdownState(item, false);
+    });
+  }
+
+  dropdownItems.forEach((item, index) => {
+    const trigger = item.querySelector(".tb-nav-trigger");
+    const dropdown = item.querySelector(".tb-nav-dropdown");
+    if (!trigger || !dropdown) return;
+    let closeTimer = null;
+
+    const clearCloseTimer = () => {
+      if (!closeTimer) return;
+      clearTimeout(closeTimer);
+      closeTimer = null;
+    };
+
+    const scheduleClose = () => {
+      clearCloseTimer();
+      closeTimer = setTimeout(() => {
+        setDropdownState(item, false);
+      }, 130);
+    };
+
+    if (!dropdown.id) {
+      dropdown.id = `tb-nav-menu-${index + 1}`;
+    }
+
+    trigger.setAttribute("aria-haspopup", "true");
+    trigger.setAttribute("aria-controls", dropdown.id);
+    trigger.setAttribute("aria-expanded", "false");
+
+    item.addEventListener("mouseenter", () => {
+      if (!desktopMedia.matches) return;
+      clearCloseTimer();
+      closeAllDropdowns(item);
+      setDropdownState(item, true);
+    });
+
+    item.addEventListener("mouseleave", () => {
+      if (!desktopMedia.matches) return;
+      scheduleClose();
+    });
+
+    dropdown.addEventListener("mouseenter", () => {
+      if (!desktopMedia.matches) return;
+      clearCloseTimer();
+    });
+
+    dropdown.addEventListener("mouseleave", () => {
+      if (!desktopMedia.matches) return;
+      scheduleClose();
+    });
+
+    item.addEventListener("focusin", () => {
+      if (!desktopMedia.matches) return;
+      clearCloseTimer();
+      closeAllDropdowns(item);
+      setDropdownState(item, true);
+    });
+
+    item.addEventListener("focusout", (event) => {
+      if (!desktopMedia.matches) return;
+      const nextFocused = event.relatedTarget;
+      if (nextFocused && item.contains(nextFocused)) return;
+      setDropdownState(item, false);
+    });
+
+    trigger.addEventListener("click", (event) => {
+      event.preventDefault();
+      const shouldOpen = !item.classList.contains("is-open");
+      closeAllDropdowns(item);
+      setDropdownState(item, shouldOpen);
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!mainNav.contains(event.target)) {
+      closeAllDropdowns();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    closeAllDropdowns();
+  });
+
+  const handleViewportChange = () => {
+    closeAllDropdowns();
+  };
+
+  if (desktopMedia.addEventListener) {
+    desktopMedia.addEventListener("change", handleViewportChange);
+  } else if (desktopMedia.addListener) {
+    desktopMedia.addListener(handleViewportChange);
+  }
+
   menuToggle.addEventListener("click", () => {
     const open = mainNav.classList.toggle("open");
     menuToggle.setAttribute("aria-expanded", String(open));
+    if (!open) closeAllDropdowns();
   });
 }
 

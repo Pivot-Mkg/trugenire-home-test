@@ -19,7 +19,7 @@
   <header class="tb-header">
     <div class="container-xl">
       <div class="tb-header-card">
-        <a href="#" class="tb-logo" aria-label="TruBoard home">
+        <a href="./index.html" class="tb-logo" aria-label="TruBoard home">
           <img src="./assets/images/00af332c1a9f3126ee7549c6a79f390066c45c4b-BBxVev8d.png" alt="TruBoard Technologies">
         </a>
         <button id="menuToggle" class="tb-menu-toggle d-lg-none" type="button" aria-expanded="false"
@@ -29,56 +29,72 @@
           <span></span>
         </button>
         <nav id="mainNav" class="tb-nav">
-          <div class="tb-nav-item tb-has-dropdown">
-            <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true">
-              Services
-              <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                  viewBox="0 0 14 14" fill="none">
-                  <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg></span>
-            </button>
-            <div class="tb-nav-dropdown" role="menu" aria-label="Services menu">
-              <a href="#">Project Management</a>
-              <a href="#">Asset Management</a>
-              <a href="#">Capital Advisory</a>
-            </div>
-          </div>
+  <div class="tb-nav-item tb-has-dropdown">
+    <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="tb-menu-services">
+      Services
+      <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round" />
+        </svg></span>
+    </button>
+    <div id="tb-menu-services" class="tb-nav-dropdown tb-mega-menu tb-mega-menu-services" role="menu" aria-label="Services menu">
+      <div class="tb-mega-menu-grid">
+        <section class="tb-mega-menu-col" aria-labelledby="tb-services-overview">
+          <h3 id="tb-services-overview" class="tb-mega-menu-heading">Services</h3>
+          <a href="./services.html" class="tb-mega-menu-link" role="menuitem">What We Solve</a>
+          <a href="./contruction-ai.html" class="tb-mega-menu-link" role="menuitem">Development &amp; Execution</a>
+          <a href="./property-ai.html" class="tb-mega-menu-link" role="menuitem">Capital &amp; Asset Management</a>
+        </section>
+      </div>
+      <div class="tb-mega-menu-cta" role="presentation">
+        <a href="./contact-us.html#contactTabServices" class="btn tb-btn tb-btn-blue" role="menuitem">Discuss Mandate</a>
+      </div>
+    </div>
+  </div>
 
-          <div class="tb-nav-item tb-has-dropdown">
-            <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true">
-              Product
-              <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                  viewBox="0 0 14 14" fill="none">
-                  <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg></span>
-            </button>
-            <div class="tb-nav-dropdown" role="menu" aria-label="Product menu">
-              <a href="#">TruGenie</a>
-              <a href="#">PDMS</a>
-              <a href="#">Advisory Suite</a>
-            </div>
-          </div>
+  <div class="tb-nav-item tb-has-dropdown">
+    <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="tb-menu-product">
+      Product
+      <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round" />
+        </svg></span>
+    </button>
+    <div id="tb-menu-product" class="tb-nav-dropdown tb-mega-menu tb-mega-menu-product" role="menu" aria-label="Product menu">
+      <div class="tb-mega-menu-grid">
+        <section class="tb-mega-menu-col" aria-labelledby="tb-product-overview">
+          <h3 id="tb-product-overview" class="tb-mega-menu-heading">Product</h3>
+          <a href="./truegenie.html" class="tb-mega-menu-link" role="menuitem">TruGenie Overview</a>
+          <a href="./truegenie.html" class="tb-mega-menu-link" role="menuitem">Use Cases</a>
+          <a href="./truegenie.html" class="tb-mega-menu-link" role="menuitem">Platform Capabilities</a>
+        </section>
+      </div>
+      <div class="tb-mega-menu-cta" role="presentation">
+        <a href="./contact-us.html#contactTabDemo" class="btn tb-btn tb-btn-blue" role="menuitem">Book a Demo</a>
+      </div>
+    </div>
+  </div>
 
-          <div class="tb-nav-item tb-has-dropdown">
-            <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true">
-              Resources
-              <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                  viewBox="0 0 14 14" fill="none">
-                  <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg></span>
-            </button>
-            <div class="tb-nav-dropdown" role="menu" aria-label="Resources menu">
-              <a href="#">Case Studies</a>
-              <a href="#">Insights</a>
-              <a href="#">Contact Support</a>
-            </div>
-          </div>
+  <div class="tb-nav-item tb-has-dropdown">
+    <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="tb-menu-resources">
+      Resources
+      <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round" />
+        </svg></span>
+    </button>
+    <div id="tb-menu-resources" class="tb-nav-dropdown tb-mega-menu tb-mega-menu-resources" role="menu" aria-label="Resources menu">
+      <div class="tb-mega-menu-grid">
+        <section class="tb-mega-menu-col" aria-labelledby="tb-resources-overview">
+          <h3 id="tb-resources-overview" class="tb-mega-menu-heading">Resources</h3>
+          <a href="./resources.html" class="tb-mega-menu-link" role="menuitem">Case Studies</a>
+          <a href="./resources.html" class="tb-mega-menu-link" role="menuitem">Insights</a>
+                  <a href="./about-use.html" class="tb-mega-menu-link" role="menuitem">About Us</a>
+                  <a href="./careers.html" class="tb-mega-menu-link" role="menuitem">Careers</a>
+        </section>
+      </div>
+    </div>
+  </div>
 
-          <a href="#" class="btn tb-btn tb-btn-blue tb-nav-btn">Contact Us</a>
-        </nav>
+  <a href="./contact-us.html" class="btn tb-btn tb-btn-blue tb-nav-btn">Contact Us</a>
+</nav>
       </div>
     </div>
   </header>
@@ -96,8 +112,8 @@
               and investors build better, monitor smarter, and protect capital across the real estate lifecycle.
             </p>
             <div class="tb-hero-actions">
-              <a href="#" class="btn tb-btn tb-btn-blue">Contact Us</a>
-              <a href="#" class="btn tb-btn tb-btn-ghost">Explore TruGenie <span>
+              <a href="./contact-us.html#contactTabGeneral" class="btn tb-btn tb-btn-blue">Contact Us</a>
+              <a href="./truegenie.html" class="btn tb-btn tb-btn-ghost">Explore TruGenie <span>
                   <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="#F39130"
                     class="bi bi-arrow-right-short">
                     <path fill-rule="evenodd"
@@ -327,7 +343,7 @@
                   End-to-end real estate services combining Project Management Consultancy and Asset Management to
                   deliver execution certainty, improved governance, and capital protection across the asset lifecycle.
                 </p>
-                <a href="#">Learn more &rarr;</a>
+                <a href="./services.html">Learn more &rarr;</a>
               </article>
             </div>
             <div class="col-lg-5">
@@ -337,7 +353,7 @@
                   An AI-enabled real estate intelligence platform providing real-time dashboards, workflow automation,
                   and early-warning signals across construction, sales, and cashflows.
                 </p>
-                <a href="#">Explore TruGenie &rarr;</a>
+                <a href="./truegenie.html">Explore TruGenie &rarr;</a>
               </article>
             </div>
           </div>
@@ -464,8 +480,8 @@
     <div class="container-xl text-center">
       <h2 class="tb-title">Ready to bring clarity and control to your real estate assets?</h2>
       <div class="tb-cta-actions">
-        <a href="#" class="btn tb-btn tb-btn-ghost">Request a TruGenie Demo</a>
-        <a href="#" class="btn tb-btn tb-btn-blue">Talk to Our Services Team</a>
+        <a href="./contact-us.html#contactTabDemo" class="btn tb-btn tb-btn-ghost">Request a TruGenie Demo</a>
+        <a href="./contact-us.html#contactTabServices" class="btn tb-btn tb-btn-blue">Talk to Our Services Team</a>
       </div>
     </div>
   </section>
@@ -474,7 +490,7 @@
     <div class="container-xl">
       <div class="row g-4 tb-footer-top">
         <div class="col-lg-12">
-          <a href="#" class="tb-footer-logo" aria-label="TruBoard home">
+          <a href="./index.html" class="tb-footer-logo" aria-label="TruBoard home">
             <img src="./assets/images/1a36bc184ac42a93ebf62d57aae0e30c740ff2ab-B2Jtxq84.png"
               alt="TruBoard Technologies">
           </a>
@@ -484,9 +500,12 @@
         <div class="col-sm-6 col-lg-4">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Solutions</a></li>
-            <li><a href="#">Industries</a></li>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./services.html">Services</a></li>
+            <li><a href="./truegenie.html">TruGenie</a></li>
+            <li><a href="./resources.html">Resources</a></li>
+            <li><a href="./about-use.html">About Us</a></li>
+            <li><a href="./careers.html">Careers</a></li>
           </ul>
         </div>
         <div class="col-sm-6 col-lg-6">
@@ -498,7 +517,7 @@
         </div>
       </div>
       <div class="tb-footer-bottom">
-        <p>(c) 2025 Ion Exchange. All rights reserved.</p>
+        <p>(c) 2025 TruBoard Technologies. All rights reserved.</p>
         <div class="tb-socials" aria-label="Social links">
           <a href="#" aria-label="Facebook">f</a>
           <a href="#" aria-label="Twitter">x</a>
@@ -506,8 +525,8 @@
           <a href="#" aria-label="Instagram">ig</a>
         </div>
         <div class="tb-policies">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
+          <a href="./legal.html#privacy-policy">Privacy Policy</a>
+          <a href="./legal.html#terms-of-service">Terms of Service</a>
         </div>
       </div>
     </div>
@@ -517,3 +536,5 @@
 </body>
 
 </html>
+
+

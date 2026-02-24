@@ -1,0 +1,305 @@
+.tb-ai-main {
+    position: relative;
+    overflow: hidden;
+    /* padding-top: clamp(6.25rem, 8.8vh, 7.55rem); */
+    padding-bottom: clamp(1rem, 2.1vh, 1.8rem);
+}
+
+.tb-ai-main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to right, rgba(221, 231, 247, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(221, 231, 247, 0.45) 1px, transparent 1px);
+    background-size: 44px 44px;
+    pointer-events: none;
+}
+
+.tb-ai-main::after {
+    content: "";
+    position: absolute;
+    width: min(48rem, 90vw);
+    height: min(48rem, 90vw);
+    left: 50%;
+    top: -22%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(218, 231, 255, 0.45) 0%, rgba(255, 255, 255, 0) 70%);
+    pointer-events: none;
+}
+
+.tb-ai-main .container-xl {
+    position: relative;
+    z-index: 1;
+}
+
+.tb-ai-content {
+    max-width: 38rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.tb-ai-copy {
+    display: block;
+    order: 1;
+}
+
+.tb-ai-title {
+    margin-top: 0.35rem;
+    font-size: var(--tb-heading-size-xl);
+    line-height: 1.13;
+    letter-spacing: -0.01em;
+}
+
+.tb-ai-text {
+    margin-top: 0.85rem;
+    max-width: 35rem;
+}
+
+.tb-ai-form {
+    margin-top: 1.1rem;
+    max-width: 34rem;
+    border-radius: 14px;
+    border: 1px solid #dfe6f2;
+    background: #fff;
+    box-shadow: var(--tb-shadow-soft);
+    padding: 0.45rem;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    order: 2;
+}
+
+.tb-ai-form input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    color: var(--tb-text);
+    font-size: var(--tb-fs-16);
+    padding: 0.6rem 0.75rem;
+    outline: none;
+}
+
+.tb-ai-form input::placeholder {
+    color: #7f8ea4;
+}
+
+.tb-ai-visual {
+    position: relative;
+    border-radius: 22px;
+    /* border: 1px solid #dfe6f2; */
+    /* background: #fff; */
+    /* box-shadow: 0 10px 28px rgba(12, 31, 73, 0.12); */
+    /* padding: 0.9rem; */
+}
+
+.tb-ai-visual-shell {
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    /* background: linear-gradient(180deg, #f6f9ff 0%, #eef3fd 100%); */
+    position: relative;
+}
+
+.tb-ai-visual-shell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.88;
+}
+
+.tb-ai-badge {
+    position: absolute;
+    top: -0.75rem;
+    right: -0.65rem;
+    border-radius: 999px;
+    border: 1px solid #2f6be4;
+    background: #2f6be4;
+    color: #fff;
+    font-weight: 600;
+    font-size: var(--tb-fs-16);
+    line-height: 1;
+    padding: 0.55rem 0.78rem;
+    box-shadow: 0 8px 20px rgba(47, 107, 228, 0.3);
+}
+
+.tb-ai-signal-grid {
+    margin-top: clamp(0.85rem, 1.8vh, 1.3rem);
+}
+
+.tb-ai-signal {
+    height: 100%;
+    border-radius: 14px;
+    border: 1px solid #e3eaf6;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(12, 43, 115, 0.08);
+    padding: 0.95rem 1rem;
+    text-align: left;
+}
+
+.tb-ai-signal h3 {
+    margin: 0;
+    color: var(--tb-heading-color);
+    font-size: var(--tb-heading-size-md);
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.tb-ai-signal p {
+    margin: 0.4rem 0 0;
+    color: #5d6d84;
+    font-size: var(--tb-fs-16);
+    line-height: 1.35;
+}
+
+@media (min-width: 992px) {
+    .tb-ai-main {
+        height: 100svh;
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+    }
+
+    .tb-ai-main .container-xl {
+        height: calc(100svh - 8.8rem);
+        min-height: calc(100svh - 8.8rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .tb-ai-main {
+        overflow: hidden;
+        padding-top: 5.65rem;
+        padding-bottom: 1.65rem;
+    }
+
+    .tb-ai-mobile-image {
+        order: 1;
+    }
+
+    .tb-ai-mobile-content {
+        order: 2;
+    }
+
+    .tb-ai-main::before {
+        background-size: 34px 34px;
+    }
+
+    .tb-ai-main::after {
+        width: min(40rem, 110vw);
+        height: min(40rem, 110vw);
+        top: -26%;
+    }
+
+    .tb-ai-content {
+        max-width: none;
+    }
+
+    .tb-ai-form {
+        order: 1;
+    }
+
+    .tb-ai-copy {
+        order: 2;
+    }
+
+    .tb-ai-content .tb-hero-kicker {
+        font-size: var(--tb-fs-36);
+        line-height: 1.1;
+    }
+
+    .tb-ai-title {
+        font-size: var(--tb-heading-size-xl);
+        line-height: 1.12;
+        margin-top: 0.2rem;
+    }
+
+    .tb-ai-text {
+        margin-top: 0.7rem;
+        max-width: none;
+    }
+
+    .tb-ai-content .tb-hero-actions {
+        margin-top: 0.85rem;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.55rem;
+    }
+
+    .tb-ai-content .tb-hero-actions .tb-btn {
+        width: 100%;
+        min-height: 2.4rem;
+    }
+
+    .tb-ai-form {
+        margin-top: 0.85rem;
+        border-radius: 12px;
+        padding: 0.4rem;
+        gap: 0.35rem;
+    }
+
+    .tb-ai-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tb-ai-form .tb-btn {
+        width: 100%;
+    }
+
+    .tb-ai-visual {
+        margin-top: 0.2rem;
+        border-radius: 16px;
+        padding: 0.65rem;
+    }
+
+    .tb-ai-visual-shell {
+        border-radius: 12px;
+        aspect-ratio: 16 / 11;
+    }
+
+    .tb-ai-signal-grid {
+        margin-top: 0.95rem;
+    }
+
+    .tb-ai-signal {
+        border-radius: 12px;
+        padding: 0.85rem 0.9rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .tb-ai-main {
+        /* padding-top: 5.35rem; */
+        padding-bottom: 1.2rem;
+    }
+
+    .tb-ai-main::before {
+        background-size: 28px 28px;
+    }
+
+    .tb-ai-content .tb-hero-kicker {
+        font-size: var(--tb-fs-36);
+    }
+
+    .tb-ai-title {
+        font-size: var(--tb-heading-size-xl);
+    }
+
+    .tb-ai-content .tb-hero-actions {
+        grid-template-columns: 1fr;
+        gap: 0.45rem;
+    }
+
+    .tb-ai-form input {
+        padding: 0.55rem 0.65rem;
+    }
+
+    .tb-ai-signal h3 {
+        font-size: var(--tb-heading-size-md);
+    }
+}

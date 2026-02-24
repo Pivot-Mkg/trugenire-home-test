@@ -1,0 +1,1074 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers | TruBoard Technologies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Prata&family=Roboto:wght@700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/app.css">
+    <style>
+        .tb-careers-top-shell {
+            background: radial-gradient(74.52% 74.52% at 50% 25.48%, #E9F0FF 0%, #FFF 100%);
+        }
+
+        .tb-careers-hero {
+            padding: clamp(1rem, 2.4vw, 1.7rem) 0;
+        }
+
+        .tb-careers-hero-card {
+            padding-top: 50px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            gap: clamp(0.9rem, 2vw, 1.5rem);
+            align-items: center;
+        }
+
+        .tb-careers-hero-copy {
+            display: grid;
+            gap: 0.52rem;
+            max-width: 39rem;
+        }
+
+        .tb-careers-kicker {
+            margin: 0;
+            color: #2f6be4;
+            font-size: var(--tb-fs-16);
+            line-height: 1.2;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .tb-careers-hero-copy h1 {
+            margin: 0;
+            color: var(--tb-heading-color);
+            font-size: var(--tb-heading-size-xl);
+            line-height: 1.13;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            max-width: 34rem;
+        }
+
+        .tb-careers-hero-copy p {
+            margin: 0.1rem 0 0;
+            color: #5d6e86;
+            font-size: var(--tb-fs-18);
+            line-height: 1.52;
+            max-width: 33rem;
+        }
+
+        .tb-careers-actions {
+            margin-top: 0.85rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+        }
+
+        .tb-careers-hero-art {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .tb-careers-hero-art img {
+            width: min(100%, 27rem);
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .tb-careers-apply {
+            padding: 0.5rem 0 2.4rem;
+            background: radial-gradient(74.52% 74.52% at 50% 25.48%, #E9F0FF 0%, #FFF 100%);
+            scroll-margin-top: 110px;
+        }
+
+        .tb-careers-apply-card {
+            border-radius: 22px;
+            border: 1px solid #d5e2f8;
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.98) 0%, rgba(244, 249, 255, 0.96) 44%, rgba(255, 255, 255, 0.98) 100%);
+            box-shadow: 0 22px 54px rgba(12, 43, 115, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.88);
+            padding: clamp(1.15rem, 2.4vw, 1.75rem);
+            display: grid;
+            gap: clamp(0.9rem, 1.4vw, 1.1rem);
+            align-content: start;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .tb-careers-apply-card::before {
+            content: "";
+            position: absolute;
+            left: -18%;
+            top: -38%;
+            width: 62%;
+            height: 70%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(47, 107, 228, 0.15) 0%, rgba(47, 107, 228, 0) 74%);
+            pointer-events: none;
+        }
+
+        .tb-careers-apply-card::after {
+            content: "";
+            position: absolute;
+            right: -16%;
+            bottom: -56%;
+            width: 58%;
+            height: 76%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(15, 39, 111, 0.09) 0%, rgba(15, 39, 111, 0) 74%);
+            pointer-events: none;
+        }
+
+        .tb-careers-apply-card>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .tb-careers-apply-copy {
+            display: grid;
+            gap: 0.6rem;
+            align-content: center;
+            justify-items: center;
+            text-align: center;
+        }
+
+        .tb-careers-apply-copy h2 {
+            margin: 0;
+            color: #f6fbff;
+            font-size: var(--tb-heading-size-md);
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .tb-careers-apply-copy p {
+            margin: 0;
+            color: rgba(233, 244, 255, 0.9);
+            font-size: var(--tb-fs-16);
+            line-height: 1.5;
+        }
+
+        .tb-careers-benefits {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 0.4rem;
+            width: fit-content;
+            justify-self: center;
+        }
+
+        .tb-careers-benefits li {
+            color: #dceeff;
+            font-size: var(--tb-fs-16);
+            line-height: 1.35;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .tb-careers-benefits li::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2f6be4;
+            flex-shrink: 0;
+        }
+
+        .tb-careers-form {
+            display: grid;
+            gap: 1rem;
+            --tb-select-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3.5 5.25L7 8.75L10.5 5.25' stroke='%231f4e96' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        }
+
+        .tb-careers-form-head {
+            text-align: center;
+            display: grid;
+            gap: 0.42rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .tb-careers-form-head h2 {
+            margin: 0;
+            color: var(--tb-heading-color);
+            font-size: var(--tb-heading-size-md);
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .tb-careers-form-head p {
+            margin: 0;
+            color: #5d6e86;
+            font-size: var(--tb-fs-16);
+            line-height: 1.5;
+        }
+
+        .tb-careers-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.82rem 0.92rem;
+        }
+
+        .tb-careers-field {
+            display: block;
+        }
+
+        .tb-careers-field.is-full {
+            grid-column: 1 / -1;
+        }
+
+        .tb-careers-form input,
+        .tb-careers-form textarea,
+        .tb-careers-form select {
+            width: 100%;
+            border: 1px solid #cedcf2;
+            border-radius: 14px;
+            background: #fcfdff;
+            color: #20314d;
+            font-size: var(--tb-fs-16);
+            line-height: 1.35;
+            padding: 0.86rem 0.98rem;
+            min-height: 48px;
+            outline: none;
+            box-shadow: 0 1px 2px rgba(18, 47, 106, 0.04), inset 0 1px 2px rgba(18, 47, 106, 0.02);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .tb-careers-form select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding-right: 2.7rem;
+            background-image: var(--tb-select-caret);
+            background-repeat: no-repeat;
+            background-position: right 0.92rem center;
+            background-size: 14px 14px;
+        }
+
+        .tb-careers-form select::-ms-expand {
+            display: none;
+        }
+
+        .tb-careers-form input::placeholder,
+        .tb-careers-form textarea::placeholder {
+            color: #8a97ad;
+        }
+
+        .tb-careers-form input:hover,
+        .tb-careers-form textarea:hover {
+            border-color: #afc5e9;
+            background-color: #fff;
+        }
+
+        .tb-careers-form select:hover {
+            border-color: #afc5e9;
+            background-color: #fff;
+            background-image: var(--tb-select-caret);
+            background-repeat: no-repeat;
+            background-position: right 0.92rem center;
+            background-size: 14px 14px;
+        }
+
+        .tb-careers-form textarea {
+            min-height: 48px;
+            height: 48px;
+            resize: none;
+        }
+
+        .tb-careers-form input:focus,
+        .tb-careers-form textarea:focus,
+        .tb-careers-form select:focus {
+            border-color: #2f6be4;
+            box-shadow: 0 0 0 4px rgba(47, 107, 228, 0.15), inset 0 1px 2px rgba(18, 47, 106, 0.02);
+            background-color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .tb-careers-form select:focus {
+            background-image: var(--tb-select-caret);
+            background-repeat: no-repeat;
+            background-position: right 0.92rem center;
+            background-size: 14px 14px;
+        }
+
+        .tb-careers-form select:open {
+            border-color: #2f6be4;
+            border-radius: 14px;
+            box-shadow: 0 12px 24px rgba(15, 39, 111, 0.12), 0 0 0 3px rgba(47, 107, 228, 0.13);
+            background-color: #fff;
+            background-image: var(--tb-select-caret);
+            background-repeat: no-repeat;
+            background-position: right 0.92rem center;
+            background-size: 14px 14px;
+        }
+
+        .tb-careers-form select option {
+            color: #20314d;
+            background: #ffffff;
+            border: 0;
+            border-radius: 10px;
+            padding: 0.52rem 0.68rem;
+        }
+
+        .tb-careers-form .tb-btn {
+            justify-self: center;
+            min-width: 12.5rem;
+            min-height: 2.5rem;
+            margin-top: 0.3rem;
+            padding-inline: 1.2rem;
+        }
+
+        .tb-careers-form .tb-btn.tb-btn-blue {
+            border-radius: 12px;
+        }
+
+        .tb-careers-form .tb-btn.tb-btn-blue:hover,
+        .tb-careers-form .tb-btn.tb-btn-blue:focus-visible {
+            background-color: #2259c4;
+        }
+
+        .tb-careers-culture,
+        .tb-careers-roles {
+            padding: clamp(2.5rem, 4vw, 4rem) 0;
+        }
+
+        .tb-careers-culture {
+            background: #fff;
+        }
+
+        .tb-careers-section-head {
+            text-align: center;
+            max-width: 44rem;
+            margin: 0 auto 1.2rem;
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .tb-careers-section-head p {
+            margin: 0;
+            color: #5d6e86;
+            font-size: var(--tb-fs-18);
+            line-height: 1.5;
+        }
+
+        .tb-careers-culture-card {
+            height: 100%;
+            border: 1px solid #d6e3f7;
+            border-radius: 15px;
+            background: linear-gradient(165deg, #ffffff 0%, #f7fbff 100%);
+            box-shadow: 0 12px 28px rgba(12, 43, 115, 0.09);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tb-careers-culture-card:hover {
+            transform: translateY(-4px);
+            border-color: #c9daf5;
+            box-shadow: 0 16px 34px rgba(12, 43, 115, 0.13);
+        }
+
+        .tb-careers-culture-card img {
+            width: 100%;
+            height: 178px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .tb-careers-culture-body {
+            padding: 0.88rem;
+            display: grid;
+            gap: 0.55rem;
+            align-content: start;
+            flex: 1;
+        }
+
+        .tb-careers-culture-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tb-careers-culture-index {
+            color: #aac2ee;
+            font-size: 13px;
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+        }
+
+        .tb-careers-culture-chip {
+            width: fit-content;
+            border-radius: 999px;
+            border: 1px solid #d6e4ff;
+            background: #f6f9ff;
+            color: #1d4f98;
+            font-size: 11px;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 0.32rem 0.54rem;
+        }
+
+        .tb-careers-culture-body h3 {
+            margin: 0;
+            color: var(--tb-heading-color);
+            font-size: var(--tb-heading-size-md);
+            line-height: 1.2;
+            font-weight: 600;
+        }
+
+        .tb-careers-culture-body p {
+            margin: 0;
+            color: #5d6e86;
+            font-size: var(--tb-fs-16);
+            line-height: 1.5;
+        }
+
+        .tb-careers-culture-tags {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.36rem;
+        }
+
+        .tb-careers-culture-tags li {
+            border-radius: 999px;
+            border: 1px solid #e1e9f7;
+            background: #fff;
+            color: #4f6078;
+            font-size: 12px;
+            line-height: 1;
+            font-weight: 500;
+            padding: 0.3rem 0.52rem;
+        }
+
+        .tb-careers-culture-note {
+            margin-top: auto;
+            color: #1d3e86;
+            font-size: 12px;
+            line-height: 1.4;
+            font-weight: 600;
+            border-top: 1px solid #e3ecfb;
+            padding-top: 0.5rem;
+        }
+
+        .tb-careers-roles {
+            background: rgba(240, 245, 255, 0.42);
+        }
+
+        .tb-careers-role-grid {
+            margin-top: 1rem;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .tb-careers-role-card {
+            border: 1px solid #e2e9f5;
+            border-radius: 24px;
+            background: #fff;
+            box-shadow: 0 12px 28px rgba(12, 43, 115, 0.08);
+            padding: 1.1rem 1.15rem 1.2rem;
+            display: grid;
+            gap: 0.9rem;
+            min-height: 238px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .tb-careers-role-card:hover {
+            transform: translateY(-4px);
+            border-color: #d2ddf2;
+            box-shadow: 0 16px 34px rgba(12, 43, 115, 0.12);
+        }
+
+        .tb-careers-role-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+
+        .tb-careers-role-card h3 {
+            margin: 0;
+            color: var(--tb-heading-color);
+            font-size: var(--tb-heading-size-md);
+            line-height: 1.34;
+            font-weight: 600;
+            max-width: 80%;
+        }
+
+        .tb-careers-role-arrow {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            border-radius: 50%;
+            background: #2f6be4;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.2s ease, filter 0.2s ease;
+        }
+
+        .tb-careers-role-arrow svg {
+            width: 16px;
+            height: 16px;
+            display: block;
+        }
+
+        .tb-careers-role-arrow:hover,
+        .tb-careers-role-arrow:focus-visible {
+            transform: translateX(2px);
+            filter: brightness(0.95);
+        }
+
+        .tb-careers-role-lines {
+            margin: 0;
+            display: grid;
+            gap: 0.42rem;
+        }
+
+        .tb-careers-role-lines p {
+            margin: 0;
+            color: #21446f;
+            font-size: clamp(var(--tb-fs-16), 1.15vw, var(--tb-fs-20));
+            line-height: 1.45;
+            letter-spacing: 0;
+        }
+
+        .tb-careers-role-lines strong {
+            font-weight: 500;
+        }
+
+        .tb-careers-open-app {
+            margin-top: 1.1rem;
+            text-align: center;
+            display: grid;
+            gap: 0.62rem;
+            justify-items: center;
+        }
+
+        .tb-careers-open-app p {
+            margin: 0;
+            color: #5d6e86;
+            font-size: var(--tb-fs-16);
+            line-height: 1.45;
+        }
+
+        @media (max-width: 1199.98px) {
+            .tb-careers-role-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .tb-careers-hero-card {
+                grid-template-columns: 1fr;
+            }
+
+            .tb-careers-hero-art {
+                justify-content: center;
+            }
+
+            .tb-careers-hero-art img {
+                width: min(100%, 22rem);
+            }
+
+            .tb-careers-apply-card {
+                grid-template-columns: 1fr;
+            }
+
+            .tb-careers-role-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .tb-careers-hero-copy h1 {
+                font-size: var(--tb-heading-size-xl);
+            }
+
+            .tb-careers-hero-copy p,
+            .tb-careers-section-head p {
+                font-size: var(--tb-fs-16);
+            }
+
+            .tb-careers-actions {
+                grid-template-columns: 1fr;
+                display: grid;
+            }
+
+            .tb-careers-actions .tb-btn {
+                width: 100%;
+                min-width: 0;
+            }
+
+            .tb-careers-form-grid,
+            .tb-careers-role-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tb-careers-culture-body h3,
+            .tb-careers-role-card h3,
+            .tb-careers-form-head h2 {
+                font-size: var(--tb-heading-size-md);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="tb-header">
+        <div class="container-xl">
+            <div class="tb-header-card">
+                <a href="./index.html" class="tb-logo" aria-label="TruBoard home">
+                    <img src="./assets/images/00af332c1a9f3126ee7549c6a79f390066c45c4b-BBxVev8d.png"
+                        alt="TruBoard Technologies">
+                </a>
+                <button id="menuToggle" class="tb-menu-toggle d-lg-none" type="button" aria-expanded="false"
+                    aria-controls="mainNav" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav id="mainNav" class="tb-nav">
+                    <div class="tb-nav-item tb-has-dropdown">
+                        <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true"
+                            aria-expanded="false" aria-controls="tb-menu-services">
+                            Services
+                            <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 14 14" fill="none">
+                                    <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg></span>
+                        </button>
+                        <div id="tb-menu-services" class="tb-nav-dropdown tb-mega-menu tb-mega-menu-services"
+                            role="menu" aria-label="Services menu">
+                            <div class="tb-mega-menu-grid">
+                                <section class="tb-mega-menu-col" aria-labelledby="tb-services-overview">
+                                    <h3 id="tb-services-overview" class="tb-mega-menu-heading">Services</h3>
+                                    <a href="./services.html" class="tb-mega-menu-link" role="menuitem">What We
+                                        Solve</a>
+                                    <a href="./contruction-ai.html" class="tb-mega-menu-link"
+                                        role="menuitem">Development &amp;
+                                        Execution</a>
+                                    <a href="./property-ai.html" class="tb-mega-menu-link" role="menuitem">Capital &amp;
+                                        Asset
+                                        Management</a>
+                                </section>
+                            </div>
+                            <div class="tb-mega-menu-cta" role="presentation">
+                                <a href="./contact-us.html#contactTabServices" class="btn tb-btn tb-btn-blue"
+                                    role="menuitem">Discuss Mandate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tb-nav-item tb-has-dropdown">
+                        <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true"
+                            aria-expanded="false" aria-controls="tb-menu-product">
+                            Product
+                            <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 14 14" fill="none">
+                                    <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg></span>
+                        </button>
+                        <div id="tb-menu-product" class="tb-nav-dropdown tb-mega-menu tb-mega-menu-product" role="menu"
+                            aria-label="Product menu">
+                            <div class="tb-mega-menu-grid">
+                                <section class="tb-mega-menu-col" aria-labelledby="tb-product-overview">
+                                    <h3 id="tb-product-overview" class="tb-mega-menu-heading">Product</h3>
+                                    <a href="./truegenie.html" class="tb-mega-menu-link" role="menuitem">TruGenie
+                                        Overview</a>
+                                    <a href="./truegenie.html" class="tb-mega-menu-link" role="menuitem">Use Cases</a>
+                                    <a href="./truegenie.html" class="tb-mega-menu-link" role="menuitem">Platform
+                                        Capabilities</a>
+                                </section>
+                            </div>
+                            <div class="tb-mega-menu-cta" role="presentation">
+                                <a href="./contact-us.html#contactTabDemo" class="btn tb-btn tb-btn-blue"
+                                    role="menuitem">Book a
+                                    Demo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tb-nav-item tb-has-dropdown">
+                        <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true"
+                            aria-expanded="false" aria-controls="tb-menu-resources">
+                            Resources
+                            <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 14 14" fill="none">
+                                    <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg></span>
+                        </button>
+                        <div id="tb-menu-resources" class="tb-nav-dropdown tb-mega-menu tb-mega-menu-resources"
+                            role="menu" aria-label="Resources menu">
+                            <div class="tb-mega-menu-grid">
+                                <section class="tb-mega-menu-col" aria-labelledby="tb-resources-overview">
+                                    <h3 id="tb-resources-overview" class="tb-mega-menu-heading">Resources</h3>
+                                    <a href="./resources.html" class="tb-mega-menu-link" role="menuitem">Case
+                                        Studies</a>
+                                    <a href="./resources.html" class="tb-mega-menu-link" role="menuitem">Insights</a>
+                                    <a href="./about-use.html" class="tb-mega-menu-link" role="menuitem">About Us</a>
+                                    <a href="./careers.html" class="tb-mega-menu-link" role="menuitem">Careers</a>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="./contact-us.html" class="btn tb-btn tb-btn-blue tb-nav-btn">Contact Us</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="tb-careers-shell">
+        <div class="tb-careers-top-shell">
+            <section class="tb-careers-hero" aria-label="Careers hero">
+                <div class="container-xl">
+                    <div class="tb-careers-hero-card">
+                        <div class="tb-careers-hero-copy">
+                            <!-- <p class="tb-careers-kicker">Careers At TruBoard</p> -->
+                            <h1>Build the Future of Real Estate Asset Intelligence</h1>
+                            <p>
+                                Join a team of operators, builders, and problem-solvers shaping how real estate
+                                portfolios
+                                are monitored, governed, and scaled.
+                            </p>
+                            <div class="tb-careers-actions">
+                                <a href="#open-roles" class="btn tb-btn tb-btn-blue">View Open Roles</a>
+                                <a href="#career-application" class="btn tb-btn tb-btn-ghost">Submit Your
+                                    Profile</a>
+                            </div>
+                        </div>
+                        <div class="tb-careers-hero-art">
+                            <img src="./assets/images/hero_illustration.png" alt="Careers hero illustration">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section id="career-application" class="tb-careers-apply" aria-label="Career form">
+            <div class="container-xl">
+                <div class="tb-careers-apply-card">
+                    <form class="tb-careers-form" action="#career-application" method="get">
+                        <div class="tb-careers-form-head">
+                            <h2>Submit Your Profile</h2>
+                            <p>Share your details and our team will connect with the most relevant openings.</p>
+                        </div>
+                        <div class="tb-careers-form-grid">
+                            <div class="tb-careers-field">
+                                <input id="careerFirstName" name="first_name" type="text" placeholder="First Name"
+                                    aria-label="First Name" required>
+                            </div>
+                            <div class="tb-careers-field">
+                                <input id="careerLastName" name="last_name" type="text" placeholder="Last Name"
+                                    aria-label="Last Name" required>
+                            </div>
+                            <div class="tb-careers-field is-full">
+                                <input id="careerEmail" name="email" type="email" placeholder="Work Email"
+                                    aria-label="Work Email" required>
+                            </div>
+                            <div class="tb-careers-field is-full">
+                                <select id="careerRole" name="role_interest" aria-label="Role Of Interest" required>
+                                    <option value="">Select a role area</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Product">Product</option>
+                                    <option value="Data & Analytics">Data & Analytics</option>
+                                    <option value="Client Success">Client Success</option>
+                                    <option value="Strategy & Operations">Strategy & Operations</option>
+                                </select>
+                            </div>
+                            <div class="tb-careers-field is-full">
+                                <textarea id="careerMessage" name="message"
+                                    placeholder="Tell us briefly about your background" aria-label="Message"></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn tb-btn tb-btn-blue">Submit Profile</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="tb-careers-culture" aria-label="Culture and values">
+            <div class="container-xl">
+                <div class="tb-careers-section-head">
+                    <!-- <p class="tb-careers-kicker">Culture &amp; Values</p> -->
+                    <h2 class="tb-title">Life At TruBoard</h2>
+                    <p>
+                        We build with clarity, ownership, and speed. Teams work closely across product, services, and
+                        operations to solve high-impact real estate challenges.
+                    </p>
+                </div>
+                <div class="row g-3 g-lg-4">
+                    <div class="col-md-6 col-lg-4">
+                        <article class="tb-careers-culture-card">
+                            <img src="./assets/images/home-page/hero-banner-left-1.png" alt="Innovation at TruBoard">
+                            <div class="tb-careers-culture-body">
+                                <div class="tb-careers-culture-top">
+                                    <span class="tb-careers-culture-chip">Value 01</span>
+                                    <span class="tb-careers-culture-index">01</span>
+                                </div>
+                                <h3>Innovation First</h3>
+                                <p>We ship practical solutions that improve control, visibility, and decision speed for
+                                    real estate assets.</p>
+                                <ul class="tb-careers-culture-tags">
+                                    <li>Fast Iteration</li>
+                                    <li>Product Thinking</li>
+                                </ul>
+                                <p class="tb-careers-culture-note">Outcome: Faster delivery with measurable business
+                                    impact.</p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <article class="tb-careers-culture-card">
+                            <img src="./assets/images/home-page/hero-banner-left-2.png" alt="Collaborative growth">
+                            <div class="tb-careers-culture-body">
+                                <div class="tb-careers-culture-top">
+                                    <span class="tb-careers-culture-chip">Value 02</span>
+                                    <span class="tb-careers-culture-index">02</span>
+                                </div>
+                                <h3>Collaborative Growth</h3>
+                                <p>Cross-functional execution is core to how we operate, with real ownership and rapid
+                                    feedback loops.</p>
+                                <ul class="tb-careers-culture-tags">
+                                    <li>Cross-Functional</li>
+                                    <li>Mentorship</li>
+                                </ul>
+                                <p class="tb-careers-culture-note">Outcome: Strong mentorship and accelerated career
+                                    growth.</p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <article class="tb-careers-culture-card">
+                            <img src="./assets/images/home-page/hero-banner-left-3.png" alt="Impactful work">
+                            <div class="tb-careers-culture-body">
+                                <div class="tb-careers-culture-top">
+                                    <span class="tb-careers-culture-chip">Value 03</span>
+                                    <span class="tb-careers-culture-index">03</span>
+                                </div>
+                                <h3>Impactful Work</h3>
+                                <p>Every role contributes directly to portfolio performance, capital protection, and
+                                    execution excellence.</p>
+                                <ul class="tb-careers-culture-tags">
+                                    <li>Ownership</li>
+                                    <li>Business Impact</li>
+                                </ul>
+                                <p class="tb-careers-culture-note">Outcome: Ownership from day one on mission-critical
+                                    initiatives.</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="open-roles" class="tb-careers-roles" aria-label="Open positions">
+            <div class="container-xl">
+                <div class="tb-careers-section-head">
+                    <h2 class="tb-title">Open Positions</h2>
+                    <p>Explore current openings across our core product and services teams.</p>
+                </div>
+
+                <div class="tb-careers-role-grid">
+                    <article class="tb-careers-role-card">
+                        <div class="tb-careers-role-head">
+                            <h3>Senior Frontend Engineer</h3>
+                            <a href="#career-application" class="tb-careers-role-arrow"
+                                aria-label="Apply for Senior Frontend Engineer">
+                                <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true">
+                                    <path d="M4 10H15.5M15.5 10L10.8 5.3M15.5 10L10.8 14.7" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="tb-careers-role-lines">
+                            <p><strong>Experience:</strong> 5+ years</p>
+                            <p><strong>Qualification:</strong> B.E./B.Tech in CS/IT or equivalent</p>
+                            <p><strong>Location:</strong> Mumbai or Remote (Full-time)</p>
+                        </div>
+                    </article>
+                    <article class="tb-careers-role-card">
+                        <div class="tb-careers-role-head">
+                            <h3>Technical Product Manager</h3>
+                            <a href="#career-application" class="tb-careers-role-arrow"
+                                aria-label="Apply for Technical Product Manager">
+                                <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true">
+                                    <path d="M4 10H15.5M15.5 10L10.8 5.3M15.5 10L10.8 14.7" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="tb-careers-role-lines">
+                            <p><strong>Experience:</strong> 6+ years</p>
+                            <p><strong>Qualification:</strong> Engineering background, MBA preferred</p>
+                            <p><strong>Location:</strong> Gurugram (Full-time)</p>
+                        </div>
+                    </article>
+                    <article class="tb-careers-role-card">
+                        <div class="tb-careers-role-head">
+                            <h3>Real Estate Data Analyst</h3>
+                            <a href="#career-application" class="tb-careers-role-arrow"
+                                aria-label="Apply for Real Estate Data Analyst">
+                                <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true">
+                                    <path d="M4 10H15.5M15.5 10L10.8 5.3M15.5 10L10.8 14.7" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="tb-careers-role-lines">
+                            <p><strong>Experience:</strong> 3+ years</p>
+                            <p><strong>Qualification:</strong> Engineering, Statistics, or Finance graduate</p>
+                            <p><strong>Location:</strong> Mumbai (Full-time)</p>
+                        </div>
+                    </article>
+                    <article class="tb-careers-role-card">
+                        <div class="tb-careers-role-head">
+                            <h3>Client Success Lead</h3>
+                            <a href="#career-application" class="tb-careers-role-arrow"
+                                aria-label="Apply for Client Success Lead">
+                                <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true">
+                                    <path d="M4 10H15.5M15.5 10L10.8 5.3M15.5 10L10.8 14.7" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="tb-careers-role-lines">
+                            <p><strong>Experience:</strong> 5+ years</p>
+                            <p><strong>Qualification:</strong> BBA/MBA with enterprise client success exposure</p>
+                            <p><strong>Location:</strong> Bengaluru (Full-time)</p>
+                        </div>
+                    </article>
+                    <article class="tb-careers-role-card">
+                        <div class="tb-careers-role-head">
+                            <h3>Program Operations Manager</h3>
+                            <a href="#career-application" class="tb-careers-role-arrow"
+                                aria-label="Apply for Program Operations Manager">
+                                <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true">
+                                    <path d="M4 10H15.5M15.5 10L10.8 5.3M15.5 10L10.8 14.7" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="tb-careers-role-lines">
+                            <p><strong>Experience:</strong> 6+ years</p>
+                            <p><strong>Qualification:</strong> Engineering or MBA with program delivery governance</p>
+                            <p><strong>Location:</strong> Hyderabad (Full-time)</p>
+                        </div>
+                    </article>
+                    <article class="tb-careers-role-card">
+                        <div class="tb-careers-role-head">
+                            <h3>Business Strategy Associate</h3>
+                            <a href="#career-application" class="tb-careers-role-arrow"
+                                aria-label="Apply for Business Strategy Associate">
+                                <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true">
+                                    <path d="M4 10H15.5M15.5 10L10.8 5.3M15.5 10L10.8 14.7" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="tb-careers-role-lines">
+                            <p><strong>Experience:</strong> 2+ years</p>
+                            <p><strong>Qualification:</strong> Economics, Business, or Engineering graduate</p>
+                            <p><strong>Location:</strong> Mumbai (Full-time)</p>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="tb-careers-open-app">
+                    <!-- <p>Don’t see a fit? We are always open to exceptional profiles.</p> -->
+                    <a href="#career-application" class="btn tb-btn tb-btn-blue">Send Open Application</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="tb-cta">
+        <div class="container-xl text-center">
+            <h2 class="tb-title">Ready to build your next chapter with TruBoard?</h2>
+            <div class="tb-cta-actions">
+                <a href="#open-roles" class="btn tb-btn tb-btn-ghost">View Open Roles</a>
+                <a href="#career-application" class="btn tb-btn tb-btn-blue">Talk to Our Team</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="tb-footer">
+        <div class="container-xl">
+            <div class="row g-4 tb-footer-top">
+                <div class="col-lg-12">
+                    <a href="./index.html" class="tb-footer-logo" aria-label="TruBoard home">
+                        <img src="./assets/images/1a36bc184ac42a93ebf62d57aae0e30c740ff2ab-B2Jtxq84.png"
+                            alt="TruBoard Technologies">
+                    </a>
+                    <p class="tb-footer-subtitle">Real Estate Asset Management Services</p>
+                </div>
+                <div class="col-lh-1"></div>
+                <div class="col-sm-6 col-lg-4">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="./index.html">Home</a></li>
+                        <li><a href="./services.html">Services</a></li>
+                        <li><a href="./truegenie.html">TruGenie</a></li>
+                        <li><a href="./resources.html">Resources</a></li>
+                        <li><a href="./about-use.html">About Us</a></li>
+                        <li><a href="./careers.html">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <h3>Contact Us</h3>
+                    <p class="tb-footer-contact">
+                        321, SOLITAIRE CORPORATE PARK, ANDHERI GHATKOPAR LINK ROAD, CHAKALA, Chakala MIDC,
+                        Mumbai, Mumbai Suburban, Maharashtra, 400093
+                    </p>
+                </div>
+            </div>
+            <div class="tb-footer-bottom">
+                <p>(c) 2025 TruBoard Technologies. All rights reserved.</p>
+                <div class="tb-socials" aria-label="Social links">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Twitter">x</a>
+                    <a href="#" aria-label="LinkedIn">in</a>
+                    <a href="#" aria-label="Instagram">ig</a>
+                </div>
+                <div class="tb-policies">
+                    <a href="./legal.html#privacy-policy">Privacy Policy</a>
+                    <a href="./legal.html#terms-of-service">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./assets/js/app.js" defer></script>
+</body>
+
+</html>
