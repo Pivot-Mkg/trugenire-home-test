@@ -1,0 +1,1156 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | TruBoard Technologies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Prata&family=Roboto:wght@700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/app.css">
+    <style>
+        .tb-about-top-shell {
+            background: radial-gradient(74.52% 74.52% at 50% 25.48%, #e9f0ff 0%, #fff 100%);
+        }
+
+        .tb-about-hero {
+            padding: clamp(1rem, 2.4vw, 1.8rem) 0 clamp(1.1rem, 2.3vw, 2rem);
+        }
+
+        .tb-about-hero-card {
+            padding-top: 50px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            gap: clamp(0.9rem, 2vw, 1.55rem);
+            align-items: center;
+        }
+
+        .tb-about-hero-copy {
+            display: grid;
+            gap: 0.54rem;
+            max-width: 38rem;
+        }
+
+        .tb-about-kicker {
+            margin: 0;
+            color: #2f6be4;
+            font-size: var(--tb-fs-16);
+            line-height: 1.2;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .tb-about-hero-copy h1 {
+            margin: 0;
+            color: var(--tb-heading-color);
+            font-size: var(--tb-heading-size-xl);
+            line-height: 1.13;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            max-width: 34rem;
+        }
+
+        .tb-about-hero-copy p {
+            margin: 0.12rem 0 0;
+            color: #5d6e86;
+            font-size: var(--tb-fs-18);
+            line-height: 1.52;
+            max-width: 34rem;
+        }
+
+        .tb-about-hero-actions {
+            margin-top: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+        }
+
+        .tb-about-hero-art {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .tb-about-hero-art img {
+            width: min(100%, 27rem);
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .tb-about-purpose {
+            padding: clamp(1.6rem, 3.6vw, 2.4rem) 0 clamp(2rem, 4vw, 3rem);
+            background: #fff;
+        }
+
+        .tb-about-purpose-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            background: #fff;
+        }
+
+        .tb-about-purpose-panel {
+            position: relative;
+            /* min-height: 21rem; */
+            padding: clamp(1.5rem, 3vw, 2.35rem) clamp(1.1rem, 2.4vw, 2.25rem) clamp(1.3rem, 2.8vw, 2rem);
+            display: grid;
+            gap: 0.8rem;
+            align-content: start;
+            overflow: hidden;
+        }
+
+        .tb-about-purpose-media {
+            margin: 0;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #edf3ff;
+            border: 1px solid #d6e4f8;
+            height: clamp(120px, 16vw, 250px);
+        }
+
+        .tb-about-purpose-media img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .tb-about-purpose-panel+.tb-about-purpose-panel {
+            border-left: 0;
+        }
+
+        .tb-about-purpose-index {
+            margin: 0;
+            color: #8fb4e6;
+            font-size: var(--tb-fs-16);
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+        }
+
+        .tb-about-purpose-title {
+            margin: 0;
+            color: var(--tb-heading-color);
+            /* font-size: clamp(2rem, 2.6vw, 2.6rem); */
+            line-height: 1.12;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+
+        .tb-about-purpose-title strong {
+            color: #061b45;
+            font-weight: 400;
+        }
+
+        .tb-about-purpose-rule {
+            display: none;
+        }
+
+        .tb-about-purpose-text {
+            margin: 0;
+            color: #5d6e86;
+            font-size: clamp(var(--tb-fs-16), 1.2vw, var(--tb-fs-18));
+            line-height: 1.5;
+            max-width: 31ch;
+        }
+
+        .tb-about-purpose-link {
+            margin-top: auto;
+            color: #286fed;
+            font-size: var(--tb-fs-16);
+            line-height: 1.2;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            width: fit-content;
+        }
+
+        .tb-about-purpose-link:hover {
+            color: #1d4f98;
+        }
+
+        .tb-about-purpose-dots {
+            position: absolute;
+            right: 1.05rem;
+            bottom: 0.9rem;
+            width: 112px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            opacity: 0.62;
+            pointer-events: none;
+        }
+
+        .tb-about-purpose-dots span {
+            width: 20px;
+            height: 20px;
+            border-radius: 999px;
+            background: #edf1f7;
+        }
+
+        .tb-about-purpose-dots span:first-child {
+            visibility: hidden;
+        }
+
+        .tb-about-purpose-ring {
+            position: absolute;
+            right: 0.9rem;
+            bottom: 0.38rem;
+            width: 116px;
+            height: 116px;
+            border-radius: 999px;
+            background: radial-gradient(circle at center, #e9eef6 0 18px, #f0f4f9 18px 42px, transparent 42px 100%);
+            pointer-events: none;
+        }
+
+        .tb-about-purpose-ring::after {
+            content: none;
+        }
+
+        .tb-about-metrics {
+            padding: 1rem 0 2.2rem;
+        }
+
+        .tb-about-section-head {
+            text-align: center;
+            max-width: 48rem;
+            margin: 0 auto 1.2rem;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .tb-about-section-head p {
+            margin: 0;
+            color: #5d6e86;
+            font-size: var(--tb-fs-18);
+            line-height: 1.5;
+            margin-bottom: 40px;
+        }
+
+        .tb-about-values {
+            padding: clamp(2.5rem, 4.8vw, 3.7rem) 0;
+            background: #fff;
+        }
+
+        .tb-about-value-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.85rem;
+        }
+
+        .tb-about-value-card {
+            border: 1px solid #dfe6f2;
+            border-radius: 14px;
+            background: #fff;
+            box-shadow: var(--tb-shadow-soft);
+            padding: 1rem 1rem 1.05rem;
+            display: grid;
+            gap: 0.46rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .tb-about-value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(12, 43, 115, 0.14);
+        }
+
+        .tb-about-value-card h3 {
+            margin: 0;
+            color: var(--tb-heading-color);
+            font-size: 1.05rem;
+            line-height: 1.3;
+            font-weight: 600;
+        }
+
+        .tb-about-value-card p {
+            margin: 0;
+            color: #5d6e86;
+            font-size: var(--tb-fs-16);
+            line-height: 1.45;
+        }
+
+        .tb-about-team {
+            padding: clamp(2.6rem, 5vw, 3.8rem) 0;
+            background: #f7f9fd;
+        }
+
+        .tb-about-team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: clamp(0.78rem, 1.35vw, 1rem);
+        }
+
+        .tb-about-team-pagination {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 0.42rem;
+            margin-top: 0.8rem;
+        }
+
+        .tb-about-team-page {
+            width: 8px;
+            height: 8px;
+            border: 0;
+            border-radius: 999px;
+            background: #d2dff4;
+            padding: 0;
+            transition: width 0.2s ease, background-color 0.2s ease;
+        }
+
+        .tb-about-team-page.is-active {
+            width: 22px;
+            background: #2f6be4;
+        }
+
+        .tb-about-team-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #d6e2f4;
+            border-radius: 20px;
+            background: #d4ddea;
+            box-shadow: var(--tb-shadow-soft);
+            min-height: 320px;
+            aspect-ratio: 4 / 5;
+            isolation: isolate;
+        }
+
+        .tb-about-team-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+
+        .tb-about-team-card::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 52%;
+            background: linear-gradient(180deg, rgba(9, 24, 59, 0) 0%, rgba(9, 24, 59, 0.84) 66%, rgba(9, 24, 59, 0.96) 100%);
+            z-index: 0;
+        }
+
+        .tb-about-team-card:hover img {
+            transform: scale(1.035);
+        }
+
+        .tb-about-team-linkedin {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40px;
+            height: 38px;
+            border-radius: 0 18px 0 14px;
+            background: #0c3f78;
+            color: #fff;
+            font-size: 0.78rem;
+            line-height: 1;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: lowercase;
+            z-index: 2;
+            transition: background-color 0.2s ease;
+        }
+
+        .tb-about-team-linkedin:hover {
+            color: #fff;
+            background: #0f276f;
+        }
+
+        .tb-about-team-meta {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 1.05rem 0.95rem 0.95rem;
+            display: grid;
+            gap: 0.3rem;
+            z-index: 1;
+        }
+
+        .tb-about-team-meta h3 {
+            margin: 0;
+            color: #fff;
+            font-size: clamp(1rem, 1.15vw, 1.25rem);
+            line-height: 1.25;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+        }
+
+        .tb-about-team-meta p {
+            margin: 0;
+            color: rgba(244, 248, 255, 0.96);
+            font-size: var(--tb-fs-16);
+            line-height: 1.45;
+            font-weight: 500;
+        }
+
+        .tb-about-journey {
+            padding: clamp(2.5rem, 4.8vw, 3.8rem) 0;
+            background: #fff;
+            padding-bottom: 0;
+        }
+
+        .tb-about-journey-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 0.9rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .tb-about-section-head.tb-about-section-head-left {
+            margin: 0;
+            text-align: left;
+            max-width: 40rem;
+        }
+
+        .tb-about-journey-controls {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            flex-shrink: 0;
+        }
+
+        .tb-about-journey-arrow {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            border: 1px solid #d6e2f4;
+            background: #fff;
+            color: var(--tb-heading-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 16px rgba(12, 31, 73, 0.08);
+            transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .tb-about-journey-arrow:hover {
+            border-color: #2f6be4;
+            color: #2f6be4;
+            background: #f5f9ff;
+            transform: translateY(-1px);
+        }
+
+        .tb-about-journey-arrow:disabled {
+            opacity: 0.45;
+            cursor: default;
+            transform: none;
+        }
+
+        .tb-about-journey-arrow svg {
+            width: 18px;
+            height: 18px;
+            display: block;
+        }
+
+        .tb-about-journey-viewport {
+            overflow-x: auto;
+            overflow-y: visible;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            padding-bottom: 0.3rem;
+        }
+
+        .tb-about-journey-viewport::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tb-about-journey-track {
+            position: relative;
+            display: flex;
+            align-items: stretch;
+            gap: 2.85rem;
+            min-width: max-content;
+            padding-top: 0.1rem;
+            padding-bottom: 40px;
+        }
+
+        .tb-about-journey-track::before {
+            content: "";
+            position: absolute;
+            left: 0.85rem;
+            right: 0.85rem;
+            top: 5.3rem;
+            height: 2px;
+            background: #d8e4f8;
+
+        }
+
+        .tb-about-milestone {
+            width: min(19.5rem, 78vw);
+            padding: 0;
+            display: grid;
+            gap: 2rem;
+            scroll-snap-align: start;
+            position: relative;
+        }
+
+        .tb-about-milestone-year {
+            margin: 0;
+            color: rgba(6, 27, 69, 0.12);
+            font-size: clamp(2.8rem, 5vw, 3rem);
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            transition: color 0.22s ease;
+        }
+
+        .tb-about-milestone-dot {
+            width: 1.42rem;
+            height: 1.42rem;
+            border-radius: 999px;
+            background: #eaf2ff;
+            border: 2px solid #b7ccef;
+            box-shadow: 0 0 0 4px #fff;
+            margin-left: 0.3rem;
+            margin-top: -0.12rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tb-about-milestone-card {
+            border: 1px solid #dfe6f2;
+            border-radius: 12px;
+            background: #fff;
+            padding: 1.05rem 1rem 1.05rem;
+            min-height: 8.35rem;
+            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .tb-about-milestone:hover .tb-about-milestone-card {
+            transform: translateY(-3px);
+            border-color: #c8daf9;
+            box-shadow: 0 14px 30px rgba(11, 31, 83, 0.1);
+        }
+
+        .tb-about-milestone:hover .tb-about-milestone-year,
+        .tb-about-milestone:focus-within .tb-about-milestone-year {
+            color: rgba(47, 107, 228, 0.32);
+        }
+
+        .tb-about-milestone-card h3 {
+            margin: 0 0 0.45rem;
+            color: var(--tb-heading-color);
+            font-size: 1.03rem;
+            line-height: 1.32;
+            font-weight: 600;
+        }
+
+        .tb-about-milestone-card p {
+            margin: 0;
+            color: #5d6e86;
+            font-size: var(--tb-fs-16);
+            line-height: 1.45;
+        }
+
+        @media (max-width: 1199.98px) {
+
+            .tb-about-value-grid,
+            .tb-about-team-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 991.98px) {
+
+            .tb-about-hero-card {
+                grid-template-columns: 1fr;
+            }
+
+            .tb-about-purpose-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tb-about-purpose-panel {
+                min-height: 0;
+                padding: 1.55rem 1.2rem 1.6rem;
+            }
+
+            .tb-about-purpose-media {
+                height: 150px;
+            }
+
+            .tb-about-purpose-panel+.tb-about-purpose-panel {
+                border-left: 0;
+                border-top: 0;
+            }
+
+            .tb-about-hero-art {
+                justify-content: center;
+            }
+
+            .tb-about-hero-art img {
+                width: min(100%, 24rem);
+            }
+
+            .tb-about-journey-head {
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .tb-about-hero {
+                padding: 0.6rem 0 1.15rem;
+            }
+
+            .tb-about-hero-card {
+                gap: 0.75rem;
+                padding-top: 58px;
+            }
+
+            .tb-about-hero-copy h1 {
+                font-size: 1.92rem;
+            }
+
+            .tb-about-hero-copy p,
+            .tb-about-section-head p,
+            .tb-about-purpose-text {
+                font-size: var(--tb-fs-16);
+            }
+
+            .tb-about-purpose-panel {
+                padding: 1.25rem 0.95rem 1.35rem;
+                gap: 0.72rem;
+            }
+
+            .tb-about-purpose-media {
+                height: 128px;
+            }
+
+            /* 
+            .tb-about-purpose-title {
+                font-size: clamp(1.72rem, 7vw, 2.1rem);
+            } */
+
+            .tb-about-purpose-dots,
+            .tb-about-purpose-ring {
+                opacity: 0.42;
+                transform: scale(0.76);
+                transform-origin: bottom right;
+            }
+
+            .tb-about-value-grid,
+            .tb-about-team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tb-about-team-grid {
+                display: flex;
+                gap: 0.75rem;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none;
+                padding-bottom: 0.35rem;
+            }
+
+            .tb-about-team-grid::-webkit-scrollbar {
+                display: none;
+            }
+
+            .tb-about-team-card {
+                min-height: 300px;
+                flex: 0 0 100%;
+                width: 100%;
+                max-width: 100%;
+                scroll-snap-align: start;
+            }
+
+            .tb-about-team-pagination {
+                display: flex;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .tb-about-journey-head {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="tb-header">
+        <div class="container-xl">
+            <div class="tb-header-card">
+                <a href="./index.html" class="tb-logo" aria-label="TruBoard home">
+                    <img src="./assets/images/00af332c1a9f3126ee7549c6a79f390066c45c4b-BBxVev8d.png"
+                        alt="TruBoard Technologies">
+                </a>
+                <button id="menuToggle" class="tb-menu-toggle d-lg-none" type="button" aria-expanded="false"
+                    aria-controls="mainNav" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav id="mainNav" class="tb-nav">
+                    <div class="tb-nav-item tb-has-dropdown">
+                        <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true"
+                            aria-expanded="false" aria-controls="tb-menu-services">
+                            Services
+                            <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 14 14" fill="none">
+                                    <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg></span>
+                        </button>
+                        <div id="tb-menu-services" class="tb-nav-dropdown tb-mega-menu tb-mega-menu-services"
+                            role="menu" aria-label="Services menu">
+                            <div class="tb-mega-menu-grid">
+                                <section class="tb-mega-menu-col" aria-labelledby="tb-services-overview">
+                                    <h3 id="tb-services-overview" class="tb-mega-menu-heading">Services</h3>
+                                    <a href="./services.html" class="tb-mega-menu-link" role="menuitem">What We
+                                        Solve</a>
+                                    <a href="./contruction-ai.html" class="tb-mega-menu-link"
+                                        role="menuitem">Development &amp;
+                                        Execution</a>
+                                    <a href="./property-ai.html" class="tb-mega-menu-link" role="menuitem">Capital &amp;
+                                        Asset
+                                        Management</a>
+                                </section>
+                            </div>
+                            <div class="tb-mega-menu-cta" role="presentation">
+                                <a href="./contact-us.html#contactTabServices" class="btn tb-btn tb-btn-blue"
+                                    role="menuitem">Discuss
+                                    Mandate</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tb-nav-item tb-has-dropdown">
+                        <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true"
+                            aria-expanded="false" aria-controls="tb-menu-product">
+                            Product
+                            <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 14 14" fill="none">
+                                    <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg></span>
+                        </button>
+                        <div id="tb-menu-product" class="tb-nav-dropdown tb-mega-menu tb-mega-menu-product" role="menu"
+                            aria-label="Product menu">
+                            <div class="tb-mega-menu-grid">
+                                <section class="tb-mega-menu-col" aria-labelledby="tb-product-overview">
+                                    <h3 id="tb-product-overview" class="tb-mega-menu-heading">Product</h3>
+                                    <a href="./truegenie.html" class="tb-mega-menu-link" role="menuitem">TruGenie
+                                        Overview</a>
+                                    <a href="./truegenie.html" class="tb-mega-menu-link" role="menuitem">Use Cases</a>
+                                    <a href="./truegenie.html" class="tb-mega-menu-link" role="menuitem">Platform
+                                        Capabilities</a>
+                                </section>
+                            </div>
+                            <div class="tb-mega-menu-cta" role="presentation">
+                                <a href="./contact-us.html#contactTabDemo" class="btn tb-btn tb-btn-blue"
+                                    role="menuitem">Book a
+                                    Demo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tb-nav-item tb-has-dropdown">
+                        <button type="button" class="tb-nav-link tb-nav-trigger" aria-haspopup="true"
+                            aria-expanded="false" aria-controls="tb-menu-resources">
+                            Resources
+                            <span class="tb-nav-caret"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 14 14" fill="none">
+                                    <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#061B45" stroke-width="1.16667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg></span>
+                        </button>
+                        <div id="tb-menu-resources" class="tb-nav-dropdown tb-mega-menu tb-mega-menu-resources"
+                            role="menu" aria-label="Resources menu">
+                            <div class="tb-mega-menu-grid">
+                                <section class="tb-mega-menu-col" aria-labelledby="tb-resources-overview">
+                                    <h3 id="tb-resources-overview" class="tb-mega-menu-heading">Resources</h3>
+                                    <a href="./resources.html" class="tb-mega-menu-link" role="menuitem">Case
+                                        Studies</a>
+                                    <a href="./resources.html" class="tb-mega-menu-link" role="menuitem">Insights</a>
+                                    <a href="./about-us.html" class="tb-mega-menu-link" role="menuitem">About Us</a>
+                                    <a href="./careers.html" class="tb-mega-menu-link" role="menuitem">Careers</a>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="./contact-us.html" class="btn tb-btn tb-btn-blue tb-nav-btn">Contact Us</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="tb-about-shell">
+        <div class="tb-about-top-shell">
+            <section class="tb-about-hero" aria-label="About hero">
+                <div class="container-xl">
+                    <div class="tb-about-hero-card">
+                        <div class="tb-about-hero-copy">
+                            <h1>Execution confidence for modern real estate portfolios</h1>
+                            <p>
+                                TruBoard combines domain-led services and AI-powered intelligence so owners, lenders,
+                                and funds can
+                                monitor assets, protect capital, and improve outcomes through every stage of the
+                                lifecycle.
+                            </p>
+                            <div class="tb-about-hero-actions">
+                                <a href="./contact-us.html#contactTabServices" class="btn tb-btn tb-btn-blue">Discuss
+                                    Mandate</a>
+                                <a href="./contact-us.html#contactTabDemo" class="btn tb-btn tb-btn-ghost">Book a
+                                    Demo</a>
+                            </div>
+                        </div>
+                        <div class="tb-about-hero-art">
+                            <img src="./assets/images/hero_illustration.png"
+                                alt="TruBoard real estate intelligence illustration">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <section class="tb-about-team" aria-label="Leadership team">
+            <div class="container-xl">
+                <div class="tb-about-section-head">
+                    <h2 class="tb-title">Leadership Team</h2>
+                    <p>Cross-functional leaders from real estate operations, capital, and technology.</p>
+                </div>
+                <div class="tb-about-team-grid">
+                    <article class="tb-about-team-card">
+                        <img src="https://truboardcleantech.com/img/about-us/Srickant-Rajagopal.png"
+                            alt="Vikram Singh portrait" loading="lazy" decoding="async">
+                        <a href="#" class="tb-about-team-linkedin" aria-label="Vikram Singh on LinkedIn">in</a>
+                        <div class="tb-about-team-meta">
+                            <h3>Vikram Singh</h3>
+                            <p>Chief Executive Officer</p>
+                        </div>
+                    </article>
+                    <article class="tb-about-team-card">
+                        <img src="https://truboardcleantech.com/img/about-us/Srickant-Rajagopal.png"
+                            alt="Shreya Kapoor portrait" loading="lazy" decoding="async">
+                        <a href="#" class="tb-about-team-linkedin" aria-label="Shreya Kapoor on LinkedIn">in</a>
+                        <div class="tb-about-team-meta">
+                            <h3>Shreya Kapoor</h3>
+                            <p>Head of Asset Management</p>
+                        </div>
+                    </article>
+                    <article class="tb-about-team-card">
+                        <img src="https://truboardcleantech.com/img/about-us/Srickant-Rajagopal.png"
+                            alt="Aarav Rao portrait" loading="lazy" decoding="async">
+                        <a href="#" class="tb-about-team-linkedin" aria-label="Aarav Rao on LinkedIn">in</a>
+                        <div class="tb-about-team-meta">
+                            <h3>Aarav Rao</h3>
+                            <p>Head of Platform</p>
+                        </div>
+                    </article>
+                    <article class="tb-about-team-card">
+                        <img src="https://truboardcleantech.com/img/about-us/Srickant-Rajagopal.png" alt=" Priya Nair
+                            portrait" loading="lazy" decoding="async">
+                        <a href="#" class="tb-about-team-linkedin" aria-label="Priya Nair on LinkedIn">in</a>
+                        <div class="tb-about-team-meta">
+                            <h3>Priya Nair</h3>
+                            <p>Head of Client Success</p>
+                        </div>
+                    </article>
+                </div>
+                <div class="tb-about-team-pagination" data-team-pagination aria-label="Leadership team pagination">
+                </div>
+            </div>
+        </section>
+
+        <section class="tb-about-purpose" aria-label="Mission and vision">
+            <div class="container-xl">
+                <div class="tb-about-purpose-grid">
+                    <article class="tb-about-purpose-panel tb-about-purpose-panel-vision">
+                        <figure class="tb-about-purpose-media">
+                            <img src="./assets/images/hero_stage_4.png" alt="Vision illustration">
+                        </figure>
+                        <h2 class="tb-about-purpose-title">Our <strong>Vision</strong></h2>
+                        <span class="tb-about-purpose-rule"></span>
+                        <p class="tb-about-purpose-text">
+                            To define the operating clarity of future real estate portfolios through unwavering
+                            precision, governance discipline, and strategic foresight.
+                        </p>
+
+                    </article>
+                    <article class="tb-about-purpose-panel tb-about-purpose-panel-mission">
+                        <figure class="tb-about-purpose-media">
+                            <img src="./assets/images/hero_stage_2.png" alt="Mission illustration">
+                        </figure>
+                        <h2 class="tb-about-purpose-title">Our <strong>Mission</strong></h2>
+                        <span class="tb-about-purpose-rule"></span>
+                        <p class="tb-about-purpose-text">
+                            Execute strategic excellence by unifying services, platform intelligence, and controls
+                            into one dependable lifecycle model.
+                        </p>
+
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="tb-about-journey" aria-label="Company journey">
+            <div class="container-xl">
+                <div class="tb-about-journey-head">
+                    <div class="tb-about-section-head tb-about-section-head-left">
+                        <h2 class="tb-title">Our Journey</h2>
+                        <p>Key milestones in building integrated real estate intelligence and execution systems.</p>
+                    </div>
+                    <div class="tb-about-journey-controls" aria-label="Journey navigation">
+                        <button type="button" class="tb-about-journey-arrow" data-journey-nav="left"
+                            aria-label="Scroll timeline left">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                                <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="1.8"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <button type="button" class="tb-about-journey-arrow" data-journey-nav="right"
+                            aria-label="Scroll timeline right">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                                <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="1.8"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="tb-about-journey-viewport" data-journey-viewport>
+                    <div class="tb-about-journey-track" id="aboutJourneyTrack">
+                        <article class="tb-about-milestone">
+                            <p class="tb-about-milestone-year">2018</p>
+                            <span class="tb-about-milestone-dot" aria-hidden="true"></span>
+                            <div class="tb-about-milestone-card">
+                                <h3>Inception</h3>
+                                <p>TruBoard is founded with a focused mandate to bring structure to real estate
+                                    execution and governance.</p>
+                            </div>
+                        </article>
+                        <article class="tb-about-milestone">
+                            <p class="tb-about-milestone-year">2019</p>
+                            <span class="tb-about-milestone-dot" aria-hidden="true"></span>
+                            <div class="tb-about-milestone-card">
+                                <h3>First Enterprise Mandates</h3>
+                                <p>Secured initial enterprise projects and built repeatable reporting and monitoring
+                                    frameworks.</p>
+                            </div>
+                        </article>
+                        <article class="tb-about-milestone">
+                            <p class="tb-about-milestone-year">2020</p>
+                            <span class="tb-about-milestone-dot" aria-hidden="true"></span>
+                            <div class="tb-about-milestone-card">
+                                <h3>Process Digitization</h3>
+                                <p>Standardized project controls, approvals, and progress tracking across live sites.
+                                </p>
+                            </div>
+                        </article>
+                        <article class="tb-about-milestone">
+                            <p class="tb-about-milestone-year">2021</p>
+                            <span class="tb-about-milestone-dot" aria-hidden="true"></span>
+                            <div class="tb-about-milestone-card">
+                                <h3>Platform Launch</h3>
+                                <p>Released the first unified visibility layer for schedule, cost, risk, and capital
+                                    monitoring.</p>
+                            </div>
+                        </article>
+                        <article class="tb-about-milestone">
+                            <p class="tb-about-milestone-year">2022</p>
+                            <span class="tb-about-milestone-dot" aria-hidden="true"></span>
+                            <div class="tb-about-milestone-card">
+                                <h3>Strategic Partnerships</h3>
+                                <p>Expanded stakeholder programs with institutional partners, lenders, and advisory
+                                    ecosystems.</p>
+                            </div>
+                        </article>
+                        <article class="tb-about-milestone">
+                            <p class="tb-about-milestone-year">2023</p>
+                            <span class="tb-about-milestone-dot" aria-hidden="true"></span>
+                            <div class="tb-about-milestone-card">
+                                <h3>Multi-City Scale</h3>
+                                <p>Scaled delivery across cities with consistent governance and execution operating
+                                    standards.</p>
+                            </div>
+                        </article>
+                        <article class="tb-about-milestone">
+                            <p class="tb-about-milestone-year">2024</p>
+                            <span class="tb-about-milestone-dot" aria-hidden="true"></span>
+                            <div class="tb-about-milestone-card">
+                                <h3>AI Workflow Layer</h3>
+                                <p>Introduced predictive insights, exception signals, and workflow automation for faster
+                                    decisions.</p>
+                            </div>
+                        </article>
+                        <article class="tb-about-milestone">
+                            <p class="tb-about-milestone-year">2025</p>
+                            <span class="tb-about-milestone-dot" aria-hidden="true"></span>
+                            <div class="tb-about-milestone-card">
+                                <h3>Integrated Operating Layer</h3>
+                                <p>Unified services, intelligence, and governance into one connected real estate
+                                    operating model.</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section class="tb-cta">
+        <div class="container-xl text-center">
+            <h2 class="tb-title">Ready to align execution and intelligence across your assets?</h2>
+            <div class="tb-cta-actions">
+                <a href="./services.html" class="btn tb-btn tb-btn-ghost">Explore Services</a>
+                <a href="./contact-us.html" class="btn tb-btn tb-btn-blue">Talk to Our Team</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="tb-footer">
+        <div class="container-xl">
+            <div class="row g-4 tb-footer-top">
+                <div class="col-lg-12">
+                    <a href="./index.html" class="tb-footer-logo" aria-label="TruBoard home">
+                        <img src="./assets/images/1a36bc184ac42a93ebf62d57aae0e30c740ff2ab-B2Jtxq84.png"
+                            alt="TruBoard Technologies">
+                    </a>
+                    <p class="tb-footer-subtitle">Real Estate Asset Management Services</p>
+                </div>
+                <div class="col-lh-1"></div>
+                <div class="col-sm-6 col-lg-4">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="./index.html">Home</a></li>
+                        <li><a href="./services.html">Services</a></li>
+                        <li><a href="./truegenie.html">TruGenie</a></li>
+                        <li><a href="./resources.html">Resources</a></li>
+                        <li><a href="./about-us.html">About Us</a></li>
+                        <li><a href="./careers.html">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                    <h3>Contact Us</h3>
+                    <p class="tb-footer-contact">
+                        321, SOLITAIRE CORPORATE PARK, ANDHERI GHATKOPAR LINK ROAD, CHAKALA, Chakala MIDC,
+                        Mumbai, Mumbai Suburban, Maharashtra, 400093
+                    </p>
+                </div>
+            </div>
+            <div class="tb-footer-bottom">
+                <p>(c) 2025 TruBoard Technologies. All rights reserved.</p>
+                <div class="tb-socials" aria-label="Social links">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Twitter">x</a>
+                    <a href="#" aria-label="LinkedIn">in</a>
+                    <a href="#" aria-label="Instagram">ig</a>
+                </div>
+                <div class="tb-policies">
+                    <a href="./legal.html#privacy-policy">Privacy Policy</a>
+                    <a href="./legal.html#terms-of-service">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./assets/js/app.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const teamGrid = document.querySelector(".tb-about-team-grid");
+            const teamCards = teamGrid ? Array.from(teamGrid.querySelectorAll(".tb-about-team-card")) : [];
+            const teamPagination = document.querySelector("[data-team-pagination]");
+
+            if (teamGrid && teamCards.length && teamPagination) {
+                teamPagination.innerHTML = teamCards
+                    .map(
+                        (_, idx) =>
+                            `<button type="button" class="tb-about-team-page${idx === 0 ? " is-active" : ""}" data-team-page="${idx}" aria-label="Go to leadership card ${idx + 1}" aria-current="${idx === 0 ? "true" : "false"}"></button>`,
+                    )
+                    .join("");
+
+                const teamDots = Array.from(teamPagination.querySelectorAll("[data-team-page]"));
+
+                const getTeamStep = () => {
+                    const firstCard = teamCards[0];
+                    if (!firstCard) return teamGrid.clientWidth;
+                    const styles = window.getComputedStyle(teamGrid);
+                    const gap = parseFloat(styles.columnGap || styles.gap || "0") || 0;
+                    return firstCard.getBoundingClientRect().width + gap;
+                };
+
+                const setActiveTeamDot = (index) => {
+                    teamDots.forEach((dot, dotIdx) => {
+                        const isActive = dotIdx === index;
+                        dot.classList.toggle("is-active", isActive);
+                        dot.setAttribute("aria-current", isActive ? "true" : "false");
+                    });
+                };
+
+                const syncTeamPagination = () => {
+                    const step = getTeamStep();
+                    if (!step) return;
+                    const index = Math.round(teamGrid.scrollLeft / step);
+                    const safeIndex = Math.max(0, Math.min(index, teamDots.length - 1));
+                    setActiveTeamDot(safeIndex);
+                };
+
+                teamDots.forEach((dot) => {
+                    dot.addEventListener("click", () => {
+                        const index = Number(dot.getAttribute("data-team-page") || "0");
+                        teamGrid.scrollTo({ left: getTeamStep() * index, behavior: "smooth" });
+                        setActiveTeamDot(index);
+                    });
+                });
+
+                teamGrid.addEventListener("scroll", syncTeamPagination, { passive: true });
+                window.addEventListener("resize", syncTeamPagination);
+                syncTeamPagination();
+            }
+
+            const journeyViewport = document.querySelector("[data-journey-viewport]");
+            const leftArrow = document.querySelector('[data-journey-nav="left"]');
+            const rightArrow = document.querySelector('[data-journey-nav="right"]');
+            if (!journeyViewport || !leftArrow || !rightArrow) return;
+
+            const getStep = () => {
+                const firstCard = journeyViewport.querySelector(".tb-about-milestone");
+                if (!firstCard) return Math.max(journeyViewport.clientWidth * 0.8, 220);
+                const style = window.getComputedStyle(journeyViewport.querySelector(".tb-about-journey-track"));
+                const gap = parseFloat(style.columnGap || style.gap || "0") || 0;
+                return firstCard.getBoundingClientRect().width + gap;
+            };
+
+            const updateArrows = () => {
+                const maxScroll = journeyViewport.scrollWidth - journeyViewport.clientWidth - 2;
+                leftArrow.disabled = journeyViewport.scrollLeft <= 1;
+                rightArrow.disabled = journeyViewport.scrollLeft >= maxScroll;
+            };
+
+            leftArrow.addEventListener("click", () => {
+                journeyViewport.scrollBy({ left: -getStep(), behavior: "smooth" });
+            });
+
+            rightArrow.addEventListener("click", () => {
+                journeyViewport.scrollBy({ left: getStep(), behavior: "smooth" });
+            });
+
+            journeyViewport.addEventListener("scroll", updateArrows, { passive: true });
+            window.addEventListener("resize", updateArrows);
+            updateArrows();
+        });
+    </script>
+</body>
+
+</html>
