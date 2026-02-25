@@ -243,8 +243,7 @@
     }
 
     .tb-contact-form .tb-field {
-      display: grid;
-      gap: 0.42rem;
+      display: block;
     }
 
     .tb-contact-form .tb-field.is-full {
@@ -301,7 +300,7 @@
     }
 
     .tb-contact-form .tb-btn {
-      justify-self: start;
+      justify-self: center;
       min-width: 12.5rem;
       min-height: 2.5rem;
       margin-top: 0.15rem;
@@ -664,18 +663,18 @@
                   <input type="hidden" name="routing" value="general_inquiries">
                   <div class="tb-contact-form-grid">
                     <div class="tb-field">
-                      <label for="contactNameGeneral">Full Name</label>
                       <input id="contactNameGeneral" name="name" type="text" placeholder="Enter your full name"
+                        aria-label="Full Name"
                         required>
                     </div>
                     <div class="tb-field">
-                      <label for="contactEmailGeneral">Work Email</label>
                       <input id="contactEmailGeneral" name="email" type="email" placeholder="Enter your work email"
+                        aria-label="Work Email"
                         required>
                     </div>
                     <div class="tb-field is-full">
-                      <label for="contactMessageGeneral">Message</label>
                       <textarea id="contactMessageGeneral" name="message"
+                        aria-label="Message"
                         placeholder="Share your question or requirement" required></textarea>
                     </div>
                   </div>
@@ -693,18 +692,18 @@
                   <input type="hidden" name="routing" value="services_engagements">
                   <div class="tb-contact-form-grid">
                     <div class="tb-field">
-                      <label for="contactNameServices">Full Name</label>
                       <input id="contactNameServices" name="name" type="text" placeholder="Enter your full name"
+                        aria-label="Full Name"
                         required>
                     </div>
                     <div class="tb-field">
-                      <label for="contactEmailServices">Work Email</label>
                       <input id="contactEmailServices" name="email" type="email" placeholder="Enter your work email"
+                        aria-label="Work Email"
                         required>
                     </div>
                     <div class="tb-field is-full">
-                      <label for="contactMessageServices">Message</label>
                       <textarea id="contactMessageServices" name="message"
+                        aria-label="Message"
                         placeholder="Tell us about your service mandate" required></textarea>
                     </div>
                   </div>
@@ -722,17 +721,17 @@
                   <input type="hidden" name="routing" value="trugenie_demo_requests">
                   <div class="tb-contact-form-grid">
                     <div class="tb-field">
-                      <label for="contactNameDemo">Full Name</label>
-                      <input id="contactNameDemo" name="name" type="text" placeholder="Enter your full name" required>
+                      <input id="contactNameDemo" name="name" type="text" placeholder="Enter your full name"
+                        aria-label="Full Name" required>
                     </div>
                     <div class="tb-field">
-                      <label for="contactEmailDemo">Work Email</label>
                       <input id="contactEmailDemo" name="email" type="email" placeholder="Enter your work email"
+                        aria-label="Work Email"
                         required>
                     </div>
                     <div class="tb-field is-full">
-                      <label for="contactMessageDemo">Message</label>
                       <textarea id="contactMessageDemo" name="message"
+                        aria-label="Message"
                         placeholder="Share your demo goals and priorities" required></textarea>
                     </div>
                   </div>

@@ -86,8 +86,11 @@
 
         .tb-careers-apply {
             padding: 0.5rem 0 2.4rem;
-            background: radial-gradient(74.52% 74.52% at 50% 25.48%, #E9F0FF 0%, #FFF 100%);
+            /* background: radial-gradient(74.52% 74.52% at 50% 25.48%, #E9F0FF 0%, #FFF 100%); */
             scroll-margin-top: 110px;
+            position: relative;
+            z-index: 5;
+            overflow: visible;
         }
 
         .tb-careers-apply-card {
@@ -101,7 +104,7 @@
             align-content: start;
             width: 100%;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             isolation: isolate;
         }
 
@@ -189,7 +192,6 @@
         .tb-careers-form {
             display: grid;
             gap: 1rem;
-            --tb-select-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3.5 5.25L7 8.75L10.5 5.25' stroke='%231f4e96' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
         }
 
         .tb-careers-form-head {
@@ -230,7 +232,7 @@
 
         .tb-careers-form input,
         .tb-careers-form textarea,
-        .tb-careers-form select {
+        .tb-careers-select-trigger {
             width: 100%;
             border: 1px solid #cedcf2;
             border-radius: 14px;
@@ -245,19 +247,49 @@
             transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
         }
 
-        .tb-careers-form select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            padding-right: 2.7rem;
-            background-image: var(--tb-select-caret);
-            background-repeat: no-repeat;
-            background-position: right 0.92rem center;
-            background-size: 14px 14px;
+        .tb-careers-select {
+            position: relative;
         }
 
-        .tb-careers-form select::-ms-expand {
-            display: none;
+        .tb-careers-select.is-open {
+            z-index: 40;
+        }
+
+        .tb-careers-select-trigger {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            text-align: left;
+            cursor: pointer;
+            padding-right: 0.82rem;
+        }
+
+        .tb-careers-select-label {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #8a97ad;
+        }
+
+        .tb-careers-select.has-value .tb-careers-select-label {
+            color: #20314d;
+        }
+
+        .tb-careers-select-caret {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 14px;
+            height: 14px;
+            color: #1f4e96;
+            flex-shrink: 0;
+            margin-right: 0.14rem;
+            transition: transform 0.2s ease;
+        }
+
+        .tb-careers-select.is-open .tb-careers-select-caret {
+            transform: rotate(180deg);
         }
 
         .tb-careers-form input::placeholder,
@@ -271,13 +303,9 @@
             background-color: #fff;
         }
 
-        .tb-careers-form select:hover {
+        .tb-careers-select-trigger:hover {
             border-color: #afc5e9;
             background-color: #fff;
-            background-image: var(--tb-select-caret);
-            background-repeat: no-repeat;
-            background-position: right 0.92rem center;
-            background-size: 14px 14px;
         }
 
         .tb-careers-form textarea {
@@ -287,38 +315,72 @@
         }
 
         .tb-careers-form input:focus,
-        .tb-careers-form textarea:focus,
-        .tb-careers-form select:focus {
+        .tb-careers-form textarea:focus {
             border-color: #2f6be4;
             box-shadow: 0 0 0 4px rgba(47, 107, 228, 0.15), inset 0 1px 2px rgba(18, 47, 106, 0.02);
             background-color: #ffffff;
             transform: translateY(-1px);
         }
 
-        .tb-careers-form select:focus {
-            background-image: var(--tb-select-caret);
-            background-repeat: no-repeat;
-            background-position: right 0.92rem center;
-            background-size: 14px 14px;
-        }
-
-        .tb-careers-form select:open {
+        .tb-careers-select-trigger:focus-visible,
+        .tb-careers-select.is-open .tb-careers-select-trigger {
             border-color: #2f6be4;
-            border-radius: 14px;
-            box-shadow: 0 12px 24px rgba(15, 39, 111, 0.12), 0 0 0 3px rgba(47, 107, 228, 0.13);
+            box-shadow: 0 0 0 4px rgba(47, 107, 228, 0.15), inset 0 1px 2px rgba(18, 47, 106, 0.02);
             background-color: #fff;
-            background-image: var(--tb-select-caret);
-            background-repeat: no-repeat;
-            background-position: right 0.92rem center;
-            background-size: 14px 14px;
+            transform: translateY(-1px);
+            outline: none;
         }
 
-        .tb-careers-form select option {
-            color: #20314d;
-            background: #ffffff;
+        .tb-careers-select-menu {
+            position: absolute;
+            top: calc(100% + 0.42rem);
+            left: 0;
+            right: 0;
+            margin: 0;
+            padding: 0.32rem;
+            list-style: none;
+            border-radius: 14px;
+            border: 1px solid #cedcf2;
+            background: #fff;
+            box-shadow: 0 14px 30px rgba(15, 39, 111, 0.14);
+            max-height: 15rem;
+            overflow: auto;
+            z-index: 20;
+        }
+
+        .tb-careers-select-menu[hidden] {
+            display: none;
+        }
+
+        .tb-careers-select-option {
+            width: 100%;
             border: 0;
             border-radius: 10px;
-            padding: 0.52rem 0.68rem;
+            background: transparent;
+            color: #20314d;
+            font-size: var(--tb-fs-16);
+            line-height: 1.35;
+            text-align: left;
+            padding: 0.56rem 0.68rem;
+            transition: background-color 0.18s ease, color 0.18s ease;
+            cursor: pointer;
+        }
+
+        .tb-careers-select-option:hover,
+        .tb-careers-select-option:focus-visible {
+            background: #edf3ff;
+            color: #1d4f98;
+            outline: none;
+        }
+
+        .tb-careers-select-option.is-active {
+            background: #2f6be4;
+            color: #fff;
+        }
+
+        .tb-careers-select.is-invalid .tb-careers-select-trigger {
+            border-color: #d94157;
+            box-shadow: 0 0 0 3px rgba(217, 65, 87, 0.13);
         }
 
         .tb-careers-form .tb-btn {
@@ -395,34 +457,6 @@
             flex: 1;
         }
 
-        .tb-careers-culture-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .tb-careers-culture-index {
-            color: #aac2ee;
-            font-size: 13px;
-            line-height: 1;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-        }
-
-        .tb-careers-culture-chip {
-            width: fit-content;
-            border-radius: 999px;
-            border: 1px solid #d6e4ff;
-            background: #f6f9ff;
-            color: #1d4f98;
-            font-size: 11px;
-            line-height: 1;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            padding: 0.32rem 0.54rem;
-        }
-
         .tb-careers-culture-body h3 {
             margin: 0;
             color: var(--tb-heading-color);
@@ -436,36 +470,6 @@
             color: #5d6e86;
             font-size: var(--tb-fs-16);
             line-height: 1.5;
-        }
-
-        .tb-careers-culture-tags {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.36rem;
-        }
-
-        .tb-careers-culture-tags li {
-            border-radius: 999px;
-            border: 1px solid #e1e9f7;
-            background: #fff;
-            color: #4f6078;
-            font-size: 12px;
-            line-height: 1;
-            font-weight: 500;
-            padding: 0.3rem 0.52rem;
-        }
-
-        .tb-careers-culture-note {
-            margin-top: auto;
-            color: #1d3e86;
-            font-size: 12px;
-            line-height: 1.4;
-            font-weight: 600;
-            border-top: 1px solid #e3ecfb;
-            padding-top: 0.5rem;
         }
 
         .tb-careers-roles {
@@ -487,7 +491,7 @@
             padding: 1.1rem 1.15rem 1.2rem;
             display: grid;
             gap: 0.9rem;
-            min-height: 238px;
+            /* min-height: 238px; */
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
@@ -791,14 +795,41 @@
                                     aria-label="Work Email" required>
                             </div>
                             <div class="tb-careers-field is-full">
-                                <select id="careerRole" name="role_interest" aria-label="Role Of Interest" required>
-                                    <option value="">Select a role area</option>
-                                    <option value="Engineering">Engineering</option>
-                                    <option value="Product">Product</option>
-                                    <option value="Data & Analytics">Data & Analytics</option>
-                                    <option value="Client Success">Client Success</option>
-                                    <option value="Strategy & Operations">Strategy & Operations</option>
-                                </select>
+                                <div class="tb-careers-select" data-careers-select>
+                                    <input id="careerRole" name="role_interest" type="hidden" value="">
+                                    <button type="button" class="tb-careers-select-trigger" aria-haspopup="listbox"
+                                        aria-expanded="false" aria-controls="careerRoleMenu">
+                                        <span class="tb-careers-select-label">Select a role area</span>
+                                        <span class="tb-careers-select-caret" aria-hidden="true">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 14 14" fill="none">
+                                                <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="currentColor"
+                                                    stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                        </span>
+                                    </button>
+                                    <ul id="careerRoleMenu" class="tb-careers-select-menu" role="listbox" hidden>
+                                        <li>
+                                            <button type="button" class="tb-careers-select-option is-active"
+                                                role="option" data-value="" aria-selected="true">Select a role
+                                                area</button>
+                                        </li>
+                                        <li><button type="button" class="tb-careers-select-option" role="option"
+                                                data-value="Engineering" aria-selected="false">Engineering</button>
+                                        </li>
+                                        <li><button type="button" class="tb-careers-select-option" role="option"
+                                                data-value="Product" aria-selected="false">Product</button></li>
+                                        <li><button type="button" class="tb-careers-select-option" role="option"
+                                                data-value="Data &amp; Analytics" aria-selected="false">Data &amp;
+                                                Analytics</button></li>
+                                        <li><button type="button" class="tb-careers-select-option" role="option"
+                                                data-value="Client Success" aria-selected="false">Client
+                                                Success</button></li>
+                                        <li><button type="button" class="tb-careers-select-option" role="option"
+                                                data-value="Strategy &amp; Operations" aria-selected="false">Strategy
+                                                &amp; Operations</button></li>
+                                    </ul>
+                                </div>
                             </div>
                             <div class="tb-careers-field is-full">
                                 <textarea id="careerMessage" name="message"
@@ -826,19 +857,9 @@
                         <article class="tb-careers-culture-card">
                             <img src="./assets/images/home-page/hero-banner-left-1.png" alt="Innovation at TruBoard">
                             <div class="tb-careers-culture-body">
-                                <div class="tb-careers-culture-top">
-                                    <span class="tb-careers-culture-chip">Value 01</span>
-                                    <span class="tb-careers-culture-index">01</span>
-                                </div>
                                 <h3>Innovation First</h3>
                                 <p>We ship practical solutions that improve control, visibility, and decision speed for
                                     real estate assets.</p>
-                                <ul class="tb-careers-culture-tags">
-                                    <li>Fast Iteration</li>
-                                    <li>Product Thinking</li>
-                                </ul>
-                                <p class="tb-careers-culture-note">Outcome: Faster delivery with measurable business
-                                    impact.</p>
                             </div>
                         </article>
                     </div>
@@ -846,19 +867,9 @@
                         <article class="tb-careers-culture-card">
                             <img src="./assets/images/home-page/hero-banner-left-2.png" alt="Collaborative growth">
                             <div class="tb-careers-culture-body">
-                                <div class="tb-careers-culture-top">
-                                    <span class="tb-careers-culture-chip">Value 02</span>
-                                    <span class="tb-careers-culture-index">02</span>
-                                </div>
                                 <h3>Collaborative Growth</h3>
                                 <p>Cross-functional execution is core to how we operate, with real ownership and rapid
                                     feedback loops.</p>
-                                <ul class="tb-careers-culture-tags">
-                                    <li>Cross-Functional</li>
-                                    <li>Mentorship</li>
-                                </ul>
-                                <p class="tb-careers-culture-note">Outcome: Strong mentorship and accelerated career
-                                    growth.</p>
                             </div>
                         </article>
                     </div>
@@ -866,19 +877,9 @@
                         <article class="tb-careers-culture-card">
                             <img src="./assets/images/home-page/hero-banner-left-3.png" alt="Impactful work">
                             <div class="tb-careers-culture-body">
-                                <div class="tb-careers-culture-top">
-                                    <span class="tb-careers-culture-chip">Value 03</span>
-                                    <span class="tb-careers-culture-index">03</span>
-                                </div>
                                 <h3>Impactful Work</h3>
                                 <p>Every role contributes directly to portfolio performance, capital protection, and
                                     execution excellence.</p>
-                                <ul class="tb-careers-culture-tags">
-                                    <li>Ownership</li>
-                                    <li>Business Impact</li>
-                                </ul>
-                                <p class="tb-careers-culture-note">Outcome: Ownership from day one on mission-critical
-                                    initiatives.</p>
                             </div>
                         </article>
                     </div>
@@ -1068,6 +1069,136 @@
         </div>
     </footer>
 
+    <script>
+        (() => {
+            const initCareersSelect = () => {
+                const selectRoots = Array.from(document.querySelectorAll("[data-careers-select]"));
+                if (!selectRoots.length) return;
+
+                selectRoots.forEach((root) => {
+                    const hiddenInput = root.querySelector("input[name='role_interest']");
+                    const trigger = root.querySelector(".tb-careers-select-trigger");
+                    const label = root.querySelector(".tb-careers-select-label");
+                    const menu = root.querySelector(".tb-careers-select-menu");
+                    const options = Array.from(root.querySelectorAll(".tb-careers-select-option"));
+                    const form = root.closest("form");
+                    if (!hiddenInput || !trigger || !label || !menu || !options.length) return;
+
+                    const placeholder = "Select a role area";
+
+                    const setValue = (value, text) => {
+                        hiddenInput.value = value;
+                        label.textContent = text;
+                        root.classList.toggle("has-value", Boolean(value));
+                        root.classList.remove("is-invalid");
+                        options.forEach((optionBtn) => {
+                            const isActive = optionBtn.getAttribute("data-value") === value;
+                            optionBtn.classList.toggle("is-active", isActive);
+                            optionBtn.setAttribute("aria-selected", isActive ? "true" : "false");
+                        });
+                    };
+
+                    const openMenu = () => {
+                        root.classList.add("is-open");
+                        trigger.setAttribute("aria-expanded", "true");
+                        menu.hidden = false;
+                        const activeOption = options.find((optionBtn) => optionBtn.classList.contains("is-active")) || options[0];
+                        activeOption.focus();
+                    };
+
+                    const closeMenu = () => {
+                        root.classList.remove("is-open");
+                        trigger.setAttribute("aria-expanded", "false");
+                        menu.hidden = true;
+                    };
+
+                    const moveFocus = (current, delta) => {
+                        const index = options.indexOf(current);
+                        if (index < 0) return;
+                        const nextIndex = (index + delta + options.length) % options.length;
+                        options[nextIndex].focus();
+                    };
+
+                    setValue("", placeholder);
+
+                    trigger.addEventListener("click", () => {
+                        if (root.classList.contains("is-open")) {
+                            closeMenu();
+                        } else {
+                            openMenu();
+                        }
+                    });
+
+                    trigger.addEventListener("keydown", (event) => {
+                        if (event.key === "ArrowDown" || event.key === "Enter" || event.key === " ") {
+                            event.preventDefault();
+                            openMenu();
+                        }
+                    });
+
+                    options.forEach((optionBtn) => {
+                        optionBtn.addEventListener("click", () => {
+                            setValue(optionBtn.getAttribute("data-value") || "", optionBtn.textContent.trim());
+                            closeMenu();
+                            trigger.focus();
+                        });
+
+                        optionBtn.addEventListener("keydown", (event) => {
+                            if (event.key === "ArrowDown") {
+                                event.preventDefault();
+                                moveFocus(optionBtn, 1);
+                            } else if (event.key === "ArrowUp") {
+                                event.preventDefault();
+                                moveFocus(optionBtn, -1);
+                            } else if (event.key === "Home") {
+                                event.preventDefault();
+                                options[0].focus();
+                            } else if (event.key === "End") {
+                                event.preventDefault();
+                                options[options.length - 1].focus();
+                            } else if (event.key === "Escape") {
+                                event.preventDefault();
+                                closeMenu();
+                                trigger.focus();
+                            } else if (event.key === "Enter" || event.key === " ") {
+                                event.preventDefault();
+                                optionBtn.click();
+                            }
+                        });
+                    });
+
+                    document.addEventListener("click", (event) => {
+                        if (!root.contains(event.target)) {
+                            closeMenu();
+                        }
+                    });
+
+                    document.addEventListener("keydown", (event) => {
+                        if (event.key === "Escape" && root.classList.contains("is-open")) {
+                            closeMenu();
+                            trigger.focus();
+                        }
+                    });
+
+                    if (form) {
+                        form.addEventListener("submit", (event) => {
+                            if (!hiddenInput.value) {
+                                event.preventDefault();
+                                root.classList.add("is-invalid");
+                                openMenu();
+                            }
+                        });
+                    }
+                });
+            };
+
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", initCareersSelect);
+            } else {
+                initCareersSelect();
+            }
+        })();
+    </script>
     <script src="./assets/js/app.js" defer></script>
 </body>
 
