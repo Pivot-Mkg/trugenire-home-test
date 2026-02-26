@@ -34,6 +34,7 @@
 .secondary-feature-section {
     padding: 2em;
     background: radial-gradient(74.52% 74.52% at 50% 25.48%, rgba(233, 240, 255, 0.52) 0%, rgba(255, 255, 255, 0.52) 100%);
+    padding-top: 72px;
 }
 
 .secondary-feature-card {
@@ -50,13 +51,14 @@
     margin-top: 1em;
 }
 
+
 .secondary-feature-card-icon-wrapper {
     padding: 9px;
     background: #EFF6FF;
     width: fit-content;
     border-radius: 9px;
-    width: 28px;
-    height: 28px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,16 +70,15 @@
 }
 
 .note-wrapper {
-    background: #286FED;
+    background: rgb(239, 246, 255);
     border-radius: 6px;
     padding: 9px;
-    margin: auto;
-    margin-top: 2em;
+    margin: 2em auto auto;
     max-width: 1024px;
 }
 
 .note {
-    color: white;
+    color: #286FED;
     font-size: 14px;
     text-align: center;
     padding: 0%;
@@ -96,15 +97,17 @@
 
 
 .primary-service-card-head-item-heading {
-    font-size: 22px;
-    color: #002672;
+    font-size: 24px;
+    color: rgb(0, 38, 114);
     line-height: 1.5;
+    font-weight: 600;
 }
 
 .primary-service-card-head-item-subheading {
-    font-size: 14px;
+    font-size: 16px;
     color: #475569;
     line-height: 1.5;
+    min-height: 82px;
 }
 
 .point-list-item {
@@ -124,14 +127,14 @@
     border: 1px solid #F6F7F7;
     padding: 9px;
     border-radius: 9px;
-    font-size: 14px;
+    font-size: 16px;
 
 }
 
 .point-list-title {
     color: #002672;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     margin: 0% 0 1em 0;
 }
 
@@ -228,6 +231,14 @@
     font-weight: 500;
 }
 
+.primary-service-section {
+    padding-top: 72px;
+}
+
+.leadership-section {
+    padding-top: 72px;
+}
+
 @media (max-width: 600px) {
     .legacy-navbar nav {
         display: none;
@@ -286,20 +297,21 @@
 
     .hero-heading {
         font-family: var(--ff-primary);
-        font-size: 24px;
+        font-size: 36px;
         font-weight: 700;
         color: var(--clr-primary);
         max-width: 490px;
         color: #286FED;
         text-align: center;
+        margin-bottom: 1em;
     }
 
     .hero-section {
-        padding: 6em 2em 1em 2em;
+        padding: 9em 1em 2em 1em;
     }
 
     .hero-heading span {
-        font-size: 24px;
+        font-size: 36px;
     }
 
     .cta-btn {
@@ -350,4 +362,11 @@
     margin-bottom: 16px;
     color: #0C1B56;
     font-weight: 600;
+}
+
+.secondary-feature-card-item-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0%;
+    padding: 0%;
 }
