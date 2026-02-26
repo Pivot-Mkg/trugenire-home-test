@@ -1953,6 +1953,7 @@ a {
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
+  display: none;
 }
 
 .tb-footer-bottom p {
