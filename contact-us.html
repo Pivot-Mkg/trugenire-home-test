@@ -192,7 +192,16 @@
       flex-wrap: wrap;
       gap: 0.44rem;
       justify-content: flex-end;
+      align-items: center;
       margin-left: auto;
+      width: fit-content;
+      max-width: 100%;
+      padding: 0.46rem;
+      border: 1px solid #dfe6f2;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.97);
+      box-shadow: 0 8px 22px rgba(12, 31, 73, 0.08);
+      backdrop-filter: blur(4px);
     }
 
     .tb-contact-form-tab {
@@ -204,6 +213,8 @@
       line-height: 1;
       font-weight: 500;
       padding: 0.56rem 0.92rem;
+      white-space: nowrap;
+      cursor: pointer;
       transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     }
 
@@ -221,6 +232,12 @@
     .tb-contact-form-tab:focus-visible {
       outline: none;
       box-shadow: 0 0 0 3px rgba(47, 107, 228, 0.16);
+    }
+
+    #contactTabGeneral,
+    #contactTabServices,
+    #contactTabDemo {
+      scroll-margin-top: 7.5rem;
     }
 
     .tb-contact-form-panel {
@@ -322,7 +339,7 @@
     }
 
     .tb-contact-office-block {
-      margin-top: 1.15rem;
+      margin-top: clamp(1rem, 2.4vw, 1.65rem);
       border-radius: 16px;
       /* border: 1px solid #dfe6f2;
       background: #FFF;
@@ -333,32 +350,42 @@
     .tb-contact-city-tabs {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.44rem;
       justify-content: center;
+      align-items: center;
     }
 
     .tb-contact-city-btn {
-      border: 1px solid #2f6be4;
-      background: #FFF;
-      color: #1d3e86;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      background: #f6f9ff;
+      color: #5d6e86;
       font-size: var(--tb-fs-16);
       font-weight: 500;
       line-height: 1;
-      border-radius: 999px;
-      padding: 0.68rem 1rem;
-      min-width: 10rem;
+      padding: 0.56rem 0.92rem;
+      white-space: nowrap;
+      cursor: pointer;
       transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     }
 
     .tb-contact-city-btn:hover {
       background: #edf3ff;
-      border-color: #2f6be4;
+      color: #1d4f98;
     }
 
     .tb-contact-city-btn.is-active {
       background: #2f6be4;
       border-color: #2f6be4;
       color: #fff;
+    }
+
+    .tb-contact-city-btn:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(47, 107, 228, 0.16);
     }
 
     .tb-contact-city-content {
@@ -400,6 +427,7 @@
     @media (max-width: 991.98px) {
       .tb-contact-hero-card {
         grid-template-columns: 1fr;
+        padding-top: 1.1rem;
       }
 
       .tb-contact-hero-art {
@@ -414,10 +442,6 @@
         grid-template-columns: 1fr;
       }
 
-      .tb-contact-city-btn {
-        min-width: 9rem;
-      }
-
       .tb-contact-map-shell iframe {
         height: 340px;
       }
@@ -429,7 +453,7 @@
 
     @media (max-width: 575.98px) {
       .tb-contact-hero {
-        padding-top: 0.82rem;
+        padding-top: 0.72rem;
       }
 
       .tb-contact-subtitle {
@@ -460,7 +484,7 @@
       }
 
       .tb-contact-hero-art img {
-        width: min(100%, 19rem);
+        width: min(100%, 18.6rem);
       }
 
       .tb-contact-form .tb-btn {
@@ -477,35 +501,83 @@
         padding: 1rem 0.88rem;
       }
 
+      .tb-contact-form-head {
+        gap: 0.72rem;
+      }
+
+      .tb-contact-form-copy {
+        max-width: 100%;
+      }
+
       .tb-contact-form-head h2 {
         font-size: var(--tb-heading-size-md);
       }
 
       .tb-contact-form-head p {
         font-size: 0.9rem;
+        max-width: 100%;
       }
 
       .tb-contact-form-tabs {
         justify-content: flex-start;
         margin-left: 0;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        width: 100%;
+        padding: 0.46rem;
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      .tb-contact-form-tabs::-webkit-scrollbar {
+        display: none;
+      }
+
+      .tb-contact-form-tab {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
       }
 
       .tb-contact-city-tabs {
         justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: 0.08rem;
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      .tb-contact-city-tabs::-webkit-scrollbar {
+        display: none;
       }
 
       .tb-contact-city-btn {
+        flex: 0 0 auto;
         min-width: 0;
         width: auto;
-        padding: 0.58rem 0.88rem;
+        padding: 0.56rem 0.92rem;
+        scroll-snap-align: start;
       }
 
       .tb-contact-city-content h3 {
         font-size: var(--tb-heading-size-md);
       }
 
+      .tb-contact-city-content p {
+        line-height: 1.5;
+      }
+
+      .tb-contact-form input,
+      .tb-contact-form textarea {
+        min-height: 48px;
+        font-size: 16px;
+      }
+
       .tb-contact-map-shell iframe {
-        height: 280px;
+        height: 250px;
       }
     }
   </style>
@@ -548,7 +620,8 @@
                 </section>
               </div>
               <div class="tb-mega-menu-cta" role="presentation">
-                <a href="./contact-us.html#contactTabServices" class="btn tb-btn tb-btn-blue" role="menuitem">Discuss Mandate</a>
+                <a href="./contact-us.html#contactTabServices" class="btn tb-btn tb-btn-blue" role="menuitem">Discuss
+                  Mandate</a>
               </div>
             </div>
           </div>
@@ -574,7 +647,8 @@
                 </section>
               </div>
               <div class="tb-mega-menu-cta" role="presentation">
-                <a href="./contact-us.html#contactTabDemo" class="btn tb-btn tb-btn-blue" role="menuitem">Book a Demo</a>
+                <a href="./contact-us.html#contactTabDemo" class="btn tb-btn tb-btn-blue" role="menuitem">Book a
+                  Demo</a>
               </div>
             </div>
           </div>
@@ -648,8 +722,8 @@
                     aria-selected="false" aria-controls="contactPanelServices" data-contact-form-tab="services">
                     Services Engagements
                   </button>
-                  <button type="button" class="tb-contact-form-tab" id="contactTabDemo" role="tab"
-                    aria-selected="false" aria-controls="contactPanelDemo" data-contact-form-tab="demo">
+                  <button type="button" class="tb-contact-form-tab" id="contactTabDemo" role="tab" aria-selected="false"
+                    aria-controls="contactPanelDemo" data-contact-form-tab="demo">
                     TruGenie Demo Requests
                   </button>
                 </div>
@@ -664,17 +738,14 @@
                   <div class="tb-contact-form-grid">
                     <div class="tb-field">
                       <input id="contactNameGeneral" name="name" type="text" placeholder="Enter your full name"
-                        aria-label="Full Name"
-                        required>
+                        aria-label="Full Name" required>
                     </div>
                     <div class="tb-field">
                       <input id="contactEmailGeneral" name="email" type="email" placeholder="Enter your work email"
-                        aria-label="Work Email"
-                        required>
+                        aria-label="Work Email" required>
                     </div>
                     <div class="tb-field is-full">
-                      <textarea id="contactMessageGeneral" name="message"
-                        aria-label="Message"
+                      <textarea id="contactMessageGeneral" name="message" aria-label="Message"
                         placeholder="Share your question or requirement" required></textarea>
                     </div>
                   </div>
@@ -693,17 +764,14 @@
                   <div class="tb-contact-form-grid">
                     <div class="tb-field">
                       <input id="contactNameServices" name="name" type="text" placeholder="Enter your full name"
-                        aria-label="Full Name"
-                        required>
+                        aria-label="Full Name" required>
                     </div>
                     <div class="tb-field">
                       <input id="contactEmailServices" name="email" type="email" placeholder="Enter your work email"
-                        aria-label="Work Email"
-                        required>
+                        aria-label="Work Email" required>
                     </div>
                     <div class="tb-field is-full">
-                      <textarea id="contactMessageServices" name="message"
-                        aria-label="Message"
+                      <textarea id="contactMessageServices" name="message" aria-label="Message"
                         placeholder="Tell us about your service mandate" required></textarea>
                     </div>
                   </div>
@@ -726,12 +794,10 @@
                     </div>
                     <div class="tb-field">
                       <input id="contactEmailDemo" name="email" type="email" placeholder="Enter your work email"
-                        aria-label="Work Email"
-                        required>
+                        aria-label="Work Email" required>
                     </div>
                     <div class="tb-field is-full">
-                      <textarea id="contactMessageDemo" name="message"
-                        aria-label="Message"
+                      <textarea id="contactMessageDemo" name="message" aria-label="Message"
                         placeholder="Share your demo goals and priorities" required></textarea>
                     </div>
                   </div>
@@ -849,6 +915,19 @@
       const contactForms = Array.from(document.querySelectorAll("[data-contact-form]"));
 
       if (inquiryTabs.length && inquiryPanels.length) {
+        const getHeaderOffset = () => {
+          const header = document.querySelector(".tb-header");
+          if (!header) return 16;
+          return header.getBoundingClientRect().height + 14;
+        };
+
+        const scrollToContactForm = () => {
+          const banner = document.querySelector(".tb-contact-banner");
+          if (!banner) return;
+          const top = banner.getBoundingClientRect().top + window.scrollY - getHeaderOffset();
+          window.scrollTo({ top: Math.max(0, top), behavior: "auto" });
+        };
+
         function setInquiryTab(tabButton) {
           const tabKey = tabButton.getAttribute("data-contact-form-tab");
 
@@ -873,6 +952,10 @@
         const hashTab = inquiryTabs.find((tab) => tab.id === hashTarget);
         if (hashTab) {
           setInquiryTab(hashTab);
+          requestAnimationFrame(scrollToContactForm);
+          window.addEventListener("load", () => {
+            requestAnimationFrame(scrollToContactForm);
+          }, { once: true });
         }
       }
 
@@ -921,4 +1004,3 @@
 </body>
 
 </html>
-

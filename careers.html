@@ -585,6 +585,7 @@
         @media (max-width: 991.98px) {
             .tb-careers-hero-card {
                 grid-template-columns: 1fr;
+                padding: 110px 0 0 0;
             }
 
             .tb-careers-hero-art {
@@ -633,6 +634,23 @@
             .tb-careers-role-card h3,
             .tb-careers-form-head h2 {
                 font-size: var(--tb-heading-size-md);
+            }
+
+            .tb-careers-form input,
+            .tb-careers-form textarea,
+            .tb-careers-select-trigger {
+                min-height: 48px;
+                font-size: 16px;
+            }
+
+            .tb-careers-form .tb-btn {
+                width: 100%;
+                min-width: 0;
+            }
+
+            .tb-careers-select-menu {
+                max-height: 12rem;
+                -webkit-overflow-scrolling: touch;
             }
         }
     </style>

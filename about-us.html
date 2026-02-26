@@ -89,29 +89,89 @@
             background: #fff;
         }
 
-        .tb-about-purpose-grid {
+        .tb-about-purpose-shell {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            background: #fff;
+            gap: 1rem;
+        }
+
+        .tb-about-purpose-tabs {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            width: fit-content;
+            padding: 0.28rem;
+            border-radius: 999px;
+            border: 1px solid #d6e4f8;
+            background: #f4f8ff;
+        }
+
+        .tb-about-purpose-tab {
+            border: 0;
+            background: transparent;
+            color: #5b6f8f;
+            font-size: var(--tb-fs-16);
+            line-height: 1;
+            font-weight: 600;
+            padding: 0.62rem 1.05rem;
+            border-radius: 999px;
+            transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .tb-about-purpose-tab:hover {
+            color: var(--tb-heading-color);
+        }
+
+        .tb-about-purpose-tab.is-active {
+            background: #ffffff;
+            color: var(--tb-heading-color);
+            box-shadow: 0 6px 16px rgba(11, 31, 83, 0.09);
+        }
+
+        .tb-about-purpose-tab:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(47, 107, 228, 0.2);
         }
 
         .tb-about-purpose-panel {
-            position: relative;
-            /* min-height: 21rem; */
-            padding: clamp(1.5rem, 3vw, 2.35rem) clamp(1.1rem, 2.4vw, 2.25rem) clamp(1.3rem, 2.8vw, 2rem);
+            display: none;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+            align-items: center;
+            gap: clamp(1rem, 2.8vw, 2rem);
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .tb-about-purpose-panel.is-active {
             display: grid;
-            gap: 0.8rem;
-            align-content: start;
-            overflow: hidden;
+            animation: tb-purpose-panel-in 360ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+        }
+
+        .tb-about-purpose-copy {
+            display: grid;
+            gap: 1.5rem;
+            max-width: 37rem;
+        }
+
+        .tb-about-purpose-panel.is-active .tb-about-purpose-copy {
+            animation: tb-purpose-copy-in 420ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+        }
+
+        .tb-about-purpose-panel.is-active .tb-about-purpose-media {
+            animation: tb-purpose-media-in 480ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+        }
+
+        .tb-about-purpose-tab-slot {
+            margin-top: 0.85rem;
         }
 
         .tb-about-purpose-media {
             margin: 0;
-            border-radius: 14px;
+            border-radius: 16px;
             overflow: hidden;
             background: #edf3ff;
             border: 1px solid #d6e4f8;
-            height: clamp(120px, 16vw, 250px);
+            min-height: clamp(220px, 28vw, 340px);
+            box-shadow: var(--tb-shadow-soft);
         }
 
         .tb-about-purpose-media img {
@@ -120,10 +180,6 @@
             display: block;
             object-fit: cover;
             object-position: center;
-        }
-
-        .tb-about-purpose-panel+.tb-about-purpose-panel {
-            border-left: 0;
         }
 
         .tb-about-purpose-index {
@@ -138,19 +194,15 @@
         .tb-about-purpose-title {
             margin: 0;
             color: var(--tb-heading-color);
-            /* font-size: clamp(2rem, 2.6vw, 2.6rem); */
+            font-size: clamp(1.6rem, 3vw, 2.15rem);
             line-height: 1.12;
-            font-weight: 400;
+            font-weight: 600;
             letter-spacing: -0.01em;
         }
 
         .tb-about-purpose-title strong {
             color: #061b45;
-            font-weight: 400;
-        }
-
-        .tb-about-purpose-rule {
-            display: none;
+            font-weight: 600;
         }
 
         .tb-about-purpose-text {
@@ -158,61 +210,7 @@
             color: #5d6e86;
             font-size: clamp(var(--tb-fs-16), 1.2vw, var(--tb-fs-18));
             line-height: 1.5;
-            max-width: 31ch;
-        }
-
-        .tb-about-purpose-link {
-            margin-top: auto;
-            color: #286fed;
-            font-size: var(--tb-fs-16);
-            line-height: 1.2;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            width: fit-content;
-        }
-
-        .tb-about-purpose-link:hover {
-            color: #1d4f98;
-        }
-
-        .tb-about-purpose-dots {
-            position: absolute;
-            right: 1.05rem;
-            bottom: 0.9rem;
-            width: 112px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            opacity: 0.62;
-            pointer-events: none;
-        }
-
-        .tb-about-purpose-dots span {
-            width: 20px;
-            height: 20px;
-            border-radius: 999px;
-            background: #edf1f7;
-        }
-
-        .tb-about-purpose-dots span:first-child {
-            visibility: hidden;
-        }
-
-        .tb-about-purpose-ring {
-            position: absolute;
-            right: 0.9rem;
-            bottom: 0.38rem;
-            width: 116px;
-            height: 116px;
-            border-radius: 999px;
-            background: radial-gradient(circle at center, #e9eef6 0 18px, #f0f4f9 18px 42px, transparent 42px 100%);
-            pointer-events: none;
-        }
-
-        .tb-about-purpose-ring::after {
-            content: none;
+            max-width: 48ch;
         }
 
         .tb-about-metrics {
@@ -560,11 +558,237 @@
             line-height: 1.45;
         }
 
+        .tb-about-presence {
+            padding: clamp(2.2rem, 4.4vw, 3.2rem) 0;
+            background: radial-gradient(74.52% 74.52% at 50% 24.48%, #e9f0ff 0%, #ffffff 100%);
+        }
+
+        .tb-about-presence-head {
+            text-align: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .tb-about-presence-head .tb-title {
+            color: var(--tb-heading-color);
+        }
+
+        .tb-about-presence-head p {
+            margin: 0.35rem 0 0;
+            color: #5d6e86;
+            font-size: var(--tb-fs-18);
+            line-height: 1.5;
+        }
+
+        .tb-about-presence-map {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #d5e2f7;
+            background:
+                radial-gradient(62% 62% at 50% 52%, rgba(56, 116, 235, 0.12) 0%, rgba(56, 116, 235, 0) 72%),
+                linear-gradient(180deg, #f7fbff 0%, #edf4ff 100%);
+            min-height: clamp(17rem, 36vw, 30rem);
+        }
+
+        .tb-about-presence-map img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.24;
+            filter: grayscale(1) brightness(0.55) contrast(1.18);
+            pointer-events: none;
+        }
+
+        .tb-about-presence-marker {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border: 0;
+            border-radius: 999px;
+            transform: translate(-50%, -50%);
+            background: #2f6be4;
+            box-shadow: 0 0 0 0 rgba(47, 107, 228, 0.5);
+            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .tb-about-presence-marker::after {
+            content: "";
+            position: absolute;
+            inset: -4px;
+            border: 1px solid rgba(47, 107, 228, 0.48);
+            border-radius: 999px;
+            animation: tb-presence-ping 2.2s ease-out infinite;
+        }
+
+        .tb-about-presence-marker.is-active {
+            transform: translate(-50%, -50%) scale(1.2);
+            background: #0f276f;
+            box-shadow: 0 0 0 5px rgba(47, 107, 228, 0.18), 0 0 20px rgba(47, 107, 228, 0.35);
+        }
+
+        .tb-about-presence-marker.is-active::after {
+            border-color: rgba(15, 39, 111, 0.4);
+        }
+
+        .tb-about-presence-locations {
+            margin: 0.95rem auto 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.44rem;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            max-width: 100%;
+            padding: 0.46rem;
+            border: 1px solid #dfe6f2;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.97);
+            /* box-shadow: 0 8px 22px rgba(12, 31, 73, 0.08); */
+            backdrop-filter: blur(4px);
+        }
+
+        .tb-about-presence-city {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            background: #f6f9ff;
+            color: #5d6e86;
+            font-size: var(--tb-fs-16);
+            line-height: 1;
+            font-weight: 500;
+            padding: 0.56rem 0.92rem;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .tb-about-presence-city strong {
+            display: inline;
+            color: inherit;
+            font-size: var(--tb-fs-16);
+            line-height: 1;
+            font-weight: 500;
+        }
+
+        .tb-about-presence-city span {
+            display: none;
+        }
+
+        .tb-about-presence-city:hover {
+            background: #edf3ff;
+            color: #1d4f98;
+        }
+
+        .tb-about-presence-city.is-active {
+            background: #2f6be4;
+            border-color: #2f6be4;
+            color: #fff;
+        }
+
+        .tb-about-presence-city:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(47, 107, 228, 0.16);
+        }
+
+        .tb-about-presence-city.is-active strong {
+            color: #fff;
+        }
+
+        .tb-about-presence-address {
+            margin-top: 0.75rem;
+            border-radius: 12px;
+            border: 1px solid #d5e2f7;
+            background: #f8fbff;
+            padding: 2rem;
+            display: grid;
+            gap: 0.18rem;
+            text-align: center;
+        }
+
+        .tb-about-presence-address strong {
+            color: var(--tb-heading-color);
+            font-size: var(--tb-fs-18);
+            line-height: 1.2;
+            font-weight: 600;
+        }
+
+        .tb-about-presence-address p {
+            margin: 0;
+            color: #5d6e86;
+            font-size: var(--tb-fs-16);
+            line-height: 1.45;
+        }
+
+        @keyframes tb-presence-ping {
+            0% {
+                transform: scale(0.75);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1.85);
+                opacity: 0;
+            }
+        }
+
+        @keyframes tb-purpose-panel-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes tb-purpose-copy-in {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes tb-purpose-media-in {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(0.985);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .tb-about-purpose-panel.is-active,
+            .tb-about-purpose-panel.is-active .tb-about-purpose-copy,
+            .tb-about-purpose-panel.is-active .tb-about-purpose-media {
+                animation: none;
+            }
+        }
+
         @media (max-width: 1199.98px) {
 
             .tb-about-value-grid,
             .tb-about-team-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .tb-about-presence-locations {
+                gap: 0.44rem;
             }
         }
 
@@ -574,22 +798,13 @@
                 grid-template-columns: 1fr;
             }
 
-            .tb-about-purpose-grid {
-                grid-template-columns: 1fr;
-            }
-
             .tb-about-purpose-panel {
-                min-height: 0;
-                padding: 1.55rem 1.2rem 1.6rem;
+                grid-template-columns: 1fr;
+                gap: 1rem;
             }
 
             .tb-about-purpose-media {
-                height: 150px;
-            }
-
-            .tb-about-purpose-panel+.tb-about-purpose-panel {
-                border-left: 0;
-                border-top: 0;
+                min-height: 210px;
             }
 
             .tb-about-hero-art {
@@ -598,6 +813,10 @@
 
             .tb-about-hero-art img {
                 width: min(100%, 24rem);
+            }
+
+            .tb-about-presence-map {
+                min-height: clamp(15.5rem, 60vw, 22rem);
             }
 
             .tb-about-journey-head {
@@ -612,7 +831,7 @@
 
             .tb-about-hero-card {
                 gap: 0.75rem;
-                padding-top: 58px;
+                padding-top: 110px;
             }
 
             .tb-about-hero-copy h1 {
@@ -623,32 +842,52 @@
             .tb-about-section-head p,
             .tb-about-purpose-text {
                 font-size: var(--tb-fs-16);
+                text-align: center;
+            }
+
+            .tb-about-purpose-tabs {
+                width: 100%;
+            }
+
+            .tb-about-purpose-tab {
+                flex: 1 1 0;
+                text-align: center;
+                justify-content: center;
+                padding: 0.62rem 0.82rem;
             }
 
             .tb-about-purpose-panel {
-                padding: 1.25rem 0.95rem 1.35rem;
-                gap: 0.72rem;
+                gap: 0.85rem;
             }
 
             .tb-about-purpose-media {
-                height: 128px;
+                min-height: 180px;
             }
 
-            /* 
             .tb-about-purpose-title {
-                font-size: clamp(1.72rem, 7vw, 2.1rem);
-            } */
-
-            .tb-about-purpose-dots,
-            .tb-about-purpose-ring {
-                opacity: 0.42;
-                transform: scale(0.76);
-                transform-origin: bottom right;
+                font-size: clamp(1.45rem, 6vw, 1.9rem);
             }
 
             .tb-about-value-grid,
             .tb-about-team-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .tb-about-presence-locations {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                width: 100%;
+                padding-bottom: 0.08rem;
+                scrollbar-width: none;
+                padding: 10px;
+            }
+
+            .tb-about-presence-city {
+                flex: 0 0 auto;
+            }
+
+            .tb-about-presence-locations::-webkit-scrollbar {
+                display: none;
             }
 
             .tb-about-team-grid {
@@ -876,30 +1115,46 @@
 
         <section class="tb-about-purpose" aria-label="Mission and vision">
             <div class="container-xl">
-                <div class="tb-about-purpose-grid">
-                    <article class="tb-about-purpose-panel tb-about-purpose-panel-vision">
+                <div class="tb-about-purpose-shell">
+                    <div class="tb-about-purpose-tabs" role="tablist" aria-label="Mission and vision tabs">
+                        <button type="button" class="tb-about-purpose-tab is-active" id="tb-purpose-tab-vision"
+                            data-purpose-tab="vision" role="tab" aria-controls="tb-purpose-vision"
+                            aria-selected="true">Vision</button>
+                        <button type="button" class="tb-about-purpose-tab" id="tb-purpose-tab-mission"
+                            data-purpose-tab="mission" role="tab" aria-controls="tb-purpose-mission"
+                            aria-selected="false" tabindex="-1">Mission</button>
+                    </div>
+
+                    <article id="tb-purpose-vision" class="tb-about-purpose-panel is-active" data-purpose-panel="vision"
+                        role="tabpanel" aria-labelledby="tb-purpose-tab-vision" aria-hidden="false">
+                        <div class="tb-about-purpose-copy">
+                            <!-- <p class="tb-about-purpose-index">01</p> -->
+                            <div class="tb-about-purpose-tab-slot" data-purpose-tab-slot></div>
+                            <h2 class="tb-about-purpose-title">Our <strong>Vision</strong></h2>
+                            <p class="tb-about-purpose-text">
+                                To define the operating clarity of future real estate portfolios through unwavering
+                                precision, governance discipline, and strategic foresight.
+                            </p>
+                        </div>
                         <figure class="tb-about-purpose-media">
                             <img src="./assets/images/hero_stage_4.png" alt="Vision illustration">
                         </figure>
-                        <h2 class="tb-about-purpose-title">Our <strong>Vision</strong></h2>
-                        <span class="tb-about-purpose-rule"></span>
-                        <p class="tb-about-purpose-text">
-                            To define the operating clarity of future real estate portfolios through unwavering
-                            precision, governance discipline, and strategic foresight.
-                        </p>
-
                     </article>
-                    <article class="tb-about-purpose-panel tb-about-purpose-panel-mission">
+
+                    <article id="tb-purpose-mission" class="tb-about-purpose-panel" data-purpose-panel="mission"
+                        role="tabpanel" aria-labelledby="tb-purpose-tab-mission" aria-hidden="true">
+                        <div class="tb-about-purpose-copy">
+                            <!-- <p class="tb-about-purpose-index">02</p> -->
+                            <div class="tb-about-purpose-tab-slot" data-purpose-tab-slot></div>
+                            <h2 class="tb-about-purpose-title">Our <strong>Mission</strong></h2>
+                            <p class="tb-about-purpose-text">
+                                Execute strategic excellence by unifying services, platform intelligence, and controls
+                                into one dependable lifecycle model.
+                            </p>
+                        </div>
                         <figure class="tb-about-purpose-media">
                             <img src="./assets/images/hero_stage_2.png" alt="Mission illustration">
                         </figure>
-                        <h2 class="tb-about-purpose-title">Our <strong>Mission</strong></h2>
-                        <span class="tb-about-purpose-rule"></span>
-                        <p class="tb-about-purpose-text">
-                            Execute strategic excellence by unifying services, platform intelligence, and controls
-                            into one dependable lifecycle model.
-                        </p>
-
                     </article>
                 </div>
             </div>
@@ -1004,6 +1259,67 @@
                             </div>
                         </article>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tb-about-presence" aria-label="Global office map" data-presence>
+            <div class="container-xl">
+                <div class="tb-about-presence-head">
+                    <h2 class="tb-title">Global Presence</h2>
+                    <!-- <p>Connecting assets, investors, and insights across major global hubs.</p> -->
+                </div>
+
+                <div class="tb-about-presence-map">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" alt=""
+                        aria-hidden="true">
+                    <button type="button" class="tb-about-presence-marker is-active" data-presence-marker
+                        data-presence-city="mumbai" style="left: 69%;top: 36%;" aria-label="Mumbai office"></button>
+                    <button type="button" class="tb-about-presence-marker" data-presence-marker
+                        data-presence-city="singapore" style="left: 78%; top: 64%;"
+                        aria-label="Singapore office"></button>
+                    <button type="button" class="tb-about-presence-marker" data-presence-marker
+                        data-presence-city="dubai" style="left: 60%; top: 53%;" aria-label="Dubai office"></button>
+                    <button type="button" class="tb-about-presence-marker" data-presence-marker
+                        data-presence-city="london" style="left: 49%; top: 43%;" aria-label="London office"></button>
+                </div>
+
+                <div class="tb-about-presence-locations" role="tablist" aria-label="Office locations">
+                    <button type="button" class="tb-about-presence-city is-active" data-presence-city-btn role="tab"
+                        data-presence-city="mumbai" data-presence-label="Mumbai"
+                        data-presence-address="321, Solitaire Corporate Park, Andheri Ghatkopar Link Road, Chakala MIDC, Mumbai, Maharashtra 400093, India"
+                        aria-selected="true">
+                        <strong>Mumbai</strong>
+                        <span>Global HQ &amp; R&amp;D Center</span>
+                    </button>
+                    <button type="button" class="tb-about-presence-city" data-presence-city-btn role="tab"
+                        data-presence-city="singapore" data-presence-label="Singapore"
+                        data-presence-address="79 Ayer Rajah Crescent, #05-08, Singapore 139955" aria-selected="false">
+                        <strong>Singapore</strong>
+                        <span>APAC Operations</span>
+                    </button>
+                    <button type="button" class="tb-about-presence-city" data-presence-city-btn role="tab"
+                        data-presence-city="dubai" data-presence-label="Dubai"
+                        data-presence-address="Office 1704, The Prism Tower, Business Bay, Dubai, United Arab Emirates"
+                        aria-selected="false">
+                        <strong>Dubai</strong>
+                        <span>MENA Advisory Desk</span>
+                    </button>
+                    <button type="button" class="tb-about-presence-city" data-presence-city-btn role="tab"
+                        data-presence-city="london" data-presence-label="London"
+                        data-presence-address="30 Churchill Place, Canary Wharf, London E14 5EU, United Kingdom"
+                        aria-selected="false">
+                        <strong>London</strong>
+                        <span>European Investments</span>
+                    </button>
+                </div>
+
+                <div class="tb-about-presence-address" aria-live="polite">
+                    <strong data-presence-city-label>Mumbai</strong>
+                    <p data-presence-city-address>
+                        321, Solitaire Corporate Park, Andheri Ghatkopar Link Road, Chakala MIDC, Mumbai, Maharashtra
+                        400093, India
+                    </p>
                 </div>
             </div>
         </section>
@@ -1117,6 +1433,125 @@
                 teamGrid.addEventListener("scroll", syncTeamPagination, { passive: true });
                 window.addEventListener("resize", syncTeamPagination);
                 syncTeamPagination();
+            }
+
+            const purposeTabList = document.querySelector(".tb-about-purpose-tabs");
+            const purposeTabs = purposeTabList
+                ? Array.from(purposeTabList.querySelectorAll("[data-purpose-tab]"))
+                : [];
+            const purposePanels = Array.from(document.querySelectorAll("[data-purpose-panel]"));
+
+            if (purposeTabList && purposeTabs.length && purposePanels.length) {
+                const panelMap = new Map(
+                    purposePanels.map((panel) => [panel.getAttribute("data-purpose-panel"), panel]),
+                );
+
+                const setActivePurpose = (key) => {
+                    const fallbackKey = purposeTabs[0].getAttribute("data-purpose-tab");
+                    const activeKey = panelMap.has(key) ? key : fallbackKey;
+
+                    purposeTabs.forEach((tab) => {
+                        const isActive = tab.getAttribute("data-purpose-tab") === activeKey;
+                        tab.classList.toggle("is-active", isActive);
+                        tab.setAttribute("aria-selected", isActive ? "true" : "false");
+                        tab.setAttribute("tabindex", isActive ? "0" : "-1");
+                    });
+
+                    let activePanel = null;
+
+                    purposePanels.forEach((panel) => {
+                        const isActive = panel.getAttribute("data-purpose-panel") === activeKey;
+                        panel.classList.toggle("is-active", isActive);
+                        panel.setAttribute("aria-hidden", isActive ? "false" : "true");
+                        if (isActive) activePanel = panel;
+                    });
+
+                    if (activePanel) {
+                        const tabSlot = activePanel.querySelector("[data-purpose-tab-slot]");
+                        if (tabSlot && purposeTabList.parentElement !== tabSlot) {
+                            tabSlot.appendChild(purposeTabList);
+                        }
+                    }
+                };
+
+                purposeTabs.forEach((tab, index) => {
+                    tab.addEventListener("click", () => {
+                        setActivePurpose(tab.getAttribute("data-purpose-tab"));
+                    });
+
+                    tab.addEventListener("keydown", (event) => {
+                        if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+                        event.preventDefault();
+                        const direction = event.key === "ArrowRight" ? 1 : -1;
+                        const nextIndex = (index + direction + purposeTabs.length) % purposeTabs.length;
+                        const nextTab = purposeTabs[nextIndex];
+                        setActivePurpose(nextTab.getAttribute("data-purpose-tab"));
+                        nextTab.focus();
+                    });
+                });
+
+                const initialTab = purposeTabs.find((tab) => tab.classList.contains("is-active")) || purposeTabs[0];
+                setActivePurpose(initialTab.getAttribute("data-purpose-tab"));
+            }
+
+            const presenceRoot = document.querySelector("[data-presence]");
+            const presenceLabel = presenceRoot ? presenceRoot.querySelector("[data-presence-city-label]") : null;
+            const presenceAddress = presenceRoot ? presenceRoot.querySelector("[data-presence-city-address]") : null;
+            const presenceMarkers = presenceRoot
+                ? Array.from(presenceRoot.querySelectorAll("[data-presence-marker]"))
+                : [];
+            const presenceCities = presenceRoot
+                ? Array.from(presenceRoot.querySelectorAll("[data-presence-city-btn]"))
+                : [];
+
+            if (presenceRoot && presenceLabel && presenceAddress && presenceMarkers.length && presenceCities.length) {
+                const cityButtonMap = new Map(
+                    presenceCities.map((button) => [button.getAttribute("data-presence-city"), button]),
+                );
+
+                const setPresence = (cityKey) => {
+                    if (!cityKey) return;
+                    const activeCityButton = cityButtonMap.get(cityKey) || presenceCities[0];
+                    if (!activeCityButton) return;
+
+                    const activeCityKey = activeCityButton.getAttribute("data-presence-city");
+                    const label = activeCityButton.getAttribute("data-presence-label") || activeCityButton.textContent || "";
+                    const address = activeCityButton.getAttribute("data-presence-address") || "";
+
+                    presenceCities.forEach((button) => {
+                        const isActive = button === activeCityButton;
+                        button.classList.toggle("is-active", isActive);
+                        button.setAttribute("aria-selected", isActive ? "true" : "false");
+                        button.setAttribute("tabindex", isActive ? "0" : "-1");
+                    });
+
+                    presenceMarkers.forEach((marker) => {
+                        const markerCity = marker.getAttribute("data-presence-city");
+                        const isActive = markerCity === activeCityKey;
+                        marker.classList.toggle("is-active", isActive);
+                        marker.setAttribute("aria-pressed", isActive ? "true" : "false");
+                    });
+
+                    presenceLabel.textContent = label.trim();
+                    presenceAddress.textContent = address.trim();
+                };
+
+                presenceMarkers.forEach((marker) => {
+                    marker.addEventListener("click", () => {
+                        setPresence(marker.getAttribute("data-presence-city"));
+                    });
+                });
+
+                presenceCities.forEach((button) => {
+                    button.addEventListener("click", () => {
+                        setPresence(button.getAttribute("data-presence-city"));
+                    });
+                });
+
+                const initiallyActiveCity =
+                    presenceCities.find((button) => button.classList.contains("is-active")) ||
+                    presenceCities[0];
+                setPresence(initiallyActiveCity ? initiallyActiveCity.getAttribute("data-presence-city") : "");
             }
 
             const journeyViewport = document.querySelector("[data-journey-viewport]");

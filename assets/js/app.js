@@ -207,6 +207,10 @@ const offerings = [
 
 let offeringIndex = 0;
 let offeringImageLoadToken = 0;
+let offeringTransitionTimer = null;
+let offeringRenderToken = 0;
+const OFFERING_TRANSITION_OUT_MS = 170;
+const OFFERING_IMAGE_FADE_MS = 320;
 
 const heroStageImages = [
   {
@@ -362,6 +366,133 @@ function animateCounter(element, target, durationMs) {
   }
 
   requestAnimationFrame(tick);
+}
+
+function initImpactSlider() {
+  const sliderRoot = document.querySelector("[data-impact-slider]");
+  const track = sliderRoot && sliderRoot.querySelector("[data-impact-track]");
+  const slides = track ? Array.from(track.querySelectorAll(".tb-impact-slide")) : [];
+  const prevButton = sliderRoot
+    ? sliderRoot.querySelector('[data-impact-nav="prev"]')
+    : null;
+  const nextButton = sliderRoot
+    ? sliderRoot.querySelector('[data-impact-nav="next"]')
+    : null;
+  const pagination = document.querySelector("[data-impact-pagination]");
+
+  if (!sliderRoot || !track || slides.length < 2) return;
+
+  const mobileMedia = window.matchMedia("(max-width: 767.98px)");
+  const autoPlayIntervalMs = 2600;
+  let activeIndex = 0;
+  let autoPlayTimer = null;
+
+  if (pagination) {
+    pagination.innerHTML = slides
+      .map(
+        (_, idx) =>
+          `<button type="button" class="tb-impact-dot${idx === 0 ? " is-active" : ""}" data-impact-dot="${idx}" aria-label="Go to impact slide ${
+            idx + 1
+          }" aria-current="${idx === 0 ? "true" : "false"}"></button>`,
+      )
+      .join("");
+  }
+
+  const dots = pagination
+    ? Array.from(pagination.querySelectorAll("[data-impact-dot]"))
+    : [];
+
+  const setActive = (nextIndex, options = {}) => {
+    const { animateTransition = true } = options;
+    const safeIndex = Math.max(0, Math.min(nextIndex, slides.length - 1));
+    activeIndex = safeIndex;
+
+    if (mobileMedia.matches) {
+      track.style.transition = animateTransition
+        ? ""
+        : "none";
+      track.style.transform = `translate3d(-${activeIndex * 100}%, 0, 0)`;
+      if (!animateTransition) {
+        void track.offsetWidth;
+        track.style.transition = "";
+      }
+      if (prevButton) prevButton.disabled = activeIndex === 0;
+      if (nextButton) nextButton.disabled = activeIndex === slides.length - 1;
+    } else {
+      track.style.transition = "";
+      track.style.transform = "";
+      if (prevButton) prevButton.disabled = true;
+      if (nextButton) nextButton.disabled = true;
+    }
+
+    dots.forEach((dot, dotIndex) => {
+      const isActive = dotIndex === activeIndex;
+      dot.classList.toggle("is-active", isActive);
+      dot.setAttribute("aria-current", isActive ? "true" : "false");
+    });
+  };
+
+  const stopAutoPlay = () => {
+    if (!autoPlayTimer) return;
+    window.clearInterval(autoPlayTimer);
+    autoPlayTimer = null;
+  };
+
+  const startAutoPlay = () => {
+    stopAutoPlay();
+    if (!mobileMedia.matches || document.hidden) return;
+    autoPlayTimer = window.setInterval(() => {
+      if (activeIndex >= slides.length - 1) {
+        setActive(0, { animateTransition: false });
+        return;
+      }
+      setActive(activeIndex + 1, { animateTransition: true });
+    }, autoPlayIntervalMs);
+  };
+
+  if (prevButton) {
+    prevButton.addEventListener("click", () => {
+      if (!mobileMedia.matches) return;
+      setActive(activeIndex - 1);
+    });
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener("click", () => {
+      if (!mobileMedia.matches) return;
+      setActive(activeIndex + 1);
+    });
+  }
+
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => {
+      if (!mobileMedia.matches) return;
+      const index = Number(dot.getAttribute("data-impact-dot") || "0");
+      setActive(index);
+    });
+  });
+
+  const syncOnViewportChange = () => {
+    setActive(activeIndex);
+    startAutoPlay();
+  };
+
+  if (mobileMedia.addEventListener) {
+    mobileMedia.addEventListener("change", syncOnViewportChange);
+  } else if (mobileMedia.addListener) {
+    mobileMedia.addListener(syncOnViewportChange);
+  }
+
+  window.addEventListener("resize", syncOnViewportChange);
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      stopAutoPlay();
+      return;
+    }
+    startAutoPlay();
+  });
+  setActive(0);
+  startAutoPlay();
 }
 
 function initImpactCounters() {
@@ -541,31 +672,127 @@ function updateOfferingImage(current, animate = false) {
   if (!offeringImage || !current.image) return;
 
   const loadToken = ++offeringImageLoadToken;
+  let ghostImage =
+    imageShell && imageShell.querySelector(".tb-offering-image-ghost");
+
+  if (imageShell && !ghostImage) {
+    ghostImage = document.createElement("img");
+    ghostImage.className = "tb-offering-image-ghost";
+    ghostImage.alt = "";
+    ghostImage.setAttribute("aria-hidden", "true");
+    ghostImage.decoding = "async";
+    imageShell.appendChild(ghostImage);
+  }
 
   if (!animate) {
     offeringImage.src = current.image.src;
     offeringImage.alt = current.image.alt;
     if (imageShell) imageShell.classList.remove("is-switching");
+    if (ghostImage) {
+      ghostImage.src = "";
+      ghostImage.alt = "";
+    }
+    offeringImage.onload = null;
+    offeringImage.onerror = null;
     return;
   }
 
-  if (imageShell) imageShell.classList.add("is-switching");
-
-  const finish = () => {
-    if (loadToken !== offeringImageLoadToken) return;
-    offeringImage.onload = null;
-    offeringImage.onerror = null;
-    if (imageShell) imageShell.classList.remove("is-switching");
-  };
-
-  offeringImage.onload = finish;
-  offeringImage.onerror = finish;
-
-  requestAnimationFrame(() => {
+  if (!imageShell || !ghostImage) {
     offeringImage.src = current.image.src;
     offeringImage.alt = current.image.alt;
-    if (offeringImage.complete) finish();
-  });
+    return;
+  }
+
+  const nextSrc = current.image.src;
+  const nextAlt = current.image.alt;
+  if (offeringImage.getAttribute("src") === nextSrc) {
+    offeringImage.alt = nextAlt;
+    imageShell.classList.remove("is-switching");
+    ghostImage.src = "";
+    ghostImage.alt = "";
+    offeringImage.onload = null;
+    offeringImage.onerror = null;
+    return;
+  }
+
+  const loader = new Image();
+
+  const clearSwitchState = () => {
+    if (loadToken !== offeringImageLoadToken) return;
+    imageShell.classList.remove("is-switching");
+    window.setTimeout(() => {
+      if (loadToken !== offeringImageLoadToken) return;
+      ghostImage.src = "";
+      ghostImage.alt = "";
+    }, OFFERING_IMAGE_FADE_MS + 40);
+  };
+
+  const commitBaseImage = () => {
+    if (loadToken !== offeringImageLoadToken) return;
+
+    const revealBase = () => {
+      if (loadToken !== offeringImageLoadToken) return;
+      offeringImage.onload = null;
+      offeringImage.onerror = null;
+      clearSwitchState();
+    };
+
+    offeringImage.onload = revealBase;
+    offeringImage.onerror = revealBase;
+    offeringImage.src = nextSrc;
+    offeringImage.alt = nextAlt;
+
+    if (offeringImage.complete) {
+      if (typeof offeringImage.decode === "function") {
+        offeringImage.decode().catch(() => null).finally(revealBase);
+      } else {
+        revealBase();
+      }
+    }
+  };
+
+  const startCrossfade = () => {
+    if (loadToken !== offeringImageLoadToken) return;
+    ghostImage.src = nextSrc;
+    ghostImage.alt = nextAlt;
+
+    const onFadeDone = (event) => {
+      if (event && event.propertyName !== "opacity") return;
+      commitBaseImage();
+    };
+
+    ghostImage.addEventListener("transitionend", onFadeDone, { once: true });
+    imageShell.classList.remove("is-switching");
+    void ghostImage.offsetWidth;
+    requestAnimationFrame(() => {
+      if (loadToken !== offeringImageLoadToken) return;
+      imageShell.classList.add("is-switching");
+      window.setTimeout(() => {
+        if (loadToken !== offeringImageLoadToken) return;
+        if (!imageShell.classList.contains("is-switching")) return;
+        commitBaseImage();
+      }, OFFERING_IMAGE_FADE_MS + 120);
+    });
+  };
+
+  loader.onload = () => {
+    if (typeof loader.decode === "function") {
+      loader.decode().catch(() => null).finally(startCrossfade);
+      return;
+    }
+    startCrossfade();
+  };
+
+  loader.onerror = () => {
+    if (loadToken !== offeringImageLoadToken) return;
+    offeringImage.src = nextSrc;
+    offeringImage.alt = nextAlt;
+    imageShell.classList.remove("is-switching");
+    ghostImage.src = "";
+    ghostImage.alt = "";
+  };
+
+  loader.src = nextSrc;
 }
 
 function renderOfferings(animate = false) {
@@ -575,42 +802,62 @@ function renderOfferings(animate = false) {
   const capabilityGrid = document.getElementById("offeringCapabilities");
   const contentPane = document.getElementById("offeringContentPane");
 
-  if (contentPane) {
-    if (animate) {
-      contentPane.classList.add("is-switching");
-    } else {
-      contentPane.classList.remove("is-switching");
+  const applyOfferingContent = () => {
+    if (title) title.textContent = current.title;
+    if (description) description.textContent = current.description;
+
+    if (capabilityGrid) {
+      capabilityGrid.innerHTML = current.capabilities
+        .map(
+          (item, idx) => `
+            <article class="tb-capability-card${idx === 0 ? " is-highlight" : ""}">
+              <span class="tb-capability-icon" aria-hidden="true">${item.icon}</span>
+              <p>${item.text}</p>
+            </article>
+          `,
+        )
+        .join("");
     }
+
+    updateOfferingImage(current, animate);
+    renderOfferingTabs();
+  };
+
+  if (!animate || !contentPane) {
+    if (offeringTransitionTimer) {
+      clearTimeout(offeringTransitionTimer);
+      offeringTransitionTimer = null;
+    }
+    if (contentPane) contentPane.classList.remove("is-switching");
+    applyOfferingContent();
+    return;
   }
 
-  if (title) title.textContent = current.title;
-  if (description) description.textContent = current.description;
-
-  if (capabilityGrid) {
-    capabilityGrid.innerHTML = current.capabilities
-      .map(
-        (item, idx) => `
-          <article class="tb-capability-card${idx === 0 ? " is-highlight" : ""}">
-            <span class="tb-capability-icon" aria-hidden="true">${item.icon}</span>
-            <p>${item.text}</p>
-          </article>
-        `,
-      )
-      .join("");
+  const renderToken = ++offeringRenderToken;
+  if (offeringTransitionTimer) {
+    clearTimeout(offeringTransitionTimer);
+    offeringTransitionTimer = null;
   }
 
-  updateOfferingImage(current, animate);
-  renderOfferingTabs();
+  contentPane.classList.add("is-switching");
 
-  if (contentPane && animate) {
+  offeringTransitionTimer = window.setTimeout(() => {
+    if (renderToken !== offeringRenderToken) {
+      offeringTransitionTimer = null;
+      return;
+    }
+    applyOfferingContent();
     requestAnimationFrame(() => {
+      if (renderToken !== offeringRenderToken) return;
       contentPane.classList.remove("is-switching");
     });
-  }
+    offeringTransitionTimer = null;
+  }, OFFERING_TRANSITION_OUT_MS);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   initMenu();
+  initImpactSlider();
   initImpactCounters();
   initLifecycleToggles();
   initTrustTabs();
