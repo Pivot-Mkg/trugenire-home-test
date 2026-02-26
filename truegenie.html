@@ -15,6 +15,96 @@
     <link rel="stylesheet" href="./assets/css/main.css">
     <title>Product - TruGenie</title>
 
+  
+    <style>
+        /* ✅ Grid spacing stays same, we just animate children */
+.process-icons-grid{
+  gap: 18px;     /* optional */
+}
+
+/* LOOP: float + tiny scale + rotate */
+.process-icon-wrapper{
+  --c1:#286FED;   /* primary */
+  --c2:#286FED;   /* green */
+  --c3:#286FED;   /* amber */
+  --c4:#286FED;   /* purple */
+
+  animation: iconFloat 2.8s ease-in-out infinite;
+  will-change: transform, filter;
+}
+
+/* stagger the loop */
+.process-icon-wrapper:nth-child(1){ animation-delay: 0s; }
+.process-icon-wrapper:nth-child(2){ animation-delay: 0.25s; }
+.process-icon-wrapper:nth-child(3){ animation-delay: 0.50s; }
+.process-icon-wrapper:nth-child(4){ animation-delay: 0.75s; }
+
+@keyframes iconFloat{
+  0%,100% { transform: translateY(0) scale(1); filter: drop-shadow(0 6px 14px rgba(0,0,0,0.06)); }
+  50%     { transform: translateY(-10px) scale(1.02); filter: drop-shadow(0 14px 22px rgba(0,0,0,0.10)); }
+}
+
+/* ✅ COLOR LOOP (stroke + subtle border glow) */
+.process-icon-wrapper .process-icon{
+  animation: iconColor 3.6s linear infinite;
+}
+
+/* stagger color loop too (feels more premium) */
+.process-icon-wrapper:nth-child(1) .process-icon{ animation-delay: 0s; }
+.process-icon-wrapper:nth-child(2) .process-icon{ animation-delay: .30s; }
+.process-icon-wrapper:nth-child(3) .process-icon{ animation-delay: .60s; }
+.process-icon-wrapper:nth-child(4) .process-icon{ animation-delay: .90s; }
+
+/* Override inline stroke colors in SVG */
+.process-icon path,
+.process-icon rect,
+.process-icon line,
+.process-icon polyline,
+.process-icon circle{
+  stroke: var(--stroke, #286FED) !important;
+  transition: stroke 250ms ease;
+}
+
+/* Optional: make the outer border follow color too */
+.process-icon rect[stroke]{
+  stroke: color-mix(in srgb, var(--stroke) 22%, #E2E8F0) !important;
+}
+
+/* Color cycle keyframes */
+@keyframes iconColor{
+  0%   { --stroke: var(--c1); }
+  25%  { --stroke: var(--c2); }
+  50%  { --stroke: var(--c3); }
+  75%  { --stroke: var(--c4); }
+  100% { --stroke: var(--c1); }
+}
+
+/* Optional: gentle glow synced with the color */
+.process-icon-wrapper{
+  animation-name: iconFloat, iconGlow;
+  animation-duration: 2.8s, 3.6s;
+  animation-timing-function: ease-in-out, linear;
+  animation-iteration-count: infinite, infinite;
+}
+.process-icon-wrapper:nth-child(1){ animation-delay: 0s, 0s; }
+.process-icon-wrapper:nth-child(2){ animation-delay: .25s, .30s; }
+.process-icon-wrapper:nth-child(3){ animation-delay: .50s, .60s; }
+.process-icon-wrapper:nth-child(4){ animation-delay: .75s, .90s; }
+
+@keyframes iconGlow{
+  0%,100% { filter: drop-shadow(0 10px 18px rgba(40,111,237,0.10)); }
+  25%     { filter: drop-shadow(0 10px 18px rgba(34,197,94,0.12)); }
+  50%     { filter: drop-shadow(0 10px 18px rgba(245,158,11,0.12)); }
+  75%     { filter: drop-shadow(0 10px 18px rgba(168,85,247,0.12)); }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce){
+  .process-icon-wrapper, .process-icon{ animation: none !important; }
+}
+    </style>
+
+
 </head>
 
 <body class="tb-truegenie-page">

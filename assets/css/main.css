@@ -543,18 +543,19 @@ body {
     margin: 22px auto 0px auto;
     padding-left: 0;
     display: grid;
-    gap: 6px;
+    gap: 0px;
 
 }
 
 .process-card ul li {
     font-family: var(--ff-primary);
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.5;
     list-style: none;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 3px;
+    color: #475569;
 }
 
 .process-card ul li .process-list-icon {
@@ -715,6 +716,8 @@ body {
     .engagement-cards {
         grid-template-columns: 1fr;
     }
+
+    
 }
 
 /* CTA Section */
@@ -1391,6 +1394,12 @@ body {
     .legacy-footer {
         background: #0B192F;
         padding: 2em 1em;
+    }
+
+    .tb-truegenie-page .process-icons-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr))!important;
+        max-width: auto!important;
+        gap: 1em!important;
     }
 
 }
