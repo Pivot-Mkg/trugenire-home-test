@@ -46,8 +46,8 @@
 .tb-about-hero-copy p {
     margin: 0.12rem 0 0;
     color: #5d6e86;
-    font-size: var(--tb-fs-18);
-    line-height: 1.52;
+    font-size: clamp(var(--tb-fs-16), 1.2vw, var(--tb-fs-18));
+    line-height: 1.55;
     max-width: 34rem;
 }
 
@@ -785,6 +785,15 @@
         grid-template-columns: 1fr;
     }
 
+    .tb-about-hero-copy {
+        text-align: left;
+    }
+
+    .tb-about-hero-actions {
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
     .tb-about-purpose-panel {
         grid-template-columns: 1fr;
         gap: 1rem;
@@ -795,6 +804,8 @@
     }
 
     .tb-about-hero-art {
+        order: -1;
+        width: 100%;
         justify-content: center;
     }
 
@@ -822,13 +833,22 @@
     }
 
     .tb-about-hero-copy h1 {
-        font-size: 1.92rem;
+        font-size: var(--tb-fs-36);
     }
 
     .tb-about-hero-copy p,
     .tb-about-section-head p,
     .tb-about-purpose-text {
         font-size: var(--tb-fs-16);
+    }
+
+    .tb-about-hero-copy h1,
+    .tb-about-hero-copy p {
+        text-align: left;
+    }
+
+    .tb-about-section-head p,
+    .tb-about-purpose-text {
         text-align: center;
     }
 
@@ -956,8 +976,8 @@
 .tb-careers-hero-copy p {
     margin: 0.1rem 0 0;
     color: #5d6e86;
-    font-size: var(--tb-fs-18);
-    line-height: 1.52;
+    font-size: clamp(var(--tb-fs-16), 1.2vw, var(--tb-fs-18));
+    line-height: 1.55;
     max-width: 33rem;
 }
 
@@ -1485,7 +1505,18 @@
         padding: 110px 0 0 0;
     }
 
+    .tb-careers-hero-copy {
+        text-align: left;
+    }
+
+    .tb-careers-actions {
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
     .tb-careers-hero-art {
+        order: -1;
+        width: 100%;
         justify-content: center;
     }
 
@@ -1503,8 +1534,9 @@
 }
 
 @media (max-width: 575.98px) {
+    .tb-about-hero-copy h1,
     .tb-careers-hero-copy h1 {
-        font-size: var(--tb-heading-size-xl);
+        font-size: 24px;
     }
 
     .tb-careers-hero-copy p,
@@ -1513,12 +1545,15 @@
     }
 
     .tb-careers-actions {
-        grid-template-columns: 1fr;
-        display: grid;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: flex-start;
     }
 
     .tb-careers-actions .tb-btn {
-        width: 100%;
+        width: auto;
         min-width: 0;
     }
 
@@ -1597,8 +1632,8 @@
 .tb-contact-hero-text {
     margin: 0.15rem 0 0;
     color: #5d6e86;
-    font-size: var(--tb-fs-18);
-    line-height: 1.52;
+    font-size: clamp(var(--tb-fs-16), 1.2vw, var(--tb-fs-18));
+    line-height: 1.55;
     max-width: 31rem;
 }
 
@@ -1968,7 +2003,13 @@
         padding-top: 1.1rem;
     }
 
+    .tb-contact-hero-content {
+        text-align: left;
+    }
+
     .tb-contact-hero-art {
+        order: -1;
+        width: 100%;
         justify-content: center;
     }
 
@@ -2010,7 +2051,7 @@
     }
 
     .tb-contact-hero-content h1 {
-        font-size: var(--tb-heading-size-xl);
+        font-size: 24px;
     }
 
     .tb-contact-hero-text {
@@ -2368,8 +2409,8 @@
 .tb-res-hero-copy p {
     margin: 0.1rem 0 0;
     color: #5d6e86;
-    font-size: var(--tb-fs-18);
-    line-height: 1.52;
+    font-size: clamp(var(--tb-fs-16), 1.2vw, var(--tb-fs-18));
+    line-height: 1.55;
     max-width: 34rem;
 }
 
@@ -2691,7 +2732,13 @@
         grid-template-columns: 1fr;
     }
 
+    .tb-res-hero-copy {
+        text-align: left;
+    }
+
     .tb-res-hero-art {
+        order: -1;
+        width: 100%;
         justify-content: center;
     }
 
@@ -2728,7 +2775,7 @@
     }
 
     .tb-res-hero-copy h1 {
-        font-size: var(--tb-heading-size-xl);
+        font-size: 24px;
     }
 
     .tb-res-hero-copy p {

@@ -205,6 +205,12 @@
         max-width: none;
     }
 
+    .tb-ai-copy,
+    .tb-ai-title,
+    .tb-ai-text {
+        text-align: left;
+    }
+
     .tb-ai-form {
         order: 1;
     }
@@ -231,13 +237,15 @@
 
     .tb-ai-content .tb-hero-actions {
         margin-top: 0.85rem;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: flex-start;
         gap: 0.55rem;
     }
 
     .tb-ai-content .tb-hero-actions .tb-btn {
-        width: 100%;
+        width: auto;
         min-height: 2.4rem;
     }
 
@@ -289,15 +297,15 @@
     }
 
     .tb-ai-content .tb-hero-kicker {
-        font-size: var(--tb-fs-36);
+        font-size: 24px;
     }
 
     .tb-ai-title {
-        font-size: var(--tb-heading-size-xl);
+        font-size: 24px;
     }
 
     .tb-ai-content .tb-hero-actions {
-        grid-template-columns: 1fr;
+        justify-content: flex-start;
         gap: 0.45rem;
     }
 

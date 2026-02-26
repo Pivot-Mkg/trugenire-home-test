@@ -2196,6 +2196,8 @@ a {
 
   .tb-integrated-subtitle {
     font-size: var(--tb-fs-16);
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   .tb-integrated-slider {
@@ -2459,7 +2461,7 @@ a {
 
   .tb-integrated-card {
     box-shadow: var(--tb-shadow-mobile);
-
+    padding: 17px;
   }
 
   .tb-capability-card {
@@ -2499,4 +2501,25 @@ a {
   .tb-backing-grid>.tb-backing-item:not(:first-child) .tb-backing-card h3 {
     height: 40px;
   }
+
+  #trustLogoGrid .tb-trusted-logo-card {
+    min-height: auto;
+    height: 60px;
+  }
+
+  .tb-arrow svg,
+  .tb-btn-ghost svg {
+    transform: scale(0.7);
+  }
+
+  .tb-trust-btn.is-active {
+    box-shadow: var(--tb-shadow-mobile);
+  }
+
+  .tb-trusted-logo-card {
+    box-shadow: var(--tb-shadow-mobile);
+  }
+
+  /* contact us page starts  */
+  /* contact us page end  */
 }

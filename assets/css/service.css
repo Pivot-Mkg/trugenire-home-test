@@ -9,7 +9,7 @@
 }
 
 .hero-heading span {
-    font-size: 30px;
+    font-size: var(--tb-fs-36);
 }
 
 .hero-section .content {
@@ -239,7 +239,7 @@
     padding-top: 72px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 767.98px) {
     .legacy-navbar nav {
         display: none;
     }
@@ -322,7 +322,7 @@
     }
 
     .hero-heading span {
-        font-size: 36px;
+        font-size: var(--tb-fs-36);
     }
 
     .cta-btn {
@@ -375,6 +375,13 @@
     }
 
 
+}
+
+@media (max-width: 575.98px) {
+    .hero-heading,
+    .hero-heading span {
+        font-size: 24px;
+    }
 }
 
 .section-header .section-header-title {
