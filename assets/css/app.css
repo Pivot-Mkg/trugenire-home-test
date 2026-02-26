@@ -25,6 +25,7 @@
   --tb-section-py: 4.5rem;
   --tb-btn-pad-y: 0.56rem;
   --tb-btn-pad-x: 1rem;
+  --tb-mobile-inline-space: 1rem;
   --tb-container-wide: 1520px;
   --tb-container-ultra: 1700px;
 }
@@ -116,7 +117,7 @@ a {
 }
 
 .tb-logo img {
-  height: clamp(25px, 1.95vw, 35px);
+  height: clamp(18px, 1.95vw, 35px);
   width: auto;
   display: block;
 }
@@ -742,13 +743,19 @@ a {
 }
 
 @media (max-width: 767.98px) {
+
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg,
+  .container-xl,
+  .container-xxl {
+    --bs-gutter-x: calc(var(--tb-mobile-inline-space) * 2);
+  }
+
   .tb-hero-main {
     display: flex;
     flex-direction: column;
-  }
-
-  .tb-hero-main>.col-lg-7 {
-    display: contents;
   }
 
   .tb-hero-main>.col-lg-7>.tb-lifecycle {
@@ -1188,9 +1195,9 @@ a {
 
 .tb-issue-callout {
   margin: 0.65rem 0 0;
-  background: transparent;
+  background: #EFF6FF;
   color: var(--tb-blue);
-  border: 2px solid var(--tb-blue);
+  /* border: 2px solid var(--tb-blue); */
   border-radius: var(--tb-radius-sm);
   text-align: center;
   font-size: clamp(var(--tb-fs-16), 1.2vw, var(--tb-fs-20));
@@ -1489,6 +1496,15 @@ a {
   gap: 1.45rem 2rem;
   align-items: center;
   justify-items: center;
+}
+
+.tb-why-slider,
+.tb-why-track {
+  display: contents;
+}
+
+.tb-why-pagination {
+  display: none;
 }
 
 .tb-why-card {
@@ -2103,7 +2119,7 @@ a {
   }
 
   .tb-offering-tabs {
-    width: min(34rem, 50%);
+    width: min(34rem, 100%);
     gap: 0.55rem;
   }
 
@@ -2128,6 +2144,75 @@ a {
   }
 
 
+}
+
+@media (max-width: 767.98px) {
+  .tb-why-grid {
+    max-width: 100%;
+    margin-top: 1.2rem;
+    display: block;
+  }
+
+  .tb-why-center {
+    transform: none;
+    width: fit-content;
+    margin: 0 auto 1rem;
+  }
+
+  .tb-why-slider {
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .tb-why-track {
+    display: flex;
+    gap: 0;
+    width: 100%;
+  }
+
+  .tb-why-slider .swiper-slide {
+    flex-shrink: 0;
+    height: auto;
+  }
+
+  .tb-why-card {
+    min-width: 0;
+    max-width: none;
+  }
+
+  .tb-why-card p {
+    max-width: none;
+  }
+
+  .tb-why-pagination {
+    position: static;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    margin-top: 0.65rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.42rem;
+  }
+
+  .tb-why-dot {
+    width: 8px;
+    height: 8px;
+    border: 0;
+    border-radius: 999px;
+    background: #d2dff4;
+    padding: 0;
+    transition: width 0.2s ease, background-color 0.2s ease;
+  }
+
+  .tb-why-dot.is-active {
+    width: 22px;
+    background: #2f6be4;
+  }
 }
 
 @media (max-width: 575.98px) {

@@ -1343,4 +1343,20 @@ body {
         background: #0B192F;
         padding: 2em 1em;
     }
+
+}
+
+@media (max-width: 767.98px) {
+    .hero-section,
+    .features-section-1,
+    .how-its-work,
+    .functional-modules-section,
+    .engagement-model-section,
+    .secondary-feature-section,
+    .primary-service-section,
+    .leadership-section,
+    .cta-section {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }

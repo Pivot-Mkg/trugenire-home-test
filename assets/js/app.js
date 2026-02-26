@@ -371,7 +371,9 @@ function animateCounter(element, target, durationMs) {
 function initImpactSlider() {
   const sliderRoot = document.querySelector("[data-impact-slider]");
   const track = sliderRoot && sliderRoot.querySelector("[data-impact-track]");
-  const slides = track ? Array.from(track.querySelectorAll(".tb-impact-slide")) : [];
+  const slides = track
+    ? Array.from(track.querySelectorAll(".tb-impact-slide"))
+    : [];
   const prevButton = sliderRoot
     ? sliderRoot.querySelector('[data-impact-nav="prev"]')
     : null;
@@ -408,9 +410,7 @@ function initImpactSlider() {
     activeIndex = safeIndex;
 
     if (mobileMedia.matches) {
-      track.style.transition = animateTransition
-        ? ""
-        : "none";
+      track.style.transition = animateTransition ? "" : "none";
       track.style.transform = `translate3d(-${activeIndex * 100}%, 0, 0)`;
       if (!animateTransition) {
         void track.offsetWidth;
@@ -493,6 +493,85 @@ function initImpactSlider() {
   });
   setActive(0);
   startAutoPlay();
+}
+
+function initWhySlider() {
+  const sliderRoot = document.querySelector("[data-why-slider]");
+  const pagination = document.querySelector("[data-why-pagination]");
+
+  if (!sliderRoot || !pagination || typeof window.Swiper !== "function") return;
+
+  const mobileMedia = window.matchMedia("(max-width: 767.98px)");
+  const reduceMotion =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let swiperInstance = null;
+
+  const syncPaginationAria = () => {
+    const dots = Array.from(pagination.querySelectorAll(".tb-why-dot"));
+    dots.forEach((dot) => {
+      const isActive = dot.classList.contains("is-active");
+      dot.setAttribute("aria-current", isActive ? "true" : "false");
+    });
+  };
+
+  const createSlider = () => {
+    if (swiperInstance || !mobileMedia.matches) return;
+
+    swiperInstance = new window.Swiper(sliderRoot, {
+      slidesPerView: 2,
+      spaceBetween: 10,
+      speed: reduceMotion ? 0 : 550,
+      loop: true,
+      allowTouchMove: true,
+      watchOverflow: false,
+      autoplay: reduceMotion
+        ? false
+        : {
+            delay: 3200,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          },
+      pagination: {
+        el: pagination,
+        clickable: true,
+        bulletClass: "tb-why-dot",
+        bulletActiveClass: "is-active",
+        renderBullet: (index, className) =>
+          `<button type="button" class="${className}" aria-label="Go to Why TruBoard card ${
+            index + 1
+          }"></button>`,
+      },
+      on: {
+        init: syncPaginationAria,
+        slideChange: syncPaginationAria,
+      },
+    });
+  };
+
+  const destroySlider = () => {
+    if (!swiperInstance) return;
+    swiperInstance.destroy(true, true);
+    swiperInstance = null;
+    pagination.innerHTML = "";
+  };
+
+  const syncOnViewportChange = () => {
+    if (mobileMedia.matches) {
+      createSlider();
+      return;
+    }
+    destroySlider();
+  };
+
+  if (mobileMedia.addEventListener) {
+    mobileMedia.addEventListener("change", syncOnViewportChange);
+  } else if (mobileMedia.addListener) {
+    mobileMedia.addListener(syncOnViewportChange);
+  }
+
+  window.addEventListener("resize", syncOnViewportChange);
+  syncOnViewportChange();
 }
 
 function initImpactCounters() {
@@ -744,7 +823,10 @@ function updateOfferingImage(current, animate = false) {
 
     if (offeringImage.complete) {
       if (typeof offeringImage.decode === "function") {
-        offeringImage.decode().catch(() => null).finally(revealBase);
+        offeringImage
+          .decode()
+          .catch(() => null)
+          .finally(revealBase);
       } else {
         revealBase();
       }
@@ -777,7 +859,10 @@ function updateOfferingImage(current, animate = false) {
 
   loader.onload = () => {
     if (typeof loader.decode === "function") {
-      loader.decode().catch(() => null).finally(startCrossfade);
+      loader
+        .decode()
+        .catch(() => null)
+        .finally(startCrossfade);
       return;
     }
     startCrossfade();
@@ -858,6 +943,7 @@ function renderOfferings(animate = false) {
 document.addEventListener("DOMContentLoaded", () => {
   initMenu();
   initImpactSlider();
+  initWhySlider();
   initImpactCounters();
   initLifecycleToggles();
   initTrustTabs();
