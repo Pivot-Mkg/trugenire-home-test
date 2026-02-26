@@ -903,7 +903,7 @@ body {
     font-family: var(--ff-primary);
     font-size: 16px;
     margin: 0% 0 6px 0;
-    font-weight: 500;
+    font-weight: 600;
 
 }
 
@@ -918,7 +918,7 @@ body {
 .leadership-card {
     position: relative;
     overflow: hidden;
-    margin-bottom: 12px;
+    margin-bottom: 22px;
 }
 
 
@@ -1144,7 +1144,7 @@ body {
 }
 
 .cta-title {
-    font-size: 28px;
+    font-size: 36px;
     margin: 0 0 18px 0;
     color: #002672;
     font-weight: 500;
