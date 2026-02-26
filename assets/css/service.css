@@ -239,6 +239,24 @@
     padding-top: 72px;
 }
 
+@media (max-width: 991.98px) {
+    .hero-section .content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .hero-section .img-wrapper {
+        order: -1;
+        width: 100%;
+    }
+
+    .hero-section-img {
+        width: min(100%, 33rem);
+        margin: 0 auto;
+        display: block;
+    }
+}
+
 @media (max-width: 767.98px) {
     .legacy-navbar nav {
         display: none;
@@ -399,4 +417,80 @@
     font-weight: 600;
     margin: 0%;
     padding: 0%;
+}
+
+@media (min-width: 992px) {
+    .hero-heading {
+        font-size: var(--tb-fs-36);
+        line-height: 1.13;
+        color: var(--tb-blue-dark);
+        text-align: left;
+        margin-bottom: 1rem;
+    }
+
+    .hero-heading span {
+        display: block;
+        font-size: var(--tb-fs-36);
+        line-height: 1.1;
+        color: var(--tb-blue);
+    }
+
+    .section-header .section-header-title {
+        font-size: var(--tb-heading-size-xl);
+        line-height: 1.13;
+        color: var(--tb-heading-color);
+        text-align: center;
+        font-weight: 700;
+    }
+
+    .section-description,
+    .note,
+    .primary-service-card-head-item-subheading,
+    .secondary-feature-card-item-description,
+    .point-list-item {
+        font-size: clamp(var(--tb-fs-16), 1.2vw, var(--tb-fs-18));
+        line-height: 1.55;
+        color: #667486;
+    }
+
+    .primary-service-card-head-item-heading {
+        font-size: var(--tb-heading-size-md);
+        line-height: 1.25;
+        color: var(--tb-heading-color);
+        font-weight: 600;
+    }
+
+    .secondary-feature-card .secondary-feature-card-item-name,
+    .point-list-title {
+        color: var(--tb-heading-color);
+    }
+
+    .secondary-feature-card .secondary-feature-card-item-name {
+        font-size: var(--tb-fs-18);
+        line-height: 1.35;
+    }
+
+    .point-list-title {
+        font-size: var(--tb-fs-16);
+    }
+
+    .note {
+        color: var(--tb-blue);
+    }
+
+    .secondary-feature-card,
+    .primary-service-card {
+        border-color: var(--tb-border);
+        border-radius: var(--tb-radius-lg);
+        box-shadow: var(--tb-shadow-soft);
+    }
+
+    .primary-service-card-footer {
+        border-top-color: var(--tb-blue);
+        background: #f7f9ff;
+    }
+
+    .primary-service-card-footer .point-list-item::before {
+        background: var(--tb-blue);
+    }
 }
