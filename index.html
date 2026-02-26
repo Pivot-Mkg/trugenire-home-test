@@ -192,21 +192,21 @@
               stroke-linejoin="round" />
           </svg>
         </button>
-        <div class="tb-impact-viewport" data-impact-viewport>
-          <div class="tb-impact-track" data-impact-track>
-            <div class="tb-impact-slide">
+        <div class="tb-impact-viewport swiper" data-impact-viewport>
+          <div class="tb-impact-track swiper-wrapper" data-impact-track>
+            <div class="tb-impact-slide swiper-slide">
               <article class="tb-impact-card">
                 <p class="tb-impact-value">$<span class="count-up" data-target="4">0</span>Bn+</p>
                 <p class="tb-impact-label">assets under oversight</p>
               </article>
             </div>
-            <div class="tb-impact-slide">
+            <div class="tb-impact-slide swiper-slide">
               <article class="tb-impact-card">
                 <p class="tb-impact-value">~<span class="count-up" data-target="200">0</span>Mn</p>
                 <p class="tb-impact-label">sq ft overseeing valued</p>
               </article>
             </div>
-            <div class="tb-impact-slide">
+            <div class="tb-impact-slide swiper-slide">
               <article class="tb-impact-card">
                 <p class="tb-impact-value">~$<span class="count-up" data-target="5">0</span>Bn</p>
                 <p class="tb-impact-label">across the USA and India</p>
@@ -221,7 +221,7 @@
           </svg>
         </button>
       </div>
-      <div class="tb-impact-pagination" data-impact-pagination aria-label="Impact slider pagination"></div>
+      <div class="tb-impact-pagination swiper-pagination" data-impact-pagination aria-label="Impact slider pagination"></div>
     </div>
   </section>
 
@@ -264,7 +264,7 @@
 
   <section class="tb-trusted">
     <div class="container-xl">
-      <h2 class="tb-title">TruBoard Technologies Trusted by</h2>
+      <h2 class="tb-title">TruBoard Technologies Trusted&nbsp;by</h2>
       <div class="row g-4 align-items-stretch tb-trusted-layout">
         <div class="col-lg-4">
           <div id="trustTabs" class="tb-trust-tabs"></div>
@@ -402,30 +402,32 @@
           </div>
         </div>
         <div class="tb-integrated">
-          <h2 class="tb-title text-center">Two Integrated Capabilities. One Operating Layer.</h2>
+          <h2 class="tb-title text-center">Two Integrated Capabilities. One&nbsp;Operating&nbsp;Layer.</h2>
           <p class="tb-integrated-subtitle text-center">
             Execution on the ground, intelligence in real time - unified into one system.
           </p>
-          <div class="row g-3 g-lg-4 justify-content-center">
-            <div class="col-lg-5">
-              <article class="tb-integrated-card tb-integrated-card-blue">
-                <h3>Services</h3>
-                <p>
-                  End-to-end real estate services combining Project Management Consultancy and Asset Management to
-                  deliver execution certainty, improved governance, and capital protection across the asset lifecycle.
-                </p>
-                <a href="./services.html">Learn more &rarr;</a>
-              </article>
-            </div>
-            <div class="col-lg-5">
-              <article class="tb-integrated-card">
-                <h3>TruGenie</h3>
-                <p>
-                  An AI-enabled real estate intelligence platform providing real-time dashboards, workflow automation,
-                  and early-warning signals across construction, sales, and cashflows.
-                </p>
-                <a href="./truegenie.html">Explore TruGenie &rarr;</a>
-              </article>
+          <div class="tb-integrated-slider" data-integrated-slider>
+            <div class="row g-3 g-lg-4 justify-content-center tb-integrated-track" data-integrated-track>
+              <div class="col-lg-5 tb-integrated-slide" data-integrated-slide>
+                <article class="tb-integrated-card tb-integrated-card-blue">
+                  <h3>Services</h3>
+                  <p>
+                    End-to-end real estate services combining Project Management Consultancy and Asset Management to
+                    deliver execution certainty, improved governance, and capital protection across the asset lifecycle.
+                  </p>
+                  <a href="./services.html">Learn more &rarr;</a>
+                </article>
+              </div>
+              <div class="col-lg-5 tb-integrated-slide" data-integrated-slide>
+                <article class="tb-integrated-card">
+                  <h3>TruGenie</h3>
+                  <p>
+                    An AI-enabled real estate intelligence platform providing real-time dashboards, workflow automation,
+                    and early-warning signals across construction, sales, and cashflows.
+                  </p>
+                  <a href="./truegenie.html">Explore TruGenie &rarr;</a>
+                </article>
+              </div>
             </div>
           </div>
         </div>

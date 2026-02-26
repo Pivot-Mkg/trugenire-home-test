@@ -259,9 +259,20 @@
 
 
     .hero-section .content-wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .hero-section .img-wrapper {
+        order: -1;
+        width: 100%;
+    }
+
+    .hero-section-img {
+        width: min(100%, 33rem);
+        margin: 0 auto;
         display: block;
-        display: flex;
-        flex-direction: column;
     }
 
     .primary-service-grid {
@@ -302,7 +313,7 @@
         color: var(--clr-primary);
         max-width: 490px;
         color: #286FED;
-        text-align: center;
+        text-align: left;
         margin-bottom: 1em;
     }
 
@@ -316,6 +327,18 @@
 
     .cta-btn {
         padding: 1em 22px;
+    }
+
+    .hero-section-cta-wrapper {
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+    }
+
+    .hero-section-cta-wrapper .cta-btn {
+        width: auto;
     }
 
     .hero-section .content {

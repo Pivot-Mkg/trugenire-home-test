@@ -370,6 +370,7 @@ function animateCounter(element, target, durationMs) {
 
 function initImpactSlider() {
   const sliderRoot = document.querySelector("[data-impact-slider]");
+  const viewport = sliderRoot && sliderRoot.querySelector("[data-impact-viewport]");
   const track = sliderRoot && sliderRoot.querySelector("[data-impact-track]");
   const slides = track
     ? Array.from(track.querySelectorAll(".tb-impact-slide"))
@@ -382,99 +383,87 @@ function initImpactSlider() {
     : null;
   const pagination = document.querySelector("[data-impact-pagination]");
 
-  if (!sliderRoot || !track || slides.length < 2) return;
-
-  const mobileMedia = window.matchMedia("(max-width: 767.98px)");
-  const autoPlayIntervalMs = 2600;
-  let activeIndex = 0;
-  let autoPlayTimer = null;
-
-  if (pagination) {
-    pagination.innerHTML = slides
-      .map(
-        (_, idx) =>
-          `<button type="button" class="tb-impact-dot${idx === 0 ? " is-active" : ""}" data-impact-dot="${idx}" aria-label="Go to impact slide ${
-            idx + 1
-          }" aria-current="${idx === 0 ? "true" : "false"}"></button>`,
-      )
-      .join("");
+  if (
+    !sliderRoot ||
+    !viewport ||
+    !track ||
+    slides.length < 2 ||
+    typeof window.Swiper !== "function"
+  ) {
+    return;
   }
 
-  const dots = pagination
-    ? Array.from(pagination.querySelectorAll("[data-impact-dot]"))
-    : [];
+  const mobileMedia = window.matchMedia("(max-width: 767.98px)");
+  const reduceMotion =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let swiperInstance = null;
 
-  const setActive = (nextIndex, options = {}) => {
-    const { animateTransition = true } = options;
-    const safeIndex = Math.max(0, Math.min(nextIndex, slides.length - 1));
-    activeIndex = safeIndex;
-
-    if (mobileMedia.matches) {
-      track.style.transition = animateTransition ? "" : "none";
-      track.style.transform = `translate3d(-${activeIndex * 100}%, 0, 0)`;
-      if (!animateTransition) {
-        void track.offsetWidth;
-        track.style.transition = "";
-      }
-      if (prevButton) prevButton.disabled = activeIndex === 0;
-      if (nextButton) nextButton.disabled = activeIndex === slides.length - 1;
-    } else {
-      track.style.transition = "";
-      track.style.transform = "";
-      if (prevButton) prevButton.disabled = true;
-      if (nextButton) nextButton.disabled = true;
-    }
-
-    dots.forEach((dot, dotIndex) => {
-      const isActive = dotIndex === activeIndex;
-      dot.classList.toggle("is-active", isActive);
+  const syncPaginationAria = () => {
+    if (!pagination) return;
+    const dots = Array.from(pagination.querySelectorAll(".tb-impact-dot"));
+    dots.forEach((dot) => {
+      const isActive = dot.classList.contains("is-active");
       dot.setAttribute("aria-current", isActive ? "true" : "false");
     });
   };
 
-  const stopAutoPlay = () => {
-    if (!autoPlayTimer) return;
-    window.clearInterval(autoPlayTimer);
-    autoPlayTimer = null;
+  const createSlider = () => {
+    if (swiperInstance || !mobileMedia.matches) return;
+
+    swiperInstance = new window.Swiper(viewport, {
+      slidesPerView: 1,
+      spaceBetween: 0,
+      speed: reduceMotion ? 0 : 550,
+      loop: slides.length > 1,
+      allowTouchMove: true,
+      watchOverflow: false,
+      autoplay: reduceMotion
+        ? false
+        : {
+            delay: 2600,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          },
+      navigation:
+        prevButton && nextButton
+          ? {
+              prevEl: prevButton,
+              nextEl: nextButton,
+            }
+          : undefined,
+      pagination: pagination
+        ? {
+            el: pagination,
+            clickable: true,
+            bulletClass: "tb-impact-dot",
+            bulletActiveClass: "is-active",
+            renderBullet: (index, className) =>
+              `<button type="button" class="${className}" aria-label="Go to impact slide ${
+                index + 1
+              }"></button>`,
+          }
+        : undefined,
+      on: {
+        init: syncPaginationAria,
+        slideChange: syncPaginationAria,
+      },
+    });
   };
 
-  const startAutoPlay = () => {
-    stopAutoPlay();
-    if (!mobileMedia.matches || document.hidden) return;
-    autoPlayTimer = window.setInterval(() => {
-      if (activeIndex >= slides.length - 1) {
-        setActive(0, { animateTransition: false });
-        return;
-      }
-      setActive(activeIndex + 1, { animateTransition: true });
-    }, autoPlayIntervalMs);
+  const destroySlider = () => {
+    if (!swiperInstance) return;
+    swiperInstance.destroy(true, true);
+    swiperInstance = null;
+    if (pagination) pagination.innerHTML = "";
   };
-
-  if (prevButton) {
-    prevButton.addEventListener("click", () => {
-      if (!mobileMedia.matches) return;
-      setActive(activeIndex - 1);
-    });
-  }
-
-  if (nextButton) {
-    nextButton.addEventListener("click", () => {
-      if (!mobileMedia.matches) return;
-      setActive(activeIndex + 1);
-    });
-  }
-
-  dots.forEach((dot) => {
-    dot.addEventListener("click", () => {
-      if (!mobileMedia.matches) return;
-      const index = Number(dot.getAttribute("data-impact-dot") || "0");
-      setActive(index);
-    });
-  });
 
   const syncOnViewportChange = () => {
-    setActive(activeIndex);
-    startAutoPlay();
+    if (mobileMedia.matches) {
+      createSlider();
+      return;
+    }
+    destroySlider();
   };
 
   if (mobileMedia.addEventListener) {
@@ -484,15 +473,7 @@ function initImpactSlider() {
   }
 
   window.addEventListener("resize", syncOnViewportChange);
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      stopAutoPlay();
-      return;
-    }
-    startAutoPlay();
-  });
-  setActive(0);
-  startAutoPlay();
+  syncOnViewportChange();
 }
 
 function initWhySlider() {
@@ -574,6 +555,79 @@ function initWhySlider() {
   syncOnViewportChange();
 }
 
+function initIntegratedSlider() {
+  const sliderRoot = document.querySelector("[data-integrated-slider]");
+  const track = sliderRoot && sliderRoot.querySelector("[data-integrated-track]");
+  const slides = track
+    ? Array.from(track.querySelectorAll("[data-integrated-slide]"))
+    : [];
+
+  if (!sliderRoot || !track || slides.length < 2 || typeof window.Swiper !== "function") {
+    return;
+  }
+
+  const mobileMedia = window.matchMedia("(max-width: 991.98px)");
+  const reduceMotion =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let swiperInstance = null;
+
+  const applySwiperStructure = () => {
+    sliderRoot.classList.add("swiper");
+    track.classList.add("swiper-wrapper");
+    slides.forEach((slide) => {
+      slide.classList.add("swiper-slide");
+    });
+  };
+
+  const removeSwiperStructure = () => {
+    sliderRoot.classList.remove("swiper");
+    track.classList.remove("swiper-wrapper");
+    slides.forEach((slide) => {
+      slide.classList.remove("swiper-slide");
+    });
+  };
+
+  const createSlider = () => {
+    if (swiperInstance || !mobileMedia.matches) return;
+    applySwiperStructure();
+
+    swiperInstance = new window.Swiper(sliderRoot, {
+      slidesPerView: 1.12,
+      spaceBetween: 12,
+      speed: reduceMotion ? 0 : 520,
+      loop: slides.length > 1,
+      watchOverflow: false,
+      allowTouchMove: true,
+      centeredSlides: false,
+    });
+  };
+
+  const destroySlider = () => {
+    if (!swiperInstance) return;
+    swiperInstance.destroy(true, true);
+    swiperInstance = null;
+    removeSwiperStructure();
+  };
+
+  const syncOnViewportChange = () => {
+    if (mobileMedia.matches) {
+      createSlider();
+      return;
+    }
+    destroySlider();
+  };
+
+  if (mobileMedia.addEventListener) {
+    mobileMedia.addEventListener("change", syncOnViewportChange);
+  } else if (mobileMedia.addListener) {
+    mobileMedia.addListener(syncOnViewportChange);
+  }
+
+  window.addEventListener("resize", syncOnViewportChange);
+  syncOnViewportChange();
+}
+
 function initImpactCounters() {
   const counters = document.querySelectorAll(".count-up[data-target]");
   if (!counters.length) return;
@@ -595,6 +649,69 @@ function initImpactCounters() {
   );
 
   observer.observe(counters[0]);
+}
+
+function initProblemSectionOrder() {
+  const section = document.querySelector(".tb-problem");
+  if (!section) return;
+
+  const textCol = section.querySelector(".row > .col-lg-6:first-child");
+  const diagramCol = section.querySelector(".row > .col-lg-6:last-child");
+  const diagram = diagramCol && diagramCol.querySelector(".tb-problem-diagram");
+  const issueList = textCol && textCol.querySelector(".tb-issue-list");
+  const callout = textCol && textCol.querySelector(".tb-issue-callout");
+
+  if (!textCol || !diagram || !issueList || !callout) return;
+
+  const mobileMedia = window.matchMedia("(max-width: 991.98px)");
+  const listPlaceholder = document.createComment("tb-issue-list-placeholder");
+  const calloutPlaceholder = document.createComment("tb-issue-callout-placeholder");
+  let placeholdersMounted = false;
+  let isMobileOrderApplied = false;
+
+  const applyMobileOrder = () => {
+    if (isMobileOrderApplied) return;
+
+    if (!placeholdersMounted) {
+      textCol.insertBefore(listPlaceholder, issueList);
+      textCol.insertBefore(calloutPlaceholder, callout);
+      placeholdersMounted = true;
+    }
+
+    diagram.insertAdjacentElement("afterend", issueList);
+    issueList.insertAdjacentElement("afterend", callout);
+    isMobileOrderApplied = true;
+  };
+
+  const restoreDesktopOrder = () => {
+    if (!isMobileOrderApplied) return;
+
+    if (listPlaceholder.parentNode) {
+      listPlaceholder.parentNode.insertBefore(issueList, listPlaceholder);
+    }
+    if (calloutPlaceholder.parentNode) {
+      calloutPlaceholder.parentNode.insertBefore(callout, calloutPlaceholder);
+    }
+
+    isMobileOrderApplied = false;
+  };
+
+  const syncOrder = () => {
+    if (mobileMedia.matches) {
+      applyMobileOrder();
+      return;
+    }
+    restoreDesktopOrder();
+  };
+
+  if (mobileMedia.addEventListener) {
+    mobileMedia.addEventListener("change", syncOrder);
+  } else if (mobileMedia.addListener) {
+    mobileMedia.addListener(syncOrder);
+  }
+
+  window.addEventListener("resize", syncOrder);
+  syncOrder();
 }
 
 function initTrustTabs() {
@@ -944,7 +1061,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initMenu();
   initImpactSlider();
   initWhySlider();
+  initIntegratedSlider();
   initImpactCounters();
+  initProblemSectionOrder();
   initLifecycleToggles();
   initTrustTabs();
   renderOfferings();
