@@ -341,3 +341,13 @@
 
 
 }
+
+.section-header .section-header-title {
+    font-family: var(--ff-primary);
+    font-size: 36px;
+    color: var(--clr-primary);
+    text-align: center;
+    margin-bottom: 16px;
+    color: #0C1B56;
+    font-weight: 600;
+}
