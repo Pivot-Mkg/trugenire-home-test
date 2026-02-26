@@ -1253,7 +1253,7 @@ a {
 .tb-problem-core span {
   color: #fff;
   font-family: Prata, serif;
-  font-size: clamp(28px, 3vw, 28px);
+  font-size: clamp(18px, 3vw, 28px);
   line-height: 1;
 }
 
