@@ -408,8 +408,8 @@ a {
 }
 
 .tb-btn-blue:hover {
-  color: #fff;
-  background: #3a76ea;
+  color: #3a76ea;
+  background: #ffffff;
   border-color: #3a76ea;
 }
 
@@ -420,7 +420,8 @@ a {
 }
 
 .tb-btn-ghost:hover {
-  background: #f8faff;
+  /* background: #f8faff; */
+  box-shadow: 0 0 0 2px #e2e8ff;
 }
 
 .tb-btn-ghost svg {
@@ -433,6 +434,12 @@ a {
   font-size: var(--tb-fs-16);
   padding-inline: var(--tb-btn-pad-x);
   color: #fff !important;
+}
+
+.tb-nav-btn:hover {
+  color: #3a76ea !important;
+  background: #ffffff !important;
+  border-color: #3a76ea !important;
 }
 
 .tb-hero {

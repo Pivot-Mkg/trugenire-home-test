@@ -343,8 +343,8 @@
         font-size: var(--tb-fs-36);
     }
 
-    .cta-btn {
-        padding: 1em 22px;
+    .hero-section-cta-wrapper .cta-btn {
+        padding: var(--tb-btn-pad-y) var(--tb-btn-pad-x);
     }
 
     .hero-section-cta-wrapper {

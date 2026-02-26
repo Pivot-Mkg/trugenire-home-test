@@ -161,6 +161,21 @@ a {
     gap: 1em;
 }
 
+.hero-section-cta-wrapper .cta-btn {
+    min-height: 2.25rem;
+    border-radius: 999px;
+    font-size: var(--tb-fs-16);
+    font-weight: 500;
+    line-height: 1;
+    padding: var(--tb-btn-pad-y) var(--tb-btn-pad-x);
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    box-shadow: none !important;
+}
+
 .primary-cta-btn {
     background: #286FED;
     color: white;
@@ -170,6 +185,20 @@ a {
     background: #fff;
     border-color: #d6ddeb;
     color: #232e43;
+}
+
+.hero-section-cta-wrapper .primary-cta-btn {
+    background: var(--tb-blue);
+    border-color: var(--tb-blue);
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(47, 107, 228, 0.3) !important;
+}
+
+.hero-section-cta-wrapper .secondary-cta-btn {
+    background: #fff;
+    border-color: #d6ddeb;
+    color: #232e43;
+    box-shadow: none !important;
 }
 
 .primary-cta-btn:hover {

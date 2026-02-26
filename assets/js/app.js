@@ -205,6 +205,40 @@ const offerings = [
   },
 ];
 
+const capabilityPlaceholderIcons = [
+  `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <rect x="4.66699" y="4.66699" width="18.6667" height="18.6667" rx="3.5" stroke="#286FED" stroke-width="2.33333"/>
+  <path d="M9.33301 11.6667H18.6663" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round"/>
+  <path d="M9.33301 16.3333H16.333" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round"/>
+</svg>`,
+  `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <path d="M6.41699 21.5833H21.5837" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round"/>
+  <path d="M8.75 21.5833V14.5833" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round"/>
+  <path d="M14 21.5833V9.91675" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round"/>
+  <path d="M19.25 21.5833V12.2501" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round"/>
+</svg>`,
+  `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <circle cx="14.0003" cy="14.0003" r="9.33333" stroke="#286FED" stroke-width="2.33333"/>
+  <path d="M10.5 14.0001L12.8333 16.3334L17.5 11.6667" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`,
+  `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <rect x="4.66699" y="7.00024" width="18.6667" height="14" rx="3.5" stroke="#286FED" stroke-width="2.33333"/>
+  <path d="M4.66699 11.6667H23.3337" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round"/>
+  <circle cx="9.33333" cy="16.3333" r="1.16667" fill="#286FED"/>
+</svg>`,
+  `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <path d="M14 4.66675L22.1667 9.33341V18.6667L14 23.3334L5.83334 18.6667V9.33341L14 4.66675Z" stroke="#286FED" stroke-width="2.33333" stroke-linejoin="round"/>
+  <path d="M10.5 14.0001H17.5" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round"/>
+  <path d="M14 10.5001V17.5001" stroke="#286FED" stroke-width="2.33333" stroke-linecap="round"/>
+</svg>`,
+];
+
+function getCapabilityIcon(icon, index) {
+  const rawIcon = typeof icon === "string" ? icon.trim() : "";
+  if (rawIcon && rawIcon.includes("<svg")) return rawIcon;
+  return capabilityPlaceholderIcons[index % capabilityPlaceholderIcons.length];
+}
+
 let offeringIndex = 0;
 let offeringImageLoadToken = 0;
 let offeringTransitionTimer = null;
@@ -370,7 +404,8 @@ function animateCounter(element, target, durationMs) {
 
 function initImpactSlider() {
   const sliderRoot = document.querySelector("[data-impact-slider]");
-  const viewport = sliderRoot && sliderRoot.querySelector("[data-impact-viewport]");
+  const viewport =
+    sliderRoot && sliderRoot.querySelector("[data-impact-viewport]");
   const track = sliderRoot && sliderRoot.querySelector("[data-impact-track]");
   const slides = track
     ? Array.from(track.querySelectorAll(".tb-impact-slide"))
@@ -557,12 +592,18 @@ function initWhySlider() {
 
 function initIntegratedSlider() {
   const sliderRoot = document.querySelector("[data-integrated-slider]");
-  const track = sliderRoot && sliderRoot.querySelector("[data-integrated-track]");
+  const track =
+    sliderRoot && sliderRoot.querySelector("[data-integrated-track]");
   const slides = track
     ? Array.from(track.querySelectorAll("[data-integrated-slide]"))
     : [];
 
-  if (!sliderRoot || !track || slides.length < 2 || typeof window.Swiper !== "function") {
+  if (
+    !sliderRoot ||
+    !track ||
+    slides.length < 2 ||
+    typeof window.Swiper !== "function"
+  ) {
     return;
   }
 
@@ -665,7 +706,9 @@ function initProblemSectionOrder() {
 
   const mobileMedia = window.matchMedia("(max-width: 991.98px)");
   const listPlaceholder = document.createComment("tb-issue-list-placeholder");
-  const calloutPlaceholder = document.createComment("tb-issue-callout-placeholder");
+  const calloutPlaceholder = document.createComment(
+    "tb-issue-callout-placeholder",
+  );
   let placeholdersMounted = false;
   let isMobileOrderApplied = false;
 
@@ -1013,7 +1056,7 @@ function renderOfferings(animate = false) {
         .map(
           (item, idx) => `
             <article class="tb-capability-card${idx === 0 ? " is-highlight" : ""}">
-              <span class="tb-capability-icon" aria-hidden="true">${item.icon}</span>
+              <span class="tb-capability-icon" aria-hidden="true">${getCapabilityIcon(item.icon, idx)}</span>
               <p>${item.text}</p>
             </article>
           `,
