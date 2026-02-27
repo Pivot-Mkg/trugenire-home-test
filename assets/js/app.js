@@ -184,7 +184,7 @@ const offerings = [
     description:
       "Expert advisory services for real estate asset optimization.\n\nKey capabilities:",
     image: {
-      src: "./assets/images/98f09ac846bcbc03282de0ae1ad4f2ddf9c2a40d-B9SoSyqK.png",
+      src: "./assets/images/advisory.jpg",
       alt: "Advisory portfolio and capital strategy visualization",
     },
     capabilities: [
@@ -766,8 +766,31 @@ function initTrustTabs() {
   const reduceMotion =
     window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const desktopMedia =
+    window.matchMedia && window.matchMedia("(min-width: 992px)");
   let switchTimer = null;
   let enterTimer = null;
+
+  function syncTrustedGridHeight() {
+    if (!desktopMedia || !desktopMedia.matches) {
+      logoGrid.classList.remove("is-height-synced");
+      logoGrid.style.removeProperty("--tb-trusted-target-height");
+      logoGrid.style.removeProperty("--tb-trusted-rows");
+      return;
+    }
+
+    const tabsHeight = root.offsetHeight;
+    if (!tabsHeight) return;
+
+    const cardCount =
+      logoGrid.children.length || trustGroups[active]?.logos?.length || 0;
+    const columns = 4;
+    const rows = Math.max(1, Math.ceil(cardCount / columns));
+
+    logoGrid.style.setProperty("--tb-trusted-target-height", `${tabsHeight}px`);
+    logoGrid.style.setProperty("--tb-trusted-rows", String(rows));
+    logoGrid.classList.add("is-height-synced");
+  }
 
   function renderLogos(animate = false) {
     const group = trustGroups[active];
@@ -784,6 +807,7 @@ function initTrustTabs() {
     if (!animate || reduceMotion) {
       logoGrid.classList.remove("is-switching", "is-entering");
       logoGrid.innerHTML = markup;
+      syncTrustedGridHeight();
       return;
     }
 
@@ -796,6 +820,7 @@ function initTrustTabs() {
     switchTimer = setTimeout(() => {
       logoGrid.innerHTML = markup;
       logoGrid.classList.remove("is-switching");
+      syncTrustedGridHeight();
       void logoGrid.offsetWidth;
       logoGrid.classList.add("is-entering");
       enterTimer = setTimeout(() => {
@@ -835,6 +860,74 @@ function initTrustTabs() {
   }
 
   render();
+  window.addEventListener("resize", syncTrustedGridHeight);
+  window.addEventListener("load", syncTrustedGridHeight, { once: true });
+}
+
+function initIntegratedCardLineBalance() {
+  const paragraphs = Array.from(
+    document.querySelectorAll(".tb-integrated .tb-integrated-card p"),
+  );
+  if (paragraphs.length < 2) return;
+
+  const desktopMedia =
+    window.matchMedia && window.matchMedia("(min-width: 992px)");
+
+  const getLineCount = (element) => {
+    const lineHeight = parseFloat(window.getComputedStyle(element).lineHeight);
+    if (!lineHeight) return 0;
+    return Math.round(element.getBoundingClientRect().height / lineHeight);
+  };
+
+  const resetWidths = () => {
+    paragraphs.forEach((paragraph) => {
+      paragraph.style.maxWidth = "";
+    });
+  };
+
+  const syncLineCount = () => {
+    resetWidths();
+
+    if (!desktopMedia || !desktopMedia.matches) return;
+
+    // Start from full available width, then tighten shorter paragraphs.
+    paragraphs.forEach((paragraph) => {
+      paragraph.style.maxWidth = `${Math.floor(
+        paragraph.getBoundingClientRect().width,
+      )}px`;
+    });
+
+    let lineCounts = paragraphs.map(getLineCount);
+    const targetLines = Math.max(...lineCounts);
+    if (targetLines <= 0) return;
+
+    let guard = 0;
+    while (guard < 120) {
+      let changed = false;
+      lineCounts = paragraphs.map(getLineCount);
+      let allMatched = true;
+
+      paragraphs.forEach((paragraph, idx) => {
+        if (lineCounts[idx] >= targetLines) return;
+        allMatched = false;
+        const currentWidth =
+          parseFloat(paragraph.style.maxWidth) ||
+          paragraph.getBoundingClientRect().width;
+        const nextWidth = Math.max(220, currentWidth - 4);
+        if (nextWidth < currentWidth) {
+          paragraph.style.maxWidth = `${nextWidth}px`;
+          changed = true;
+        }
+      });
+
+      if (allMatched || !changed) break;
+      guard += 1;
+    }
+  };
+
+  window.addEventListener("resize", syncLineCount);
+  window.addEventListener("load", syncLineCount, { once: true });
+  requestAnimationFrame(syncLineCount);
 }
 
 function initLifecycleToggles() {
@@ -844,8 +937,14 @@ function initLifecycleToggles() {
   const grid = document.querySelector(".tb-lifecycle-grid");
   const heroStageImage = document.getElementById("tbHeroStageImage");
   if (!toggles.length) return;
+  const LIFECYCLE_AUTO_ADVANCE_MS = 3000;
+  let activeIndex = 0;
+  let autoAdvanceTimer = null;
 
-  function setActive(activeIndex) {
+  function setActive(nextIndex) {
+    activeIndex =
+      ((nextIndex % toggles.length) + toggles.length) % toggles.length;
+
     toggles.forEach((toggle, idx) => {
       const active = idx === activeIndex;
       toggle.classList.toggle("is-active", active);
@@ -867,13 +966,23 @@ function initLifecycleToggles() {
     }
   }
 
+  function startAutoAdvance() {
+    if (toggles.length < 2) return;
+    if (autoAdvanceTimer) window.clearInterval(autoAdvanceTimer);
+    autoAdvanceTimer = window.setInterval(() => {
+      setActive(activeIndex + 1);
+    }, LIFECYCLE_AUTO_ADVANCE_MS);
+  }
+
   toggles.forEach((toggle, idx) => {
     toggle.addEventListener("click", () => {
       setActive(idx);
+      startAutoAdvance();
     });
   });
 
   setActive(0);
+  startAutoAdvance();
 }
 
 function renderOfferingTabs() {
@@ -1105,6 +1214,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initImpactSlider();
   initWhySlider();
   initIntegratedSlider();
+  initIntegratedCardLineBalance();
   initImpactCounters();
   initProblemSectionOrder();
   initLifecycleToggles();
