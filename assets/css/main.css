@@ -1709,3 +1709,32 @@ body {
         gap: 0.55rem;
     }
 }
+
+
+
+.leadership-card .social-media-icon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+}
+
+.leadership-card .social-media-icon svg {
+    color: white;
+}
+
+.leadership-card .social-media-link img {
+    height: 32px;
+    width: auto;
+}
+
+.leadership-card::before {
+    content: "";
+    position: absolute;
+    height: auto;
+    width: auto;
+    top: 0;
+    right: -0;
+    /* background-color: #1A2E4F; */
+    transform: rotate(90deg);
+    border-radius: 12px;
+}
