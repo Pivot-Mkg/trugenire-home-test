@@ -1738,3 +1738,9 @@ body {
     transform: rotate(90deg);
     border-radius: 12px;
 }
+
+.leadership-section {
+    padding: 1em 4em;
+    background: #FFFFFF;
+    padding-top: 72px;
+}
