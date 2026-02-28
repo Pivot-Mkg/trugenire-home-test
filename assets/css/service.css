@@ -107,7 +107,7 @@
     color: #475569;
     line-height: 1.5;
     min-height: 68px;
-    margin-bottom: 0%!important;
+    margin-bottom: 0% !important;
 }
 
 .point-list-item {
@@ -397,6 +397,7 @@
 }
 
 @media (max-width: 575.98px) {
+
     .hero-heading,
     .hero-heading span {
         font-size: 24px;
@@ -445,31 +446,31 @@
     }
 
     .section-description,
-    .note,  
+    .note,
     .primary-service-card-head-item-subheading,
     .secondary-feature-card-item-description,
     .point-list-item {
         font-size: clamp(var(--tb-fs-16), 1.2vw, var(--tb-fs-18));
         line-height: 1.55;
         color: #667486;
-        font-size: var(--tb-fs-16)!important;
+        font-size: var(--tb-fs-16) !important;
     }
 
     .primary-service-card-head-item-heading {
-        font-size:22px;
+        font-size: 22px;
         line-height: 1.25;
         color: var(--tb-heading-color);
         font-weight: 600;
     }
 
     .secondary-feature-card .secondary-feature-card-item-name,
-    .point-list-title { 
+    .point-list-title {
         color: var(--tb-heading-color);
     }
 
     .secondary-feature-card .secondary-feature-card-item-name {
         font-size: 14px;
-        font-weight: 500;   
+        font-weight: 500;
         line-height: 1.35;
     }
 
@@ -588,7 +589,7 @@
 
 .tb-services-page .section-header .section-header-title,
 .tb-services-page .cta-title {
-    font-size: var(--tb-heading-size-xl);
+    /* font-size: var(--tb-heading-size-xl); */
     line-height: 1.13;
     font-weight: 600;
     color: var(--tb-heading-color);
@@ -623,6 +624,7 @@
 }
 
 @media (max-width: 575.98px) {
+
     .tb-services-page .hero-heading,
     .tb-services-page .hero-heading span,
     .tb-services-page .section-header .section-header-title,
