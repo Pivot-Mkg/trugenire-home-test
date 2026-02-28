@@ -570,6 +570,7 @@ body {
 
 .process-card {
     padding: 3em 1em;
+    padding-top: 2em;
     border-radius: 12px;
 }
 
@@ -717,7 +718,7 @@ body {
         grid-template-columns: 1fr;
     }
 
-    
+
 }
 
 /* CTA Section */
@@ -1397,14 +1398,15 @@ body {
     }
 
     .tb-truegenie-page .process-icons-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr))!important;
-        max-width: auto!important;
-        gap: 1em!important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        max-width: auto !important;
+        gap: 1em !important;
     }
 
 }
 
 @media (max-width: 767.98px) {
+
     .hero-section,
     .features-section-1,
     .how-its-work,
@@ -1435,6 +1437,7 @@ body {
 }
 
 @media (max-width: 991.98px) {
+
     .tb-truegenie-page .hero-section,
     .tb-truegenie-page .features-section-1,
     .tb-truegenie-page .how-its-work,
@@ -1660,6 +1663,7 @@ body {
 }
 
 @media (max-width: 575.98px) {
+
     .tb-truegenie-page .hero-section,
     .tb-truegenie-page .features-section-1,
     .tb-truegenie-page .how-its-work,
@@ -1743,4 +1747,152 @@ body {
     padding: 1em 4em;
     background: #FFFFFF;
     padding-top: 72px;
+}
+
+/* TruGenie typography consistency with home page (desktop + mobile) */
+.tb-truegenie-page .hero-heading,
+.tb-truegenie-page .hero-heading span {
+    font-size: var(--tb-fs-36);
+    line-height: 1.13;
+    font-weight: 700;
+    color: var(--tb-blue-dark);
+}
+
+.tb-truegenie-page .features-section-1 .section-heading,
+.tb-truegenie-page .section-header .section-header-title,
+.tb-truegenie-page .functional-modules-title,
+.tb-truegenie-page .leadership-title,
+.tb-truegenie-page .cta-title {
+    font-size: var(--tb-heading-size-xl);
+    line-height: 1.13;
+    font-weight: 600;
+    color: var(--tb-heading-color);
+}
+
+.tb-truegenie-page .functional-modules-content-title,
+.tb-truegenie-page .process-card-name h6,
+.tb-truegenie-page .card-title {
+    font-size: var(--tb-heading-size-md);
+    line-height: 1.25;
+    font-weight: 600;
+    color: var(--tb-heading-color);
+}
+
+.tb-truegenie-page .module-toggle-title {
+    font-size: var(--tb-fs-16);
+    line-height: 1.35;
+    font-weight: 600;
+    color: var(--tb-heading-color);
+}
+
+.tb-truegenie-page .hero-description,
+.tb-truegenie-page .section-description,
+.tb-truegenie-page .functional-modules-description,
+.tb-truegenie-page .module-toggle-subtitle,
+.tb-truegenie-page .functional-module-points li,
+.tb-truegenie-page .process-card ul li,
+.tb-truegenie-page .card-subtitle,
+.tb-truegenie-page .card-features li,
+.tb-truegenie-page .leadership-card-caption p {
+    font-size: clamp(var(--tb-fs-16), 1.2vw, var(--tb-fs-18));
+    line-height: 1.55;
+    font-weight: 400;
+    color: #667486;
+}
+
+.tb-truegenie-page .leadership-card-caption h4 {
+    font-size: var(--tb-fs-16);
+    line-height: 1.35;
+    font-weight: 600;
+    color: var(--tb-heading-color);
+}
+
+.tb-truegenie-page .how-its-work .process-icon-wrapper {
+    transition: border-color 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.tb-truegenie-page .how-its-work .process-icon-wrapper svg path,
+.tb-truegenie-page .how-its-work .process-icon-wrapper svg rect,
+.tb-truegenie-page .how-its-work .process-icon-wrapper svg line,
+.tb-truegenie-page .how-its-work .process-icon-wrapper svg polyline,
+.tb-truegenie-page .how-its-work .process-icon-wrapper svg circle {
+    stroke: #64748b;
+    transition: stroke 0.22s ease;
+}
+
+.tb-truegenie-page .how-its-work .process-icon-wrapper:hover,
+.tb-truegenie-page .how-its-work .process-icon-wrapper.is-linked-hover {
+    background: var(--tb-blue);
+    border-color: var(--tb-blue);
+    box-shadow: 0 10px 22px rgba(10, 34, 84, 0.16);
+}
+
+.tb-truegenie-page .how-its-work .process-icon-wrapper:hover svg path,
+.tb-truegenie-page .how-its-work .process-icon-wrapper:hover svg rect,
+.tb-truegenie-page .how-its-work .process-icon-wrapper:hover svg line,
+.tb-truegenie-page .how-its-work .process-icon-wrapper:hover svg polyline,
+.tb-truegenie-page .how-its-work .process-icon-wrapper:hover svg circle,
+.tb-truegenie-page .how-its-work .process-icon-wrapper.is-linked-hover svg path,
+.tb-truegenie-page .how-its-work .process-icon-wrapper.is-linked-hover svg rect,
+.tb-truegenie-page .how-its-work .process-icon-wrapper.is-linked-hover svg line,
+.tb-truegenie-page .how-its-work .process-icon-wrapper.is-linked-hover svg polyline,
+.tb-truegenie-page .how-its-work .process-icon-wrapper.is-linked-hover svg circle {
+    stroke: #ffffff !important;
+}
+
+.tb-truegenie-page .how-its-work .process-card {
+    border: 1px solid rgba(226, 232, 240, 0.5);
+    background: rgba(255, 255, 255, 0.7);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background-color 0.22s ease;
+}
+
+.tb-truegenie-page .how-its-work .process-card:hover,
+.tb-truegenie-page .how-its-work .process-card.is-linked-hover {
+    transform: translateY(-3px);
+    border-color: #c9d9ef;
+    background: #ffffff;
+    box-shadow: 0 10px 22px rgba(10, 34, 84, 0.12) !important;
+}
+
+@media (min-width: 992px) {
+
+    .tb-truegenie-page .how-its-work .process-wrapper,
+    .tb-truegenie-page .how-its-work .process-icons-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .tb-truegenie-page .how-its-work .process-icons-grid {
+        display: grid;
+        align-items: center;
+    }
+
+    .tb-truegenie-page .how-its-work .process-icon-wrapper {
+        justify-self: center;
+    }
+
+    .tb-truegenie-page .how-its-work .process-icons-grid::before {
+        left: 12.5%;
+        right: 12.5%;
+    }
+}
+
+@media (max-width: 575.98px) {
+
+    .tb-truegenie-page .hero-heading,
+    .tb-truegenie-page .hero-heading span,
+    .tb-truegenie-page .features-section-1 .section-heading,
+    .tb-truegenie-page .section-header .section-header-title,
+    .tb-truegenie-page .functional-modules-title,
+    .tb-truegenie-page .leadership-title,
+    .tb-truegenie-page .cta-title {
+        font-size: 24px;
+        line-height: 1.15;
+    }
+
+    .tb-truegenie-page .functional-modules-content-title,
+    .tb-truegenie-page .process-card-name h6,
+    .tb-truegenie-page .card-title {
+        font-size: var(--tb-fs-24);
+    }
 }

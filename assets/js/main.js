@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initFunctionalModules();
   initLeadershipLabelTabs();
   initLeadershipButtonTabs();
+  initProcessStepHoverEffects();
 });
 
 function initFunctionalModules() {
@@ -103,4 +104,36 @@ function initLeadershipButtonTabs() {
   buttons.forEach((button) => {
     button.addEventListener("click", () => setActive(button));
   });
+}
+
+function initProcessStepHoverEffects() {
+  const section = document.querySelector(".tb-truegenie-page .how-its-work");
+  if (!section) return;
+
+  const iconItems = Array.from(
+    section.querySelectorAll(".process-icons-grid .process-icon-wrapper"),
+  );
+  const cardItems = Array.from(section.querySelectorAll(".process-wrapper .process-card"));
+  const pairCount = Math.min(iconItems.length, cardItems.length);
+
+  if (!pairCount) return;
+
+  const setLinkedHover = (index, isActive) => {
+    const icon = iconItems[index];
+    const card = cardItems[index];
+    if (!icon || !card) return;
+
+    icon.classList.toggle("is-linked-hover", isActive);
+    card.classList.toggle("is-linked-hover", isActive);
+  };
+
+  for (let index = 0; index < pairCount; index += 1) {
+    const activate = () => setLinkedHover(index, true);
+    const deactivate = () => setLinkedHover(index, false);
+
+    iconItems[index].addEventListener("mouseenter", activate);
+    iconItems[index].addEventListener("mouseleave", deactivate);
+    cardItems[index].addEventListener("mouseenter", activate);
+    cardItems[index].addEventListener("mouseleave", deactivate);
+  }
 }

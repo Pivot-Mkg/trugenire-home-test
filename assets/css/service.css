@@ -577,42 +577,61 @@
     font-weight: 500;
 }
 
-/* Sync service page typography to the home scale in app.css */
-.hero-heading,
-.hero-heading span {
+/* Services typography consistency with home page (desktop + mobile) */
+.tb-services-page .hero-heading,
+.tb-services-page .hero-heading span {
     font-size: var(--tb-fs-36);
     line-height: 1.13;
+    font-weight: 700;
+    color: var(--tb-blue-dark);
 }
 
-.section-header .section-header-title,
-.cta-title {
+.tb-services-page .section-header .section-header-title,
+.tb-services-page .cta-title {
     font-size: var(--tb-heading-size-xl);
     line-height: 1.13;
+    font-weight: 600;
+    color: var(--tb-heading-color);
 }
 
-.primary-service-card-head-item-heading {
+.tb-services-page .primary-service-card-head-item-heading {
     font-size: var(--tb-heading-size-md);
     line-height: 1.25;
+    font-weight: 600;
+    color: var(--tb-heading-color);
 }
 
-.section-description,
-.note,
-.primary-service-card-head-item-subheading,
-.secondary-feature-card-item-description,
-.secondary-feature-card-item-name,
-.point-list-item,
-.point-list-title,
-.leadership-tab-buttom,
-.leadership-card-caption h4 {
+.tb-services-page .secondary-feature-card-item-name,
+.tb-services-page .point-list-title,
+.tb-services-page .leadership-card-caption h4 {
     font-size: var(--tb-fs-16);
+    line-height: 1.35;
+    font-weight: 600;
+    color: var(--tb-heading-color);
+}
+
+.tb-services-page .section-description,
+.tb-services-page .note,
+.tb-services-page .primary-service-card-head-item-subheading,
+.tb-services-page .secondary-feature-card-item-description,
+.tb-services-page .point-list-item,
+.tb-services-page .leadership-tab-buttom {
+    font-size: clamp(var(--tb-fs-16), 1.2vw, var(--tb-fs-18));
+    line-height: 1.55;
+    font-weight: 400;
+    color: #667486;
 }
 
 @media (max-width: 575.98px) {
-    .hero-heading,
-    .hero-heading span,
-    .section-header .section-header-title,
-    .cta-title {
+    .tb-services-page .hero-heading,
+    .tb-services-page .hero-heading span,
+    .tb-services-page .section-header .section-header-title,
+    .tb-services-page .cta-title {
         font-size: 24px;
         line-height: 1.15;
+    }
+
+    .tb-services-page .primary-service-card-head-item-heading {
+        font-size: var(--tb-fs-24);
     }
 }
