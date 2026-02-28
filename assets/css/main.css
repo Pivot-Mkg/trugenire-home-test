@@ -1796,7 +1796,7 @@ body {
 .tb-truegenie-page .leadership-card-caption p {
     font-size: clamp(var(--tb-fs-16), 1.2vw, var(--tb-fs-18));
     line-height: 1.55;
-    font-weight: 400;
+    font-weight: 300;
     color: #667486;
 }
 
