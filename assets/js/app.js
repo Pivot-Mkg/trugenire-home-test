@@ -117,7 +117,7 @@ const offerings = [
     description:
       "TruGenie transforms raw project data into actionable insights.\n\nKey capabilities:",
     image: {
-      src: "./assets/images/3cbca7f201f5ca5ba3bd536029cc7d7f7312cf0e-THkfI-pg.png",
+      src: "./assets/images/trugenie-card-home.jpg",
       alt: "TruGenie real estate intelligence dashboard",
     },
     capabilities: [
@@ -167,7 +167,7 @@ const offerings = [
     description:
       "End-to-end project development management system for real estate.\n\nKey capabilities:",
     image: {
-      src: "./assets/images/02eb02ba7669a0feb1767b41295d3a537ddbc7ac-BIFyo_yQ.png",
+      src: "./assets/images/pdms-card-home.jpg",
       alt: "PDMS project planning and site execution visualization",
     },
     capabilities: [

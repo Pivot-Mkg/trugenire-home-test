@@ -95,7 +95,7 @@
         <section class="tb-about-team" aria-label="Leadership team">
             <div class="container-xl">
                 <div class="tb-about-section-head">
-                    <h2 class="tb-title">Leadership Team</h2>
+                    <h2 class="tb-title">Passion. Precision. Performance</h2>
                     <p>Cross-functional leaders from real estate operations, capital, and technology.</p>
                 </div>
                 <div class="tb-about-team-grid">
@@ -105,7 +105,9 @@
                         <a href="#" class="tb-about-team-linkedin" aria-label="Vikram Singh on LinkedIn">in</a>
                         <div class="tb-about-team-meta">
                             <h3>Vikram Singh</h3>
-                            <p>Chief Executive Officer</p>
+                            <p class="tb-about-team-role">Chief Executive Officer</p>
+                            <p class="tb-about-team-bio">Leads strategic growth and governance across institutional
+                                portfolios.</p>
                         </div>
                     </article>
                     <article class="tb-about-team-card">
@@ -114,7 +116,9 @@
                         <a href="#" class="tb-about-team-linkedin" aria-label="Shreya Kapoor on LinkedIn">in</a>
                         <div class="tb-about-team-meta">
                             <h3>Shreya Kapoor</h3>
-                            <p>Head of Asset Management</p>
+                            <p class="tb-about-team-role">Head of Asset Management</p>
+                            <p class="tb-about-team-bio">Drives performance monitoring, risk controls, and execution
+                                oversight.</p>
                         </div>
                     </article>
                     <article class="tb-about-team-card">
@@ -123,7 +127,9 @@
                         <a href="#" class="tb-about-team-linkedin" aria-label="Aarav Rao on LinkedIn">in</a>
                         <div class="tb-about-team-meta">
                             <h3>Aarav Rao</h3>
-                            <p>Head of Platform</p>
+                            <p class="tb-about-team-role">Head of Platform</p>
+                            <p class="tb-about-team-bio">Builds scalable product architecture and intelligence
+                                workflows for portfolio visibility.</p>
                         </div>
                     </article>
                     <article class="tb-about-team-card">
@@ -132,7 +138,9 @@
                         <a href="#" class="tb-about-team-linkedin" aria-label="Priya Nair on LinkedIn">in</a>
                         <div class="tb-about-team-meta">
                             <h3>Priya Nair</h3>
-                            <p>Head of Client Success</p>
+                            <p class="tb-about-team-role">Head of Client Success</p>
+                            <p class="tb-about-team-bio">Leads client delivery, adoption, and long-term value
+                                realization across engagements.</p>
                         </div>
                     </article>
                 </div>
@@ -165,7 +173,7 @@
                             </p>
                         </div>
                         <figure class="tb-about-purpose-media">
-                            <img src="./assets/images/hero_stage_4.png" alt="Vision illustration">
+                            <img src="./assets/images/vision.jpg" alt="Vision illustration">
                         </figure>
                     </article>
 
@@ -181,14 +189,14 @@
                             </p>
                         </div>
                         <figure class="tb-about-purpose-media">
-                            <img src="./assets/images/hero_stage_2.png" alt="Mission illustration">
+                            <img src="./assets/images/mission.jpg" alt="Mission illustration">
                         </figure>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section class="tb-about-journey" aria-label="Company journey">
+        <section id="our-journey" class="tb-about-journey" aria-label="Company journey">
             <div class="container-xl">
                 <div class="tb-about-journey-head">
                     <div class="tb-about-section-head tb-about-section-head-left">
@@ -571,6 +579,12 @@
             const rightArrow = document.querySelector('[data-journey-nav="right"]');
             if (!journeyViewport || !leftArrow || !rightArrow) return;
 
+            const AUTO_SCROLL_INTERVAL_MS = 3400;
+            const AUTO_SCROLL_RESUME_DELAY_MS = 4500;
+            const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+            let autoScrollTimer = null;
+            let autoScrollResumeTimer = null;
+
             const getStep = () => {
                 const firstCard = journeyViewport.querySelector(".tb-about-milestone");
                 if (!firstCard) return Math.max(journeyViewport.clientWidth * 0.8, 220);
@@ -579,23 +593,102 @@
                 return firstCard.getBoundingClientRect().width + gap;
             };
 
+            const getMaxScroll = () => Math.max(0, journeyViewport.scrollWidth - journeyViewport.clientWidth);
+
             const updateArrows = () => {
-                const maxScroll = journeyViewport.scrollWidth - journeyViewport.clientWidth - 2;
+                const maxScroll = getMaxScroll() - 2;
                 leftArrow.disabled = journeyViewport.scrollLeft <= 1;
                 rightArrow.disabled = journeyViewport.scrollLeft >= maxScroll;
             };
 
+            const scrollJourney = (direction) => {
+                const maxScroll = getMaxScroll();
+                const step = getStep();
+                const atStart = journeyViewport.scrollLeft <= 1;
+                const atEnd = journeyViewport.scrollLeft >= maxScroll - 1;
+
+                if (direction > 0 && atEnd) {
+                    journeyViewport.scrollTo({ left: 0, behavior: "smooth" });
+                    return;
+                }
+
+                if (direction < 0 && atStart) {
+                    journeyViewport.scrollTo({ left: maxScroll, behavior: "smooth" });
+                    return;
+                }
+
+                journeyViewport.scrollBy({ left: step * direction, behavior: "smooth" });
+            };
+
+            const stopAutoScroll = () => {
+                if (!autoScrollTimer) return;
+                clearInterval(autoScrollTimer);
+                autoScrollTimer = null;
+            };
+
+            const startAutoScroll = () => {
+                if (reduceMotionQuery.matches || autoScrollTimer) return;
+                autoScrollTimer = setInterval(() => {
+                    scrollJourney(1);
+                }, AUTO_SCROLL_INTERVAL_MS);
+            };
+
+            const scheduleAutoScrollResume = () => {
+                if (autoScrollResumeTimer) {
+                    clearTimeout(autoScrollResumeTimer);
+                }
+                autoScrollResumeTimer = setTimeout(() => {
+                    startAutoScroll();
+                }, AUTO_SCROLL_RESUME_DELAY_MS);
+            };
+
+            const pauseAutoScrollTemporarily = () => {
+                stopAutoScroll();
+                scheduleAutoScrollResume();
+            };
+
             leftArrow.addEventListener("click", () => {
-                journeyViewport.scrollBy({ left: -getStep(), behavior: "smooth" });
+                pauseAutoScrollTemporarily();
+                scrollJourney(-1);
             });
 
             rightArrow.addEventListener("click", () => {
-                journeyViewport.scrollBy({ left: getStep(), behavior: "smooth" });
+                pauseAutoScrollTemporarily();
+                scrollJourney(1);
             });
 
             journeyViewport.addEventListener("scroll", updateArrows, { passive: true });
+            journeyViewport.addEventListener("mouseenter", stopAutoScroll);
+            journeyViewport.addEventListener("mouseleave", scheduleAutoScrollResume);
+            journeyViewport.addEventListener("focusin", stopAutoScroll);
+            journeyViewport.addEventListener("focusout", scheduleAutoScrollResume);
+            journeyViewport.addEventListener("touchstart", pauseAutoScrollTemporarily, { passive: true });
+            journeyViewport.addEventListener("wheel", pauseAutoScrollTemporarily, { passive: true });
+
+            const handleReducedMotionChange = () => {
+                if (reduceMotionQuery.matches) {
+                    stopAutoScroll();
+                } else {
+                    startAutoScroll();
+                }
+            };
+
+            if (reduceMotionQuery.addEventListener) {
+                reduceMotionQuery.addEventListener("change", handleReducedMotionChange);
+            } else if (reduceMotionQuery.addListener) {
+                reduceMotionQuery.addListener(handleReducedMotionChange);
+            }
+
+            document.addEventListener("visibilitychange", () => {
+                if (document.hidden) {
+                    stopAutoScroll();
+                    return;
+                }
+                scheduleAutoScrollResume();
+            });
             window.addEventListener("resize", updateArrows);
             updateArrows();
+            startAutoScroll();
         });
     </script>
 </body>
