@@ -139,7 +139,7 @@ a {
 }
 
 .cta-btn {
-    padding: 1em 2em;
+    padding: var(--tb-btn-pad-y) var(--tb-btn-pad-x);
     border-radius: 32px;
     color: white;
     font-family: var(--ff-primary);
@@ -1896,3 +1896,57 @@ body {
         font-size: var(--tb-fs-24);
     }
 }
+
+.leadership-card-caption p {
+    font-size: 14px!important;
+}
+.section-description {
+    font-size: 14px!important;
+    
+}
+
+.card-features li {
+    font-size: 14px!important;
+}
+
+.card-subtitle {
+    font-size: 14px!important;
+}
+
+.functional-module-points li {
+    font-size: 12px!important;
+}
+
+.module-toggle-subtitle {
+    font-size: 14px!important;
+}
+
+.module-toggle-title {
+    font-size: 14px!important;
+}
+
+.process-card li {
+    font-size: 14px!important;
+}
+
+.process-card-name h6 {
+    font-size: 16px!important;
+    margin-bottom: 0%!important;
+}
+
+.process-card ul {
+    margin-top: 12px;
+}
+
+
+
+.leadership-tab-buttom {
+    font-size: 14px!important;
+    font-weight: 300!important;
+}
+
+.secondary-feature-card-item-name {
+    font-size: 16px!important;
+    font-weight: 500!important;
+}
+

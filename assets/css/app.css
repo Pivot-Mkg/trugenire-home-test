@@ -1556,6 +1556,18 @@ a {
   line-height: 1.5;
 }
 
+.secondary-text {
+  margin: 0.5rem 0 1.3rem;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  color: #5d6e86;
+  font-size: clamp(var(--tb-fs-16), 1.1vw, var(--tb-fs-18))!important;
+  line-height: 1.5;
+  font-weight: 300!important;
+}
+
+
+
 .tb-integrated-card {
   height: 100%;
   box-shadow: var(--tb-shadow-soft);
