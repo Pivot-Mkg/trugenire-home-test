@@ -577,7 +577,7 @@ a {
   font: inherit;
 }
 
-.tb-lifecycle-item:not(:last-child)::after {
+/* .tb-lifecycle-item:not(:last-child)::after {
   content: "";
   position: absolute;
   top: 42%;
@@ -594,9 +594,9 @@ a {
   pointer-events: none;
   z-index: 99;
   opacity: 0;
-}
+} */
 
-.tb-lifecycle-item:not(:last-child)::after(:first-child) {
+/* .tb-lifecycle-item:not(:last-child)::after(:first-child) {
   content: "";
   position: absolute;
   top: 42%;
@@ -613,10 +613,10 @@ a {
   pointer-events: none;
   z-index: 99;
   opacity: 0;
-}
+} */
 
 /* 2nd lifecycle item, but only if it’s not the last one */
-.tb-lifecycle-item:nth-child(2):not(:last-child)::after {
+/* .tb-lifecycle-item:nth-child(2):not(:last-child)::after {
   content: "";
   position: absolute;
   top: 48%;
@@ -633,9 +633,9 @@ a {
   pointer-events: none;
   z-index: 99;
   opacity: 0;
-}
+} */
 
-.tb-lifecycle-item:nth-child(3):not(:last-child)::after {
+/* .tb-lifecycle-item:nth-child(3):not(:last-child)::after {
   content: "";
   position: absolute;
   top: 49.3%;
@@ -652,12 +652,12 @@ a {
   pointer-events: none;
   z-index: 99;
   opacity: 0;
-}
+} */
 
-.tb-lifecycle-item.is-active:not(:last-child)::after,
+/* .tb-lifecycle-item.is-active:not(:last-child)::after,
 .tb-lifecycle-item.is-active:not(:last-child)::before {
   opacity: 1;
-}
+} */
 
 /* .tb-lifecycle-item:not(:last-child)::before {
   content: "";
@@ -1561,9 +1561,9 @@ a {
   margin-top: 25px;
   margin-bottom: 25px;
   color: #5d6e86;
-  font-size: clamp(var(--tb-fs-16), 1.1vw, var(--tb-fs-18))!important;
+  font-size: clamp(var(--tb-fs-16), 1.1vw, var(--tb-fs-18)) !important;
   line-height: 1.5;
-  font-weight: 300!important;
+  font-weight: 300 !important;
 }
 
 
