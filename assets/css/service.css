@@ -452,7 +452,7 @@
         font-size: clamp(var(--tb-fs-16), 1.2vw, var(--tb-fs-18));
         line-height: 1.55;
         color: #667486;
-        font-size: 14px!important;
+        font-size: var(--tb-fs-16)!important;
     }
 
     .primary-service-card-head-item-heading {
@@ -575,4 +575,44 @@
     margin: 0 0 18px 0;
     color: #002672;
     font-weight: 500;
+}
+
+/* Sync service page typography to the home scale in app.css */
+.hero-heading,
+.hero-heading span {
+    font-size: var(--tb-fs-36);
+    line-height: 1.13;
+}
+
+.section-header .section-header-title,
+.cta-title {
+    font-size: var(--tb-heading-size-xl);
+    line-height: 1.13;
+}
+
+.primary-service-card-head-item-heading {
+    font-size: var(--tb-heading-size-md);
+    line-height: 1.25;
+}
+
+.section-description,
+.note,
+.primary-service-card-head-item-subheading,
+.secondary-feature-card-item-description,
+.secondary-feature-card-item-name,
+.point-list-item,
+.point-list-title,
+.leadership-tab-buttom,
+.leadership-card-caption h4 {
+    font-size: var(--tb-fs-16);
+}
+
+@media (max-width: 575.98px) {
+    .hero-heading,
+    .hero-heading span,
+    .section-header .section-header-title,
+    .cta-title {
+        font-size: 24px;
+        line-height: 1.15;
+    }
 }

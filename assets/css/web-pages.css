@@ -1534,6 +1534,7 @@
 }
 
 @media (max-width: 575.98px) {
+
     .tb-about-hero-copy h1,
     .tb-careers-hero-copy h1 {
         font-size: 24px;
@@ -2806,13 +2807,13 @@
 }
 
 .tb-blog-article {
-    max-width: 50rem;
+    /* max-width: 50rem; */
     margin: 0 auto;
 }
 
-.tb-blog-header {
+/* .tb-blog-header {
     margin-bottom: 2rem;
-}
+} */
 
 .tb-blog-back {
     display: inline-flex;
@@ -2871,10 +2872,10 @@
 }
 
 .tb-blog-content {
-    background: #fff;
+    /* background: #fff; */
     border-radius: 16px;
     padding: clamp(1.5rem, 3vw, 2.5rem);
-    box-shadow: var(--tb-shadow-soft);
+    /* box-shadow: var(--tb-shadow-soft); */
 }
 
 .tb-blog-lead {
@@ -2936,8 +2937,29 @@
     color: #5d6e86;
 }
 
+.tb-blog-related-head {
+    margin: 0 auto 1rem;
+    margin-left: 0;
+    max-width: 50rem;
+}
+
+.tb-blog-related-head .tb-title {
+    margin: 0;
+}
+
+.tb-blog-related-head p {
+    margin: 0.45rem 0 0;
+    color: #5d6e86;
+    font-size: var(--tb-fs-16);
+    line-height: 1.6;
+}
+
 @media (max-width: 991.98px) {
     .tb-blog-shell {
         padding-top: 5.75rem;
+    }
+
+    .tb-blog-related-head {
+        text-align: left;
     }
 }
