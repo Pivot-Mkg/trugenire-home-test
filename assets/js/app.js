@@ -930,11 +930,7 @@ function initProblemSectionOrder() {
 function initTrustTabs() {
   const root = document.getElementById("trustTabs");
   const logoGrid = document.getElementById("trustLogoGrid");
-  const cardsShell = logoGrid ? logoGrid.closest(".tb-trusted-cards") : null;
-  const pagination = cardsShell
-    ? cardsShell.querySelector("[data-trusted-pagination]")
-    : null;
-  if (!root || !logoGrid || !cardsShell) return;
+  if (!root || !logoGrid) return;
 
   let active = 0;
   const reduceMotion =
@@ -946,7 +942,10 @@ function initTrustTabs() {
     window.matchMedia && window.matchMedia("(max-width: 991.98px)");
   let switchTimer = null;
   let enterTimer = null;
-  let mobileSwiper = null;
+  let mobileAutoScrollFrame = null;
+  let mobileAutoScrollPauseUntil = 0;
+  const MOBILE_LOGO_SCROLL_PX_PER_MS = 0.035;
+  const MOBILE_LOGO_SCROLL_RESUME_DELAY_MS = 1400;
 
   function syncTrustedGridHeight() {
     if (!desktopMedia || !desktopMedia.matches) {
@@ -969,114 +968,78 @@ function initTrustTabs() {
     logoGrid.classList.add("is-height-synced");
   }
 
-  function syncPaginationAria() {
-    if (!pagination) return;
-    const dots = Array.from(pagination.querySelectorAll(".tb-trusted-dot"));
-    dots.forEach((dot) => {
-      const isActive = dot.classList.contains("is-active");
-      dot.setAttribute("aria-current", isActive ? "true" : "false");
-    });
+  function stopMobileAutoScroll() {
+    if (!mobileAutoScrollFrame) return;
+    window.cancelAnimationFrame(mobileAutoScrollFrame);
+    mobileAutoScrollFrame = null;
   }
 
-  function applyMobileSliderStructure() {
-    cardsShell.classList.add("swiper", "tb-trusted-slider");
-    logoGrid.classList.add("swiper-wrapper");
-    Array.from(logoGrid.children).forEach((card) => {
-      card.classList.add("swiper-slide");
-    });
+  function pauseMobileAutoScrollTemporarily() {
+    mobileAutoScrollPauseUntil =
+      performance.now() + MOBILE_LOGO_SCROLL_RESUME_DELAY_MS;
   }
 
-  function removeMobileSliderStructure() {
-    cardsShell.classList.remove("swiper", "tb-trusted-slider");
-    logoGrid.classList.remove("swiper-wrapper");
-    Array.from(logoGrid.children).forEach((card) => {
-      card.classList.remove("swiper-slide");
-    });
-  }
-
-  function destroyMobileSlider() {
-    if (mobileSwiper) {
-      mobileSwiper.destroy(true, true);
-      mobileSwiper = null;
-    }
-    removeMobileSliderStructure();
-    if (pagination) pagination.innerHTML = "";
-  }
-
-  function createMobileSlider() {
+  function startMobileAutoScroll() {
+    stopMobileAutoScroll();
     if (!mobileMedia || !mobileMedia.matches) return;
-    if (mobileSwiper || typeof window.Swiper !== "function") return;
+    if (!logoGrid.classList.contains("is-mobile-scroll")) return;
 
-    applyMobileSliderStructure();
-    const slideCount = logoGrid.children.length;
-    const enableLoop = slideCount > 5;
-    const enableAutoScroll = slideCount > 3;
+    const halfTrackWidth = logoGrid.scrollWidth / 2;
+    if (!halfTrackWidth || halfTrackWidth <= logoGrid.clientWidth + 1) return;
 
-    mobileSwiper = new window.Swiper(cardsShell, {
-      slidesPerView: 3,
-      slidesPerGroup: 1,
-      spaceBetween: 8,
-      speed: 1400,
-      loop: enableLoop,
-      loopedSlides: enableLoop ? slideCount : 0,
-      watchOverflow: false,
-      watchSlidesProgress: false,
-      allowTouchMove: true,
-      freeMode: false,
-      autoplay: enableAutoScroll
-        ? {
-            delay: 1,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: false,
-            waitForTransition: true,
-          }
-        : false,
-      pagination: pagination
-        ? {
-            el: pagination,
-            clickable: true,
-            bulletClass: "tb-trusted-dot",
-            bulletActiveClass: "is-active",
-            renderBullet: (index, className) =>
-              `<button type="button" class="${className}" aria-label="Go to trusted logo ${
-                index + 1
-              }"></button>`,
-          }
-        : undefined,
-      on: {
-        init: syncPaginationAria,
-        slideChange: syncPaginationAria,
-      },
-    });
+    let lastTimestamp = 0;
 
-    mobileSwiper.update();
-    if (enableLoop && typeof mobileSwiper.slideToLoop === "function") {
-      mobileSwiper.slideToLoop(0, 0, false);
-    }
-    if (
-      enableAutoScroll &&
-      mobileSwiper.autoplay &&
-      !mobileSwiper.autoplay.running
-    ) {
-      mobileSwiper.autoplay.start();
+    const step = (timestamp) => {
+      if (!mobileMedia.matches || !logoGrid.classList.contains("is-mobile-scroll")) {
+        stopMobileAutoScroll();
+        return;
+      }
+
+      const loopWidth = logoGrid.scrollWidth / 2;
+      if (!loopWidth || loopWidth <= logoGrid.clientWidth + 1) {
+        stopMobileAutoScroll();
+        return;
+      }
+
+      if (!lastTimestamp) lastTimestamp = timestamp;
+      const deltaMs = Math.min(64, timestamp - lastTimestamp);
+      lastTimestamp = timestamp;
+
+      if (timestamp >= mobileAutoScrollPauseUntil) {
+        logoGrid.scrollLeft += deltaMs * MOBILE_LOGO_SCROLL_PX_PER_MS;
+        if (logoGrid.scrollLeft >= loopWidth) {
+          logoGrid.scrollLeft -= loopWidth;
+        }
+      }
+
+      mobileAutoScrollFrame = window.requestAnimationFrame(step);
+    };
+
+    mobileAutoScrollFrame = window.requestAnimationFrame(step);
+  }
+
+  function syncTrustedLayoutMode() {
+    const isMobile = !!(mobileMedia && mobileMedia.matches);
+    logoGrid.classList.toggle("is-mobile-scroll", isMobile);
+    if (!isMobile) {
+      stopMobileAutoScroll();
+      logoGrid.scrollLeft = 0;
     }
   }
 
   function syncTrustedSliderOnViewportChange() {
-    if (!mobileMedia || !mobileMedia.matches) {
-      destroyMobileSlider();
-      return;
+    syncTrustedLayoutMode();
+    if (mobileMedia && mobileMedia.matches) {
+      window.requestAnimationFrame(startMobileAutoScroll);
     }
-    if (!mobileSwiper) createMobileSlider();
   }
 
   function rebuildTrustedSlider() {
-    if (!mobileMedia || !mobileMedia.matches) {
-      destroyMobileSlider();
-      return;
+    syncTrustedLayoutMode();
+    if (mobileMedia && mobileMedia.matches) {
+      logoGrid.scrollLeft = 0;
+      window.requestAnimationFrame(startMobileAutoScroll);
     }
-    destroyMobileSlider();
-    createMobileSlider();
   }
 
   function renderLogos(animate = false) {
@@ -1088,9 +1051,12 @@ function initTrustTabs() {
       !reduceMotion &&
       !(mobileMedia && mobileMedia.matches);
 
-    destroyMobileSlider();
+    const logosToRender =
+      mobileMedia && mobileMedia.matches
+        ? [...group.logos, ...group.logos]
+        : group.logos;
 
-    const markup = group.logos
+    const markup = logosToRender
       .map(
         (logo, idx) => `
           <article class="tb-trusted-logo-card" style="--tb-logo-delay:${idx * 40}ms">
@@ -1103,8 +1069,8 @@ function initTrustTabs() {
     if (!shouldAnimate) {
       logoGrid.classList.remove("is-switching", "is-entering");
       logoGrid.innerHTML = markup;
-      syncTrustedGridHeight();
       rebuildTrustedSlider();
+      syncTrustedGridHeight();
       return;
     }
 
@@ -1117,8 +1083,8 @@ function initTrustTabs() {
     switchTimer = setTimeout(() => {
       logoGrid.innerHTML = markup;
       logoGrid.classList.remove("is-switching");
-      syncTrustedGridHeight();
       rebuildTrustedSlider();
+      syncTrustedGridHeight();
       void logoGrid.offsetWidth;
       logoGrid.classList.add("is-entering");
       enterTimer = setTimeout(() => {
@@ -1157,9 +1123,20 @@ function initTrustTabs() {
     renderLogos(animateLogos);
   }
 
+  logoGrid.addEventListener("touchstart", pauseMobileAutoScrollTemporarily, {
+    passive: true,
+  });
+  logoGrid.addEventListener("pointerdown", pauseMobileAutoScrollTemporarily, {
+    passive: true,
+  });
+  logoGrid.addEventListener("wheel", pauseMobileAutoScrollTemporarily, {
+    passive: true,
+  });
+
   render();
 
   const syncOnViewportChange = () => {
+    syncTrustedLayoutMode();
     syncTrustedGridHeight();
     syncTrustedSliderOnViewportChange();
   };

@@ -1062,7 +1062,12 @@ a {
 }
 
 .tb-backing-pagination {
-  margin-top: 1.1rem;
+  position: static;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  width: 100%;
+  margin-top: 1.4rem;
   display: none;
   justify-content: center;
   align-items: center;
@@ -1330,23 +1335,29 @@ a {
 }
 
 @media (max-width: 991.98px) {
-  .tb-trusted-cards.tb-trusted-slider {
-    overflow: hidden;
-  }
-
-  .tb-trusted-cards.tb-trusted-slider #trustLogoGrid.tb-trusted-grid.swiper-wrapper {
+  #trustLogoGrid.tb-trusted-grid.is-mobile-scroll {
     display: flex;
     grid-template-columns: none;
-    gap: 0;
+    gap: 0.5rem;
     width: 100%;
-    transition-timing-function: linear;
-    align-items: stretch;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: none;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    scrollbar-width: none;
+    padding-bottom: 0.25rem;
   }
 
-  .tb-trusted-cards.tb-trusted-slider #trustLogoGrid .tb-trusted-logo-card.swiper-slide {
-    width: calc((100% - 16px) / 3) !important;
-    grid-column: auto;
-    flex-shrink: 0;
+  #trustLogoGrid.tb-trusted-grid.is-mobile-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  #trustLogoGrid.tb-trusted-grid.is-mobile-scroll .tb-trusted-logo-card {
+    width: calc((100% - 1rem) / 3);
+    min-width: calc((100% - 1rem) / 3);
+    flex: 0 0 calc((100% - 1rem) / 3);
+    min-height: 72px;
   }
 }
 
@@ -2725,7 +2736,6 @@ a {
 
   .tb-backing-pagination {
     display: flex;
-    margin-top: 40px !important;
   }
 
 
