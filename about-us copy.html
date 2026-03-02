@@ -888,13 +888,62 @@
             startAutoScroll();
         });
     </script>
-
-
-
-    
- 
 </body>
 
 </html>
 
-  
+    <script>
+        $(document).ready(function () {
+            $(".tab-btn-vision").addClass("tab-btn-active");
+            $(".tab-btn").on("click", function () {
+                $(".tab-btn").removeClass("tab-btn-active");
+                $(this).addClass("tab-btn-active");
+                const targetId = $(this).attr("toggle-info-id");
+
+                $(".info").hide();
+                $("#" + targetId).fadeIn();
+
+                const $img1 = $(".img-container-item-vision");
+                const $img2 = $(".img-container-item-mission");
+
+                const pos1 = $img1.position();
+                const pos2 = $img2.position();
+
+                const z1 = $img1.css("z-index");
+                const z2 = $img2.css("z-index");
+
+                $img1.animate(
+                    {
+                        top: pos2.top,
+                        left: pos2.left
+                    },
+                    600
+                );
+
+                $img2.animate(
+                    {
+                        top: pos1.top,
+                        left: pos1.left
+                    },
+                    600
+                );
+
+                $img1.css("z-index", z2);
+                $img2.css("z-index", z1);
+            });
+
+            $(".info").hide();
+            const initialId = $(".tab-btn-active").attr("toggle-info-id");
+            $("#" + initialId).fadeIn();
+            $("#infoVision").show();
+
+            $(".content-toggle-btn-info").first().show();
+            $(".content-toggle-btn").click(function () {
+                $(".content-toggle-btn-active").removeClass("content-toggle-btn-active");
+                $(this).addClass("content-toggle-btn-active");
+                var contentId = $(this).attr("data");
+                $(".content-toggle-btn-info").hide();
+                $("#" + contentId).fadeIn();
+            });
+        });
+    </script>
