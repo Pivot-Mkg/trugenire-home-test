@@ -2722,7 +2722,7 @@
 
 .tb-res-filter-wrap {
     margin-top: 1rem;
-    position: sticky;
+    /* position: sticky; */
     top: 5.25rem;
     z-index: 15;
 }
