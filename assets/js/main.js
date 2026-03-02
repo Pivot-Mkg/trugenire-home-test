@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initLeadershipButtonTabs();
   initProcessStepHoverEffects();
   initProcessMobileSlider();
+  initHoverCardAnimation();
 });
 
 function initFunctionalModules() {
@@ -406,4 +407,46 @@ function initProcessMobileSlider() {
   }
 
   handleModeChange();
+}
+
+function initHoverCardAnimation() {
+  const cards = Array.from(document.querySelectorAll(".hover-card-animation"));
+  if (!cards.length) return;
+
+  const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!supportsHover || prefersReducedMotion) return;
+
+  const MAX_ROTATE_X = 9;
+  const MAX_ROTATE_Y = 12;
+
+  cards.forEach((card) => {
+    const resetCard = () => {
+      card.classList.remove("is-tilting");
+      card.style.setProperty("--card-rotate-x", "0deg");
+      card.style.setProperty("--card-rotate-y", "0deg");
+    };
+
+    const setTilt = (event) => {
+      const rect = card.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+
+      const localX = event.clientX - rect.left;
+      const localY = event.clientY - rect.top;
+      const px = Math.max(0, Math.min(1, localX / rect.width));
+      const py = Math.max(0, Math.min(1, localY / rect.height));
+
+      const rotateY = (px - 0.5) * (MAX_ROTATE_Y * 2);
+      const rotateX = (0.5 - py) * (MAX_ROTATE_X * 2);
+
+      card.classList.add("is-tilting");
+      card.style.setProperty("--card-rotate-x", `${rotateX.toFixed(2)}deg`);
+      card.style.setProperty("--card-rotate-y", `${rotateY.toFixed(2)}deg`);
+    };
+
+    card.addEventListener("pointerenter", setTilt);
+    card.addEventListener("pointermove", setTilt);
+    card.addEventListener("pointerleave", resetCard);
+    card.addEventListener("blur", resetCard, true);
+  });
 }
