@@ -410,19 +410,19 @@
                     <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" alt=""
                         aria-hidden="true">
                     <button type="button" class="tb-about-presence-marker is-active" data-presence-marker
-                        data-presence-city="mumbai" data-presence-lat="19.076" data-presence-lon="72.8777"
+                        data-presence-city="mumbai" data-presence-lat="19.1117051" data-presence-lon="72.8607208"
                         aria-label="Mumbai office"></button>
                     <button type="button" class="tb-about-presence-marker" data-presence-marker
-                        data-presence-city="gurugram" data-presence-lat="28.4595" data-presence-lon="77.0266"
+                        data-presence-city="gurugram" data-presence-lat="28.4449095" data-presence-lon="77.0611408"
                         aria-label="Gurugram office"></button>
                     <button type="button" class="tb-about-presence-marker" data-presence-marker
-                        data-presence-city="bengaluru" data-presence-lat="12.9716" data-presence-lon="77.5946"
+                        data-presence-city="bengaluru" data-presence-lat="12.9655602" data-presence-lon="77.6003890"
                         aria-label="Bengaluru office"></button>
                     <button type="button" class="tb-about-presence-marker" data-presence-marker
-                        data-presence-city="hyderabad" data-presence-lat="17.385" data-presence-lon="78.4867"
+                        data-presence-city="hyderabad" data-presence-lat="17.4891608" data-presence-lon="78.3927807"
                         aria-label="Hyderabad office"></button>
                     <button type="button" class="tb-about-presence-marker" data-presence-marker
-                        data-presence-city="newjersey" data-presence-lat="40.7282" data-presence-lon="-74.0776"
+                        data-presence-city="newjersey" data-presence-lat="40.7263131" data-presence-lon="-74.0337522"
                         aria-label="New Jersey office"></button>
                 </div>
 
@@ -665,6 +665,7 @@
             const presenceRoot = document.querySelector("[data-presence]");
             const presenceLabel = presenceRoot ? presenceRoot.querySelector("[data-presence-city-label]") : null;
             const presenceAddress = presenceRoot ? presenceRoot.querySelector("[data-presence-city-address]") : null;
+            const presenceContainer = presenceRoot ? presenceRoot.querySelector(".container-xl") : null;
             const presenceMap = presenceRoot ? presenceRoot.querySelector(".tb-about-presence-map") : null;
             const presenceMapImage = presenceMap ? presenceMap.querySelector("img") : null;
             const presenceMarkers = presenceRoot
@@ -676,16 +677,20 @@
 
             if (presenceRoot && presenceLabel && presenceAddress && presenceMarkers.length && presenceCities.length) {
                 const positionPresenceMarkers = () => {
-                    if (!presenceMap || !presenceMapImage) return;
+                    if (!presenceMap || !presenceMapImage || !presenceContainer) return;
 
+                    const containerRect = presenceContainer.getBoundingClientRect();
                     const mapRect = presenceMap.getBoundingClientRect();
-                    const mapWidth = mapRect.width;
-                    const mapHeight = mapRect.height;
+                    const mapWidth = presenceMap.clientWidth;
+                    const mapHeight = presenceMap.clientHeight;
                     const imageWidth = presenceMapImage.naturalWidth;
                     const imageHeight = presenceMapImage.naturalHeight;
 
                     if (!mapWidth || !mapHeight || !imageWidth || !imageHeight) return;
 
+                    // Resolve marker coordinates against the map inside its container.
+                    const mapOffsetX = mapRect.left - containerRect.left;
+                    const mapOffsetY = mapRect.top - containerRect.top;
                     const scale = Math.max(mapWidth / imageWidth, mapHeight / imageHeight);
                     const renderedWidth = imageWidth * scale;
                     const renderedHeight = imageHeight * scale;
@@ -698,12 +703,19 @@
                         if (Number.isNaN(lat) || Number.isNaN(lon)) return;
 
                         const x = ((lon + 180) / 360) * renderedWidth + offsetX;
-                        const y = ((90 - lat) / 180) * renderedHeight + offsetY;
+                        const clampedLat = Math.max(Math.min(lat, 85), -85);
+                        const latRad = (clampedLat * Math.PI) / 180;
+                        const mercatorN = Math.log(Math.tan(Math.PI / 4 + latRad / 2));
+                        const yNormalized = (1 - mercatorN / Math.PI) / 2;
+                        const y = yNormalized * renderedHeight + offsetY;
                         const safeX = Math.min(Math.max(x, 0), mapWidth);
                         const safeY = Math.min(Math.max(y, 0), mapHeight);
 
-                        marker.style.left = `${(safeX / mapWidth) * 100}%`;
-                        marker.style.top = `${(safeY / mapHeight) * 100}%`;
+                        const xInContainer = mapOffsetX + safeX;
+                        const yInContainer = mapOffsetY + safeY;
+
+                        marker.style.left = `${xInContainer - mapOffsetX}px`;
+                        marker.style.top = `${yInContainer - mapOffsetY}px`;
                     });
                 };
 
@@ -765,6 +777,12 @@
                     } else {
                         presenceMapImage.addEventListener("load", scheduleMarkerPositioning, { once: true });
                     }
+                }
+
+                if (typeof ResizeObserver === "function") {
+                    const presenceResizeObserver = new ResizeObserver(scheduleMarkerPositioning);
+                    presenceResizeObserver.observe(presenceContainer);
+                    presenceResizeObserver.observe(presenceMap);
                 }
 
                 window.addEventListener("resize", scheduleMarkerPositioning);
