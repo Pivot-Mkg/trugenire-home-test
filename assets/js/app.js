@@ -290,6 +290,13 @@ function initMenu() {
     });
   }
 
+  function closeMobileMenu() {
+    if (!mainNav.classList.contains("open")) return;
+    mainNav.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    closeAllDropdowns();
+  }
+
   dropdownItems.forEach((item, index) => {
     const trigger = item.querySelector(".tb-nav-trigger");
     const dropdown = item.querySelector(".tb-nav-dropdown");
@@ -365,15 +372,21 @@ function initMenu() {
     if (!mainNav.contains(event.target)) {
       closeAllDropdowns();
     }
+
+    if (desktopMedia.matches || !mainNav.classList.contains("open")) return;
+    if (mainNav.contains(event.target) || menuToggle.contains(event.target)) return;
+    closeMobileMenu();
   });
 
   document.addEventListener("keydown", (event) => {
     if (event.key !== "Escape") return;
     closeAllDropdowns();
+    if (!desktopMedia.matches) closeMobileMenu();
   });
 
   const handleViewportChange = () => {
     closeAllDropdowns();
+    if (desktopMedia.matches) closeMobileMenu();
   };
 
   if (desktopMedia.addEventListener) {
@@ -383,9 +396,50 @@ function initMenu() {
   }
 
   menuToggle.addEventListener("click", () => {
-    const open = mainNav.classList.toggle("open");
-    menuToggle.setAttribute("aria-expanded", String(open));
-    if (!open) closeAllDropdowns();
+    const shouldOpen = !mainNav.classList.contains("open");
+    if (shouldOpen) {
+      mainNav.classList.add("open");
+      menuToggle.setAttribute("aria-expanded", "true");
+      return;
+    }
+
+    closeMobileMenu();
+  });
+}
+
+function getCurrentPageFile(pathname) {
+  const cleanPath = (pathname || "").split("?")[0].split("#")[0];
+  const segments = cleanPath.split("/").filter(Boolean);
+  const lastSegment = segments[segments.length - 1] || "";
+  if (!lastSegment || !lastSegment.includes(".")) return "index.html";
+  return lastSegment.toLowerCase();
+}
+
+function initActiveNavLink() {
+  const mainNav = document.getElementById("mainNav");
+  if (!mainNav) return;
+
+  const currentFile = getCurrentPageFile(window.location.pathname);
+  const navLinks = Array.from(mainNav.querySelectorAll("a[href]"));
+
+  navLinks.forEach((link) => {
+    const href = link.getAttribute("href");
+    if (!href) return;
+
+    let targetUrl;
+    try {
+      targetUrl = new URL(href, window.location.href);
+    } catch (error) {
+      return;
+    }
+
+    if (targetUrl.origin !== window.location.origin) return;
+
+    const targetFile = getCurrentPageFile(targetUrl.pathname);
+    if (targetFile !== currentFile) return;
+
+    link.classList.add("is-active");
+    link.setAttribute("aria-current", "page");
   });
 }
 
@@ -1211,6 +1265,7 @@ function renderOfferings(animate = false) {
 
 document.addEventListener("DOMContentLoaded", () => {
   initMenu();
+  initActiveNavLink();
   initImpactSlider();
   initWhySlider();
   initIntegratedSlider();

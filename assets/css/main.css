@@ -1337,7 +1337,7 @@ body {
     }
 
     .process-icon-wrapper svg {
-        height: 58px;
+        height: 30px;
         width: auto;
     }
 
@@ -1427,6 +1427,8 @@ body {
     .cta-buttons .cta {
         width: 100%;
         justify-content: center;
+        width: fit-content;
+        margin: auto;
     }
 }
 
@@ -1583,6 +1585,13 @@ body {
 
     .tb-truegenie-page .module-toggle {
         padding: 0.65rem 0.75rem;
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .tb-truegenie-page .module-toggle svg {
+        height: 30px;
+
     }
 
     .tb-truegenie-page .module-toggle .icon-wrapper {
@@ -1669,6 +1678,16 @@ body {
         padding-bottom: 1.75rem;
     }
 
+    .tb-truegenie-page .features-section-1,
+    .tb-truegenie-page .section-header .section-header-title {
+        padding-top: 0;
+    }
+
+    .tb-truegenie-page .features-section-1 .section-heading {
+        padding-bottom: 0 !important;
+    }
+
+
     .tb-truegenie-page .hero-section {
         padding-top: 6.9rem;
     }
@@ -1679,6 +1698,22 @@ body {
     .tb-truegenie-page .functional-modules-title,
     .tb-truegenie-page .cta-title {
         font-size: 24px;
+    }
+
+    .tb-truegenie-page .hero-description,
+    .tb-truegenie-page .section-description,
+    .tb-truegenie-page .functional-modules-description,
+    .tb-truegenie-page .module-toggle-subtitle,
+    .tb-truegenie-page .functional-module-points li,
+    .tb-truegenie-page .process-card ul li,
+    .tb-truegenie-page .card-subtitle,
+    .tb-truegenie-page .card-features li,
+    .tb-truegenie-page .leadership-card-caption p {
+        line-height: normal
+    }
+
+    .tb-truegenie-page .functional-modules-content-header img {
+        display: none;
     }
 
     .tb-truegenie-page .hero-heading span {
@@ -1703,8 +1738,10 @@ body {
 
     .tb-truegenie-page .process-icons-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        max-width: 13rem;
+        /* max-width: 13rem; */
         gap: 0.55rem;
+        max-width: 100%;
+        margin-top: 40px;
     }
 }
 
@@ -1816,7 +1853,8 @@ body {
 }
 
 .tb-truegenie-page .how-its-work .process-icon-wrapper:hover,
-.tb-truegenie-page .how-its-work .process-icon-wrapper.is-linked-hover {
+.tb-truegenie-page .how-its-work .process-icon-wrapper.is-linked-hover,
+.tb-truegenie-page .how-its-work .process-icon-wrapper.is-active-step {
     background: var(--tb-blue);
     border-color: var(--tb-blue);
     box-shadow: 0 10px 22px rgba(10, 34, 84, 0.16);
@@ -1831,7 +1869,12 @@ body {
 .tb-truegenie-page .how-its-work .process-icon-wrapper.is-linked-hover svg rect,
 .tb-truegenie-page .how-its-work .process-icon-wrapper.is-linked-hover svg line,
 .tb-truegenie-page .how-its-work .process-icon-wrapper.is-linked-hover svg polyline,
-.tb-truegenie-page .how-its-work .process-icon-wrapper.is-linked-hover svg circle {
+.tb-truegenie-page .how-its-work .process-icon-wrapper.is-linked-hover svg circle,
+.tb-truegenie-page .how-its-work .process-icon-wrapper.is-active-step svg path,
+.tb-truegenie-page .how-its-work .process-icon-wrapper.is-active-step svg rect,
+.tb-truegenie-page .how-its-work .process-icon-wrapper.is-active-step svg line,
+.tb-truegenie-page .how-its-work .process-icon-wrapper.is-active-step svg polyline,
+.tb-truegenie-page .how-its-work .process-icon-wrapper.is-active-step svg circle {
     stroke: #ffffff !important;
 }
 
@@ -1842,7 +1885,8 @@ body {
 }
 
 .tb-truegenie-page .how-its-work .process-card:hover,
-.tb-truegenie-page .how-its-work .process-card.is-linked-hover {
+.tb-truegenie-page .how-its-work .process-card.is-linked-hover,
+.tb-truegenie-page .how-its-work .process-card.is-active-step {
     transform: translateY(-3px);
     border-color: #c9d9ef;
     background: #ffffff;
@@ -1883,6 +1927,7 @@ body {
     .tb-truegenie-page .cta-title {
         font-size: 24px;
         line-height: 1.15;
+        padding-bottom: 0;
     }
 
     .tb-truegenie-page .functional-modules-content-title,
@@ -1944,4 +1989,220 @@ body {
 .secondary-feature-card-item-name {
     font-size: 16px !important;
     font-weight: 500 !important;
+}
+
+.tb-truegenie-page .leadership-tab-button-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.44rem;
+    margin-top: 0.9rem;
+    margin-bottom: 0.8rem;
+}
+
+.tb-truegenie-page .leadership-tab-buttom {
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: #f6f9ff;
+    color: #5d6e86;
+    font-size: var(--tb-fs-16) !important;
+    line-height: 1;
+    font-weight: 500 !important;
+    padding: 0.56rem 0.92rem;
+    white-space: nowrap;
+    box-shadow: none !important;
+}
+
+.tb-truegenie-page .leadership-tab-buttom:hover {
+    background: #edf3ff;
+    color: #1d4f98;
+}
+
+.tb-truegenie-page .leadership-tab-buttom.leadership-tab-buttom-active {
+    background: #2f6be4;
+    border-color: #2f6be4;
+    color: #fff;
+}
+
+@media (max-width: 767.98px) {
+
+    .tb-truegenie-page .functional-modules-shell {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tb-truegenie-page .functional-modules-content {
+        order: -1;
+    }
+
+    .tb-truegenie-page .functional-modules-sidebar {
+        order: 1;
+    }
+
+    .tb-truegenie-page .how-its-work .process-icons-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.45rem;
+        max-width: 100%;
+        margin-top: 1rem;
+    }
+
+    .tb-truegenie-page .how-its-work .process-icon-wrapper {
+        width: 3.25rem;
+        height: 3.25rem;
+        border-radius: 14px;
+        cursor: pointer;
+    }
+
+    .tb-truegenie-page .how-its-work .process-icon-wrapper svg {
+        width: 26px;
+        height: 26px;
+    }
+
+    .tb-truegenie-page .how-its-work .process-wrapper.is-mobile-slider {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: visible;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 1rem;
+        scroll-padding-right: 1rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 0.85rem;
+        padding: 0.35rem 1rem 1.2rem;
+        padding-top: 20px;
+    }
+
+    .tb-truegenie-page .how-its-work .process-wrapper.is-mobile-slider::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tb-truegenie-page .how-its-work .process-wrapper.is-mobile-slider .process-card {
+        flex: 0 0 calc(100% - 2rem);
+        width: calc(100% - 2rem);
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+    }
+
+    .tb-truegenie-page .leadership-section {
+        padding-top: 1.4rem;
+        padding-bottom: 1.4rem;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .tb-truegenie-page .leadership-tab-button-wrapper {
+        flex-direction: row !important;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 0.44rem;
+        margin-top: 0.9rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0;
+        width: 100%;
+        min-width: 0;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 0;
+        scrollbar-width: none;
+    }
+
+    .tb-truegenie-page .leadership-tab-button-wrapper::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tb-truegenie-page .leadership-tab-buttom {
+        border: 1px solid transparent;
+        background: #f6f9ff;
+        color: #5d6e86;
+        white-space: nowrap;
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        border-radius: 999px;
+        padding: 0.56rem 0.92rem;
+        font-size: var(--tb-fs-16) !important;
+        line-height: 1;
+        font-weight: 500 !important;
+        box-shadow: none !important;
+    }
+
+    .tb-truegenie-page .leadership-tab-buttom:hover {
+        background: #edf3ff;
+        color: #1d4f98;
+    }
+
+    .tb-truegenie-page .leadership-tab-buttom.leadership-tab-buttom-active {
+        background: #2f6be4;
+        border-color: #2f6be4;
+        color: #fff;
+    }
+
+    .tb-truegenie-page .leadership-card {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: 0.75rem;
+        padding: 0.95rem;
+        margin-bottom: 0.75rem;
+        border-radius: 12px;
+    }
+
+    .tb-truegenie-page .leadership-card::before {
+        display: none;
+    }
+
+    .tb-truegenie-page .leadership-card .img-wrapper {
+        width: 100%;
+    }
+
+    .tb-truegenie-page .leadership-card img {
+        width: 20%;
+        max-width: 100%;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+    .tb-truegenie-page .leadership-card-caption h4 {
+        font-size: 15px;
+        line-height: 1.32;
+        margin-bottom: 0.35rem;
+        /* padding-right: 1.7rem; */
+    }
+
+    .tb-truegenie-page .leadership-card-caption p {
+        font-size: 13px !important;
+        line-height: 1.45 !important;
+    }
+
+    .tb-truegenie-page .leadership-card .social-media-icon {
+        top: 0.75rem;
+        right: 0.75rem;
+    }
+
+    .tb-truegenie-page .leadership-card .social-media-link img {
+        height: 24px;
+        width: 100%;
+    }
+
+    .tb-truegenie-page .section-description {
+        font-size: 12px;
+    }
+
+    .tb-truegenie-page .engagement-cards {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tb-truegenie-page .engagement-card--recommended {
+        order: -1;
+    }
+
+    .recommended-badge {
+        left: auto;
+        right: 0;
+    }
 }
