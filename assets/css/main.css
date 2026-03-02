@@ -271,6 +271,67 @@ body {
     margin: auto;
 }
 
+.features-section-1 .img-wrapper.hover-card-animation {
+    position: relative;
+    perspective: 1200px;
+    --card-rotate-x: 0deg;
+    --card-rotate-y: 0deg;
+    --card-translate-z: 0px;
+    --card-scale: 1;
+}
+
+.features-section-1 .img-wrapper.hover-card-animation .features-section-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    transform-style: preserve-3d;
+    transform: rotateX(var(--card-rotate-x)) rotateY(var(--card-rotate-y)) translateZ(var(--card-translate-z)) scale(var(--card-scale));
+    transition: transform 380ms cubic-bezier(0.22, 0.61, 0.36, 1),
+        box-shadow 380ms cubic-bezier(0.22, 0.61, 0.36, 1),
+        filter 380ms ease;
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0);
+    box-shadow: 0 0px 0px rgba(15, 23, 42, 0.14);
+    will-change: transform, box-shadow, filter;
+}
+
+.features-section-1 .img-wrapper.hover-card-animation::after {
+    content: "";
+    position: absolute;
+    inset: 4% 8% 0;
+    z-index: -1;
+    border-radius: 22px;
+    background: radial-gradient(circle at 50% 0, rgba(37, 99, 235, 0.25), rgba(37, 99, 235, 0));
+    opacity: 0;
+    transform: translateY(14px) scale(0.95);
+    transition: transform 380ms cubic-bezier(0.22, 0.61, 0.36, 1), opacity 380ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .features-section-1 .img-wrapper.hover-card-animation:hover .features-section-img {
+        box-shadow: 0 0 0 rgba(15, 23, 42, 0.24);
+        filter: saturate(1.04);
+    }
+
+    .features-section-1 .img-wrapper.hover-card-animation:hover::after {
+        opacity: 1;
+        transform: translateY(22px) scale(1);
+    }
+
+    .features-section-1 .img-wrapper.hover-card-animation.is-tilting {
+        --card-translate-z: 18px;
+        --card-scale: 1.02;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .features-section-1 .img-wrapper.hover-card-animation .features-section-img,
+    .features-section-1 .img-wrapper.hover-card-animation::after {
+        transition: none;
+        transform: none;
+    }
+}
+
 .functional-modules-section {
     padding: 4em;
     background: #F8FAFC;
@@ -338,7 +399,8 @@ body {
     justify-content: space-between;
     gap: 12px;
     font-family: var(--ff-primary);
-    transition: border-color 0.2s ease, background-color 0.2s ease;
+    transition: border-color 0.24s ease, background-color 0.24s ease,
+        transform 0.24s ease, box-shadow 0.24s ease;
     height: fit-content;
 }
 
@@ -407,6 +469,42 @@ body {
 
 .module-toggle.is-active .button-icon-inactive {
     display: none;
+}
+
+.module-toggle .icon-wrapper {
+    transition: transform 0.24s ease, background-color 0.24s ease;
+}
+
+.module-toggle .functional-modules-sidebar-button-content-wrapper {
+    transition: transform 0.24s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .module-toggle:hover,
+    .module-toggle:focus-visible {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.1);
+        border-color: #cdd9e8;
+    }
+
+    .module-toggle:hover .icon-wrapper,
+    .module-toggle:focus-visible .icon-wrapper {
+        transform: translateY(-1px) scale(1.03);
+    }
+
+    .module-toggle:hover .functional-modules-sidebar-button-content-wrapper,
+    .module-toggle:focus-visible .functional-modules-sidebar-button-content-wrapper {
+        transform: translateX(1px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .module-toggle,
+    .module-toggle .icon-wrapper,
+    .module-toggle .functional-modules-sidebar-button-content-wrapper {
+        transition: none !important;
+        transform: none !important;
+    }
 }
 
 /* module-toggle icon wrapper (default + active) */
@@ -640,10 +738,40 @@ body {
     display: flex;
     flex-direction: column;
     gap: 18px;
+    position: relative;
+    overflow: hidden;
+    transform: perspective(1200px) rotateX(0deg) rotateY(0deg) translateY(0);
+    transition: transform 320ms cubic-bezier(0.22, 0.61, 0.36, 1),
+        box-shadow 320ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: transform, box-shadow;
 }
 
 .engagement-card--recommended {
     border-color: #D6E8FF;
+}
+
+.engagement-card::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 14px;
+    pointer-events: none;
+    background: transparent;
+    opacity: 0;
+    transition: opacity 280ms ease;
+}
+
+.engagement-card::after {
+    content: "";
+    position: absolute;
+    top: -120%;
+    left: -45%;
+    width: 36%;
+    height: 320%;
+    transform: rotate(20deg);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+    opacity: 0;
+    pointer-events: none;
 }
 
 .card-badge {
@@ -686,10 +814,15 @@ body {
     padding-left: 6px;
     color: #475569;
     font-size: 14px;
+    transition: transform 260ms ease;
 }
 
 .card-cta {
     margin-top: auto;
+}
+
+.engagement-card .card-cta .cta {
+    transition: transform 260ms ease;
 }
 
 .cta {
@@ -922,6 +1055,59 @@ body {
     width: fit-content;
 }
 
+@media (hover: hover) and (pointer: fine) {
+    .engagement-card:hover {
+        transform: perspective(1200px) rotateX(3deg) rotateY(-4deg) translateY(-8px);
+        box-shadow: 0 24px 40px rgba(15, 23, 42, 0.15);
+    }
+
+    .engagement-card:hover::before {
+        opacity: 1;
+    }
+
+    .engagement-card:hover::after {
+        opacity: 1;
+        animation: engagement-card-shimmer 850ms ease forwards;
+    }
+
+    .engagement-card:hover .card-features li {
+        transform: translateX(4px);
+    }
+
+    .engagement-card:hover .card-cta .cta {
+        transform: translateY(-2px);
+    }
+
+    .engagement-card--recommended:hover {
+        box-shadow: 0 26px 44px rgba(15, 23, 42, 0.16);
+    }
+}
+
+@keyframes engagement-card-shimmer {
+    from {
+        left: -45%;
+    }
+
+    to {
+        left: 120%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .engagement-card,
+    .engagement-card::before,
+    .engagement-card::after,
+    .card-features li,
+    .engagement-card .card-cta .cta,
+    .leadership-card,
+    .leadership-card img,
+    .leadership-card .social-media-icon {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
 .leadership-tab-button-wrapper {
     display: flex;
     justify-content: center;
@@ -1145,8 +1331,14 @@ body {
 }
 
 .engagement-model-cta-active {
+    background: #F0F8FF;
+    color: #286FED;
+}
+
+.engagement-card:hover .engagement-model-cta,
+.engagement-card:focus-within .engagement-model-cta {
     background-color: #286FED;
-    color: white;
+    color: #FFFFFF;
 }
 
 .engagement-cards li {
@@ -1760,6 +1952,38 @@ body {
 .leadership-card .social-media-link img {
     height: 32px;
     width: auto;
+}
+
+.leadership-card {
+    transition: transform 240ms ease, box-shadow 240ms ease;
+    will-change: transform, box-shadow;
+}
+
+.leadership-card img {
+    transition: transform 280ms ease;
+    will-change: transform;
+}
+
+.leadership-card .social-media-icon {
+    transition: transform 220ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .leadership-card:hover,
+    .leadership-card:focus-within {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 28px rgba(15, 23, 42, 0.1);
+    }
+
+    .leadership-card:hover img,
+    .leadership-card:focus-within img {
+        transform: translateY(-2px) scale(1.01);
+    }
+
+    .leadership-card:hover .social-media-icon,
+    .leadership-card:focus-within .social-media-icon {
+        transform: translateY(-1px);
+    }
 }
 
 .leadership-card::before {
