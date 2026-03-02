@@ -5,3 +5,19 @@
 .section-heading.secondary-section-heading {
     padding-bottom: 0px!important;
 }
+
+.engagement-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1em;
+}
+
+.engagement-card--recommended {
+    padding-top: 28px;
+}
+
+.engagement-model-cta-active {
+    background-color: #286FED;
+    color: white;
+    border-radius: 32px;
+}
