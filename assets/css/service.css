@@ -628,6 +628,8 @@
     align-items: center;
     gap: 0.42rem;
     min-width: 0;
+    justify-content: center;
+    margin-bottom: 1em;
 }
 
 .tb-services-page .leadership-tab-button-wrapper {
@@ -869,4 +871,9 @@
     .tb-services-page .tb-engagement-section .secondary-feature-card-item-name {
         font-size: 13px;
     }
+}
+
+
+.leadership-card-caption p {
+    font-weight: 300;
 }
