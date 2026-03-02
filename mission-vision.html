@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Vision</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #063e63;
+      background: #fff;
+    }
+
+    .container {
+      max-width: 1172px;
+      margin: auto;
+      padding: 0 16px;
+    }
+
+    .section-common-margin {
+      margin: 2em 0;
+    }
+
+    .vision-and-mission-section {
+      margin: 2em 0;
+      padding-left: 2em;
+      padding-right: 2em;
+    }
+
+    .vision-and-mission-section .container {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 1em;
+    }
+
+    .tab-btn-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    .tab-btn {
+      font-size: 20px;
+      border: none;
+      background: white;
+      transition: 0.3s;
+      color: #063e63;
+      width: max-content;
+      cursor: pointer;
+      padding: 0;
+      margin-right: 16px;
+      text-align: left;
+    }
+
+    .tab-underline {
+      display: block;
+      height: 2px;
+      background: #00ad6f;
+      border-radius: 100vw;
+      margin: 6px 0;
+      width: 0;
+      transition: 0.3s;
+    }
+
+    .tab-btn-active .tab-underline {
+      width: 100%;
+    }
+
+    .tab-btn-active {
+      font-weight: bold;
+    }
+
+    .vision-title {
+      color: #ff6803;
+      font-weight: 800;
+    }
+
+    .img-container-wrapper {
+      padding: 1em;
+    }
+
+    .img-container {
+      width: 100%;
+      height: 363px;
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    .img-container-item {
+      border-radius: 22px;
+      height: auto;
+      width: 54%;
+    }
+
+    .img-container-item-mission {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 0;
+    }
+
+    .img-container-item-vision {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 2;
+    }
+
+    .info-mission {
+      display: none;
+    }
+
+    .info-item-title {
+      color: #063e63;
+      font-size: 28px;
+      margin-bottom: 0.5em;
+    }
+
+    .info-item-description {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-right: 2em;
+    }
+
+    .info-img-wrapper {
+      display: none;
+    }
+
+    .vision-mission-mobile-section {
+      display: none;
+      padding: 1em 10px;
+    }
+
+    .vision-mission-mobile-swiper {
+      padding-bottom: 2.25em;
+    }
+
+    .vision-mission-slide {
+      background: #edf7ff;
+      border: 1px solid #d4e6f2;
+      border-radius: 16px;
+      padding: 16px;
+      min-height: 100%;
+    }
+
+    .vision-mission-slide h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: #063e63;
+    }
+
+    .vision-mission-slide p {
+      line-height: 1.5;
+      color: #063e63;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .vision-mission-slide span {
+      margin: 6px 0;
+      display: block;
+      font-size: 14px;
+    }
+
+    .vision-mission-mobile-pagination {
+      text-align: center;
+      margin-top: 14px;
+    }
+
+    .vision-mission-mobile-pagination .swiper-pagination-bullet {
+      width: 8px;
+      height: 8px;
+      background: #98b4c9;
+      opacity: 1;
+    }
+
+    .vision-mission-mobile-pagination .swiper-pagination-bullet-active {
+      background: #00ad6f;
+    }
+
+    @media only screen and (max-width: 1366px) {
+      .tab-btn {
+        font-size: 16px;
+      }
+
+      .info-item-title {
+        font-size: 22px;
+      }
+
+      .info-item-description {
+        font-size: 14px;
+      }
+
+      .vision-title {
+        margin: 0;
+        display: block;
+      }
+
+      .img-container {
+        height: 299px;
+      }
+    }
+
+    @media only screen and (max-width: 600px) {
+      .vision-and-mission-section {
+        display: none;
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+
+      .vision-mission-mobile-section {
+        display: block;
+      }
+
+      .info-img-wrapper {
+        display: block;
+      }
+
+      .info-img-wrapper img {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+      }
+
+      .vision-and-mission-section .container {
+        grid-template-columns: 1fr;
+      }
+
+      .img-container-item {
+        border-radius: 22px;
+        height: 55%;
+        width: auto;
+      }
+
+      .vision-and-mission-section .img-container-wrapper {
+        padding: 1em 0;
+        display: none;
+      }
+
+      .vision-and-mission-section .info img {
+        position: static;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="vision-and-mission-section section-common-margin">
+    <div class="container">
+      <div class="info-container">
+        <div class="tab-container">
+          <div class="tab-btn-wrapper">
+            <button class="tab-btn tab-btn-vision" toggle-info-id="infoVision" type="button">
+              <span>Our Vision</span>
+              <span class="tab-underline"></span>
+            </button>
+            <button class="tab-btn tab-btn-mission" toggle-info-id="infoMission" type="button">
+              <span>Our Mission</span>
+              <span class="tab-underline"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="info info-vision" id="infoVision">
+          <h1 class="info-item info-item-title">Our Vision</h1>
+          <p class="info-item info-item-description">
+            <span class="vision-title">"Sarvotkarsha (Universal Excellence)"</span>
+            To redefine energy asset lifecycle management on a global scale - delivering smarter, more sustainable, and
+            efficient solutions.
+          </p>
+          <div class="info-img-wrapper">
+            <img src="./img/Mission%20%26%20Vision/Vision.png" alt="Vision" class="info-img">
+          </div>
+        </div>
+
+        <div class="info info-mission" id="infoMission">
+          <h1 class="info-item info-item-title">Our Mission</h1>
+          <p class="info-item info-item-description">
+            To empower energy assets through technology-driven lifecycle management - optimizing performance,
+            sustainability, and value at every stage.
+          </p>
+          <div class="info-img-wrapper">
+            <img src="./img/Mission%20%26%20Vision/Mission.png" alt="Mission" class="info-img">
+          </div>
+        </div>
+      </div>
+
+      <div class="img-container-wrapper">
+        <div class="img-container">
+          <img src="./img/Mission%20%26%20Vision/Vision.png" alt="Vision" class="img-container-item img-container-item-vision">
+          <img src="./img/Mission%20%26%20Vision/Mission.png" alt="Mission" class="img-container-item img-container-item-mission">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="vision-mission-mobile-section">
+    <div class="container">
+      <div class="swiper vision-mission-mobile-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="vision-mission-slide">
+              <h3>Our Vision</h3>
+              <p>
+                <span class="vision-title">"Sarvotkarsha (Universal Excellence)"</span>
+                To redefine energy asset lifecycle management on a global scale - delivering smarter, more sustainable, and
+                efficient solutions.
+              </p>
+              <div class="info-img-wrapper">
+                <img src="./img/Mission%20%26%20Vision/Vision.png" alt="Vision" class="info-img">
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="vision-mission-slide">
+              <h3>Our Mission</h3>
+              <p>
+                To empower energy assets through technology-driven lifecycle management - optimizing performance,
+                sustainability, and value at every stage.
+              </p>
+              <div class="info-img-wrapper">
+                <img src="./img/Mission%20%26%20Vision/Mission.png" alt="Mission" class="info-img">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="vision-mission-mobile-pagination"></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    $(document).ready(function () {
+      $(".tab-btn-vision").addClass("tab-btn-active");
+      $(".tab-btn").on("click", function () {
+        $(".tab-btn").removeClass("tab-btn-active");
+        $(this).addClass("tab-btn-active");
+        const targetId = $(this).attr("toggle-info-id");
+
+        $(".info").hide();
+        $("#" + targetId).fadeIn();
+
+        const $imgVision = $(".img-container-item-vision");
+        const $imgMission = $(".img-container-item-mission");
+
+        if (targetId === "infoVision") {
+          // Vision active: Vision on left-bottom (z-index 2), Mission on right-top (z-index 0)
+          $imgVision.animate({ top: 0, left: 0 }, 600).css("z-index", 2);
+          $imgMission.animate({ top: 0, right: 0, left: "auto" }, 600).css("z-index", 0);
+        } else {
+          // Mission active: Mission on left-bottom (z-index 2), Vision on right-top (z-index 0)
+          $imgMission.animate({ bottom: 0, left: 0, top: "auto", right: "auto" }, 600).css("z-index", 2);
+          $imgVision.animate({ top: 0, right: 0, left: "auto", bottom: "auto" }, 600).css("z-index", 0);
+        }
+      });
+
+      $(".info").hide();
+      const initialId = $(".tab-btn-active").attr("toggle-info-id");
+      $("#" + initialId).fadeIn();
+      $("#infoVision").show();
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      if (document.querySelector(".vision-mission-mobile-swiper")) {
+        new Swiper(".vision-mission-mobile-swiper", {
+          slidesPerView: 1,
+          spaceBetween: 16,
+          pagination: {
+            el: ".vision-mission-mobile-pagination",
+            clickable: true
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

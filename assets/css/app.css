@@ -1057,6 +1057,33 @@ a {
   position: relative;
 }
 
+.tb-backing-slider {
+  position: relative;
+}
+
+.tb-backing-pagination {
+  margin-top: 1.1rem;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 0.42rem;
+}
+
+.tb-backing-dot {
+  width: 8px;
+  height: 8px;
+  border: 0;
+  border-radius: 999px;
+  background: #d2dff4;
+  padding: 0;
+  transition: width 0.2s ease, background-color 0.2s ease;
+}
+
+.tb-backing-dot.is-active {
+  width: 22px;
+  background: #2f6be4;
+}
+
 .tb-backing-grid::before {
   content: "";
   position: absolute;
@@ -1263,6 +1290,29 @@ a {
   margin-top: 0.75rem;
 }
 
+.tb-trusted-pagination {
+  margin-top: 0.65rem;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 0.42rem;
+}
+
+.tb-trusted-dot {
+  width: 8px;
+  height: 8px;
+  border: 0;
+  border-radius: 999px;
+  background: #d2dff4;
+  padding: 0;
+  transition: width 0.2s ease, background-color 0.2s ease;
+}
+
+.tb-trusted-dot.is-active {
+  width: 22px;
+  background: #2f6be4;
+}
+
 .tb-trust-tabs {
   height: auto;
 }
@@ -1277,6 +1327,27 @@ a {
   gap: 0.95rem;
   transition: opacity 0.22s ease, transform 0.22s ease;
   will-change: opacity, transform;
+}
+
+@media (max-width: 991.98px) {
+  .tb-trusted-cards.tb-trusted-slider {
+    overflow: hidden;
+  }
+
+  .tb-trusted-cards.tb-trusted-slider #trustLogoGrid.tb-trusted-grid.swiper-wrapper {
+    display: flex;
+    grid-template-columns: none;
+    gap: 0;
+    width: 100%;
+    transition-timing-function: linear;
+    align-items: stretch;
+  }
+
+  .tb-trusted-cards.tb-trusted-slider #trustLogoGrid .tb-trusted-logo-card.swiper-slide {
+    width: calc((100% - 16px) / 3) !important;
+    grid-column: auto;
+    flex-shrink: 0;
+  }
 }
 
 @media (min-width: 992px) {
@@ -2620,6 +2691,13 @@ a {
 }
 
 @media (max-width: 767.98px) {
+  .tb-hero-actions {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 1rem;
+    gap: 0.5rem;
+  }
+
   .tb-backing-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     max-width: none;
@@ -2627,6 +2705,29 @@ a {
     gap: 0.8rem;
     justify-content: initial;
   }
+
+  .tb-backing-slider {
+    overflow: hidden;
+  }
+
+  .tb-backing-slider .tb-backing-grid.swiper-wrapper {
+    display: flex;
+    grid-template-columns: none;
+    gap: 0;
+    width: 100%;
+    max-width: none;
+    justify-content: flex-start;
+  }
+
+  .tb-backing-slider .tb-backing-item.swiper-slide {
+    width: 100%;
+  }
+
+  .tb-backing-pagination {
+    display: flex;
+    margin-top: 40px !important;
+  }
+
 
   .tb-backing-grid>.tb-backing-item:first-child {
     grid-column: 1 / -1;
@@ -2640,6 +2741,29 @@ a {
 
   .tb-backing-grid>.tb-backing-item:not(:first-child) .tb-backing-card {
     flex: 1 1 auto;
+  }
+
+  .tb-trusted-cards.tb-trusted-slider {
+    overflow: hidden;
+  }
+
+  .tb-trusted-cards.tb-trusted-slider #trustLogoGrid.tb-trusted-grid.swiper-wrapper {
+    display: flex;
+    grid-template-columns: none;
+    gap: 0;
+    width: 100%;
+    transition-timing-function: linear;
+    align-items: stretch;
+  }
+
+  .tb-trusted-cards.tb-trusted-slider #trustLogoGrid .tb-trusted-logo-card.swiper-slide {
+    width: calc((100% - 16px) / 3) !important;
+    grid-column: auto;
+    flex-shrink: 0;
+  }
+
+  .tb-trusted-pagination {
+    display: flex;
   }
 
   .tb-why-grid {
@@ -2730,14 +2854,19 @@ a {
   }
 
   .tb-hero-actions {
-    gap: 0.35rem;
+    width: 100%;
     max-width: 100%;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+    align-items: center;
   }
 
   .tb-hero-email-field {
-    /* height: 2.45rem; */
-    padding: 0 0.6rem;
-    gap: 0.35rem;
+    width: auto;
+    flex: 1 1 auto;
+    min-height: 2.45rem;
+    padding: 0.3rem 0.7rem;
+    gap: 0.42rem;
   }
 
   .tb-hero-email-icon svg {
@@ -2746,16 +2875,19 @@ a {
   }
 
   .tb-hero-email-field input {
-    font-size: 11px;
-    letter-spacing: 0.05em;
+    font-size: 12px;
+    letter-spacing: 0.04em;
   }
 
   .tb-hero-get-started {
-    /* height: 2.45rem; */
+    width: auto;
+    flex: 0 0 auto;
     min-width: 6.45rem;
-    padding: 0 0.72rem;
-    font-size: 11px;
+    min-height: 2.45rem;
+    padding: 0.45rem 0.72rem;
+    font-size: 12px;
     letter-spacing: 0.04em;
+    white-space: nowrap;
   }
 
   .tb-hero-trust {
