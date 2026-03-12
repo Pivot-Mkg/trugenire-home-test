@@ -173,7 +173,8 @@ a {
   padding: 0.35rem;
   border-radius: 0.75rem;
   border: 1px solid #e2e8f5;
-  background: #fff;
+  /* background: #fff; */
+  background: #1d4f986b;
   box-shadow: 0 10px 24px rgba(12, 31, 73, 0.12);
   display: grid;
   gap: 0.15rem;
@@ -186,7 +187,8 @@ a {
 }
 
 .tb-nav-dropdown:not(.tb-mega-menu) a {
-  color: #2e436f;
+  /* color: #2e436f; */
+  color: #fff;
   font-size: var(--tb-fs-16);
   line-height: 1.2;
   border-radius: 0.55rem;
@@ -3012,7 +3014,7 @@ a {
 
   .tb-offering-image img {
     height: 100%;
-    width: auto;
+    width: 100%;
     object-fit: cover;
   }
 

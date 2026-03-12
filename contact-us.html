@@ -52,8 +52,6 @@
               <a href="./contact-us.html">Contact Us</a>
             </div>
           </div>
-          <a href="./contruction-ai.html" class="tb-nav-link d-lg-none">Construction AI</a>
-          <a href="./property-ai.html" class="tb-nav-link d-lg-none">Property AI</a>
           <a href="./about-us.html" class="tb-nav-link d-lg-none">About Us</a>
           <a href="./careers.html" class="tb-nav-link d-lg-none">Careers</a>
         </nav>
@@ -91,18 +89,35 @@
                   <h2>Tell Us About Your Requirement</h2>
                   <p>Our team will reach out with a tailored response for your use case.</p>
                 </div>
-                <div class="tb-contact-form-tabs" role="tablist" aria-label="Inquiry type tabs">
-                  <button type="button" class="tb-contact-form-tab is-active" id="contactTabGeneral" role="tab"
-                    aria-selected="true" aria-controls="contactPanelGeneral" data-contact-form-tab="general">
-                    General Inquiries
+                <div class="tb-contact-form-tabs-shell">
+                  <button type="button" class="tb-contact-form-tabs-nav tb-contact-form-tabs-nav-prev"
+                    data-contact-tab-prev aria-label="Scroll inquiry tabs left" hidden>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                      <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    </svg>
                   </button>
-                  <button type="button" class="tb-contact-form-tab" id="contactTabServices" role="tab"
-                    aria-selected="false" aria-controls="contactPanelServices" data-contact-form-tab="services">
-                    Services Engagements
-                  </button>
-                  <button type="button" class="tb-contact-form-tab" id="contactTabDemo" role="tab" aria-selected="false"
-                    aria-controls="contactPanelDemo" data-contact-form-tab="demo">
-                    TruGenie Demo Requests
+                  <div class="tb-contact-form-tabs" role="tablist" aria-label="Inquiry type tabs"
+                    data-contact-tab-scroller>
+                    <button type="button" class="tb-contact-form-tab is-active" id="contactTabGeneral" role="tab"
+                      aria-selected="true" aria-controls="contactPanelGeneral" data-contact-form-tab="general">
+                      General Inquiries
+                    </button>
+                    <button type="button" class="tb-contact-form-tab" id="contactTabServices" role="tab"
+                      aria-selected="false" aria-controls="contactPanelServices" data-contact-form-tab="services">
+                      Services Engagements
+                    </button>
+                    <button type="button" class="tb-contact-form-tab" id="contactTabDemo" role="tab"
+                      aria-selected="false" aria-controls="contactPanelDemo" data-contact-form-tab="demo">
+                      TruGenie Demo Requests
+                    </button>
+                  </div>
+                  <button type="button" class="tb-contact-form-tabs-nav tb-contact-form-tabs-nav-next"
+                    data-contact-tab-next aria-label="Scroll inquiry tabs right" hidden>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                      <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    </svg>
                   </button>
                 </div>
               </div>
@@ -193,30 +208,35 @@
                 data-city="Mumbai"
                 data-address="321, Solitaire Corporate Park, Andheri Ghatkopar Link Road, Chakala MIDC, Mumbai, Maharashtra 400093"
                 data-map="https://maps.google.com/maps?q=19.1117051%2C72.8607208&t=&z=16&ie=UTF8&iwloc=&output=embed">
-                Mumbai
-              </button>
-              <button type="button" class="tb-contact-city-btn" role="tab" aria-selected="false" data-city-btn
-                data-city="Bangalore"
-                data-address="4th Floor, Prestige Meridian 2, MG Road, Bangalore, Karnataka 560001"
-                data-map="https://maps.google.com/maps?q=12.9736162%2C77.6123590&t=&z=16&ie=UTF8&iwloc=&output=embed">
-                Bangalore
+                <strong>Mumbai</strong>
+                <span>Global HQ &amp; R&amp;D Center</span>
               </button>
               <button type="button" class="tb-contact-city-btn" role="tab" aria-selected="false" data-city-btn
                 data-city="Gurugram"
                 data-address="Unit 502-506, 5th Floor, Unitech Commercial Tower 2, Arya Samaj Road, Block B, Greenwood City, Sector 45, Gurugram, Haryana 122003"
                 data-map="https://maps.google.com/maps?q=28.4449095%2C77.0611408&t=&z=16&ie=UTF8&iwloc=&output=embed">
-                Gurugram
+                <strong>Gurugram</strong>
+                <span>India Operations</span>
+              </button>
+              <button type="button" class="tb-contact-city-btn" role="tab" aria-selected="false" data-city-btn
+                data-city="Bengaluru"
+                data-address="4th Floor, Prestige Meridian 2, MG Road, Bangalore, Karnataka 560001"
+                data-map="https://maps.google.com/maps?q=12.9736162%2C77.6123590&t=&z=16&ie=UTF8&iwloc=&output=embed">
+                <strong>Bengaluru</strong>
+                <span>Technology Center</span>
               </button>
               <button type="button" class="tb-contact-city-btn" role="tab" aria-selected="false" data-city-btn
                 data-city="Hyderabad"
                 data-address="6th Floor, My Home Twitza, Hitech City Main Road, Madhapur, Hyderabad, Telangana 500081"
                 data-map="https://maps.google.com/maps?q=17.4341932%2C78.3754235&t=&z=16&ie=UTF8&iwloc=&output=embed">
-                Hyderabad
+                <strong>Hyderabad</strong>
+                <span>India Operations</span>
               </button>
               <button type="button" class="tb-contact-city-btn" role="tab" aria-selected="false" data-city-btn
-                data-city="New Jersey" data-address="101 Hudson Street, 21st Floor, Jersey City, New Jersey 07302, USA"
+                data-city="New Jersey (USA)" data-address="101 Hudson Street, 21st Floor, Jersey City, New Jersey 07302, USA"
                 data-map="https://maps.google.com/maps?q=40.7161900%2C-74.0350196&t=&z=16&ie=UTF8&iwloc=&output=embed">
-                New Jersey
+                <strong>New Jersey (USA)</strong>
+                <span>North America Office</span>
               </button>
             </div>
 
@@ -278,6 +298,10 @@
       const inquiryTabs = Array.from(document.querySelectorAll("[data-contact-form-tab]"));
       const inquiryPanels = Array.from(document.querySelectorAll("[data-contact-form-panel]"));
       const contactForms = Array.from(document.querySelectorAll("[data-contact-form]"));
+      const inquiryTabScroller = document.querySelector("[data-contact-tab-scroller]");
+      const inquiryTabPrevButton = document.querySelector("[data-contact-tab-prev]");
+      const inquiryTabNextButton = document.querySelector("[data-contact-tab-next]");
+      const inquiryTabMobileMedia = window.matchMedia("(max-width: 575.98px)");
 
       if (inquiryTabs.length && inquiryPanels.length) {
         const getHeaderOffset = () => {
@@ -291,6 +315,49 @@
           if (!banner) return;
           const top = banner.getBoundingClientRect().top + window.scrollY - getHeaderOffset();
           window.scrollTo({ top: Math.max(0, top), behavior: "auto" });
+        };
+
+        const updateInquiryTabArrows = () => {
+          if (!inquiryTabScroller || !inquiryTabPrevButton || !inquiryTabNextButton) return;
+
+          if (!inquiryTabMobileMedia.matches) {
+            inquiryTabPrevButton.hidden = true;
+            inquiryTabNextButton.hidden = true;
+            return;
+          }
+
+          const maxScroll = inquiryTabScroller.scrollWidth - inquiryTabScroller.clientWidth;
+          const hasOverflow = maxScroll > 2;
+          const atStart = inquiryTabScroller.scrollLeft <= 2;
+          const atEnd = inquiryTabScroller.scrollLeft >= maxScroll - 2;
+
+          inquiryTabPrevButton.hidden = !hasOverflow || atStart;
+          inquiryTabNextButton.hidden = !hasOverflow || atEnd;
+        };
+
+        const getInquiryTabLeft = (tab) => {
+          if (!inquiryTabScroller || !tab) return 0;
+          const scrollerRect = inquiryTabScroller.getBoundingClientRect();
+          const tabRect = tab.getBoundingClientRect();
+          return inquiryTabScroller.scrollLeft + (tabRect.left - scrollerRect.left);
+        };
+
+        const getClosestInquiryTabIndex = () => {
+          if (!inquiryTabScroller || !inquiryTabs.length) return 0;
+
+          let closestIndex = 0;
+          let closestDiff = Number.POSITIVE_INFINITY;
+          const currentLeft = inquiryTabScroller.scrollLeft;
+
+          inquiryTabs.forEach((tab, index) => {
+            const diff = Math.abs(getInquiryTabLeft(tab) - currentLeft);
+            if (diff < closestDiff) {
+              closestDiff = diff;
+              closestIndex = index;
+            }
+          });
+
+          return closestIndex;
         };
 
         function setInquiryTab(tabButton) {
@@ -307,11 +374,48 @@
             panel.classList.toggle("is-active", active);
             panel.hidden = !active;
           });
+
+          if (inquiryTabScroller && inquiryTabMobileMedia.matches) {
+            tabButton.scrollIntoView({
+              behavior: "smooth",
+              inline: "center",
+              block: "nearest",
+            });
+          }
+
+          requestAnimationFrame(updateInquiryTabArrows);
         }
 
         inquiryTabs.forEach((tab) => {
           tab.addEventListener("click", () => setInquiryTab(tab));
         });
+
+        if (inquiryTabScroller && inquiryTabPrevButton && inquiryTabNextButton) {
+          const scrollTabsByOne = (direction) => {
+            if (!inquiryTabMobileMedia.matches || !inquiryTabs.length) return;
+
+            const step = direction < 0 ? -1 : 1;
+            const currentIndex = getClosestInquiryTabIndex();
+            const targetIndex = Math.max(0, Math.min(inquiryTabs.length - 1, currentIndex + step));
+
+            inquiryTabScroller.scrollTo({
+              left: getInquiryTabLeft(inquiryTabs[targetIndex]),
+              behavior: "smooth",
+            });
+          };
+
+          inquiryTabPrevButton.addEventListener("click", () => scrollTabsByOne(-1));
+          inquiryTabNextButton.addEventListener("click", () => scrollTabsByOne(1));
+          inquiryTabScroller.addEventListener("scroll", updateInquiryTabArrows, { passive: true });
+          window.addEventListener("resize", updateInquiryTabArrows);
+          window.addEventListener("load", updateInquiryTabArrows, { once: true });
+
+          if (inquiryTabMobileMedia.addEventListener) {
+            inquiryTabMobileMedia.addEventListener("change", updateInquiryTabArrows);
+          } else if (inquiryTabMobileMedia.addListener) {
+            inquiryTabMobileMedia.addListener(updateInquiryTabArrows);
+          }
+        }
 
         const hashTarget = (window.location.hash || "").replace("#", "");
         const hashTab = inquiryTabs.find((tab) => tab.id === hashTarget);
@@ -322,6 +426,8 @@
             requestAnimationFrame(scrollToContactForm);
           }, { once: true });
         }
+
+        updateInquiryTabArrows();
       }
 
       contactForms.forEach((form) => {
