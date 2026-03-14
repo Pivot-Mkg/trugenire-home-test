@@ -496,16 +496,78 @@
         updateInquiryTabArrows();
       }
 
+      const submitContactForm = async (form) => {
+        const confirmation = form.querySelector("[data-form-confirmation]");
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        if (!form.reportValidity()) return;
+        if (form.dataset.submitting === "true") return;
+
+        form.dataset.submitting = "true";
+        if (confirmation) confirmation.hidden = true;
+        if (submitButton) submitButton.setAttribute("aria-disabled", "true");
+
+        try {
+          const payload = new URLSearchParams();
+          new FormData(form).forEach((value, key) => {
+            if (typeof value === "string") payload.append(key, value);
+          });
+
+          const response = await window.fetch("./api/contact-form.php", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+              Accept: "application/json",
+              "X-Requested-With": "XMLHttpRequest",
+            },
+            body: payload.toString(),
+            credentials: "same-origin",
+          });
+
+          const result = await response.json().catch(() => null);
+
+          if (!response.ok || !result || !result.ok) {
+            throw new Error(
+              (result && typeof result.message === "string" && result.message) ||
+              "We could not submit your request right now.",
+            );
+          }
+
+          form.reset();
+
+          if (confirmation) {
+            confirmation.textContent =
+              result.message ||
+              form.getAttribute("data-confirmation") ||
+              "Thanks. Your request has been received.";
+            confirmation.hidden = false;
+          } else if (typeof showToast === "function") {
+            showToast(
+              result.message || "Thanks. Your request has been received.",
+              "success",
+            );
+          }
+        } catch (error) {
+          if (confirmation) confirmation.hidden = true;
+
+          if (typeof showToast === "function") {
+            showToast(
+              error instanceof Error && error.message
+                ? error.message
+                : "We could not submit your request right now.",
+              "error",
+            );
+          }
+        } finally {
+          delete form.dataset.submitting;
+          if (submitButton) submitButton.removeAttribute("aria-disabled");
+        }
+      };
+
       contactForms.forEach((form) => {
         form.addEventListener("submit", (event) => {
           event.preventDefault();
-          const confirmation = form.querySelector("[data-form-confirmation]");
-          if (!confirmation) return;
-
-          const confirmationText = form.getAttribute("data-confirmation") || "Thanks. Your request has been received.";
-          confirmation.textContent = confirmationText;
-          confirmation.hidden = false;
-          form.reset();
+          submitContactForm(form);
         });
       });
 

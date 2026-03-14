@@ -96,7 +96,8 @@
         <section id="career-application" class="tb-careers-apply" aria-label="Career form">
             <div class="container-xl">
                 <div class="tb-careers-apply-card" data-aos="fade-up" data-aos-duration="900">
-                    <form class="tb-careers-form" action="#career-application" method="get">
+                    <form class="tb-careers-form" action="#" method="post" enctype="multipart/form-data"
+                        data-careers-application-form>
                         <div class="tb-careers-form-head">
                             <h2>Submit Your Profile</h2>
                             <p>Share your details and our team will connect with the most relevant openings.</p>
@@ -449,6 +450,11 @@
                         });
                     };
 
+                    root.resetControl = () => {
+                        setValue("", placeholder);
+                        closeMenu();
+                    };
+
                     const openMenu = () => {
                         root.classList.add("is-open");
                         trigger.setAttribute("aria-expanded", "true");
@@ -559,6 +565,8 @@
                         error.textContent = "";
                     };
 
+                    root.resetControl = resetState;
+
                     const setInvalidState = (message) => {
                         root.classList.add("is-invalid");
                         root.classList.remove("has-file");
@@ -594,6 +602,80 @@
                         error.textContent = "";
                     });
 
+                });
+            };
+
+            const initCareersApplicationForm = () => {
+                const form = document.querySelector("[data-careers-application-form]");
+                const submitButton = form && form.querySelector('button[type="submit"]');
+                const roleInput = form && form.querySelector("input[name='role_interest']");
+                const fileUpload = form && form.querySelector(".tb-careers-file-upload");
+                const roleSelect = form && form.querySelector("[data-careers-select]");
+
+                if (!form || !submitButton || typeof window.fetch !== "function") return;
+
+                let isSubmitting = false;
+
+                form.addEventListener("submit", async (event) => {
+                    event.preventDefault();
+
+                    if (!form.reportValidity()) return;
+                    if (!roleInput || !roleInput.value) return;
+                    if (fileUpload && fileUpload.classList.contains("is-invalid")) return;
+                    if (isSubmitting) return;
+
+                    isSubmitting = true;
+                    submitButton.setAttribute("aria-disabled", "true");
+
+                    try {
+                        const response = await window.fetch("./api/careers-form.php", {
+                            method: "POST",
+                            headers: {
+                                Accept: "application/json",
+                                "X-Requested-With": "XMLHttpRequest",
+                            },
+                            body: new FormData(form),
+                            credentials: "same-origin",
+                        });
+
+                        const result = await response.json().catch(() => null);
+
+                        if (!response.ok || !result || !result.ok) {
+                            throw new Error(
+                                (result && typeof result.message === "string" && result.message) ||
+                                "We could not submit the profile right now.",
+                            );
+                        }
+
+                        form.reset();
+
+                        if (roleSelect && typeof roleSelect.resetControl === "function") {
+                            roleSelect.resetControl();
+                        }
+
+                        if (fileUpload && typeof fileUpload.resetControl === "function") {
+                            fileUpload.resetControl();
+                        }
+
+                        if (typeof showToast === "function") {
+                            showToast(
+                                result.message || "Thanks. Your profile has been submitted.",
+                                "success",
+                            );
+                        }
+                    } catch (error) {
+                        if (typeof showToast === "function") {
+                            showToast(
+                                error instanceof Error && error.message
+                                    ? error.message
+                                    : "We could not submit the profile right now.",
+                                "error",
+                            );
+                        }
+                    } finally {
+                        isSubmitting = false;
+                        submitButton.removeAttribute("aria-disabled");
+                    }
                 });
             };
 
@@ -739,11 +821,13 @@
                 document.addEventListener("DOMContentLoaded", () => {
                     initCareersSelect();
                     initCareersFileUpload();
+                    initCareersApplicationForm();
                     initCareersCultureSlider();
                 });
             } else {
                 initCareersSelect();
                 initCareersFileUpload();
+                initCareersApplicationForm();
                 initCareersCultureSlider();
             }
         })();
