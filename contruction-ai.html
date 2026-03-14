@@ -12,6 +12,7 @@
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="./assets/css/app.css">
     <link rel="stylesheet" href="./assets/css/ai-pages.css">
 </head>
@@ -52,10 +53,11 @@
                             <a href="./careers.html">Careers</a>
                             <a href="./contact-us.html">Contact Us</a>
                         </div>
-                    </div>
-                    <a href="./about-us.html" class="tb-nav-link d-lg-none">About Us</a>
-                    <a href="./careers.html" class="tb-nav-link d-lg-none">Careers</a>
-                </nav>
+                        </div>
+                        <a href="./about-us.html" class="tb-nav-link d-lg-none">About Us</a>
+                        <a href="./careers.html" class="tb-nav-link d-lg-none">Careers</a>
+                        <a href="./contact-us.html" class="tb-nav-link d-lg-none">Contact Us</a>
+                    </nav>
             </div>
         </div>
     </header>
@@ -66,14 +68,17 @@
                 <div class="row g-4 g-xl-5 align-items-center">
                     <div class="col-lg-6 tb-ai-mobile-content">
                         <div class="tb-ai-content">
-                            <form class="tb-ai-form" action="#" method="post">
-                                <input type="email" placeholder="Enter your work email">
+                            <form class="tb-ai-form" action="#" method="post" data-ai-email-form
+                                data-email-source="construction-ai-waitlist" data-aos="fade-up" data-aos-duration="850">
+                                <input type="email" name="email" inputmode="email" autocomplete="email" required
+                                    placeholder="Enter your work email" aria-label="Enter your work email">
                                 <button type="submit" class="btn tb-btn tb-btn-blue">Join Waitlist</button>
                             </form>
                             <div class="tb-ai-copy">
                                 <p class="tb-hero-kicker">Construction AI</p>
-                                <h1 class="tb-hero-title tb-ai-title">The Future of Asset Intelligence Is Here</h1>
-                                <p class="tb-hero-text tb-ai-text">
+                                <h1 class="tb-hero-title tb-ai-title" data-aos="fade-up" data-aos-duration="950">The Future of Asset Intelligence Is Here</h1>
+                                <p class="tb-hero-text tb-ai-text" data-aos="fade-up" data-aos-delay="140"
+                                    data-aos-duration="950">
                                     Harness predictive intelligence across construction monitoring, risk, governance,
                                     and
                                     portfolio
@@ -87,7 +92,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 tb-ai-mobile-image">
-                        <div class="tb-ai-visual">
+                        <div class="tb-ai-visual" data-aos="fade-left" data-aos-delay="280" data-aos-duration="1000">
                             <div class="tb-ai-visual-shell">
                                 <img src="./assets/images/banners/contruction.png"
                                     alt="Construction AI monitoring visualization">
@@ -99,19 +104,19 @@
 
                 <div class="row g-3 tb-ai-signal-grid">
                     <div class="col-md-4">
-                        <article class="tb-ai-signal">
+                        <article class="tb-ai-signal" data-aos="fade-up" data-aos-delay="80" data-aos-duration="900">
                             <h3>Predictive Risk</h3>
                             <p>Early warning on delays, cost drift, and execution blockers.</p>
                         </article>
                     </div>
                     <div class="col-md-4">
-                        <article class="tb-ai-signal">
+                        <article class="tb-ai-signal" data-aos="fade-up" data-aos-delay="200" data-aos-duration="900">
                             <h3>Automated Compliance</h3>
                             <p>Continuous checks for approvals, covenants, and governance controls.</p>
                         </article>
                     </div>
                     <div class="col-md-4">
-                        <article class="tb-ai-signal">
+                        <article class="tb-ai-signal" data-aos="fade-up" data-aos-delay="320" data-aos-duration="900">
                             <h3>Unified Operations</h3>
                             <p>Single view connecting site execution, commercial, and capital data.</p>
                         </article>
@@ -123,7 +128,7 @@
 
     <footer class="tb-footer">
         <div class="container-xl">
-            <div class="tb-footer-shell">
+            <div class="tb-footer-shell" data-aos="fade-up" data-aos-duration="850">
                 <div class="tb-footer-left">
                     <a href="./index.html" class="tb-footer-logo" aria-label="TruBoard home">
                         <img src="./assets/images/1a36bc184ac42a93ebf62d57aae0e30c740ff2ab-B2Jtxq84.png"
@@ -156,6 +161,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
     <script src="./assets/js/app.js" defer></script>
 </body>
 

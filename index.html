@@ -12,6 +12,7 @@
     rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <link rel="stylesheet" href="./assets/css/app.css">
 </head>
@@ -54,6 +55,7 @@
           </div>
           <a href="./about-us.html" class="tb-nav-link d-lg-none">About Us</a>
           <a href="./careers.html" class="tb-nav-link d-lg-none">Careers</a>
+          <a href="./contact-us.html" class="tb-nav-link d-lg-none">Contact Us</a>
         </nav>
       </div>
     </div>
@@ -64,14 +66,15 @@
       <div class="container-xl">
         <div class="row g-4 g-xl-5 align-items-stretch tb-hero-main">
           <div class="col-lg-7 mt-10">
-            <p class="tb-hero-kicker">Unified Real Estate</p>
-            <h1 class="tb-hero-title">Asset Management &amp; Intelligence</h1>
-            <p class="tb-hero-text">
+            <p class="tb-hero-kicker" data-aos="fade-up" data-aos-duration="850">Unified Real Estate</p>
+            <h1 class="tb-hero-title" data-aos="fade-up" data-aos-duration="950">Asset Management &amp; Intelligence</h1>
+            <p class="tb-hero-text" data-aos="fade-up" data-aos-delay="140" data-aos-duration="950">
               TruBoard brings together execution, asset oversight, and real-time intelligence to help developers,
               lenders,
               and investors build better, monitor smarter, and protect capital across the real estate lifecycle.
             </p>
-            <div class="tb-hero-actions">
+            <form class="tb-hero-actions" action="#" method="post" data-hero-email-form data-aos="fade-up"
+              data-aos-delay="240" data-aos-duration="900">
               <label class="tb-hero-email-field" for="tbHeroEmail">
                 <span class="tb-hero-email-icon" aria-hidden="true">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -82,15 +85,15 @@
                       stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                   </svg>
                 </span>
-                <input id="tbHeroEmail" type="email" inputmode="email" placeholder="ENTER EMAIL"
-                  aria-label="Enter your email">
+                <input id="tbHeroEmail" type="email" name="email" inputmode="email" autocomplete="email" required
+                  placeholder="ENTER EMAIL" aria-label="Enter your email" data-hero-email-input>
               </label>
-              <a href="./contact-us.html#contactTabGeneral" class="btn tb-btn tb-btn-blue">Get in Touch</a>
-            </div>
-            <p class="tb-hero-trust">Proven partner to<strong> 100+ real estate leaders worldwide</strong></p>
+              <button type="submit" class="btn tb-btn tb-btn-blue" data-hero-email-submit>Get in Touch</button>
+            </form>
+            <p class="tb-hero-trust" data-aos="fade-up" data-aos-delay="340" data-aos-duration="850">Proven partner to<strong> 100+ real estate leaders worldwide</strong></p>
 
 
-            <div class="tb-lifecycle">
+            <div class="tb-lifecycle" data-aos="fade-up" data-aos-delay="420" data-aos-duration="850">
               <div class="tb-lifecycle-grid phase-0">
                 <button type="button" class="tb-lifecycle-item is-active" data-phase-index="0" aria-pressed="true">
                   <div class="tb-lifecycle-card">
@@ -124,7 +127,7 @@
             </div>
           </div>
           <div class="col-lg-5">
-            <div class="tb-hero-art">
+            <div class="tb-hero-art" data-aos="fade-left" data-aos-delay="320" data-aos-duration="1000">
               <img id="tbHeroStageImage" src="./assets/images/hero_stage_1.png" alt="Plan stage illustration">
             </div>
           </div>
@@ -135,8 +138,8 @@
 
   <section class="tb-impact">
     <div class="container-xl">
-      <h2 class="tb-title">Our Impact</h2>
-      <div class="tb-impact-slider" data-impact-slider>
+      <h2 class="tb-title" data-aos="fade-up" data-aos-duration="850">Our Impact</h2>
+      <div class="tb-impact-slider" data-impact-slider data-aos="fade-up" data-aos-delay="120" data-aos-duration="900">
         <button type="button" class="tb-impact-nav" data-impact-nav="prev" aria-label="Previous impact slide">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
             <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
@@ -179,8 +182,8 @@
 
   <section class="tb-backing" aria-label="Strategic Backing">
     <div class="container-xl">
-      <h2 class="tb-title tb-backing-title">Strategic Backing</h2>
-      <div class="tb-backing-slider" data-backing-slider>
+      <h2 class="tb-title tb-backing-title" data-aos="fade-up" data-aos-duration="850">Strategic Backing</h2>
+      <div class="tb-backing-slider" data-backing-slider data-aos="fade-up" data-aos-delay="120" data-aos-duration="900">
         <div class="tb-backing-grid" data-backing-track>
           <article class="tb-backing-item is-accent" data-backing-slide>
             <div class="tb-backing-logo">
@@ -220,8 +223,8 @@
 
   <section class="tb-trusted">
     <div class="container-xl">
-      <h2 class="tb-title">TruBoard Technologies Trusted&nbsp;by</h2>
-      <div class="row g-4 align-items-stretch tb-trusted-layout">
+      <h2 class="tb-title" data-aos="fade-up" data-aos-duration="850">TruBoard Technologies Trusted&nbsp;by</h2>
+      <div class="row g-4 align-items-stretch tb-trusted-layout" data-aos="fade-up" data-aos-delay="120" data-aos-duration="900">
         <div class="col-lg-4">
           <div id="trustTabs" class="tb-trust-tabs"></div>
         </div>
@@ -239,13 +242,13 @@
       <div class="container-xl">
         <div class="row g-4 g-xl-5 align-items-center">
           <div class="col-lg-6">
-            <h2 class="tb-title">Assets fail from fragmented,<br>not flawed execution</h2>
-            <p class="tb-problem-text">
+            <h2 class="tb-title" data-aos="fade-up" data-aos-duration="850">Assets fail from fragmented,<br>not flawed execution</h2>
+            <p class="tb-problem-text" data-aos="fade-up" data-aos-delay="120" data-aos-duration="900">
               Real estate projects break down when execution is disconnected, visibility is limited, and decisions
               arrive too late.
               Even well-capitalized assets suffer when teams, data, and accountability operate in silos.
             </p>
-            <ul class="tb-issue-list">
+            <ul class="tb-issue-list" data-aos="fade-up" data-aos-delay="220" data-aos-duration="900">
               <li><span class="tb-issue-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <path
@@ -292,10 +295,10 @@
                   </svg>
                 </span> Reactive reporting instead of real-time insight</li>
             </ul>
-            <p class="tb-issue-callout">TruBoard exists to fix this.</p>
+            <p class="tb-issue-callout" data-aos="fade-up" data-aos-delay="320" data-aos-duration="850">TruBoard exists to fix this.</p>
           </div>
           <div class="col-lg-6">
-            <div class="tb-problem-diagram">
+            <div class="tb-problem-diagram" data-aos="fade-left" data-aos-delay="220" data-aos-duration="950">
               <div class="tb-problem-orbit" role="img"
                 aria-label="TruBoard operating core with timing, governance, risk and connectivity signals">
                 <div class="tb-problem-ring tb-problem-ring-outer"></div>
@@ -358,11 +361,11 @@
           </div>
         </div>
         <div class="tb-integrated">
-          <h2 class="tb-title text-center">Two Integrated Capabilities. One&nbsp;Operating&nbsp;Layer.</h2>
-          <p class="tb-integrated-subtitle text-center">
+          <h2 class="tb-title text-center" data-aos="fade-up" data-aos-duration="850">Two Integrated Capabilities. One&nbsp;Operating&nbsp;Layer.</h2>
+          <p class="tb-integrated-subtitle text-center" data-aos="fade-up" data-aos-delay="120" data-aos-duration="900">
             Execution on the ground, intelligence in real time - unified into one system.
           </p>
-          <div class="tb-integrated-slider" data-integrated-slider>
+          <div class="tb-integrated-slider" data-integrated-slider data-aos="fade-up" data-aos-delay="220" data-aos-duration="900">
             <div class="row g-3 g-lg-4 justify-content-center tb-integrated-track" data-integrated-track>
               <div class="col-lg-5 tb-integrated-slide" data-integrated-slide>
                 <article class="tb-integrated-card tb-integrated-card-blue">
@@ -393,8 +396,8 @@
 
   <section class="tb-why">
     <div class="container-xl">
-      <h2 class="tb-title text-center">Why TruBoard</h2>
-      <div class="tb-why-grid">
+      <h2 class="tb-title text-center" data-aos="fade-up" data-aos-duration="850">Why TruBoard</h2>
+      <div class="tb-why-grid" data-aos="fade-up" data-aos-delay="120" data-aos-duration="900">
         <article class="tb-why-center">
           <div class="tb-why-ring tb-why-ring-outer">
             <div class="tb-why-ring tb-why-ring-inner">
@@ -492,9 +495,9 @@
 
   <section class="tb-offerings">
     <div class="container-xl">
-      <h2 class="tb-title text-center">TruBoard Real Estate Offerings</h2>
+      <h2 class="tb-title text-center" data-aos="fade-up" data-aos-duration="850">TruBoard Real Estate Offerings</h2>
       <div id="offeringTabs" class="tb-offering-tabs"></div>
-      <div class="row g-4 g-xl-5 align-items-stretch tb-offering-layout">
+      <div class="row g-4 g-xl-5 align-items-stretch tb-offering-layout" data-aos="fade-up" data-aos-delay="120" data-aos-duration="900">
         <div class="col-lg-5">
           <div id="offeringImageShell" class="tb-offering-image">
             <img id="offeringImage" src="./assets/images/3cbca7f201f5ca5ba3bd536029cc7d7f7312cf0e-THkfI-pg.png"
@@ -512,8 +515,8 @@
 
   <section class="tb-cta">
     <div class="container-xl text-center">
-      <h2 class="tb-title">Ready to bring clarity and control to your real estate assets?</h2>
-      <div class="tb-cta-actions">
+      <h2 class="tb-title" data-aos="fade-up" data-aos-duration="900">Ready to bring clarity and control to your real estate assets?</h2>
+      <div class="tb-cta-actions" data-aos="fade-up" data-aos-delay="140" data-aos-duration="850">
         <a href="./contact-us.html#contactTabDemo" class="btn tb-btn tb-btn-ghost">Request a TruGenie Demo</a>
         <a href="./contact-us.html#contactTabServices" class="btn tb-btn tb-btn-blue">Talk to Our Services Team</a>
       </div>
@@ -522,7 +525,7 @@
 
   <footer class="tb-footer">
     <div class="container-xl">
-      <div class="tb-footer-shell">
+      <div class="tb-footer-shell" data-aos="fade-up" data-aos-duration="850">
         <div class="tb-footer-left">
           <a href="./index.html" class="tb-footer-logo" aria-label="TruBoard home">
             <img src="./assets/images/1a36bc184ac42a93ebf62d57aae0e30c740ff2ab-B2Jtxq84.png" alt="TruBoard CleanTech">
@@ -554,6 +557,7 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
   <script src="./assets/js/app.js" defer></script>
 </body>

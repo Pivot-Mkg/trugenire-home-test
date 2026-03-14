@@ -12,6 +12,7 @@
     rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="./assets/css/app.css">
   <link rel="stylesheet" href="./assets/css/web-pages.css">
 </head>
@@ -51,10 +52,11 @@
               <a href="./careers.html">Careers</a>
               <a href="./contact-us.html">Contact Us</a>
             </div>
-          </div>
-          <a href="./about-us.html" class="tb-nav-link d-lg-none">About Us</a>
-          <a href="./careers.html" class="tb-nav-link d-lg-none">Careers</a>
-        </nav>
+            </div>
+            <a href="./about-us.html" class="tb-nav-link d-lg-none">About Us</a>
+            <a href="./careers.html" class="tb-nav-link d-lg-none">Careers</a>
+            <a href="./contact-us.html" class="tb-nav-link d-lg-none">Contact Us</a>
+          </nav>
       </div>
     </div>
   </header>
@@ -66,13 +68,13 @@
           <div class="tb-contact-hero-card">
             <div class="tb-contact-hero-content">
               <p class="tb-contact-kicker">Connect With TruBoard</p>
-              <h1>Contact Us</h1>
-              <p class="tb-contact-hero-text">
+              <h1 data-aos="fade-up" data-aos-duration="950">Contact Us</h1>
+              <p class="tb-contact-hero-text" data-aos="fade-up" data-aos-delay="140" data-aos-duration="950">
                 Share your portfolio priorities and our team will connect with a tailored approach across services,
                 platform, and execution support.
               </p>
             </div>
-            <div class="tb-contact-hero-art">
+            <div class="tb-contact-hero-art" data-aos="fade-left" data-aos-delay="280" data-aos-duration="1000">
               <img src="./assets/images/banners/contact-us-banner.png" alt="Contact support banner illustration">
             </div>
           </div>
@@ -83,7 +85,7 @@
       <div class="container-xl">
         <section class="tb-contact-banner" aria-label="Contact banner">
           <div class="tb-contact-grid">
-            <section class="tb-contact-form" aria-label="Contact forms">
+            <section class="tb-contact-form" aria-label="Contact forms" data-aos="fade-up" data-aos-duration="900">
               <div class="tb-contact-form-head">
                 <div class="tb-contact-form-copy">
                   <h2>Tell Us About Your Requirement</h2>
@@ -120,6 +122,7 @@
                     </svg>
                   </button>
                 </div>
+                <div class="tb-contact-form-tabs-pagination" data-contact-tabs-pagination></div>
               </div>
 
               <section class="tb-contact-form-panel is-active" id="contactPanelGeneral" role="tabpanel"
@@ -202,8 +205,9 @@
             </section>
           </div>
 
-          <section class="tb-contact-office-block" aria-label="Office locations">
-            <div class="tb-contact-city-tabs" role="tablist" aria-label="Office cities">
+          <section class="tb-contact-office-block" aria-label="Office locations" data-aos="fade-up" data-aos-delay="140"
+            data-aos-duration="900">
+            <div class="tb-contact-city-tabs" role="tablist" aria-label="Office cities" data-city-tabs-scroller>
               <button type="button" class="tb-contact-city-btn is-active" role="tab" aria-selected="true" data-city-btn
                 data-city="Mumbai"
                 data-address="321, Solitaire Corporate Park, Andheri Ghatkopar Link Road, Chakala MIDC, Mumbai, Maharashtra 400093"
@@ -240,6 +244,8 @@
               </button>
             </div>
 
+            <div class="tb-contact-city-pagination" data-city-pagination hidden></div>
+
             <div class="tb-contact-city-content">
               <h3 id="officeCityName">Mumbai</h3>
               <p id="officeCityAddress">
@@ -261,7 +267,7 @@
 
   <footer class="tb-footer">
     <div class="container-xl">
-      <div class="tb-footer-shell">
+      <div class="tb-footer-shell" data-aos="fade-up" data-aos-duration="850">
         <div class="tb-footer-left">
           <a href="./index.html" class="tb-footer-logo" aria-label="TruBoard home">
             <img src="./assets/images/1a36bc184ac42a93ebf62d57aae0e30c740ff2ab-B2Jtxq84.png" alt="TruBoard CleanTech">
@@ -301,9 +307,46 @@
       const inquiryTabScroller = document.querySelector("[data-contact-tab-scroller]");
       const inquiryTabPrevButton = document.querySelector("[data-contact-tab-prev]");
       const inquiryTabNextButton = document.querySelector("[data-contact-tab-next]");
-      const inquiryTabMobileMedia = window.matchMedia("(max-width: 575.98px)");
+      const paginationContainer = document.querySelector("[data-contact-tabs-pagination]");
+      const inquiryTabMobileMedia = window.matchMedia("(max-width: 767.98px)");
 
       if (inquiryTabs.length && inquiryPanels.length) {
+        let inquiryTabScrollFrame = null;
+
+        const createPagination = () => {
+          if (!paginationContainer) return;
+
+          const showPagination = inquiryTabMobileMedia.matches && inquiryTabs.length > 1;
+          paginationContainer.hidden = !showPagination;
+          paginationContainer.innerHTML = "";
+
+          if (!showPagination) return;
+
+          paginationContainer.innerHTML = inquiryTabs
+            .map(
+              (_, index) =>
+                `<button type="button" class="tb-contact-form-tabs-pagination-dot ${index === 0 ? "is-active" : ""}" data-pagination-index="${index}" aria-label="Go to tab ${index + 1}"></button>`,
+            )
+            .join("");
+
+          paginationContainer.querySelectorAll("[data-pagination-index]").forEach((dot, index) => {
+            dot.addEventListener("click", () => {
+              setInquiryTab(inquiryTabs[index]);
+            });
+          });
+        };
+
+        const updatePagination = () => {
+          if (!paginationContainer || paginationContainer.hidden) return;
+
+          const dots = paginationContainer.querySelectorAll("[data-pagination-index]");
+          const activeIndex = inquiryTabs.findIndex((tab) => tab.classList.contains("is-active"));
+
+          dots.forEach((dot, index) => {
+            dot.classList.toggle("is-active", index === activeIndex);
+          });
+        };
+
         const getHeaderOffset = () => {
           const header = document.querySelector(".tb-header");
           if (!header) return 16;
@@ -319,20 +362,8 @@
 
         const updateInquiryTabArrows = () => {
           if (!inquiryTabScroller || !inquiryTabPrevButton || !inquiryTabNextButton) return;
-
-          if (!inquiryTabMobileMedia.matches) {
-            inquiryTabPrevButton.hidden = true;
-            inquiryTabNextButton.hidden = true;
-            return;
-          }
-
-          const maxScroll = inquiryTabScroller.scrollWidth - inquiryTabScroller.clientWidth;
-          const hasOverflow = maxScroll > 2;
-          const atStart = inquiryTabScroller.scrollLeft <= 2;
-          const atEnd = inquiryTabScroller.scrollLeft >= maxScroll - 2;
-
-          inquiryTabPrevButton.hidden = !hasOverflow || atStart;
-          inquiryTabNextButton.hidden = !hasOverflow || atEnd;
+          inquiryTabPrevButton.hidden = true;
+          inquiryTabNextButton.hidden = true;
         };
 
         const getInquiryTabLeft = (tab) => {
@@ -360,7 +391,21 @@
           return closestIndex;
         };
 
-        function setInquiryTab(tabButton) {
+        const scrollInquiryTabsTo = (tabButton, behavior = "smooth") => {
+          if (!inquiryTabScroller || !tabButton || !inquiryTabMobileMedia.matches) return;
+
+          const maxScroll = Math.max(0, inquiryTabScroller.scrollWidth - inquiryTabScroller.clientWidth);
+          const targetLeft = Math.min(maxScroll, Math.max(0, getInquiryTabLeft(tabButton)));
+
+          inquiryTabScroller.scrollTo({
+            left: targetLeft,
+            behavior,
+          });
+        };
+
+        const getClosestInquiryTab = () => inquiryTabs[getClosestInquiryTabIndex()] || inquiryTabs[0];
+
+        function setInquiryTab(tabButton, options = {}) {
           const tabKey = tabButton.getAttribute("data-contact-form-tab");
 
           inquiryTabs.forEach((tab) => {
@@ -375,45 +420,64 @@
             panel.hidden = !active;
           });
 
-          if (inquiryTabScroller && inquiryTabMobileMedia.matches) {
-            tabButton.scrollIntoView({
-              behavior: "smooth",
-              inline: "center",
-              block: "nearest",
-            });
+          if (options.syncScroll !== false) {
+            scrollInquiryTabsTo(tabButton, options.behavior || "smooth");
           }
 
+          updatePagination();
           requestAnimationFrame(updateInquiryTabArrows);
         }
+
+        const syncInquiryTabFromScroll = () => {
+          if (!inquiryTabScroller || !inquiryTabMobileMedia.matches || inquiryTabScrollFrame) return;
+
+          inquiryTabScrollFrame = window.requestAnimationFrame(() => {
+            inquiryTabScrollFrame = null;
+            const closestTab = getClosestInquiryTab();
+            if (closestTab && !closestTab.classList.contains("is-active")) {
+              setInquiryTab(closestTab, { behavior: "auto", syncScroll: false });
+            } else {
+              updateInquiryTabArrows();
+            }
+          });
+        };
 
         inquiryTabs.forEach((tab) => {
           tab.addEventListener("click", () => setInquiryTab(tab));
         });
 
-        if (inquiryTabScroller && inquiryTabPrevButton && inquiryTabNextButton) {
-          const scrollTabsByOne = (direction) => {
-            if (!inquiryTabMobileMedia.matches || !inquiryTabs.length) return;
-
-            const step = direction < 0 ? -1 : 1;
-            const currentIndex = getClosestInquiryTabIndex();
-            const targetIndex = Math.max(0, Math.min(inquiryTabs.length - 1, currentIndex + step));
-
-            inquiryTabScroller.scrollTo({
-              left: getInquiryTabLeft(inquiryTabs[targetIndex]),
-              behavior: "smooth",
-            });
-          };
-
-          inquiryTabPrevButton.addEventListener("click", () => scrollTabsByOne(-1));
-          inquiryTabNextButton.addEventListener("click", () => scrollTabsByOne(1));
-          inquiryTabScroller.addEventListener("scroll", updateInquiryTabArrows, { passive: true });
-          window.addEventListener("resize", updateInquiryTabArrows);
+        if (inquiryTabScroller) {
+          inquiryTabScroller.addEventListener("scroll", syncInquiryTabFromScroll, { passive: true });
+          window.addEventListener("resize", () => {
+            const activeTab = inquiryTabs.find((tab) => tab.classList.contains("is-active")) || inquiryTabs[0];
+            createPagination();
+            updateInquiryTabArrows();
+            if (inquiryTabMobileMedia.matches && activeTab) {
+              scrollInquiryTabsTo(activeTab, "auto");
+            }
+          });
           window.addEventListener("load", updateInquiryTabArrows, { once: true });
 
           if (inquiryTabMobileMedia.addEventListener) {
-            inquiryTabMobileMedia.addEventListener("change", updateInquiryTabArrows);
+            inquiryTabMobileMedia.addEventListener("change", () => {
+              createPagination();
+              const activeTab = inquiryTabs.find((tab) => tab.classList.contains("is-active")) || inquiryTabs[0];
+              if (inquiryTabMobileMedia.matches && activeTab) {
+                scrollInquiryTabsTo(activeTab, "auto");
+              }
+              updatePagination();
+              updateInquiryTabArrows();
+            });
           } else if (inquiryTabMobileMedia.addListener) {
-            inquiryTabMobileMedia.addListener(updateInquiryTabArrows);
+            inquiryTabMobileMedia.addListener(() => {
+              createPagination();
+              const activeTab = inquiryTabs.find((tab) => tab.classList.contains("is-active")) || inquiryTabs[0];
+              if (inquiryTabMobileMedia.matches && activeTab) {
+                scrollInquiryTabsTo(activeTab, "auto");
+              }
+              updatePagination();
+              updateInquiryTabArrows();
+            });
           }
         }
 
@@ -427,6 +491,8 @@
           }, { once: true });
         }
 
+        createPagination();
+        updatePagination();
         updateInquiryTabArrows();
       }
 
@@ -447,9 +513,87 @@
       const cityName = document.getElementById("officeCityName");
       const cityAddress = document.getElementById("officeCityAddress");
       const mapFrame = document.getElementById("officeMapFrame");
+      const cityTabsScroller = document.querySelector("[data-city-tabs-scroller]");
+      const cityPaginationContainer = document.querySelector("[data-city-pagination]");
+      const cityMobileMedia = window.matchMedia("(max-width: 575.98px)");
 
       if (cityButtons.length && cityName && cityAddress && mapFrame) {
-        function setOffice(button) {
+        let cityScrollFrame = null;
+
+        const createCityPagination = () => {
+          if (!cityPaginationContainer) return;
+
+          const showPagination = cityMobileMedia.matches && cityButtons.length > 1;
+          cityPaginationContainer.hidden = !showPagination;
+          cityPaginationContainer.innerHTML = "";
+
+          if (!showPagination) return;
+
+          cityPaginationContainer.innerHTML = cityButtons
+            .map(
+              (_, index) =>
+                `<button type="button" class="tb-contact-city-pagination-dot ${index === 0 ? "is-active" : ""}" data-city-pagination-index="${index}" aria-label="Go to city ${index + 1}"></button>`,
+            )
+            .join("");
+
+          cityPaginationContainer.querySelectorAll("[data-city-pagination-index]").forEach((dot, index) => {
+            dot.addEventListener("click", () => {
+              setOffice(cityButtons[index]);
+            });
+          });
+        };
+
+        const updateCityPagination = () => {
+          if (!cityPaginationContainer || cityPaginationContainer.hidden) return;
+
+          const dots = cityPaginationContainer.querySelectorAll("[data-city-pagination-index]");
+          const activeIndex = cityButtons.findIndex((btn) => btn.classList.contains("is-active"));
+
+          dots.forEach((dot, index) => {
+            dot.classList.toggle("is-active", index === activeIndex);
+          });
+        };
+
+        const getCityBtnLeft = (btn) => {
+          if (!cityTabsScroller || !btn) return 0;
+          const scrollerRect = cityTabsScroller.getBoundingClientRect();
+          const btnRect = btn.getBoundingClientRect();
+          return cityTabsScroller.scrollLeft + (btnRect.left - scrollerRect.left);
+        };
+
+        const getClosestCityBtnIndex = () => {
+          if (!cityTabsScroller || !cityButtons.length) return 0;
+
+          let closestIndex = 0;
+          let closestDiff = Number.POSITIVE_INFINITY;
+          const currentLeft = cityTabsScroller.scrollLeft;
+
+          cityButtons.forEach((btn, index) => {
+            const diff = Math.abs(getCityBtnLeft(btn) - currentLeft);
+            if (diff < closestDiff) {
+              closestDiff = diff;
+              closestIndex = index;
+            }
+          });
+
+          return closestIndex;
+        };
+
+        const scrollCityTabsTo = (btn, behavior = "smooth") => {
+          if (!cityTabsScroller || !btn || !cityMobileMedia.matches) return;
+
+          const maxScroll = Math.max(0, cityTabsScroller.scrollWidth - cityTabsScroller.clientWidth);
+          const targetLeft = Math.min(maxScroll, Math.max(0, getCityBtnLeft(btn)));
+
+          cityTabsScroller.scrollTo({
+            left: targetLeft,
+            behavior,
+          });
+        };
+
+        const getClosestCityBtn = () => cityButtons[getClosestCityBtnIndex()] || cityButtons[0];
+
+        function setOffice(button, options = {}) {
           const city = button.getAttribute("data-city") || "";
           const address = button.getAttribute("data-address") || "";
           const map = button.getAttribute("data-map") || "";
@@ -463,14 +607,67 @@
           cityName.textContent = city;
           cityAddress.textContent = address;
           mapFrame.src = map;
+
+          if (options.syncScroll !== false) {
+            scrollCityTabsTo(button, options.behavior || "smooth");
+          }
+
+          updateCityPagination();
         }
+
+        const syncCityTabFromScroll = () => {
+          if (!cityTabsScroller || !cityMobileMedia.matches || cityScrollFrame) return;
+
+          cityScrollFrame = window.requestAnimationFrame(() => {
+            cityScrollFrame = null;
+            const closestBtn = getClosestCityBtn();
+            if (closestBtn && !closestBtn.classList.contains("is-active")) {
+              setOffice(closestBtn, { behavior: "auto", syncScroll: false });
+            }
+          });
+        };
 
         cityButtons.forEach((button) => {
           button.addEventListener("click", () => setOffice(button));
         });
+
+        if (cityTabsScroller) {
+          cityTabsScroller.addEventListener("scroll", syncCityTabFromScroll, { passive: true });
+          window.addEventListener("resize", () => {
+            const activeBtn = cityButtons.find((btn) => btn.classList.contains("is-active")) || cityButtons[0];
+            createCityPagination();
+            if (cityMobileMedia.matches && activeBtn) {
+              scrollCityTabsTo(activeBtn, "auto");
+            }
+          });
+
+          if (cityMobileMedia.addEventListener) {
+            cityMobileMedia.addEventListener("change", () => {
+              createCityPagination();
+              const activeBtn = cityButtons.find((btn) => btn.classList.contains("is-active")) || cityButtons[0];
+              if (cityMobileMedia.matches && activeBtn) {
+                scrollCityTabsTo(activeBtn, "auto");
+              }
+              updateCityPagination();
+            });
+          } else if (cityMobileMedia.addListener) {
+            cityMobileMedia.addListener(() => {
+              createCityPagination();
+              const activeBtn = cityButtons.find((btn) => btn.classList.contains("is-active")) || cityButtons[0];
+              if (cityMobileMedia.matches && activeBtn) {
+                scrollCityTabsTo(activeBtn, "auto");
+              }
+              updateCityPagination();
+            });
+          }
+        }
+
+        createCityPagination();
+        updateCityPagination();
       }
     });
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
   <script src="./assets/js/app.js" defer></script>
 </body>
 

@@ -12,6 +12,7 @@
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="./assets/css/app.css">
     <link rel="stylesheet" href="./assets/css/web-pages.css">
 </head>
@@ -35,7 +36,8 @@
 
                 <nav id="mainNav" class="tb-nav">
                     <a href="./services.html" class="tb-nav-link">Services</a>
-                    <a href="./truegenie.html" class="tb-nav-link" target="_blank" rel="noopener noreferrer">TruGenie</a>
+                    <a href="./truegenie.html" class="tb-nav-link" target="_blank"
+                        rel="noopener noreferrer">TruGenie</a>
                     <a href="./contruction-ai.html" class="tb-nav-link">Construction AI</a>
                     <a href="./property-ai.html" class="tb-nav-link">Property AI</a>
                     <a href="./resources.html" class="tb-nav-link">Resources</a>
@@ -55,6 +57,7 @@
                     </div>
                     <a href="./about-us.html" class="tb-nav-link d-lg-none">About Us</a>
                     <a href="./careers.html" class="tb-nav-link d-lg-none">Careers</a>
+                    <a href="./contact-us.html" class="tb-nav-link d-lg-none">Contact Us</a>
                 </nav>
             </div>
         </div>
@@ -67,19 +70,22 @@
                     <div class="tb-careers-hero-card">
                         <div class="tb-careers-hero-copy">
                             <!-- <p class="tb-careers-kicker">Careers At TruBoard</p> -->
-                            <h1>Build the Future of Real Estate Asset Intelligence</h1>
-                            <p>
+                            <h1 data-aos="fade-up" data-aos-duration="950">Build the Future of Real Estate Asset
+                                Intelligence</h1>
+                            <p data-aos="fade-up" data-aos-delay="140" data-aos-duration="950">
                                 Join a team of operators, builders, and problem-solvers shaping how real estate
                                 portfolios
                                 are monitored, governed, and scaled.
                             </p>
-                            <div class="tb-careers-actions">
+                            <div class="tb-careers-actions" data-aos="fade-up" data-aos-delay="240"
+                                data-aos-duration="900">
                                 <a href="#open-roles" class="btn tb-btn tb-btn-blue">View Open Roles</a>
-                                <a href="#career-application" class="btn tb-btn tb-btn-ghost">Submit Your
+                                <a href="#career-application" class="btn tb-btn tb-btn-blue">Submit Your
                                     Profile</a>
                             </div>
                         </div>
-                        <div class="tb-careers-hero-art">
+                        <div class="tb-careers-hero-art" data-aos="fade-left" data-aos-delay="320"
+                            data-aos-duration="1000">
                             <img src="./assets/images/banners/career.png" alt="Careers hero illustration">
                         </div>
                     </div>
@@ -89,7 +95,7 @@
 
         <section id="career-application" class="tb-careers-apply" aria-label="Career form">
             <div class="container-xl">
-                <div class="tb-careers-apply-card">
+                <div class="tb-careers-apply-card" data-aos="fade-up" data-aos-duration="900">
                     <form class="tb-careers-form" action="#career-application" method="get">
                         <div class="tb-careers-form-head">
                             <h2>Submit Your Profile</h2>
@@ -149,6 +155,34 @@
                                 <textarea id="careerMessage" name="message"
                                     placeholder="Tell us briefly about your background" aria-label="Message"></textarea>
                             </div>
+                            <div class="tb-careers-field is-full">
+                                <div class="tb-careers-file-upload">
+                                    <input id="careerResume" name="resume" type="file" accept=".pdf"
+                                        aria-label="Upload Resume (PDF, max 2MB)">
+                                    <label for="careerResume" class="tb-careers-file-label">
+                                        <span class="tb-careers-file-icon" aria-hidden="true">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none">
+                                                <path
+                                                    d="M17.5 12.5V15.8333C17.5 16.2754 17.3244 16.6993 17.0118 17.0118C16.6993 17.3244 16.2754 17.5 15.8333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V12.5"
+                                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                                <path d="M14.1667 6.66667L10 2.5L5.83333 6.66667" stroke="currentColor"
+                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                <path d="M10 2.5V12.5" stroke="currentColor" stroke-width="1.5"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                        </span>
+                                        <span class="tb-careers-file-copy">
+                                            <span class="tb-careers-file-text">Upload Resume</span>
+                                            <span class="tb-careers-file-meta">PDF only, max 2MB</span>
+                                        </span>
+                                        <span class="tb-careers-file-name">No file selected</span>
+                                        <span class="tb-careers-file-action">Choose file</span>
+                                    </label>
+                                    <span class="tb-careers-file-error" role="alert"></span>
+                                </div>
+                            </div>
                         </div>
                         <button type="submit" class="btn tb-btn tb-btn-blue">Submit Profile</button>
                     </form>
@@ -158,7 +192,7 @@
 
         <section class="tb-careers-culture" aria-label="Culture and values">
             <div class="container-xl">
-                <div class="tb-careers-section-head">
+                <div class="tb-careers-section-head" data-aos="fade-up" data-aos-duration="850">
                     <!-- <p class="tb-careers-kicker">Culture &amp; Values</p> -->
                     <h2 class="tb-title">Life At TruBoard</h2>
                     <p>
@@ -166,50 +200,58 @@
                         operations to solve high-impact real estate challenges.
                     </p>
                 </div>
-                <div class="row g-3 g-lg-4">
-                    <div class="col-md-6 col-lg-4">
-                        <article class="tb-careers-culture-card">
-                            <img src="./assets/images/blog-1.jpg" alt="Innovation at TruBoard">
-                            <div class="tb-careers-culture-body">
-                                <h3>Innovation First</h3>
-                                <p>We ship practical solutions that improve control, visibility, and decision speed for
-                                    real estate assets.</p>
-                            </div>
-                        </article>
+                <div class="tb-careers-culture-slider" data-careers-culture-slider data-aos="fade-up"
+                    data-aos-delay="120" data-aos-duration="900">
+                    <div class="row g-3 g-lg-4 tb-careers-culture-track" data-careers-culture-track>
+                        <div class="col-md-6 col-lg-4 tb-careers-culture-slide" data-careers-culture-slide>
+                            <article class="tb-careers-culture-card">
+                                <img src="./assets/images/blog-1.jpg" alt="Innovation at TruBoard">
+                                <div class="tb-careers-culture-body">
+                                    <h3>Innovation First</h3>
+                                    <p>We ship practical solutions that improve control, visibility, and decision speed
+                                        for
+                                        real estate assets.</p>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="col-md-6 col-lg-4 tb-careers-culture-slide" data-careers-culture-slide>
+                            <article class="tb-careers-culture-card">
+                                <img src="./assets/images/blog-2.jpg" alt="Collaborative growth">
+                                <div class="tb-careers-culture-body">
+                                    <h3>Collaborative Growth</h3>
+                                    <p>Cross-functional execution is core to how we operate, with real ownership and
+                                        rapid
+                                        feedback loops.</p>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="col-md-6 col-lg-4 tb-careers-culture-slide" data-careers-culture-slide>
+                            <article class="tb-careers-culture-card">
+                                <img src="./assets/images/blog-3.jpg" alt="Impactful work">
+                                <div class="tb-careers-culture-body">
+                                    <h3>Impactful Work</h3>
+                                    <p>Every role contributes directly to portfolio performance, capital protection, and
+                                        execution excellence.</p>
+                                </div>
+                            </article>
+                        </div>
                     </div>
-                    <div class="col-md-6 col-lg-4">
-                        <article class="tb-careers-culture-card">
-                            <img src="./assets/images/blog-2.jpg" alt="Collaborative growth">
-                            <div class="tb-careers-culture-body">
-                                <h3>Collaborative Growth</h3>
-                                <p>Cross-functional execution is core to how we operate, with real ownership and rapid
-                                    feedback loops.</p>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <article class="tb-careers-culture-card">
-                            <img src="./assets/images/blog-3.jpg" alt="Impactful work">
-                            <div class="tb-careers-culture-body">
-                                <h3>Impactful Work</h3>
-                                <p>Every role contributes directly to portfolio performance, capital protection, and
-                                    execution excellence.</p>
-                            </div>
-                        </article>
-                    </div>
+                    <div class="tb-careers-culture-pagination" data-careers-culture-pagination
+                        aria-label="Life At TruBoard slider pagination" hidden></div>
                 </div>
             </div>
         </section>
 
         <section id="open-roles" class="tb-careers-roles" aria-label="Open positions">
             <div class="container-xl">
-                <div class="tb-careers-section-head">
+                <div class="tb-careers-section-head" data-aos="fade-up" data-aos-duration="850">
                     <h2 class="tb-title">Open Positions</h2>
                     <p>Explore current openings across our core product and services teams.</p>
                 </div>
 
                 <div class="tb-careers-role-grid">
-                    <article class="tb-careers-role-card">
+                    <article class="tb-careers-role-card" data-aos="fade-up" data-aos-delay="80"
+                        data-aos-duration="900">
                         <div class="tb-careers-role-head">
                             <h3>Senior Frontend Engineer</h3>
                             <a href="#career-application" class="tb-careers-role-arrow"
@@ -227,7 +269,8 @@
                             <p><strong>Location:</strong> Mumbai or Remote (Full-time)</p>
                         </div>
                     </article>
-                    <article class="tb-careers-role-card">
+                    <article class="tb-careers-role-card" data-aos="fade-up" data-aos-delay="180"
+                        data-aos-duration="900">
                         <div class="tb-careers-role-head">
                             <h3>Technical Product Manager</h3>
                             <a href="#career-application" class="tb-careers-role-arrow"
@@ -245,7 +288,8 @@
                             <p><strong>Location:</strong> Gurugram (Full-time)</p>
                         </div>
                     </article>
-                    <article class="tb-careers-role-card">
+                    <article class="tb-careers-role-card" data-aos="fade-up" data-aos-delay="280"
+                        data-aos-duration="900">
                         <div class="tb-careers-role-head">
                             <h3>Real Estate Data Analyst</h3>
                             <a href="#career-application" class="tb-careers-role-arrow"
@@ -263,7 +307,8 @@
                             <p><strong>Location:</strong> Mumbai (Full-time)</p>
                         </div>
                     </article>
-                    <article class="tb-careers-role-card">
+                    <article class="tb-careers-role-card" data-aos="fade-up" data-aos-delay="380"
+                        data-aos-duration="900">
                         <div class="tb-careers-role-head">
                             <h3>Client Success Lead</h3>
                             <a href="#career-application" class="tb-careers-role-arrow"
@@ -281,7 +326,8 @@
                             <p><strong>Location:</strong> Bengaluru (Full-time)</p>
                         </div>
                     </article>
-                    <article class="tb-careers-role-card">
+                    <article class="tb-careers-role-card" data-aos="fade-up" data-aos-delay="480"
+                        data-aos-duration="900">
                         <div class="tb-careers-role-head">
                             <h3>Program Operations Manager</h3>
                             <a href="#career-application" class="tb-careers-role-arrow"
@@ -299,7 +345,8 @@
                             <p><strong>Location:</strong> Hyderabad (Full-time)</p>
                         </div>
                     </article>
-                    <article class="tb-careers-role-card">
+                    <article class="tb-careers-role-card" data-aos="fade-up" data-aos-delay="580"
+                        data-aos-duration="900">
                         <div class="tb-careers-role-head">
                             <h3>Business Strategy Associate</h3>
                             <a href="#career-application" class="tb-careers-role-arrow"
@@ -319,7 +366,7 @@
                     </article>
                 </div>
 
-                <div class="tb-careers-open-app">
+                <div class="tb-careers-open-app" data-aos="fade-up" data-aos-delay="160" data-aos-duration="850">
                     <!-- <p>Donâ€™t see a fit? We are always open to exceptional profiles.</p> -->
                     <a href="#career-application" class="btn tb-btn tb-btn-blue">Send Open Application</a>
                 </div>
@@ -329,8 +376,9 @@
 
     <section class="tb-cta">
         <div class="container-xl text-center">
-            <h2 class="tb-title">Ready to build your next chapter with TruBoard?</h2>
-            <div class="tb-cta-actions">
+            <h2 class="tb-title" data-aos="fade-up" data-aos-duration="900">Ready to build your next chapter with
+                TruBoard?</h2>
+            <div class="tb-cta-actions" data-aos="fade-up" data-aos-delay="140" data-aos-duration="850">
                 <a href="#open-roles" class="btn tb-btn tb-btn-ghost">View Open Roles</a>
                 <a href="#career-application" class="btn tb-btn tb-btn-blue">Talk to Our Team</a>
             </div>
@@ -339,7 +387,7 @@
 
     <footer class="tb-footer">
         <div class="container-xl">
-            <div class="tb-footer-shell">
+            <div class="tb-footer-shell" data-aos="fade-up" data-aos-duration="850">
                 <div class="tb-footer-left">
                     <a href="./index.html" class="tb-footer-logo" aria-label="TruBoard home">
                         <img src="./assets/images/1a36bc184ac42a93ebf62d57aae0e30c740ff2ab-B2Jtxq84.png"
@@ -495,13 +543,212 @@
                 });
             };
 
+            const initCareersFileUpload = () => {
+                const uploadRoots = Array.from(document.querySelectorAll(".tb-careers-file-upload"));
+                if (!uploadRoots.length) return;
+
+                uploadRoots.forEach((root) => {
+                    const input = root.querySelector("input[type='file']");
+                    const fileName = root.querySelector(".tb-careers-file-name");
+                    const error = root.querySelector(".tb-careers-file-error");
+                    if (!input || !fileName || !error) return;
+
+                    const resetState = () => {
+                        root.classList.remove("has-file", "is-invalid");
+                        fileName.textContent = "No file selected";
+                        error.textContent = "";
+                    };
+
+                    const setInvalidState = (message) => {
+                        root.classList.add("is-invalid");
+                        root.classList.remove("has-file");
+                        input.value = "";
+                        fileName.textContent = "No file selected";
+                        error.textContent = message;
+                    };
+
+                    input.addEventListener("change", () => {
+                        const file = input.files && input.files[0];
+                        if (!file) {
+                            resetState();
+                            return;
+                        }
+
+                        const isPdf =
+                            file.type === "application/pdf" ||
+                            file.name.toLowerCase().endsWith(".pdf");
+
+                        if (!isPdf) {
+                            setInvalidState("Please upload a PDF resume.");
+                            return;
+                        }
+
+                        if (file.size > 2 * 1024 * 1024) {
+                            setInvalidState("Resume must be 2MB or smaller.");
+                            return;
+                        }
+
+                        root.classList.remove("is-invalid");
+                        root.classList.add("has-file");
+                        fileName.textContent = file.name;
+                        error.textContent = "";
+                    });
+
+                });
+            };
+
+            const initCareersCultureSlider = () => {
+                const root = document.querySelector("[data-careers-culture-slider]");
+                const track = root && root.querySelector("[data-careers-culture-track]");
+                const pagination = root && root.querySelector("[data-careers-culture-pagination]");
+                const slides = track
+                    ? Array.from(track.querySelectorAll("[data-careers-culture-slide]"))
+                    : [];
+
+                if (!root || !track || !pagination || slides.length < 2) return;
+
+                const mobileMedia = window.matchMedia("(max-width: 767.98px)");
+                const reduceMotion =
+                    window.matchMedia &&
+                    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                let dots = [];
+                let scrollFrame = null;
+                let autoAdvanceTimer = null;
+
+                const syncDots = (activeIndex) => {
+                    dots.forEach((dot, index) => {
+                        const isActive = index === activeIndex;
+                        dot.classList.toggle("is-active", isActive);
+                        dot.setAttribute("aria-current", isActive ? "true" : "false");
+                    });
+                };
+
+                const getActiveIndex = () => {
+                    const trackRect = track.getBoundingClientRect();
+                    let activeIndex = 0;
+                    let minDistance = Number.POSITIVE_INFINITY;
+
+                    slides.forEach((slide, index) => {
+                        const distance = Math.abs(slide.getBoundingClientRect().left - trackRect.left);
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            activeIndex = index;
+                        }
+                    });
+
+                    return activeIndex;
+                };
+
+                const scrollToSlide = (index) => {
+                    const slide = slides[index];
+                    if (!slide) return;
+
+                    track.scrollTo({
+                        left: slide.offsetLeft,
+                        behavior: reduceMotion ? "auto" : "smooth",
+                    });
+                };
+
+                const stopAutoplay = () => {
+                    if (!autoAdvanceTimer) return;
+                    window.clearInterval(autoAdvanceTimer);
+                    autoAdvanceTimer = null;
+                };
+
+                const startAutoplay = () => {
+                    if (autoAdvanceTimer || !mobileMedia.matches || reduceMotion || document.hidden) return;
+
+                    autoAdvanceTimer = window.setInterval(() => {
+                        const nextIndex = (getActiveIndex() + 1) % slides.length;
+                        scrollToSlide(nextIndex);
+                        syncDots(nextIndex);
+                    }, 3200);
+                };
+
+                const restartAutoplay = () => {
+                    stopAutoplay();
+                    startAutoplay();
+                };
+
+                const buildPagination = () => {
+                    pagination.innerHTML = "";
+                    dots = slides.map((_, index) => {
+                        const dot = document.createElement("button");
+                        dot.type = "button";
+                        dot.className = "tb-careers-culture-pagination-dot";
+                        dot.setAttribute("aria-label", `Go to Life At TruBoard slide ${index + 1}`);
+                        dot.setAttribute("aria-current", index === 0 ? "true" : "false");
+                        dot.addEventListener("click", () => {
+                            scrollToSlide(index);
+                            syncDots(index);
+                            restartAutoplay();
+                        });
+                        pagination.appendChild(dot);
+                        return dot;
+                    });
+                    syncDots(0);
+                };
+
+                const syncFromScroll = () => {
+                    if (!mobileMedia.matches) return;
+                    if (scrollFrame) cancelAnimationFrame(scrollFrame);
+                    scrollFrame = requestAnimationFrame(() => {
+                        syncDots(getActiveIndex());
+                    });
+                };
+
+                const syncMode = () => {
+                    const isMobile = mobileMedia.matches;
+                    pagination.hidden = !isMobile || slides.length < 2;
+
+                    if (!isMobile) {
+                        stopAutoplay();
+                        track.scrollTo({ left: 0, behavior: "auto" });
+                        syncDots(0);
+                        return;
+                    }
+
+                    syncDots(getActiveIndex());
+                    startAutoplay();
+                };
+
+                buildPagination();
+                track.addEventListener("scroll", syncFromScroll, { passive: true });
+                track.addEventListener("touchstart", stopAutoplay, { passive: true });
+                track.addEventListener("touchend", startAutoplay, { passive: true });
+                track.addEventListener("touchcancel", startAutoplay, { passive: true });
+                document.addEventListener("visibilitychange", () => {
+                    if (document.hidden) {
+                        stopAutoplay();
+                    } else {
+                        startAutoplay();
+                    }
+                });
+
+                if (mobileMedia.addEventListener) {
+                    mobileMedia.addEventListener("change", syncMode);
+                } else if (mobileMedia.addListener) {
+                    mobileMedia.addListener(syncMode);
+                }
+
+                window.addEventListener("resize", syncMode);
+                syncMode();
+            };
+
             if (document.readyState === "loading") {
-                document.addEventListener("DOMContentLoaded", initCareersSelect);
+                document.addEventListener("DOMContentLoaded", () => {
+                    initCareersSelect();
+                    initCareersFileUpload();
+                    initCareersCultureSlider();
+                });
             } else {
                 initCareersSelect();
+                initCareersFileUpload();
+                initCareersCultureSlider();
             }
         })();
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
     <script src="./assets/js/app.js" defer></script>
 </body>
 

@@ -9,6 +9,7 @@
 body {
     margin: 0%;
     padding: 0%;
+    overflow-x: hidden !important;
 }
 
 /* Global font for entire project */
@@ -599,6 +600,25 @@ body {
     border-radius: 14px;
     /* border: 1px solid #D9E2EE; */
     padding: 18px;
+}
+
+.functional-modules-mobile-pagination {
+    display: none;
+}
+
+.functional-modules-pagination-dot {
+    border: 0;
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border-radius: 999px;
+    background: #CBD5E1;
+    transition: transform 0.24s ease, background-color 0.24s ease, opacity 0.24s ease;
+}
+
+.functional-modules-pagination-dot.is-active {
+    background: #286FED;
+    transform: scale(1.15);
 }
 
 .functional-modules-content-title {
@@ -1424,16 +1444,19 @@ body {
 .engagement-model-section .section-description {
     margin: 0%;
     padding: 0%;
+    margin-bottom: 30px;
 }
 
 .engagement-model-section .section-header .section-header-title {
     margin: 6px auto 12px auto;
     padding: 0%;
+    margin-bottom: 0;
 }
 
 .engagement-model-section .secondary-section-description {
     text-transform: uppercase;
     font-size: 12px;
+    margin-bottom: 10px;
 }
 
 /* .cta-title {
@@ -1676,6 +1699,7 @@ body {
         width: fit-content;
         margin: auto;
     }
+
 }
 
 @media (max-width: 991.98px) {
@@ -1988,6 +2012,125 @@ body {
         gap: 0.55rem;
         max-width: 100%;
         margin-top: 40px;
+    }
+}
+
+@media (max-width: 767.98px) {
+
+    .tb-truegenie-page .functional-modules-shell {
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+    }
+
+    .tb-truegenie-page .functional-modules-sidebar {
+        order: 1;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 0.55rem;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 0.05rem;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding: 0 2rem 0 0.05rem;
+        touch-action: pan-x;
+    }
+
+    .tb-truegenie-page .functional-modules-sidebar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tb-truegenie-page .module-toggle {
+        flex: 0 0 calc(80% - 2.75rem);
+        scroll-snap-align: start;
+        justify-content: center;
+        text-align: center;
+        gap: 0;
+        min-height: 0;
+        padding: 0.56rem 0.92rem;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        background: #f6f9ff;
+        box-shadow: none !important;
+        color: #5d6e86;
+    }
+
+    .tb-truegenie-page .leadership-tab-buttom,
+    .tb-truegenie-page .module-toggle:not(.is-active) {
+        border: 1px solid transparent;
+        background: #5c78e60e;
+        color: #5d6e86;
+        box-shadow: none !important;
+    }
+
+    .tb-truegenie-page .module-toggle .button-icon-acitve,
+    .tb-truegenie-page .module-toggle .button-icon-inactive,
+    .tb-truegenie-page .module-toggle .icon,
+    .tb-truegenie-page .module-toggle .module-toggle-subtitle {
+        display: none;
+    }
+
+    .tb-truegenie-page .module-toggle .functional-modules-sidebar-button-content-wrapper,
+    .tb-truegenie-page .module-toggle.is-active .functional-modules-sidebar-button-content-wrapper {
+        align-items: center;
+        gap: 0;
+        transform: none;
+    }
+
+    .tb-truegenie-page .module-toggle-title,
+    .tb-truegenie-page .module-toggle.is-active .module-toggle-title {
+        transform: none;
+        text-align: center;
+        font-size: var(--tb-fs-16) !important;
+        line-height: 1;
+        font-weight: 500 !important;
+        white-space: nowrap;
+    }
+
+    .tb-truegenie-page .module-toggle:not(.is-active) .module-toggle-title {
+        color: #5d6e86 !important;
+    }
+
+    .tb-truegenie-page .leadership-tab-buttom:hover,
+    .tb-truegenie-page .module-toggle:not(.is-active):hover {
+        background: #edf3ff;
+        color: #1d4f98;
+    }
+
+    .tb-truegenie-page .module-toggle:not(.is-active):hover .module-toggle-title {
+        color: #1d4f98 !important;
+    }
+
+    .tb-truegenie-page .leadership-tab-buttom.leadership-tab-buttom-active,
+    .tb-truegenie-page .module-toggle.is-active {
+        background: #2f6be4;
+        border-color: #2f6be4;
+        color: #fff;
+        box-shadow: none !important;
+    }
+
+    .tb-truegenie-page .module-toggle.is-active .module-toggle-title {
+        color: #fff !important;
+    }
+
+    .tb-truegenie-page .functional-modules-mobile-pagination {
+        order: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: -0.2rem;
+    }
+
+    .tb-truegenie-page .functional-modules-mobile-pagination[hidden] {
+        display: none !important;
+    }
+
+    .tb-truegenie-page .functional-modules-content {
+        order: 3;
+        padding-top: 0.3rem;
     }
 }
 
@@ -2312,11 +2455,15 @@ body {
     }
 
     .tb-truegenie-page .functional-modules-content {
-        order: -1;
+        order: 3;
     }
 
     .tb-truegenie-page .functional-modules-sidebar {
         order: 1;
+    }
+
+    .tb-truegenie-page .functional-modules-mobile-pagination {
+        order: 2;
     }
 
     .tb-truegenie-page .how-its-work .process-icons-grid {
@@ -2373,6 +2520,7 @@ body {
         padding-bottom: 1.4rem;
         padding-left: 0;
         padding-right: 0;
+        overflow-x: hidden;
     }
 
     .tb-truegenie-page .leadership-tab-button-wrapper {

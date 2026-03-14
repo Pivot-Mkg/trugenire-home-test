@@ -874,6 +874,7 @@
     background: rgba(255, 255, 255, 0.97);
     /* box-shadow: 0 8px 22px rgba(12, 31, 73, 0.08); */
     backdrop-filter: blur(4px);
+    scroll-behavior: smooth;
 }
 
 .tb-about-presence-city {
@@ -922,6 +923,10 @@
 }
 
 .tb-about-presence-city.is-active strong {
+    color: #fff;
+}
+
+.tb-contact-city-btn.is-active strong {
     color: #fff;
 }
 
@@ -1038,7 +1043,7 @@
 
     .info-img-wrapper img {
         width: 100%;
-        height: auto;
+        height: 250px;
         border-radius: 12px;
     }
 
@@ -1188,14 +1193,27 @@
     .tb-about-presence-locations {
         flex-wrap: nowrap;
         overflow-x: auto;
+        justify-content: flex-start;
         width: 100%;
-        padding-bottom: 0.08rem;
+        max-width: 100%;
+        min-width: 0;
+        padding: 0.36rem 0;
+        box-sizing: border-box;
+        scroll-padding-inline: 10px;
         scrollbar-width: none;
-        padding: 10px;
+        scroll-snap-type: x mandatory;
+    }
+
+    .tb-about-presence-locations::before,
+    .tb-about-presence-locations::after {
+        content: "";
+        flex: 0 0 10px;
     }
 
     .tb-about-presence-city {
         flex: 0 0 auto;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
     }
 
     .tb-about-presence-locations::-webkit-scrollbar {
@@ -1208,7 +1226,7 @@
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         scrollbar-width: none;
-        padding-bottom: 0.35rem;
+        /* padding-bottom: 0.35rem; */
     }
 
     .tb-about-team-grid::-webkit-scrollbar {
@@ -1217,6 +1235,7 @@
 
     .tb-about-team-card {
         min-height: 300px;
+        height: 250px;
         flex: 0 0 100%;
         width: 100%;
         max-width: 100%;
@@ -1531,8 +1550,8 @@
 }
 
 .tb-careers-form textarea {
-    min-height: 48px;
-    height: 48px;
+    min-height: 96px;
+    height: 96px;
     resize: none;
 }
 
@@ -1605,6 +1624,132 @@
     box-shadow: 0 0 0 3px rgba(217, 65, 87, 0.13);
 }
 
+.tb-careers-file-upload {
+    position: relative;
+    display: grid;
+    gap: 0.45rem;
+}
+
+.tb-careers-file-upload input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.tb-careers-file-label {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 0.8rem;
+    width: 100%;
+    border: 1px solid #cedcf2;
+    border-radius: 16px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    box-shadow: 0 1px 2px rgba(18, 47, 106, 0.04), inset 0 1px 2px rgba(18, 47, 106, 0.02);
+    padding: 0.78rem 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.tb-careers-file-label:hover {
+    border-color: #afc5e9;
+    background-color: #fff;
+}
+
+.tb-careers-file-upload input[type="file"]:focus-visible+.tb-careers-file-label {
+    border-color: #2f6be4;
+    box-shadow: 0 0 0 4px rgba(47, 107, 228, 0.15), inset 0 1px 2px rgba(18, 47, 106, 0.02);
+    background-color: #fff;
+    transform: translateY(-1px);
+}
+
+.tb-careers-file-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 12px;
+    background: #edf3ff;
+    color: #2f6be4;
+    flex-shrink: 0;
+}
+
+.tb-careers-file-copy {
+    display: grid;
+    gap: 0.16rem;
+    min-width: 0;
+}
+
+.tb-careers-file-text {
+    color: #20314d;
+    font-size: var(--tb-fs-16);
+    line-height: 1.2;
+    font-weight: 600;
+}
+
+.tb-careers-file-meta {
+    color: #7d8ba1;
+    font-size: 13px;
+    line-height: 1.3;
+}
+
+.tb-careers-file-name {
+    min-width: 0;
+    color: #7d8ba1;
+    font-size: 13px;
+    line-height: 1.3;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tb-careers-file-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.35rem;
+    padding: 0.56rem 0.9rem;
+    border-radius: 999px;
+    background: #2f6be4;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1;
+    /* font-weight: 600; */
+    white-space: nowrap;
+    box-shadow: 0 8px 18px rgba(47, 107, 228, 0.2);
+}
+
+.tb-careers-file-upload.has-file .tb-careers-file-name {
+    color: #20314d;
+    font-weight: 500;
+}
+
+.tb-careers-file-upload.has-file .tb-careers-file-label {
+    border-color: #b8cff3;
+    background: linear-gradient(180deg, #ffffff 0%, #f3f8ff 100%);
+}
+
+.tb-careers-file-upload.is-invalid .tb-careers-file-label {
+    border-color: #d94157;
+    box-shadow: 0 0 0 3px rgba(217, 65, 87, 0.13);
+}
+
+.tb-careers-file-error {
+    min-height: 1rem;
+    color: #d94157;
+    font-size: 13px;
+    line-height: 1.35;
+    padding-inline: 0.1rem;
+}
+
 .tb-careers-form .tb-btn {
     justify-self: center;
     min-width: 12.5rem;
@@ -1619,7 +1764,9 @@
 
 .tb-careers-form .tb-btn.tb-btn-blue:hover,
 .tb-careers-form .tb-btn.tb-btn-blue:focus-visible {
-    background-color: #2259c4;
+    color: #3a76ea;
+    background: #ffffff;
+    border-color: #3a76ea;
 }
 
 .tb-careers-culture,
@@ -1629,6 +1776,33 @@
 
 .tb-careers-culture {
     background: #fff;
+}
+
+.tb-careers-culture-slider {
+    position: relative;
+}
+
+.tb-careers-culture-pagination {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 0.42rem;
+    margin-top: 1rem;
+}
+
+.tb-careers-culture-pagination-dot {
+    width: 8px;
+    height: 8px;
+    border: 0;
+    border-radius: 999px;
+    background: #d2dff4;
+    padding: 0;
+    transition: width 0.2s ease, background-color 0.2s ease;
+}
+
+.tb-careers-culture-pagination-dot.is-active {
+    width: 22px;
+    background: #2f6be4;
 }
 
 .tb-careers-section-head {
@@ -1838,6 +2012,86 @@
     }
 }
 
+@media (max-width: 767.98px) {
+
+    .tb-careers-shell,
+    .tb-careers-top-shell,
+    .tb-careers-hero,
+    .tb-careers-hero-card,
+    .tb-careers-hero-copy,
+    .tb-careers-apply,
+    .tb-careers-apply-card,
+    .tb-careers-form,
+    .tb-careers-form-grid,
+    .tb-careers-field,
+    .tb-careers-select,
+    .tb-careers-file-upload,
+    .tb-careers-file-label,
+    .tb-careers-role-grid,
+    .tb-careers-role-card,
+    .tb-careers-role-head,
+    .tb-careers-role-lines {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .tb-careers-form input,
+    .tb-careers-form textarea,
+    .tb-careers-select-trigger {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .tb-careers-file-label {
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: start;
+    }
+
+    .tb-careers-file-name {
+        max-width: 100%;
+        grid-column: 2;
+        text-align: left;
+        white-space: normal;
+    }
+
+    .tb-careers-file-action {
+        grid-column: 1 / -1;
+        justify-self: start;
+    }
+
+    .tb-careers-culture-track {
+        --bs-gutter-x: 0;
+        --bs-gutter-y: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 0.85rem;
+        margin: 0;
+        overflow-x: auto;
+        overflow-y: visible;
+        padding: 0.1rem 0 0.35rem;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .tb-careers-culture-track::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tb-careers-culture-slide {
+        flex: 0 0 100%;
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        scroll-snap-align: start;
+    }
+
+    .tb-careers-culture-pagination {
+        display: flex;
+    }
+}
+
 @media (max-width: 575.98px) {
 
     .tb-about-hero-copy h1,
@@ -1875,10 +2129,18 @@
     }
 
     .tb-careers-form input,
-    .tb-careers-form textarea,
     .tb-careers-select-trigger {
         min-height: 48px;
         font-size: 16px;
+    }
+
+    .tb-careers-form textarea {
+        min-height: 96px;
+        font-size: 16px;
+    }
+
+    .tb-careers-hero-art img {
+        width: 50%;
     }
 
     .tb-careers-form .tb-btn {
@@ -1959,7 +2221,7 @@
 .tb-contact-banner {
     padding: clamp(1rem, 2.8vw, 2.4rem);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .tb-contact-banner>* {
@@ -2001,8 +2263,11 @@
     gap: clamp(0.9rem, 1.4vw, 1.1rem);
     align-content: start;
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
     position: relative;
-    overflow: hidden;
+    overflow: clip;
     isolation: isolate;
 }
 
@@ -2120,6 +2385,39 @@
     display: block;
 }
 
+.tb-contact-form-tabs-nav {
+    display: none !important;
+}
+
+.tb-contact-form-tabs-pagination {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 0.42rem;
+    margin-top: 1rem;
+}
+
+.tb-contact-form-tabs-pagination-dot {
+    width: 8px;
+    height: 8px;
+    border: 0;
+    border-radius: 999px;
+    background: #d2dff4;
+    padding: 0;
+    transition: width 0.2s ease, background-color 0.2s ease;
+}
+
+.tb-contact-form-tabs-pagination-dot.is-active {
+    width: 22px;
+    background: #2f6be4;
+}
+
+@media (max-width: 575.98px) {
+    .tb-contact-form-tabs-pagination {
+        display: flex;
+    }
+}
+
 .tb-contact-form-tabs-nav[hidden] {
     display: none !important;
 }
@@ -2231,8 +2529,8 @@
 }
 
 .tb-contact-form textarea {
-    min-height: 0;
-    height: 47px;
+    min-height: 96px;
+    height: 96px;
     resize: none;
 }
 
@@ -2265,6 +2563,7 @@
       background: #FFF;
       box-shadow: var(--tb-shadow-soft); */
     padding: 1rem;
+    padding-bottom: 1rem;
 }
 
 .tb-contact-city-tabs {
@@ -2281,6 +2580,7 @@
     border-radius: 14px;
     background: rgba(255, 255, 255, 0.97);
     backdrop-filter: blur(4px);
+    scroll-behavior: smooth;
 }
 
 .tb-contact-city-btn {
@@ -2326,6 +2626,34 @@
 .tb-contact-city-btn:focus-visible {
     outline: none;
     box-shadow: 0 0 0 3px rgba(47, 107, 228, 0.16);
+}
+
+.tb-contact-city-pagination {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 0.42rem;
+    margin-top: 0.72rem;
+}
+
+.tb-contact-city-pagination[hidden] {
+    display: none !important;
+}
+
+.tb-contact-city-pagination-dot {
+    width: 8px;
+    height: 8px;
+    border: 0;
+    border-radius: 999px;
+    background: #d2dff4;
+    padding: 0;
+    transition: width 0.2s ease, background-color 0.2s ease;
+    cursor: pointer;
+}
+
+.tb-contact-city-pagination-dot.is-active {
+    width: 22px;
+    background: #2f6be4;
 }
 
 .tb-contact-city-content {
@@ -2395,6 +2723,14 @@
 
 .contact-con {
     background: radial-gradient(74.52% 74.52% at 50% 25.48%, #E9F0FF 0%, #FFF 100%);
+    padding: clamp(1rem, 2.8vw, 2.4rem) 0;
+    padding-top: 0;
+    padding-bottom: clamp(1rem, 2.8vw, 2.4rem);
+}
+
+.contact-con .container-xl {
+    padding-left: clamp(1rem, 2vw, 1.5rem);
+    padding-right: clamp(1rem, 2vw, 1.5rem);
 }
 
 @media (max-width: 575.98px) {
@@ -2425,6 +2761,18 @@
         font-size: var(--tb-fs-16);
     }
 
+    section.tb-contact-form {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .tb-contact-banner {
+        padding: 0;
+    }
+
+    .tb-contact-office-block {
+        padding: 0;
+    }
+
     .tb-contact-hero-art {
         justify-content: center;
     }
@@ -2445,14 +2793,20 @@
     .tb-contact-form {
         border-radius: 16px;
         padding: 1rem 0.88rem;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .tb-contact-form-head {
         gap: 0.72rem;
+        flex-direction: column;
+        align-items: stretch;
     }
 
     .tb-contact-form-copy {
         max-width: 100%;
+        /* text-align: center; */
     }
 
     .tb-contact-form-head h2 {
@@ -2465,10 +2819,18 @@
     }
 
     .tb-contact-form-tabs-shell {
-        display: grid;
-        grid-template-columns: auto minmax(0, 1fr) auto;
+        display: block;
         width: 100%;
+        max-width: 100%;
+        min-width: 0;
         margin-left: 0;
+        padding: 0.46rem;
+        border: 1px solid #dfe6f2;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.97);
+        box-shadow: 0 8px 22px rgba(12, 31, 73, 0.08);
+        backdrop-filter: blur(4px);
+        box-sizing: border-box;
     }
 
     .tb-contact-form-tabs {
@@ -2477,10 +2839,15 @@
         overflow-x: auto;
         width: 100%;
         min-width: 0;
-        padding: 0.46rem;
-        padding-bottom: 0.08rem;
+        gap: 0.44rem;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        backdrop-filter: none;
         scroll-snap-type: x mandatory;
-        scroll-padding-left: 0;
+        scroll-padding-inline: 0;
         scrollbar-width: none;
     }
 
@@ -2489,22 +2856,50 @@
     }
 
     .tb-contact-form-tabs-nav {
-        display: inline-flex;
+        display: none !important;
     }
 
     .tb-contact-form-tab {
-        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 50%;
+        max-width: 50%;
+        text-align: center;
         scroll-snap-align: start;
         scroll-snap-stop: always;
+    }
+
+    .tb-contact-form-tabs-pagination {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        margin-top: 0.72rem;
+    }
+
+    .tb-contact-form-tabs-pagination[hidden] {
+        display: none !important;
     }
 
     .tb-contact-city-tabs {
         flex-wrap: nowrap;
         overflow-x: auto;
+        justify-content: flex-start;
         width: 100%;
-        padding-bottom: 0.08rem;
+        max-width: 100%;
+        min-width: 0;
+        padding: 0.36rem 0;
+        box-sizing: border-box;
+        scroll-padding-inline: 10px;
         scrollbar-width: none;
-        padding: 10px;
+        scroll-snap-type: x mandatory;
+    }
+
+    .tb-contact-city-tabs::before,
+    .tb-contact-city-tabs::after {
+        content: "";
+        flex: 0 0 10px;
     }
 
     .tb-contact-city-tabs::-webkit-scrollbar {
@@ -2513,6 +2908,12 @@
 
     .tb-contact-city-btn {
         flex: 0 0 auto;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+    }
+
+    .tb-contact-city-pagination {
+        display: flex;
     }
 
     .tb-contact-city-content h3 {
@@ -2523,15 +2924,15 @@
         line-height: 1.5;
     }
 
-    .tb-contact-form input,
-    .tb-contact-form textarea {
+    .tb-contact-form input {
         min-height: 48px;
         font-size: 16px;
     }
 
     .tb-contact-form textarea {
-        min-height: 128px;
-        height: auto;
+        min-height: 96px;
+        height: 96px;
+        font-size: 16px;
         resize: vertical;
     }
 
@@ -2866,6 +3267,29 @@
     align-items: center;
     gap: 0.42rem;
     min-width: 0;
+}
+
+.tb-res-tabs-pagination {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 0.42rem;
+    margin-top: 0.45rem;
+}
+
+.tb-res-tabs-pagination-dot {
+    width: 8px;
+    height: 8px;
+    border: 0;
+    border-radius: 999px;
+    background: #d2dff4;
+    padding: 0;
+    transition: width 0.2s ease, background-color 0.2s ease;
+}
+
+.tb-res-tabs-pagination-dot.is-active {
+    width: 22px;
+    background: #2f6be4;
 }
 
 .tb-res-tabs-nav {
@@ -3229,6 +3653,11 @@
         max-width: 100%;
     }
 
+    .tb-res-tabs-pagination {
+        display: flex;
+        width: 100%;
+    }
+
     .tb-res-tabs {
         flex-wrap: nowrap;
         overflow-x: auto;
@@ -3244,10 +3673,6 @@
         flex: 0 0 auto;
         scroll-snap-align: start;
         scroll-snap-stop: always;
-    }
-
-    .tb-res-tabs-nav {
-        display: inline-flex;
     }
 
     .tb-res-tabs::-webkit-scrollbar {
@@ -3421,5 +3846,30 @@
 
     .tb-blog-related-head {
         text-align: left;
+    }
+
+}
+
+/* Mobile overflow fix for careers page */
+@media (max-width: 768px) {
+    .tb-careers-shell {
+        overflow-x: hidden;
+    }
+
+    body {
+        overflow: auto !important;
+    }
+
+    .tb-about-section-head p {
+        margin-bottom: 0;
+    }
+
+    .tb-about-hero-art img,
+    .tb-res-hero-art img {
+        width: 50%;
+    }
+
+    .tb-res-hero-card {
+        padding-top: 65px;
     }
 }

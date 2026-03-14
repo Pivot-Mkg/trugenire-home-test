@@ -1290,6 +1290,9 @@ function renderOfferingTabs() {
           class="tb-offering-tab${idx === offeringIndex ? " is-active" : ""}"
           data-offering-index="${idx}"
           aria-pressed="${idx === offeringIndex}"
+          data-aos="fade-up"
+          data-aos-delay="${idx * 80}"
+          data-aos-duration="850"
         >
           ${offering.tab}
         </button>
@@ -1502,6 +1505,236 @@ function renderOfferings(animate = false) {
   }, OFFERING_TRANSITION_OUT_MS);
 }
 
+function initPageAOS() {
+  if (!window.AOS || typeof window.AOS.init !== "function") return;
+
+  const currentPage = (() => {
+    const segments = window.location.pathname.split("/").filter(Boolean);
+    const lastSegment = segments[segments.length - 1] || "index.html";
+    return lastSegment.toLowerCase();
+  })();
+
+  if (currentPage === "truegenie.html" || currentPage === "truegenie copy.html") {
+    return;
+  }
+
+  window.AOS.init({
+    once: true,
+    duration: 900,
+    easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+    offset: 70,
+    anchorPlacement: "top-bottom",
+  });
+
+  window.addEventListener(
+    "load",
+    () => {
+      window.AOS.refresh();
+    },
+    { once: true },
+  );
+}
+
+function initAOSOverflowGuards() {
+  if (!window.matchMedia("(max-width: 767.98px)").matches) return;
+
+  document
+    .querySelectorAll('[data-aos="fade-left"], [data-aos="fade-right"]')
+    .forEach((element) => {
+      const section = element.closest("section");
+      if (!section) return;
+
+      section.classList.add("tb-aos-overflow-guard");
+    });
+}
+
+function ensureToastLayer() {
+  let layer = document.querySelector("[data-toast-layer]");
+  if (layer) return layer;
+
+  layer = document.createElement("div");
+  layer.className = "tb-toast-layer";
+  layer.setAttribute("data-toast-layer", "");
+  layer.setAttribute("aria-live", "polite");
+  layer.setAttribute("aria-atomic", "false");
+  document.body.appendChild(layer);
+  return layer;
+}
+
+function showToast(message, type = "success") {
+  const layer = ensureToastLayer();
+  const toast = document.createElement("div");
+  const icon = document.createElement("span");
+  const text = document.createElement("p");
+
+  toast.className = `tb-toast tb-toast--${type}`;
+  toast.setAttribute("role", "status");
+
+  icon.className = "tb-toast-icon";
+  icon.setAttribute("aria-hidden", "true");
+
+  text.className = "tb-toast-text";
+  text.textContent = message;
+
+  toast.appendChild(icon);
+  toast.appendChild(text);
+  layer.appendChild(toast);
+
+  const dismiss = () => {
+    if (!toast.isConnected) return;
+    toast.classList.remove("is-visible");
+    window.setTimeout(() => {
+      if (toast.isConnected) toast.remove();
+    }, 220);
+  };
+
+  window.requestAnimationFrame(() => {
+    toast.classList.add("is-visible");
+  });
+
+  window.setTimeout(dismiss, 4200);
+  toast.addEventListener("click", dismiss, { once: true });
+}
+
+function initHeroEmailCapture() {
+  const form = document.querySelector("[data-hero-email-form]");
+  const input = document.querySelector("[data-hero-email-input]");
+  const submitTrigger = document.querySelector("[data-hero-email-submit]");
+
+  if (!form || !input || !submitTrigger || typeof window.fetch !== "function") return;
+
+  let isSubmitting = false;
+
+  const submitEmail = async () => {
+    const email = input.value.trim();
+    if (!form.reportValidity()) {
+      return;
+    }
+
+    if (isSubmitting) return;
+    isSubmitting = true;
+    submitTrigger.setAttribute("aria-disabled", "true");
+    input.setAttribute("aria-busy", "true");
+
+    try {
+      const payload = new URLSearchParams({
+        email,
+        source: "home-hero",
+      });
+
+      const response = await window.fetch("./api/hero-email.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          Accept: "application/json",
+          "X-Requested-With": "XMLHttpRequest",
+        },
+        body: payload.toString(),
+        credentials: "same-origin",
+      });
+
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok || !result || !result.ok) {
+        throw new Error(
+          (result && typeof result.message === "string" && result.message) ||
+            "We could not submit your email right now.",
+        );
+      }
+
+      input.value = "";
+      showToast(result.message || "Thanks. Your email has been submitted.", "success");
+    } catch (error) {
+      showToast(
+        error instanceof Error && error.message
+          ? error.message
+          : "We could not submit your email right now.",
+        "error",
+      );
+    } finally {
+      isSubmitting = false;
+      submitTrigger.removeAttribute("aria-disabled");
+      input.removeAttribute("aria-busy");
+    }
+  };
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    submitEmail();
+  });
+}
+
+function initAIEmailForms() {
+  const forms = Array.from(document.querySelectorAll("[data-ai-email-form]"));
+
+  if (!forms.length || typeof window.fetch !== "function") return;
+
+  forms.forEach((form) => {
+    const input = form.querySelector('input[type="email"]');
+    const submitButton = form.querySelector('button[type="submit"]');
+    const source = form.getAttribute("data-email-source") || "website-email";
+
+    if (!input || !submitButton) return;
+
+    let isSubmitting = false;
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (!form.reportValidity()) return;
+      if (isSubmitting) return;
+
+      isSubmitting = true;
+      submitButton.setAttribute("aria-disabled", "true");
+      input.setAttribute("aria-busy", "true");
+
+      try {
+        const payload = new URLSearchParams({
+          email: input.value.trim(),
+          source,
+        });
+
+        const response = await window.fetch("./api/hero-email.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            Accept: "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+          },
+          body: payload.toString(),
+          credentials: "same-origin",
+        });
+
+        const result = await response.json().catch(() => null);
+
+        if (!response.ok || !result || !result.ok) {
+          throw new Error(
+            (result && typeof result.message === "string" && result.message) ||
+              "We could not submit your email right now.",
+          );
+        }
+
+        input.value = "";
+        showToast(
+          result.message || "Thanks. Your email has been submitted.",
+          "success",
+        );
+      } catch (error) {
+        showToast(
+          error instanceof Error && error.message
+            ? error.message
+            : "We could not submit your email right now.",
+          "error",
+        );
+      } finally {
+        isSubmitting = false;
+        submitButton.removeAttribute("aria-disabled");
+        input.removeAttribute("aria-busy");
+      }
+    });
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initMenu();
   initActiveNavLink();
@@ -1514,5 +1747,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initProblemSectionOrder();
   initLifecycleToggles();
   initTrustTabs();
+  initAOSOverflowGuards();
+  initHeroEmailCapture();
+  initAIEmailForms();
   renderOfferings();
+  initPageAOS();
 });

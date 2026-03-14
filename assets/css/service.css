@@ -4,6 +4,44 @@
     align-items: center;
 }
 
+.tb-services-page .tb-services-hero-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(0.9rem, 2vw, 1.5rem);
+    align-items: center;
+}
+
+.tb-services-page .tb-services-hero-copy {
+    display: grid;
+    gap: 0.52rem;
+    max-width: 39rem;
+}
+
+.tb-services-page .tb-services-hero-copy .hero-heading {
+    margin: 0;
+    max-width: 34rem;
+}
+
+.tb-services-page .tb-services-actions {
+    margin-top: 0.85rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.tb-services-page .tb-services-hero-art {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.tb-services-page .tb-services-hero-art .hero-section-img {
+    width: min(100%, 27rem);
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
 .hero-section {
     padding-top: 6em;
 }
@@ -233,7 +271,7 @@
 }
 
 .primary-service-section {
-    padding-top: 72px;
+    padding-top: 2px;
 }
 
 .leadership-section {
@@ -241,20 +279,46 @@
 }
 
 @media (max-width: 991.98px) {
-    .hero-section .content-wrapper {
-        grid-template-columns: 1fr;
-        gap: 1rem;
+    .tb-services-page .tb-services-hero {
+        padding: clamp(1rem, 2.4vw, 1.7rem) 0;
     }
 
-    .hero-section .img-wrapper {
+    .tb-services-page .tb-services-hero-card {
+        grid-template-columns: 1fr;
+        padding: 110px 0 0 0;
+    }
+
+    .tb-services-page .tb-services-hero-copy {
+        text-align: left;
+    }
+
+    .tb-services-page .tb-services-actions {
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .tb-services-page .tb-services-hero-art {
         order: -1;
         width: 100%;
+        justify-content: center;
     }
 
-    .hero-section-img {
-        width: min(100%, 33rem);
+    .tb-services-page .tb-services-hero-art .hero-section-img {
+        width: min(100%, 22rem);
         margin: 0 auto;
         display: block;
+    }
+
+    .tb-services-page .tb-services-hero-copy .hero-heading,
+    .tb-services-page .tb-services-hero-copy .hero-heading span {
+        font-size: var(--tb-heading-size-xl);
+        line-height: 1.13;
+        font-weight: 700;
+    }
+
+    .tb-services-page .tb-services-hero-copy .content,
+    .tb-services-page .tb-services-hero-copy {
+        margin-bottom: 0;
     }
 }
 
@@ -281,6 +345,10 @@
         display: grid;
         grid-template-columns: 1fr;
         gap: 1rem;
+    }
+
+    .tb-services-page .tb-services-hero-card {
+        gap: clamp(0.9rem, 2vw, 1.5rem);
     }
 
     .hero-section .img-wrapper {
@@ -325,43 +393,24 @@
         flex-direction: column;
     }
 
-    .hero-heading {
-        font-family: var(--ff-primary);
-        font-size: 36px;
-        font-weight: 700;
-        color: var(--clr-primary);
-        max-width: 490px;
-        color: #286FED;
-        text-align: left;
-        margin-bottom: 1em;
-    }
-
-    .hero-section {
-        padding: 9em 1em 2em 1em;
-    }
-
-    .hero-heading span {
-        font-size: var(--tb-fs-36);
-    }
-
     .hero-section-cta-wrapper .cta-btn {
         padding: var(--tb-btn-pad-y) var(--tb-btn-pad-x);
     }
 
-    .hero-section-cta-wrapper {
+    .tb-services-page .hero-section-cta-wrapper {
         justify-content: flex-start;
-        align-items: flex-start;
+        align-items: stretch;
         flex-direction: row;
         flex-wrap: wrap;
         gap: 0.65rem;
+        justify-content: space-between;
     }
 
-    .hero-section-cta-wrapper .cta-btn {
-        width: auto;
-    }
-
-    .hero-section .content {
-        margin-bottom: 3em;
+    .tb-services-page .hero-section-cta-wrapper .cta-btn {
+        flex: 0 0 45%;
+        width: 45%;
+        max-width: 45%;
+        margin: 0;
     }
 
     .section-header .section-header-title {
@@ -398,9 +447,11 @@
 
 @media (max-width: 575.98px) {
 
-    .hero-heading,
-    .hero-heading span {
+    .tb-services-page .tb-services-hero-copy .hero-heading,
+    .tb-services-page .tb-services-hero-copy .hero-heading span {
         font-size: 24px;
+        line-height: 1.13;
+        text-align: left;
     }
 }
 
@@ -853,6 +904,14 @@
         font-size: 14px;
         line-height: 1.35;
     }
+
+    .tb-services-page .tb-services-hero-art .hero-section-img {
+        width: 50%;
+    }
+
+    .hero-section-img {
+        width: 50%;
+    }
 }
 
 @media (max-width: 359.98px) {
@@ -870,5 +929,66 @@
     .tb-services-page .tb-governance-section .secondary-feature-card-item-name,
     .tb-services-page .tb-engagement-section .secondary-feature-card-item-name {
         font-size: 13px;
+    }
+}
+
+/* Mobile slider for service team profiles */
+@media (max-width: 767.98px) {
+    .tb-services-page .leadership-tab {
+        display: none;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        gap: 20px;
+        align-items: stretch;
+        padding-bottom: 0;
+    }
+
+    .tb-services-page .leadership-tab::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tb-services-page .leadership-tab:not([hidden]) {
+        display: flex;
+    }
+
+    .tb-services-page .leadership-tab .leadership-card {
+        flex: 0 0 100%;
+        width: 100%;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        margin-bottom: 0;
+    }
+
+    .tb-services-page .leadership-section .tb-services-pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.42rem;
+        margin-top: 1rem;
+    }
+
+    .tb-services-page .leadership-section .tb-services-pagination-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: #d2dff4;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        transition: background-color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .tb-services-page .leadership-section .tb-services-pagination-dot.is-active {
+        background: #2f6be4;
+        opacity: 1;
+    }
+}
+
+@media (min-width: 768px) {
+    .tb-services-page .leadership-section .tb-services-pagination {
+        display: none;
     }
 }

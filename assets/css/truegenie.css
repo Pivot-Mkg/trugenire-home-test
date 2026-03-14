@@ -1,26 +1,281 @@
 .section-heading.primary-section-heading {
-    padding-bottom: 6px!important;
+    padding-bottom: 6px !important;
 }
 
 .section-heading.secondary-section-heading {
-    padding-bottom: 0px!important;
+    padding-bottom: 0px !important;
 }
 
-.engagement-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1em;
+/* Plans Structure Section Styles */
+.plans-structure-section {
+    padding: 72px 0;
 }
 
-.engagement-card--recommended {
-    padding-top: 28px;
+.plans-structure-section .section-header-title {
+    margin: 0;
+    text-align: center;
+    font-size: 32px;
+    line-height: 1.2;
+    color: #063e63;
 }
 
-.engagement-model-cta-active {
-    background-color: #286FED;
-    color: white;
-    border-radius: 32px;
+.price-plan-wrapper-mobile {
+    display: none;
+}
+
+.price-and-plan-grid-container {
+    padding: 10px 0 17px;
+}
+
+.price-and-plan-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto;
+    max-width: 1024px;
+    transition: transform 0.1s ease;
+}
+
+.card {
+    width: 30%;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    border: none;
+}
+
+.card.active,
+.card.price-and-plan-card-active {
+    transform: scale(1.1);
+    z-index: 1;
+}
+
+.price-and-plan-card {
+    position: relative;
+    height: 100%;
+    padding: 40px;
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 4px 13.7px rgba(49, 82, 227, 0.2);
+    overflow: hidden;
+}
+
+.price-and-plan-card::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 9px;
+    background: #063e63;
+}
+
+.price-and-plan-item-plan-name {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #8a879f;
+}
+
+.price-and-plan-card-item-title {
+    margin: 20px 0;
+    min-height: 78px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #063e63;
+}
+
+.get-in-touch-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    margin-top: 32px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background: #063e63;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.get-in-touch-cta:hover {
+    background: #ffffff;
+    border-color: #063e63;
+    color: #063e63;
+}
+
+.get-in-touch-cta:hover svg path {
+    fill: #063e63;
+}
+
+.arrow-icom {
+    display: inline-flex;
+    align-items: center;
+}
+
+.price-and-plan-card-active .price-and-plan-card::after {
+    background: #f39130;
+}
+
+.price-and-plan-card-active .get-in-touch-cta {
+    background: #f39130;
+}
+
+.price-and-plan-card-active .get-in-touch-cta:hover {
+    background: #ffffff;
+    border-color: #f39130;
+    color: #f39130;
+}
+
+.price-and-plan-card-active .get-in-touch-cta:hover svg path {
+    fill: #f39130;
+}
+
+.swiper {
+    overflow: hidden;
+}
+
+.swiper-slide {
+    height: auto;
+}
+
+.swiper-slide .price-and-plan-card {
+    margin: 10px;
+}
+
+.swiper-slide-active .price-and-plan-card::after {
+    background: #f39130;
+}
+
+.swiper-slide-active .get-in-touch-cta {
+    background: #f39130;
+}
+
+.price-plan-swiper-pagination {
+    position: static;
+    margin-top: 24px;
+}
+
+.price-plan-swiper-pagination .swiper-pagination-bullet {
+    background: #063e63;
+    opacity: 0.25;
+}
+
+.price-plan-swiper-pagination .swiper-pagination-bullet-active {
+    background: #f39130;
+    opacity: 1;
+}
+
+/* Commented out arrow navigation for mobile */
+/* .price-plan-swiper-prev,
+.price-plan-swiper-next {
+    color: #063e63;
+}
+
+.price-plan-swiper-prev::after,
+.price-plan-swiper-next::after {
+    font-size: 20px;
+    font-weight: 700;
+} */
+
+.price-plan-swiper-prev,
+.price-plan-swiper-next {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .plans-structure-section {
+        padding: 48px 0;
+    }
+
+    .plans-structure-section .section-header-title {
+        font-size: 24px;
+        margin: 0 0 12px;
+    }
+
+    .price-plan-wrapper-mobile {
+        display: block;
+    }
+
+    .price-and-plan-grid-container {
+        display: none;
+    }
+
+    .price-and-plan-card {
+        padding: 50px 20px 20px;
+        border-radius: 8px;
+        box-shadow: 0 1.75px 6.5px rgba(49, 82, 227, 0.12);
+    }
+
+    .price-and-plan-card::after {
+        height: 20px;
+        background: #f39130;
+    }
+
+    .price-and-plan-card-item-title {
+        margin: 15px 0;
+        min-height: 54px;
+        font-size: 14px;
+    }
+
+    .get-in-touch-cta {
+        margin-top: 24px;
+        padding: 10px 18px;
+        font-size: 12px;
+        background: #f39130;
+    }
+}
+
+@media (max-width: 480px) {
+    .plans-structure-section .section-header-title {
+        font-size: 20px;
+    }
+}
+
+/* Leadership Swiper Styles */
+.leadership-swiper {
+    overflow: visible;
+}
+
+.leadership-swiper-pagination {
+    position: static;
+    margin-top: 24px;
+}
+
+.leadership-swiper-pagination .swiper-pagination-bullet {
+    background: #063e63;
+    opacity: 0.25;
+}
+
+.leadership-swiper-pagination .swiper-pagination-bullet-active {
+    background: #f39130;
+    opacity: 1;
+}
+
+@media (min-width: 769px) {
+    .leadership-swiper {
+        overflow: visible;
+    }
+    
+    .leadership-swiper .swiper-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    
+    .leadership-swiper .swiper-slide {
+        width: calc(50% - 10px) !important;
+        margin: 0 !important;
+    }
+    
+    .leadership-swiper-pagination {
+        display: none;
+    }
 }
 
 /* 3D Card Animation CSS  */
-

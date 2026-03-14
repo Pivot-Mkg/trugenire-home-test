@@ -12,6 +12,7 @@
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="./assets/css/app.css">
     <link rel="stylesheet" href="./assets/css/web-pages.css">
 </head>
@@ -51,10 +52,11 @@
                             <a href="./careers.html">Careers</a>
                             <a href="./contact-us.html">Contact Us</a>
                         </div>
-                    </div>
-                    <a href="./about-us.html" class="tb-nav-link d-lg-none">About Us</a>
-                    <a href="./careers.html" class="tb-nav-link d-lg-none">Careers</a>
-                </nav>
+                        </div>
+                        <a href="./about-us.html" class="tb-nav-link d-lg-none">About Us</a>
+                        <a href="./careers.html" class="tb-nav-link d-lg-none">Careers</a>
+                        <a href="./contact-us.html" class="tb-nav-link d-lg-none">Contact Us</a>
+                    </nav>
             </div>
         </div>
     </header>
@@ -66,18 +68,19 @@
                     <div class="tb-res-hero-card">
                         <div class="tb-res-hero-copy">
 
-                            <h1>Resources Hub</h1>
-                            <p>
+                            <h1 data-aos="fade-up" data-aos-duration="950">Resources Hub</h1>
+                            <p data-aos="fade-up" data-aos-delay="140" data-aos-duration="950">
                                 Market-leading analysis, platform updates, and case-backed insights for developers,
                                 lenders,
                                 investors, and asset managers.
                             </p>
-                            <div class="tb-res-hero-actions">
+                            <div class="tb-res-hero-actions" data-aos="fade-up" data-aos-delay="240"
+                                data-aos-duration="900">
                                 <a href="./contact-us.html#contactTabGeneral" class="btn tb-btn tb-btn-blue">START A
                                     CONVERSATION</a>
                             </div>
                         </div>
-                        <div class="tb-res-hero-art">
+                        <div class="tb-res-hero-art" data-aos="fade-left" data-aos-delay="320" data-aos-duration="1000">
                             <img src="./assets/images/banners/resources.png"
                                 alt="Resources insights banner illustration">
                         </div>
@@ -86,17 +89,10 @@
             </section>
         </div>
 
-        <section class="tb-res-filter-wrap" aria-label="Resource filters">
+        <section class="tb-res-filter-wrap" aria-label="Resource filters" data-aos="fade-up" data-aos-duration="850">
             <div class="container-xl">
                 <div class="tb-res-filter">
                     <div class="tb-res-tabs-shell">
-                        <button type="button" class="tb-res-tabs-nav tb-res-tabs-nav-prev" data-res-tab-prev
-                            aria-label="Scroll categories left" hidden>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-                                <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="1.8"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </button>
                         <div class="tb-res-tabs" role="tablist" aria-label="Resource categories" data-res-tab-scroller>
                             <button type="button" class="tb-res-tab is-active" aria-selected="true" data-resource-tab
                                 data-filter="all">All Resources</button>
@@ -107,14 +103,9 @@
                             <button type="button" class="tb-res-tab" aria-selected="false" data-resource-tab
                                 data-filter="whitepaper">Whitepapers</button>
                         </div>
-                        <button type="button" class="tb-res-tabs-nav tb-res-tabs-nav-next" data-res-tab-next
-                            aria-label="Scroll categories right" hidden>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-                                <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="1.8"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </button>
                     </div>
+                    <div class="tb-res-tabs-pagination" data-res-tabs-pagination aria-label="Resource categories pagination"
+                        hidden></div>
                     <label class="tb-res-sort">
                         Sort by:
                         <select aria-label="Sort resources" data-resource-sort>
@@ -133,6 +124,7 @@
                     <div class="tb-res-main">
                         <div class="tb-res-card-grid">
                             <article class="tb-res-card" data-category="market-insight" data-date="2023-10-24"
+                                data-aos="fade-up" data-aos-delay="80" data-aos-duration="900"
                                 data-popularity="94">
                                 <div class="tb-res-card-media">
                                     <img src="./assets/images/blog-1.jpg"
@@ -154,6 +146,7 @@
                             </article>
 
                             <article class="tb-res-card" data-category="whitepaper" data-date="2023-10-12"
+                                data-aos="fade-up" data-aos-delay="200" data-aos-duration="900"
                                 data-popularity="89">
                                 <div class="tb-res-card-media bg-2">
                                     <img src="./assets/images/blog-2.jpg"
@@ -175,6 +168,7 @@
                             </article>
 
                             <article class="tb-res-card" data-category="case-study" data-date="2023-09-28"
+                                data-aos="fade-up" data-aos-delay="320" data-aos-duration="900"
                                 data-popularity="92">
                                 <div class="tb-res-card-media bg-3">
                                     <img src="./assets/images/blog-3.jpg"
@@ -206,7 +200,7 @@
 
     <footer class="tb-footer">
         <div class="container-xl">
-            <div class="tb-footer-shell">
+            <div class="tb-footer-shell" data-aos="fade-up" data-aos-duration="850">
                 <div class="tb-footer-left">
                     <a href="./index.html" class="tb-footer-logo" aria-label="TruBoard home">
                         <img src="./assets/images/1a36bc184ac42a93ebf62d57aae0e30c740ff2ab-B2Jtxq84.png"
@@ -245,14 +239,15 @@
             const tabs = Array.from(document.querySelectorAll("[data-resource-tab]"));
             const sortSelect = document.querySelector("[data-resource-sort]");
             const tabScroller = document.querySelector("[data-res-tab-scroller]");
-            const tabPrevButton = document.querySelector("[data-res-tab-prev]");
-            const tabNextButton = document.querySelector("[data-res-tab-next]");
+            const tabPagination = document.querySelector("[data-res-tabs-pagination]");
             const mobileMedia = window.matchMedia("(max-width: 575.98px)");
             if (!grid || !tabs.length || !sortSelect) return;
 
             const cards = Array.from(grid.querySelectorAll(".tb-res-card"));
             let activeFilter = "all";
             let activeSort = sortSelect.value || "newest";
+            let tabDots = [];
+            let tabScrollFrame = null;
 
             function compareCards(a, b) {
                 if (activeSort === "alphabetical") {
@@ -290,6 +285,7 @@
                 tab.addEventListener("click", () => {
                     const filter = tab.getAttribute("data-filter") || "all";
                     activeFilter = filter;
+                    const tabIndex = tabs.indexOf(tab);
 
                     tabs.forEach((item) => {
                         const isActive = item === tab;
@@ -305,6 +301,7 @@
                         });
                     }
 
+                    updateTabDots(tabIndex);
                     renderCards();
                 });
             });
@@ -314,22 +311,12 @@
                 renderCards();
             });
 
-            function updateTabArrows() {
-                if (!tabScroller || !tabPrevButton || !tabNextButton) return;
-
-                if (!mobileMedia.matches) {
-                    tabPrevButton.hidden = true;
-                    tabNextButton.hidden = true;
-                    return;
-                }
-
-                const maxScroll = tabScroller.scrollWidth - tabScroller.clientWidth;
-                const hasOverflow = maxScroll > 2;
-                const atStart = tabScroller.scrollLeft <= 2;
-                const atEnd = tabScroller.scrollLeft >= maxScroll - 2;
-
-                tabPrevButton.hidden = !hasOverflow || atStart;
-                tabNextButton.hidden = !hasOverflow || atEnd;
+            function updateTabDots(activeIndex) {
+                tabDots.forEach((dot, index) => {
+                    const isActive = index === activeIndex;
+                    dot.classList.toggle("is-active", isActive);
+                    dot.setAttribute("aria-current", isActive ? "true" : "false");
+                });
             }
 
             function getTabLeft(tab) {
@@ -357,36 +344,78 @@
                 return closestIndex;
             }
 
-            if (tabScroller && tabPrevButton && tabNextButton) {
-                const scrollTabsByOne = (direction) => {
-                    if (!mobileMedia.matches || !tabs.length) return;
+            function buildTabPagination() {
+                if (!tabScroller || !tabPagination) return;
 
-                    const step = direction < 0 ? -1 : 1;
-                    const currentIndex = getClosestTabIndex();
-                    const targetIndex = Math.max(0, Math.min(tabs.length - 1, currentIndex + step));
+                tabPagination.innerHTML = "";
+                tabDots = [];
 
-                    tabScroller.scrollTo({
-                        left: getTabLeft(tabs[targetIndex]),
-                        behavior: "smooth",
+                if (!mobileMedia.matches || tabs.length < 2) {
+                    tabPagination.hidden = true;
+                    return;
+                }
+
+                tabDots = tabs.map((tab, index) => {
+                    const dot = document.createElement("button");
+                    dot.type = "button";
+                    dot.className = "tb-res-tabs-pagination-dot";
+                    dot.setAttribute("aria-label", `Go to ${tab.textContent.trim()}`);
+                    dot.addEventListener("click", () => {
+                        if (!tabScroller) return;
+
+                        tabScroller.scrollTo({
+                            left: getTabLeft(tab),
+                            behavior: "smooth",
+                        });
+                        updateTabDots(index);
                     });
-                };
+                    tabPagination.appendChild(dot);
+                    return dot;
+                });
 
-                tabPrevButton.addEventListener("click", () => scrollTabsByOne(-1));
-                tabNextButton.addEventListener("click", () => scrollTabsByOne(1));
-                tabScroller.addEventListener("scroll", updateTabArrows, { passive: true });
-                window.addEventListener("resize", updateTabArrows);
+                tabPagination.hidden = false;
+                updateTabDots(getClosestTabIndex());
+            }
+
+            function syncTabPagination() {
+                if (!mobileMedia.matches || !tabScroller || !tabDots.length) return;
+                if (tabScrollFrame) cancelAnimationFrame(tabScrollFrame);
+
+                tabScrollFrame = window.requestAnimationFrame(() => {
+                    tabScrollFrame = null;
+                    updateTabDots(getClosestTabIndex());
+                });
+            }
+
+            function handleTabPaginationMode() {
+                if (!tabScroller || !tabPagination) return;
+
+                if (!mobileMedia.matches) {
+                    tabPagination.hidden = true;
+                    tabPagination.innerHTML = "";
+                    tabDots = [];
+                    return;
+                }
+
+                buildTabPagination();
+            }
+
+            if (tabScroller && tabPagination) {
+                tabScroller.addEventListener("scroll", syncTabPagination, { passive: true });
+                window.addEventListener("resize", handleTabPaginationMode);
 
                 if (mobileMedia.addEventListener) {
-                    mobileMedia.addEventListener("change", updateTabArrows);
+                    mobileMedia.addEventListener("change", handleTabPaginationMode);
                 } else if (mobileMedia.addListener) {
-                    mobileMedia.addListener(updateTabArrows);
+                    mobileMedia.addListener(handleTabPaginationMode);
                 }
             }
 
             renderCards();
-            updateTabArrows();
+            handleTabPaginationMode();
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
     <script src="./assets/js/app.js" defer></script>
 </body>
 

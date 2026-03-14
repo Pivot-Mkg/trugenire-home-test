@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initFunctionalModules();
   initLeadershipLabelTabs();
   initServiceTeamTabArrows();
+  initServicesTeamMobileSlider();
   initLeadershipButtonTabs();
   initProcessStepHoverEffects();
   initProcessMobileSlider();
@@ -9,15 +10,50 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function initFunctionalModules() {
-  const toggles = Array.from(document.querySelectorAll(".module-toggle"));
+  const section = document.querySelector(".functional-modules-section");
+  const sidebar = section?.querySelector(".functional-modules-sidebar");
+  const toggles = Array.from(section?.querySelectorAll(".module-toggle") || []);
   const icon = document.getElementById("functional-module-icon");
   const title = document.getElementById("functional-module-title");
   const image = document.getElementById("functional-module-image");
   const points = document.getElementById("functional-module-points");
+  const mobileMedia = window.matchMedia("(max-width: 767.98px)");
 
-  if (!toggles.length || !title || !image || !points) return;
+  if (!section || !sidebar || !toggles.length || !title || !image || !points) return;
 
-  const renderModule = (button) => {
+  let pagination = section.querySelector("[data-module-pagination]");
+  let dots = [];
+  let scrollFrame = null;
+
+  if (!pagination) {
+    pagination = document.createElement("div");
+    pagination.className = "functional-modules-mobile-pagination";
+    pagination.setAttribute("data-module-pagination", "");
+    pagination.setAttribute("aria-label", "Functional module navigation");
+    sidebar.insertAdjacentElement("afterend", pagination);
+  }
+
+  const updatePagination = (activeButton) => {
+    dots.forEach((dot, index) => {
+      const isActive = toggles[index] === activeButton;
+      dot.classList.toggle("is-active", isActive);
+      dot.setAttribute("aria-pressed", String(isActive));
+    });
+  };
+
+  const scrollToggleIntoView = (button, behavior = "smooth") => {
+    if (!mobileMedia.matches || !button) return;
+
+    const maxScroll = Math.max(0, sidebar.scrollWidth - sidebar.clientWidth);
+    const targetLeft = Math.min(maxScroll, Math.max(0, button.offsetLeft - 2));
+
+    sidebar.scrollTo({
+      left: targetLeft,
+      behavior,
+    });
+  };
+
+  const renderModule = (button, options = {}) => {
     if (!button) return;
 
     const nextIcon = button.getAttribute("data-icon") || "";
@@ -26,12 +62,23 @@ function initFunctionalModules() {
     const rawPoints = (button.getAttribute("data-points") || "").toString();
     const items = rawPoints.split("|").map((value) => value.trim()).filter(Boolean);
 
-    toggles.forEach((toggle) => toggle.classList.remove("is-active"));
+    toggles.forEach((toggle) => {
+      const isActive = toggle === button;
+      toggle.classList.toggle("is-active", isActive);
+      toggle.setAttribute("aria-pressed", String(isActive));
+    });
+
     button.classList.add("is-active");
 
     title.textContent = nextTitle;
-    if (nextIcon) icon.setAttribute("src", nextIcon);
-    if (nextImage) image.setAttribute("src", nextImage);
+    if (icon && nextIcon) {
+      icon.setAttribute("src", nextIcon);
+      icon.setAttribute("alt", `${nextTitle} icon`);
+    }
+    if (nextImage) {
+      image.setAttribute("src", nextImage);
+      image.setAttribute("alt", `${nextTitle} preview`);
+    }
 
     points.innerHTML = "";
     items.forEach((item) => {
@@ -39,13 +86,91 @@ function initFunctionalModules() {
       li.textContent = item;
       points.appendChild(li);
     });
+
+    updatePagination(button);
+
+    if (options.syncSlider !== false) {
+      scrollToggleIntoView(button, options.behavior || "smooth");
+    }
+  };
+
+  const buildPagination = () => {
+    pagination.innerHTML = "";
+
+    dots = toggles.map((toggle, index) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "functional-modules-pagination-dot";
+      dot.setAttribute(
+        "aria-label",
+        `Show ${toggle.getAttribute("data-title") || `module ${index + 1}`}`,
+      );
+      dot.addEventListener("click", () => {
+        renderModule(toggle, { behavior: "smooth" });
+      });
+      pagination.appendChild(dot);
+      return dot;
+    });
+
+    pagination.hidden = !mobileMedia.matches || toggles.length < 2;
+  };
+
+  const getClosestToggle = () => {
+    if (!toggles.length) return null;
+
+    const currentCenter = sidebar.scrollLeft + sidebar.clientWidth / 2;
+
+    return toggles.reduce((closest, toggle) => {
+      const closestCenter = closest.offsetLeft + closest.offsetWidth / 2;
+      const toggleCenter = toggle.offsetLeft + toggle.offsetWidth / 2;
+
+      return Math.abs(toggleCenter - currentCenter) <
+        Math.abs(closestCenter - currentCenter)
+        ? toggle
+        : closest;
+    }, toggles[0]);
+  };
+
+  const syncFromScroll = () => {
+    if (!mobileMedia.matches || scrollFrame) return;
+
+    scrollFrame = window.requestAnimationFrame(() => {
+      scrollFrame = null;
+
+      const closestToggle = getClosestToggle();
+      if (closestToggle && !closestToggle.classList.contains("is-active")) {
+        renderModule(closestToggle, { behavior: "auto", syncSlider: false });
+      }
+    });
+  };
+
+  const handleBreakpointChange = () => {
+    pagination.hidden = !mobileMedia.matches || toggles.length < 2;
+
+    const activeToggle =
+      toggles.find((toggle) => toggle.classList.contains("is-active")) || toggles[0];
+
+    if (mobileMedia.matches && activeToggle) {
+      scrollToggleIntoView(activeToggle, "auto");
+    }
   };
 
   toggles.forEach((toggle) => {
     toggle.addEventListener("click", () => renderModule(toggle));
   });
 
-  renderModule(document.querySelector(".module-toggle.is-active") || toggles[0]);
+  sidebar.addEventListener("scroll", syncFromScroll, { passive: true });
+
+  if (typeof mobileMedia.addEventListener === "function") {
+    mobileMedia.addEventListener("change", handleBreakpointChange);
+  } else if (typeof mobileMedia.addListener === "function") {
+    mobileMedia.addListener(handleBreakpointChange);
+  }
+
+  buildPagination();
+  renderModule(section.querySelector(".module-toggle.is-active") || toggles[0], {
+    behavior: "auto",
+  });
 }
 
 function initLeadershipLabelTabs() {
@@ -172,6 +297,136 @@ function initServiceTeamTabArrows() {
   }
 
   updateTabArrows();
+}
+
+function initServicesTeamMobileSlider() {
+  const section = document.querySelector(".tb-services-page .leadership-section");
+  const tabs = Array.from(section?.querySelectorAll(".leadership-tab") || []);
+  const labels = Array.from(
+    section?.querySelectorAll(".leadership-tab-button-wrapper .leadership-tab-buttom[for]") || [],
+  );
+  const pagination = section?.querySelector("[data-services-pagination]");
+  const mobileMedia = window.matchMedia("(max-width: 767.98px)");
+
+  if (!section || !tabs.length || !pagination) return;
+
+  let activeTab = null;
+  let dots = [];
+  let scrollFrame = null;
+
+  const getActiveTab = () => tabs.find((tab) => !tab.hidden) || tabs[0] || null;
+
+  const getCards = (tab) =>
+    Array.from(tab?.querySelectorAll(".leadership-card") || []);
+
+  const updateDots = (activeIndex) => {
+    dots.forEach((dot, index) => {
+      const isActive = index === activeIndex;
+      dot.classList.toggle("is-active", isActive);
+      dot.setAttribute("aria-current", isActive ? "true" : "false");
+    });
+  };
+
+  const getClosestCardIndex = () => {
+    const cards = getCards(activeTab);
+    if (!cards.length || !activeTab) return 0;
+
+    return cards.reduce((closestIndex, card, index) => {
+      const closestCard = cards[closestIndex];
+      const currentDiff = Math.abs(card.offsetLeft - activeTab.scrollLeft);
+      const closestDiff = Math.abs(closestCard.offsetLeft - activeTab.scrollLeft);
+      return currentDiff < closestDiff ? index : closestIndex;
+    }, 0);
+  };
+
+  const scrollToCard = (index) => {
+    const cards = getCards(activeTab);
+    const targetCard = cards[index];
+    if (!targetCard || !activeTab) return;
+
+    activeTab.scrollTo({
+      left: targetCard.offsetLeft,
+      behavior: "smooth",
+    });
+  };
+
+  const syncFromScroll = () => {
+    if (!mobileMedia.matches || !activeTab) return;
+    if (scrollFrame) cancelAnimationFrame(scrollFrame);
+
+    scrollFrame = window.requestAnimationFrame(() => {
+      scrollFrame = null;
+      updateDots(getClosestCardIndex());
+    });
+  };
+
+  const buildPagination = () => {
+    activeTab = getActiveTab();
+    const cards = getCards(activeTab);
+
+    pagination.innerHTML = "";
+    dots = [];
+
+    if (!mobileMedia.matches || cards.length < 2) {
+      pagination.hidden = true;
+      return;
+    }
+
+    dots = cards.map((_, index) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "tb-services-pagination-dot";
+      dot.setAttribute("aria-label", `Go to service team profile ${index + 1}`);
+      dot.setAttribute("aria-current", index === 0 ? "true" : "false");
+      dot.addEventListener("click", () => {
+        scrollToCard(index);
+        updateDots(index);
+      });
+      pagination.appendChild(dot);
+      return dot;
+    });
+
+    pagination.hidden = false;
+    updateDots(getClosestCardIndex());
+  };
+
+  const syncSliderState = () => {
+    activeTab = getActiveTab();
+
+    if (!mobileMedia.matches) {
+      pagination.hidden = true;
+      pagination.innerHTML = "";
+      return;
+    }
+
+    if (activeTab) {
+      activeTab.scrollTo({ left: 0, behavior: "auto" });
+    }
+
+    buildPagination();
+  };
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("scroll", () => {
+      if (tab !== activeTab) return;
+      syncFromScroll();
+    }, { passive: true });
+  });
+
+  labels.forEach((label) => {
+    label.addEventListener("click", () => {
+      window.setTimeout(syncSliderState, 0);
+    });
+  });
+
+  if (typeof mobileMedia.addEventListener === "function") {
+    mobileMedia.addEventListener("change", syncSliderState);
+  } else if (typeof mobileMedia.addListener === "function") {
+    mobileMedia.addListener(syncSliderState);
+  }
+
+  window.addEventListener("resize", syncSliderState);
+  syncSliderState();
 }
 
 function initLeadershipButtonTabs() {
