@@ -67,7 +67,11 @@
         <div class="container-xl">
           <div class="tb-contact-hero-card">
             <div class="tb-contact-hero-art" aria-hidden="true">
-              <img src="./assets/images/banners/contact-us-banner.jpg" alt="">
+              <picture>
+                <source media="(max-width: 767.98px)" srcset="./assets/images/banners/contact-us-banner.jpg">
+                <img src="./assets/images/banners/contact-us-banner.jpg" alt="" width="1500" height="592"
+                  fetchpriority="high" decoding="async">
+              </picture>
             </div>
             <div class="tb-contact-hero-content">
               <p class="tb-contact-kicker" data-aos="fade-up" data-aos-duration="950">Connect With TruBoard</p>
@@ -514,7 +518,7 @@
             if (typeof value === "string") payload.append(key, value);
           });
 
-          const response = await window.fetch("./api/contact-form.php", {
+          const response = await window.fetch("./assets/mails/contact-mail.php", {
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",

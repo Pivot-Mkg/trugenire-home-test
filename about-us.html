@@ -84,7 +84,12 @@
                 <div class="container-xl">
                     <div class="tb-about-hero-card">
                         <div class="tb-about-hero-art" aria-hidden="true">
-                            <img src="./assets/images/banners/about-us-banner.jpg" alt="">
+                            <picture>
+                                <source media="(max-width: 767.98px)"
+                                    srcset="./assets/images/banners/about-us-banner.jpg">
+                                <img src="./assets/images/banners/about-us-banner.jpg" alt="" width="1000"
+                                    height="652" fetchpriority="high" decoding="async">
+                            </picture>
                         </div>
                         <div class="tb-about-hero-copy">
                             <h1 data-aos="fade-up" data-aos-duration="950">Execution confidence for modern real estate

@@ -542,7 +542,7 @@ a {
   min-height: 21.5rem;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1032px) {
   .tb-hero {
     min-height: 100vh;
     min-height: 100svh;
@@ -551,6 +551,9 @@ a {
     padding-top: 9em;
     padding-bottom: clamp(1rem, 2.2vh, 1.8rem);
   }
+}
+
+@media (min-width: 992px) {
 
   .tb-hero>.container-xl {
     width: 100%;

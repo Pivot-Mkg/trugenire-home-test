@@ -69,7 +69,12 @@
                 <div class="container-xl">
                     <div class="tb-careers-hero-card">
                         <div class="tb-careers-hero-art" aria-hidden="true">
-                            <img src="./assets/images/banners/career-banner.jpg" alt="">
+                            <picture>
+                                <source media="(max-width: 767.98px)"
+                                    srcset="./assets/images/banners/career-banner.jpg">
+                                <img src="./assets/images/banners/career-banner.jpg" alt="" width="3168"
+                                    height="1344" fetchpriority="high" decoding="async">
+                            </picture>
                         </div>
                         <div class="tb-careers-hero-copy">
                             <!-- <p class="tb-careers-kicker">Careers At TruBoard</p> -->
@@ -627,7 +632,7 @@
                     submitButton.setAttribute("aria-disabled", "true");
 
                     try {
-                        const response = await window.fetch("./api/careers-form.php", {
+                        const response = await window.fetch("./assets/mails/career-mail.php", {
                             method: "POST",
                             headers: {
                                 Accept: "application/json",

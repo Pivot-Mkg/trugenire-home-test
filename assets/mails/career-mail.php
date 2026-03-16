@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-require __DIR__ . '/mail-common.php';
+require __DIR__ . '/mail-helper.php';
 
 tb_ensure_post_request();
 
@@ -140,7 +140,7 @@ $sent = tb_send_mail_with_attachment(
 if (!$sent) {
     tb_json_response(500, [
         'ok' => false,
-        'message' => 'We could not submit the profile right now.',
+        'message' => tb_public_mail_error_message('We could not submit the profile right now.'),
     ]);
 }
 

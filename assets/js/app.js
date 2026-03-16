@@ -1282,32 +1282,41 @@ function renderOfferingTabs() {
   const tabs = document.getElementById("offeringTabs");
   if (!tabs) return;
 
-  tabs.innerHTML = offerings
-    .map(
-      (offering, idx) => `
-        <button
-          type="button"
-          class="tb-offering-tab${idx === offeringIndex ? " is-active" : ""}"
-          data-offering-index="${idx}"
-          aria-pressed="${idx === offeringIndex}"
-          data-aos="fade-up"
-          data-aos-delay="${idx * 80}"
-          data-aos-duration="850"
-        >
-          ${offering.tab}
-        </button>
-      `,
-    )
-    .join("");
+  if (tabs.children.length === 0) {
+    tabs.innerHTML = offerings
+      .map(
+        (offering, idx) => `
+          <button
+            type="button"
+            class="tb-offering-tab${idx === offeringIndex ? " is-active" : ""}"
+            data-offering-index="${idx}"
+            aria-pressed="${idx === offeringIndex}"
+            data-aos="fade-up"
+            data-aos-delay="${idx * 80}"
+            data-aos-duration="850"
+          >
+            ${offering.tab}
+          </button>
+        `,
+      )
+      .join("");
 
-  tabs.querySelectorAll("[data-offering-index]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const nextIndex = Number(button.getAttribute("data-offering-index"));
-      if (nextIndex === offeringIndex) return;
-      offeringIndex = nextIndex;
-      renderOfferings(true);
+    tabs.querySelectorAll("[data-offering-index]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const nextIndex = Number(button.getAttribute("data-offering-index"));
+        if (nextIndex === offeringIndex) return;
+        offeringIndex = nextIndex;
+        renderOfferings(true);
+      });
     });
-  });
+  } else {
+    tabs.querySelectorAll("[data-offering-index]").forEach((button) => {
+      const idx = Number(button.getAttribute("data-offering-index"));
+      const isActive = idx === offeringIndex;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
+    });
+  }
 }
 
 function updateOfferingImage(current, animate = false) {
@@ -1607,53 +1616,57 @@ function initHeroEmailCapture() {
 
   const submitEmail = async () => {
     const email = input.value.trim();
-    if (!form.reportValidity()) {
-      return;
-    }
+    if (!form.reportValidity()) return;
 
     if (isSubmitting) return;
     isSubmitting = true;
+    if (!submitTrigger.dataset.originalText) {
+      submitTrigger.dataset.originalText = submitTrigger.textContent.trim();
+    }
+
+    submitTrigger.disabled = true;
     submitTrigger.setAttribute("aria-disabled", "true");
+    submitTrigger.textContent = "Sending...";
     input.setAttribute("aria-busy", "true");
 
     try {
-      const payload = new URLSearchParams({
-        email,
-        source: "home-hero",
-      });
+      const payload = new FormData();
+      payload.append("userEmail", email);
 
-      const response = await window.fetch("./api/hero-email.php", {
+      const response = await window.fetch("./assets/mails/home-mail.php", {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
           Accept: "application/json",
           "X-Requested-With": "XMLHttpRequest",
         },
-        body: payload.toString(),
+        body: payload,
         credentials: "same-origin",
       });
 
       const result = await response.json().catch(() => null);
 
-      if (!response.ok || !result || !result.ok) {
+      if (!response.ok || !result || result.status !== 200) {
         throw new Error(
           (result && typeof result.message === "string" && result.message) ||
-            "We could not submit your email right now.",
+            "Unable to submit your email right now.",
         );
       }
 
       input.value = "";
-      showToast(result.message || "Thanks. Your email has been submitted.", "success");
+      showToast(result.message || "Mail sent successfully!", "success");
     } catch (error) {
       showToast(
         error instanceof Error && error.message
           ? error.message
-          : "We could not submit your email right now.",
+          : "Unable to submit your email right now.",
         "error",
       );
     } finally {
       isSubmitting = false;
+      submitTrigger.disabled = false;
       submitTrigger.removeAttribute("aria-disabled");
+      submitTrigger.textContent =
+        submitTrigger.dataset.originalText || "Get in Touch";
       input.removeAttribute("aria-busy");
     }
   };
@@ -1694,7 +1707,7 @@ function initAIEmailForms() {
           source,
         });
 
-        const response = await window.fetch("./api/hero-email.php", {
+        const response = await window.fetch("./assets/mails/waitlist-mail.php", {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
