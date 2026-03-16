@@ -261,18 +261,18 @@
     .leadership-swiper {
         overflow: visible;
     }
-    
+
     .leadership-swiper .swiper-wrapper {
         display: flex;
         flex-wrap: wrap;
-        gap: 20px;
+        /* gap: 20px; */
     }
-    
+
     .leadership-swiper .swiper-slide {
-        width: calc(50% - 10px) !important;
+        width: 100% !important;
         margin: 0 !important;
     }
-    
+
     .leadership-swiper-pagination {
         display: none;
     }
