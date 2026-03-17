@@ -43,14 +43,14 @@ function tb_mail_from(): string
 {
     $from = tb_mail_config()['from']['email'] ?? 'website-enquiry@truboardpartners.com';
 
-    return (string) $from;
+    return trim((string) $from);
 }
 
 function tb_mail_from_name(): string
 {
     $fromName = tb_mail_config()['from']['name'] ?? 'Website Enquiry';
 
-    return (string) $fromName;
+    return trim((string) $fromName);
 }
 
 function tb_request_meta_lines(): array
@@ -60,21 +60,6 @@ function tb_request_meta_lines(): array
         'IP address: ' . (string) ($_SERVER['REMOTE_ADDR'] ?? 'Unavailable'),
         'User agent: ' . (string) ($_SERVER['HTTP_USER_AGENT'] ?? 'Unavailable'),
     ];
-}
-
-function tb_mail_headers(array $extraHeaders = [], ?string $replyTo = null): string
-{
-    $headers = [
-        'MIME-Version: 1.0',
-        'From: TruBoard Website Enquiry <' . tb_mail_from() . '>',
-        'X-Mailer: PHP/' . phpversion(),
-    ];
-
-    if ($replyTo !== null && $replyTo !== '') {
-        $headers[] = 'Reply-To: ' . $replyTo;
-    }
-
-    return implode("\r\n", array_merge($headers, $extraHeaders));
 }
 
 function tb_clear_last_mail_error(): void
@@ -105,8 +90,14 @@ function tb_record_mail_error(PHPMailer $mail, Exception $exception): void
     tb_set_last_mail_error($detail);
 
     if ($detail !== '') {
-        error_log('[TruBoard Mail] ' . $detail);
+        tb_log_mail_error_detail($detail);
     }
+}
+
+function tb_log_mail_error_detail(string $detail): void
+{
+    $script = basename((string) ($_SERVER['SCRIPT_NAME'] ?? 'mail-endpoint'));
+    error_log('[TruBoard Mail][' . $script . '] ' . trim($detail));
 }
 
 function tb_public_mail_error_message(
@@ -129,11 +120,19 @@ function tb_public_mail_error_message(
     }
 
     if (
+        str_contains($detail, '5.7.57') ||
+        str_contains($detail, '5.7.139') ||
+        str_contains($detail, 'client was not authenticated')
+    ) {
+        return 'Office365 rejected the authenticated send request. Confirm SMTP AUTH is enabled and this mailbox is allowed to send from website-enquiry@truboardpartners.com.';
+    }
+
+    if (
         str_contains($detail, 'authenticate') ||
         str_contains($detail, 'authentication') ||
         str_contains($detail, '535')
     ) {
-        return 'SMTP authentication failed. Check the configured mail username and password.';
+        return 'SMTP authentication was rejected by Office365. Confirm the mailbox credentials and SMTP AUTH settings on this server.';
     }
 
     return $defaultMessage;
@@ -218,40 +217,77 @@ function tb_require_phpmailer_autoload(): void
     ]);
 }
 
+function tb_assert_mail_configuration(array $smtp): void
+{
+    $host = trim((string) ($smtp['host'] ?? ''));
+    $username = trim((string) ($smtp['username'] ?? ''));
+    $password = trim((string) ($smtp['password'] ?? ''));
+    $fromEmail = tb_mail_from();
+    $hasRecipient = false;
+
+    foreach (tb_mail_recipients() as $recipient) {
+        $email = trim((string) ($recipient['email'] ?? ''));
+        if ($email !== '') {
+            $hasRecipient = true;
+            break;
+        }
+    }
+
+    if ($host === '' || $username === '' || $password === '' || $fromEmail === '' || !$hasRecipient) {
+        tb_json_response(500, [
+            'ok' => false,
+            'message' => 'Mail service is not fully configured on this server.',
+        ]);
+    }
+}
+
 function tb_configure_mailer(?string $replyTo = null): PHPMailer
 {
     tb_require_phpmailer_autoload();
 
     $config = tb_mail_config();
     $smtp = $config['smtp'] ?? [];
+    tb_assert_mail_configuration($smtp);
+    $smtpSecure = trim((string) ($smtp['secure'] ?? 'starttls'));
+    $replyToAddress = trim((string) $replyTo);
 
     $mail = new PHPMailer(true);
     $mail->isSMTP();
     $mail->CharSet = 'UTF-8';
-    $mail->Host = (string) ($smtp['host'] ?? '');
+    $mail->Host = trim((string) ($smtp['host'] ?? ''));
     $mail->SMTPAuth = (bool) ($smtp['auth'] ?? true);
-    $mail->Username = (string) ($smtp['username'] ?? '');
-    $mail->Password = (string) ($smtp['password'] ?? '');
+    $mail->Username = trim((string) ($smtp['username'] ?? ''));
+    $mail->Password = trim((string) ($smtp['password'] ?? ''));
     $mail->Port = (int) ($smtp['port'] ?? 587);
-    $mail->SMTPSecure = (($smtp['secure'] ?? 'starttls') === 'starttls')
+    $mail->Timeout = 20;
+    $mail->SMTPSecure = ($smtpSecure === 'starttls')
         ? PHPMailer::ENCRYPTION_STARTTLS
-        : (string) ($smtp['secure'] ?? '');
+        : $smtpSecure;
 
     $mail->setFrom(tb_mail_from(), tb_mail_from_name());
 
+    $recipientCount = 0;
     foreach (tb_mail_recipients() as $recipient) {
-        $email = (string) ($recipient['email'] ?? '');
-        $name = (string) ($recipient['name'] ?? '');
+        $email = trim((string) ($recipient['email'] ?? ''));
+        $name = trim((string) ($recipient['name'] ?? ''));
 
         if ($email === '') {
             continue;
         }
 
         $mail->addAddress($email, $name);
+        $recipientCount++;
     }
 
-    if ($replyTo !== null && $replyTo !== '') {
-        $mail->addReplyTo($replyTo);
+    if ($recipientCount === 0) {
+        tb_json_response(500, [
+            'ok' => false,
+            'message' => 'Mail service recipient list is empty on this server.',
+        ]);
+    }
+
+    if ($replyToAddress !== '' && filter_var($replyToAddress, FILTER_VALIDATE_EMAIL) !== false) {
+        $mail->addReplyTo($replyToAddress);
     }
 
     return $mail;
@@ -276,7 +312,7 @@ function tb_send_plain_mail(string $subject, array $bodyLines, ?string $replyTo 
             tb_record_mail_error($mail, $exception);
         } else {
             tb_set_last_mail_error($exception->getMessage());
-            error_log('[TruBoard Mail] ' . $exception->getMessage());
+            tb_log_mail_error_detail($exception->getMessage());
         }
         return false;
     }
@@ -326,7 +362,7 @@ function tb_send_mail_with_attachment(
             tb_record_mail_error($mail, $exception);
         } else {
             tb_set_last_mail_error($exception->getMessage());
-            error_log('[TruBoard Mail] ' . $exception->getMessage());
+            tb_log_mail_error_detail($exception->getMessage());
         }
         return false;
     }
@@ -354,7 +390,7 @@ function tb_send_html_mail(
             tb_record_mail_error($mail, $exception);
         } else {
             tb_set_last_mail_error($exception->getMessage());
-            error_log('[TruBoard Mail] ' . $exception->getMessage());
+            tb_log_mail_error_detail($exception->getMessage());
         }
         return false;
     }

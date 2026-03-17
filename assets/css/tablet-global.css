@@ -1,0 +1,196 @@
+@media (min-width: 650px) and (max-width: 1024px) {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg,
+  .container-xl,
+  .container-xxl {
+    --bs-gutter-x: clamp(3rem, 6vw, 4rem);
+  }
+
+  /* About team: switch to tablet slider with three visible cards */
+  .tb-about-team-grid {
+    --tb-about-team-tablet-gap: 0.85rem;
+    display: flex;
+    gap: var(--tb-about-team-tablet-gap);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 0;
+    scrollbar-width: none;
+    padding-bottom: 0.35rem;
+  }
+
+  .tb-about-team-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tb-about-team-card {
+    flex: 0 0 calc((100% - (var(--tb-about-team-tablet-gap) * 2)) / 3);
+    width: calc((100% - (var(--tb-about-team-tablet-gap) * 2)) / 3);
+    max-width: calc((100% - (var(--tb-about-team-tablet-gap) * 2)) / 3);
+    min-height: 300px;
+    scroll-snap-align: start;
+  }
+
+  .tb-about-team-pagination {
+    display: flex;
+  }
+
+  /* Careers page: fix tablet overflow issues */
+  .tb-careers-shell {
+    overflow-x: hidden;
+  }
+
+  .tb-res-shell {
+    overflow-x: hidden;
+  }
+
+  .tb-careers-hero,
+  .tb-res-hero {
+    overflow-x: hidden;
+  }
+
+  .tb-careers-hero-card,
+  .tb-res-hero-card {
+    overflow-x: hidden;
+  }
+
+  /* Prevent horizontal scroll on career sections */
+  .tb-careers-apply,
+  .tb-careers-culture,
+  .tb-careers-roles {
+    overflow-x: hidden;
+    overflow-y: clip;
+  }
+
+  /* Fix any form overflow */
+  .tb-careers-form-grid,
+  .tb-careers-apply-card {
+    overflow-x: hidden;
+    overflow-y: clip;
+  }
+  .tb-ai-content {
+    gap: 20px;
+  }
+  .ai-container {
+    gap: 20px;
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  .tb-ai-mobile-content {
+    width: 40%;
+  }
+  .tb-ai-mobile-image {
+    width: 50%;
+  }
+  .tb-ai-launchpad {
+    padding-top: 0;
+  }
+  .tb-ai-content {
+    max-width: 38rem;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  /* services  */
+  .tb-services-page .tb-services-hero {
+    padding-top: 60px;
+  }
+
+  /* Trusted By section: ensure tablet layout matches desktop */
+  .tb-trusted-layout > .col-lg-4,
+  .tb-trusted-layout > .col-lg-8 {
+    display: flex;
+    align-self: flex-start;
+  }
+
+  .tb-trust-tabs,
+  .tb-trusted-cards {
+    width: 100%;
+  }
+
+  .tb-trust-tabs {
+    margin-top: 0;
+    grid-template-rows: none;
+    align-content: start;
+  }
+
+  .tb-trusted-cards {
+    margin-top: 0;
+    display: flex;
+    height: 100%;
+  }
+
+  .tb-trusted-grid {
+    width: 100%;
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 0.95rem;
+    align-content: start;
+  }
+
+  /* Override mobile scroll behavior on tablets */
+  #trustLogoGrid.tb-trusted-grid.is-mobile-scroll {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 0.95rem !important;
+    width: 100% !important;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+    scroll-snap-type: none !important;
+    -webkit-overflow-scrolling: auto !important;
+    touch-action: auto !important;
+    scrollbar-width: auto !important;
+    padding-bottom: 0 !important;
+  }
+
+  #trustLogoGrid.tb-trusted-grid.is-mobile-scroll .tb-trusted-logo-card {
+    width: auto !important;
+    min-width: auto !important;
+    flex: none !important;
+    min-height: 104px;
+    padding: 0.85rem;
+  }
+
+  .tb-trusted-grid.is-height-synced {
+    height: var(--tb-trusted-target-height);
+    grid-template-rows: repeat(var(--tb-trusted-rows, 2), minmax(0, 1fr));
+    align-content: stretch;
+  }
+
+  .tb-trusted-grid.is-height-synced .tb-trusted-logo-card {
+    min-height: 0;
+    height: 100%;
+  }
+
+  .tb-trusted-pagination {
+    display: none;
+  }
+
+  /* TruGenie page: fix AOS overflow issues */
+  .tb-truegenie-shell {
+    overflow-x: hidden;
+    overflow-y: clip;
+  }
+
+  .tb-truegenie-hero,
+  .tb-truegenie-apply,
+  .tb-truegenie-culture,
+  .tb-truegenie-roles {
+    overflow-x: hidden;
+    overflow-y: clip;
+  }
+
+  /* Fix AOS elements causing overflow */
+  /* [data-aos] {
+    overflow-x: hidden;
+    overflow-y: clip;
+  } */
+
+  .tb-truegenie-hero-card,
+  .tb-truegenie-apply-card,
+  .tb-truegenie-culture-track,
+  .tb-truegenie-role-grid {
+    overflow-x: hidden;
+    overflow-y: clip;
+  }
+}

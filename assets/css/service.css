@@ -283,10 +283,7 @@
         padding: clamp(1rem, 2.4vw, 1.7rem) 0;
     }
 
-    .tb-services-page .tb-services-hero-card {
-        grid-template-columns: 1fr;
-        padding: 110px 0 0 0;
-    }
+
 
     .tb-services-page .tb-services-hero-copy {
         text-align: left;
@@ -295,12 +292,6 @@
     .tb-services-page .tb-services-actions {
         justify-content: flex-start;
         align-items: flex-start;
-    }
-
-    .tb-services-page .tb-services-hero-art {
-        order: -1;
-        width: 100%;
-        justify-content: center;
     }
 
     .tb-services-page .tb-services-hero-art .hero-section-img {
@@ -985,6 +976,18 @@
         background: #2f6be4;
         opacity: 1;
     }
+
+    .tb-services-page .tb-services-hero-card {
+        grid-template-columns: 1fr;
+        padding: 110px 0 0 0;
+    }
+
+    .tb-services-page .tb-services-hero-art {
+        order: -1;
+        width: 100%;
+        justify-content: center;
+    }
+
 }
 
 @media (min-width: 768px) {

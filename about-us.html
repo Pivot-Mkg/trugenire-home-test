@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="./assets/css/app.css">
     <link rel="stylesheet" href="./assets/css/web-pages.css">
+    <link rel="stylesheet" href="./assets/css/tablet-global.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
         @media (min-width: 104px) {
@@ -78,20 +79,20 @@
         </div>
     </header>
 
-    <main class="tb-about-shell">
-        <div class="tb-about-top-shell">
-            <section class="tb-about-hero" aria-label="About hero">
-                <div class="container-xl">
-                    <div class="tb-about-hero-card">
-                        <div class="tb-about-hero-art" aria-hidden="true">
-                            <picture>
-                                <source media="(max-width: 767.98px)"
-                                    srcset="./assets/images/banners/about-us-banner.jpg">
-                                <img src="./assets/images/banners/about-us-banner.jpg" alt="" width="1000"
-                                    height="652" fetchpriority="high" decoding="async">
-                            </picture>
-                        </div>
-                        <div class="tb-about-hero-copy">
+    <main class="tb-res-shell">
+        <div class="tb-res-top-shell">
+            <section class="tb-res-hero" aria-label="About hero">
+                <div class="tb-res-hero-card">
+                    <div class="tb-res-hero-art" aria-hidden="true">
+                        <picture>
+                            <source media="(max-width: 767.98px)"
+                                srcset="./assets/images/banners/about-us-banner.jpg">
+                            <img src="./assets/images/banners/about-us-banner.jpg" alt="" width="1000"
+                                height="652" fetchpriority="high" decoding="async">
+                        </picture>
+                    </div>
+                    <div class="container-xl">
+                        <div class="tb-res-hero-copy">
                             <h1 data-aos="fade-up" data-aos-duration="950">Execution confidence for modern real estate
                                 portfolios</h1>
                             <p data-aos="fade-up" data-aos-delay="140" data-aos-duration="950">
@@ -100,7 +101,7 @@
                                 monitor assets, protect capital, and improve outcomes through every stage of the
                                 lifecycle.
                             </p>
-                            <div class="tb-about-hero-actions" data-aos="fade-up" data-aos-delay="240"
+                            <div class="tb-res-hero-actions" data-aos="fade-up" data-aos-delay="240"
                                 data-aos-duration="900">
                                 <a href="./contact-us.html#contactTabServices" class="btn tb-btn tb-btn-blue">START A
                                     CONVERSATION</a>
@@ -109,7 +110,6 @@
                     </div>
                 </div>
             </section>
-
         </div>
 
         <section class="tb-about-team" aria-label="Leadership team">
@@ -592,21 +592,13 @@
             const teamPagination = document.querySelector("[data-team-pagination]");
 
             if (teamGrid && teamCards.length && teamPagination) {
-                teamPagination.innerHTML = teamCards
-                    .map(
-                        (_, idx) =>
-                            `<button type="button" class="tb-about-team-page${idx === 0 ? " is-active" : ""}" data-team-page="${idx}" aria-label="Go to leadership card ${idx + 1}" aria-current="${idx === 0 ? "true" : "false"}"></button>`,
-                    )
-                    .join("");
+                let teamDots = [];
+                let teamScrollTargets = [];
 
-                const teamDots = Array.from(teamPagination.querySelectorAll("[data-team-page]"));
-
-                const getTeamStep = () => {
-                    const firstCard = teamCards[0];
-                    if (!firstCard) return teamGrid.clientWidth;
-                    const styles = window.getComputedStyle(teamGrid);
-                    const gap = parseFloat(styles.columnGap || styles.gap || "0") || 0;
-                    return firstCard.getBoundingClientRect().width + gap;
+                const getTeamScrollTargets = () => {
+                    const maxScroll = Math.max(0, teamGrid.scrollWidth - teamGrid.clientWidth);
+                    const targets = teamCards.map((card) => Math.min(card.offsetLeft, maxScroll));
+                    return Array.from(new Set(targets.map((target) => Math.round(target))));
                 };
 
                 const setActiveTeamDot = (index) => {
@@ -618,24 +610,44 @@
                 };
 
                 const syncTeamPagination = () => {
-                    const step = getTeamStep();
-                    if (!step) return;
-                    const index = Math.round(teamGrid.scrollLeft / step);
-                    const safeIndex = Math.max(0, Math.min(index, teamDots.length - 1));
-                    setActiveTeamDot(safeIndex);
+                    if (!teamDots.length || !teamScrollTargets.length) return;
+                    const maxScroll = Math.max(0, teamGrid.scrollWidth - teamGrid.clientWidth);
+                    const scrollLeft = Math.min(Math.round(teamGrid.scrollLeft), Math.round(maxScroll));
+                    const activeIndex = teamScrollTargets.reduce((closestIndex, target, index) => {
+                        const closestTarget = teamScrollTargets[closestIndex];
+                        return Math.abs(target - scrollLeft) < Math.abs(closestTarget - scrollLeft)
+                            ? index
+                            : closestIndex;
+                    }, 0);
+                    setActiveTeamDot(activeIndex);
                 };
 
-                teamDots.forEach((dot) => {
-                    dot.addEventListener("click", () => {
-                        const index = Number(dot.getAttribute("data-team-page") || "0");
-                        teamGrid.scrollTo({ left: getTeamStep() * index, behavior: "smooth" });
-                        setActiveTeamDot(index);
+                const buildTeamPagination = () => {
+                    teamScrollTargets = getTeamScrollTargets();
+                    teamPagination.innerHTML = teamScrollTargets
+                        .map(
+                            (_, idx) =>
+                                `<button type="button" class="tb-about-team-page${idx === 0 ? " is-active" : ""}" data-team-page="${idx}" aria-label="Go to leadership slide ${idx + 1}" aria-current="${idx === 0 ? "true" : "false"}"></button>`,
+                        )
+                        .join("");
+
+                    teamDots = Array.from(teamPagination.querySelectorAll("[data-team-page]"));
+
+                    teamDots.forEach((dot) => {
+                        dot.addEventListener("click", () => {
+                            const index = Number(dot.getAttribute("data-team-page") || "0");
+                            const target = teamScrollTargets[index] || 0;
+                            teamGrid.scrollTo({ left: target, behavior: "smooth" });
+                            setActiveTeamDot(index);
+                        });
                     });
-                });
+
+                    syncTeamPagination();
+                };
 
                 teamGrid.addEventListener("scroll", syncTeamPagination, { passive: true });
-                window.addEventListener("resize", syncTeamPagination);
-                syncTeamPagination();
+                window.addEventListener("resize", buildTeamPagination);
+                buildTeamPagination();
             }
 
             const vmDesktopSection = document.querySelector(".vision-and-mission-section");

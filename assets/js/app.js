@@ -1,110 +1,112 @@
 const trustGroups = [
   {
-    label: "Developers & Asset Owners",
+    label: "Banks & Lenders",
     logos: [
       {
-        src: "./assets/images/trusted-logos/brookfield.png",
-        alt: "Brookfield",
+        src: "./assets/images/trusted-logos/banks-and-lenders/hdfc_bank.png",
+        alt: "HDFC Bank",
       },
-      { src: "./assets/images/trusted-logos/upes.png", alt: "UPES" },
-      { src: "./assets/images/trusted-logos/merusri.png", alt: "Merusri" },
-      { src: "./assets/images/trusted-logos/hcltech.png", alt: "HCLTech" },
       {
-        src: "./assets/images/trusted-logos/clearpack.png",
-        alt: "Clearpack Group",
+        src: "./assets/images/trusted-logos/banks-and-lenders/icici_bank.png",
+        alt: "ICICI Bank",
       },
-      { src: "./assets/images/trusted-logos/transcon.png", alt: "Transcon" },
-      { src: "./assets/images/trusted-logos/bc.png", alt: "B.C.C." },
-      { src: "./assets/images/trusted-logos/kanakia.png", alt: "Kanakia" },
+      {
+        src: "./assets/images/trusted-logos/banks-and-lenders/kotak_mahindra_bank.png",
+        alt: "Kotak Mahindra Bank",
+      },
+      {
+        src: "./assets/images/trusted-logos/banks-and-lenders/yes_bank.png",
+        alt: "Yes Bank",
+      },
+      {
+        src: "./assets/images/trusted-logos/banks-and-lenders/tata_capital_housing_finance.png",
+        alt: "Tata Capital Housing Finance",
+      },
+      {
+        src: "./assets/images/trusted-logos/banks-and-lenders/edelweiss_asset_reconstruction.png",
+        alt: "Edelweiss Asset Reconstruction",
+      },
+      {
+        src: "./assets/images/trusted-logos/banks-and-lenders/icici_home_finance.png",
+        alt: "ICICI Home Finance",
+      },
+      {
+        src: "./assets/images/trusted-logos/banks-and-lenders/experion.png",
+        alt: "Experion",
+      },
     ],
   },
   {
-    label: "Lenders & Banks",
+    label: "Funds & Investors",
     logos: [
       {
-        src: "./assets/images/trusted-logos/hdfc_capital.png",
+        src: "./assets/images/trusted-logos/funds-and-investors/hdfc_capital.png",
         alt: "HDFC Capital",
       },
       {
-        src: "./assets/images/trusted-logos/sbicap_ventures.png",
-        alt: "SBICAP Ventures",
-      },
-      {
-        src: "./assets/images/trusted-logos/icici_venture.png",
+        src: "./assets/images/trusted-logos/funds-and-investors/icici_venture.png",
         alt: "ICICI Venture",
       },
       {
-        src: "./assets/images/trusted-logos/motilal_more.png",
-        alt: "Motilal Oswal More",
-      },
-      { src: "./assets/images/trusted-logos/hdfc_bank.png", alt: "HDFC Bank" },
-      {
-        src: "./assets/images/trusted-logos/icici_bank.png",
-        alt: "ICICI Bank",
-      },
-      { src: "./assets/images/trusted-logos/yes_bank.png", alt: "YES BANK" },
-      {
-        src: "./assets/images/trusted-logos/tata_capital.png",
-        alt: "Tata Capital",
-      },
-    ],
-  },
-  {
-    label: "NBFCs & Alternative Capital",
-    logos: [
-      {
-        src: "./assets/images/trusted-logos/eaaa_alternatives.png",
-        alt: "EAAA Alternatives",
+        src: "./assets/images/trusted-logos/funds-and-investors/sbicap_ventures_ltd.png",
+        alt: "SBICAP Ventures Ltd.",
       },
       {
-        src: "./assets/images/trusted-logos/tata_capital.png",
-        alt: "Tata Capital",
-      },
-      { src: "./assets/images/trusted-logos/edelweiss.png", alt: "Edelweiss" },
-      { src: "./assets/images/trusted-logos/nifco.png", alt: "NiFCO" },
-      { src: "./assets/images/trusted-logos/experion.png", alt: "Experion" },
-      {
-        src: "./assets/images/trusted-logos/hdfc_capital.png",
-        alt: "HDFC Capital",
+        src: "./assets/images/trusted-logos/funds-and-investors/ask_property_fund.png",
+        alt: "ASK Property Fund",
       },
       {
-        src: "./assets/images/trusted-logos/sbicap_ventures.png",
-        alt: "SBICAP Ventures",
-      },
-      {
-        src: "./assets/images/trusted-logos/motilal_more.png",
-        alt: "Motilal Oswal More",
-      },
-    ],
-  },
-  {
-    label: "Funds & Institutional Investors",
-    logos: [
-      {
-        src: "./assets/images/trusted-logos/avenue_capital.png",
+        src: "./assets/images/trusted-logos/funds-and-investors/avenue_capital_group.png",
         alt: "Avenue Capital Group",
       },
-      { src: "./assets/images/trusted-logos/cerberus.png", alt: "Cerberus" },
-      { src: "./assets/images/trusted-logos/acre.png", alt: "ACRE" },
       {
-        src: "./assets/images/trusted-logos/jc_flowers.png",
+        src: "./assets/images/trusted-logos/funds-and-investors/cerberus.png",
+        alt: "Cerberus",
+      },
+      {
+        src: "./assets/images/trusted-logos/funds-and-investors/acre.png",
+        alt: "ACRE",
+      },
+      {
+        src: "./assets/images/trusted-logos/funds-and-investors/jc_flowers_and_co.png",
         alt: "J.C. Flowers & Co.",
       },
+    ],
+  },
+  {
+    label: "Developers & Corporates",
+    logos: [
       {
-        src: "./assets/images/trusted-logos/bailey_properties.png",
-        alt: "Bailey Properties, Inc. (USA)",
+        src: "./assets/images/trusted-logos/developers-and-corporates/brookfield.png",
+        alt: "Brookfield",
       },
       {
-        src: "./assets/images/trusted-logos/eaaa_alternatives.png",
-        alt: "EAAA Alternatives",
+        src: "./assets/images/trusted-logos/developers-and-corporates/merusri.png",
+        alt: "Merusri",
       },
       {
-        src: "./assets/images/trusted-logos/hdfc_capital.png",
-        alt: "HDFC Capital",
+        src: "./assets/images/trusted-logos/developers-and-corporates/transcon.png",
+        alt: "Transcon",
       },
       {
-        src: "./assets/images/trusted-logos/motilal_more.png",
-        alt: "Motilal Oswal More",
+        src: "./assets/images/trusted-logos/developers-and-corporates/kanakia.png",
+        alt: "Kanakia",
+      },
+      {
+        src: "./assets/images/trusted-logos/developers-and-corporates/bec.png",
+        alt: "B.E.C.",
+      },
+      {
+        src: "./assets/images/trusted-logos/developers-and-corporates/hcltech.png",
+        alt: "HCLTech",
+      },
+      {
+        src: "./assets/images/trusted-logos/developers-and-corporates/upes.png",
+        alt: "UPES",
+      },
+      {
+        src: "./assets/images/trusted-logos/developers-and-corporates/clearpack_group.png",
+        alt: "Clearpack Group",
       },
     ],
   },
@@ -248,19 +250,19 @@ const OFFERING_IMAGE_FADE_MS = 320;
 
 const heroStageImages = [
   {
-    src: "./assets/images/home-page/hero-banner-right-1.png",
+    src: "assets/images/banners/hero-main-banner.png",
     alt: "Monetize stage illustration",
   },
   {
-    src: "./assets/images/home-page/hero-banner-right-1.png",
+    src: "assets/images/banners/hero-main-banner.png",
     alt: "Plan stage illustration",
   },
   {
-    src: "./assets/images/home-page/hero-banner-right-1.png",
+    src: "assets/images/banners/hero-main-banner.png",
     alt: "Build stage illustration",
   },
   {
-    src: "./assets/images/home-page/hero-banner-right-1.png",
+    src: "assets/images/banners/hero-main-banner.png",
     alt: "Exit stage illustration",
   },
 ];
@@ -374,7 +376,8 @@ function initMenu() {
     }
 
     if (desktopMedia.matches || !mainNav.classList.contains("open")) return;
-    if (mainNav.contains(event.target) || menuToggle.contains(event.target)) return;
+    if (mainNav.contains(event.target) || menuToggle.contains(event.target))
+      return;
     closeMobileMenu();
   });
 
@@ -777,7 +780,7 @@ function initIntegratedSlider() {
     return;
   }
 
-  const mobileMedia = window.matchMedia("(max-width: 991.98px)");
+  const mobileMedia = window.matchMedia("(max-width: 767.98px)");
   const reduceMotion =
     window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -874,7 +877,7 @@ function initProblemSectionOrder() {
 
   if (!textCol || !diagram || !issueList || !callout) return;
 
-  const mobileMedia = window.matchMedia("(max-width: 991.98px)");
+  const mobileMedia = window.matchMedia("(max-width: 767.98px)");
   const listPlaceholder = document.createComment("tb-issue-list-placeholder");
   const calloutPlaceholder = document.createComment(
     "tb-issue-callout-placeholder",
@@ -937,9 +940,9 @@ function initTrustTabs() {
     window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const desktopMedia =
-    window.matchMedia && window.matchMedia("(min-width: 992px)");
+    window.matchMedia && window.matchMedia("(min-width: 768px)");
   const mobileMedia =
-    window.matchMedia && window.matchMedia("(max-width: 991.98px)");
+    window.matchMedia && window.matchMedia("(max-width: 767.98px)");
   let switchTimer = null;
   let enterTimer = null;
   let mobileAutoScrollFrame = null;
@@ -990,7 +993,10 @@ function initTrustTabs() {
     let lastTimestamp = 0;
 
     const step = (timestamp) => {
-      if (!mobileMedia.matches || !logoGrid.classList.contains("is-mobile-scroll")) {
+      if (
+        !mobileMedia.matches ||
+        !logoGrid.classList.contains("is-mobile-scroll")
+      ) {
         stopMobileAutoScroll();
         return;
       }
@@ -1047,9 +1053,7 @@ function initTrustTabs() {
     if (!group) return;
 
     const shouldAnimate =
-      animate &&
-      !reduceMotion &&
-      !(mobileMedia && mobileMedia.matches);
+      animate && !reduceMotion && !(mobileMedia && mobileMedia.matches);
 
     const logosToRender =
       mobileMedia && mobileMedia.matches
@@ -1164,7 +1168,7 @@ function initIntegratedCardLineBalance() {
   if (paragraphs.length < 2) return;
 
   const desktopMedia =
-    window.matchMedia && window.matchMedia("(min-width: 992px)");
+    window.matchMedia && window.matchMedia("(min-width: 768px)");
 
   const getLineCount = (element) => {
     const lineHeight = parseFloat(window.getComputedStyle(element).lineHeight);
@@ -1523,7 +1527,10 @@ function initPageAOS() {
     return lastSegment.toLowerCase();
   })();
 
-  if (currentPage === "truegenie.html" || currentPage === "truegenie copy.html") {
+  if (
+    currentPage === "truegenie.html" ||
+    currentPage === "truegenie copy.html"
+  ) {
     return;
   }
 
@@ -1610,7 +1617,8 @@ function initHeroEmailCapture() {
   const input = document.querySelector("[data-hero-email-input]");
   const submitTrigger = document.querySelector("[data-hero-email-submit]");
 
-  if (!form || !input || !submitTrigger || typeof window.fetch !== "function") return;
+  if (!form || !input || !submitTrigger || typeof window.fetch !== "function")
+    return;
 
   let isSubmitting = false;
 
@@ -1707,16 +1715,20 @@ function initAIEmailForms() {
           source,
         });
 
-        const response = await window.fetch("./assets/mails/waitlist-mail.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            Accept: "application/json",
-            "X-Requested-With": "XMLHttpRequest",
+        const response = await window.fetch(
+          "./assets/mails/waitlist-mail.php",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type":
+                "application/x-www-form-urlencoded; charset=UTF-8",
+              Accept: "application/json",
+              "X-Requested-With": "XMLHttpRequest",
+            },
+            body: payload.toString(),
+            credentials: "same-origin",
           },
-          body: payload.toString(),
-          credentials: "same-origin",
-        });
+        );
 
         const result = await response.json().catch(() => null);
 

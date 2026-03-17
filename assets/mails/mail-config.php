@@ -13,8 +13,8 @@ return [
         'auth' => true,
         'port' => 587,
         'secure' => 'starttls',
-        'username' => (string) ($secrets['username'] ?? ''),
-        'password' => (string) ($secrets['password'] ?? ''),
+        'username' => trim((string) ($secrets['username'] ?? '')),
+        'password' => trim((string) ($secrets['password'] ?? '')),
     ],
     'from' => [
         'email' => 'website-enquiry@truboardpartners.com',

@@ -199,14 +199,6 @@
         padding-bottom: 4rem;
     }
 
-    .tb-ai-mobile-image {
-        order: 1;
-    }
-
-    .tb-ai-mobile-content {
-        order: 2;
-    }
-
     .tb-ai-main::before {
         background-size: 34px 34px;
     }
@@ -340,5 +332,12 @@
 
     .tb-ai-launchpad {
         padding-top: 0;
+    }
+        .tb-ai-mobile-image {
+        order: 1;
+    }
+
+    .tb-ai-mobile-content {
+        order: 2;
     }
 }
