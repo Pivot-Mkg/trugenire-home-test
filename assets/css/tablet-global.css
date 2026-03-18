@@ -1,4 +1,5 @@
 @media (min-width: 650px) and (max-width: 1024px) {
+
   .container,
   .container-sm,
   .container-md,
@@ -69,36 +70,43 @@
     overflow-x: hidden;
     overflow-y: clip;
   }
+
   .tb-ai-content {
     gap: 20px;
   }
+
   .ai-container {
     gap: 20px;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
   }
+
   .tb-ai-mobile-content {
     width: 40%;
   }
+
   .tb-ai-mobile-image {
     width: 50%;
   }
+
   .tb-ai-launchpad {
     padding-top: 0;
   }
+
   .tb-ai-content {
     max-width: 38rem;
     display: flex;
     flex-direction: column-reverse;
   }
+
   /* services  */
   .tb-services-page .tb-services-hero {
     padding-top: 60px;
   }
 
   /* Trusted By section: ensure tablet layout matches desktop */
-  .tb-trusted-layout > .col-lg-4,
-  .tb-trusted-layout > .col-lg-8 {
+  .tb-trusted-layout>.col-lg-4,
+  .tb-trusted-layout>.col-lg-8 {
     display: flex;
     align-self: flex-start;
   }

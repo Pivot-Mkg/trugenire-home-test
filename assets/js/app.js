@@ -48,7 +48,7 @@ const trustGroups = [
         alt: "ICICI Venture",
       },
       {
-        src: "./assets/images/trusted-logos/funds-and-investors/sbicap_ventures_ltd.png",
+        src: "./assets/images/trusted-logos/funds-and-investors/sbi-cap.avif",
         alt: "SBICAP Ventures Ltd.",
       },
       {
@@ -60,7 +60,7 @@ const trustGroups = [
         alt: "Avenue Capital Group",
       },
       {
-        src: "./assets/images/trusted-logos/funds-and-investors/cerberus.png",
+        src: "./assets/images/trusted-logos/funds-and-investors/Cerberus_Capital_Management_logo.svg",
         alt: "Cerberus",
       },
       {
