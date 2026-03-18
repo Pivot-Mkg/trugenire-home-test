@@ -1752,6 +1752,11 @@ body {
         min-height: 2.7rem;
         padding: 0.7rem 1rem;
         font-size: var(--tb-fs-16);
+        margin: inherit;
+    }
+
+    .features-section-cta-wrapper {
+        justify-content: center !important;
     }
 
     .tb-truegenie-page .features-section-1 .content-wrapper {
@@ -2290,6 +2295,7 @@ body {
     .tb-truegenie-page .how-its-work .process-icons-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 1rem;
+        padding-bottom: 12px;
     }
 
     .tb-truegenie-page .how-its-work .process-icons-grid {

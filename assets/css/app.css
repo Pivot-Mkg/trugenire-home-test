@@ -2062,6 +2062,7 @@ a {
 
 .tb-why-ring-outer {
   width: 170px;
+  height: 170px;
   aspect-ratio: 1 / 1;
   border: 2px solid rgba(95, 145, 238, 0.7);
   padding: 16px;
@@ -2710,13 +2711,13 @@ a {
     padding: 0.7rem;
   }
 
-  #trustLogoGrid .tb-trusted-logo-card:nth-last-child(2):nth-child(3n + 1) {
+  /* #trustLogoGrid .tb-trusted-logo-card:nth-last-child(2):nth-child(3n + 1) {
     grid-column: 2 / span 2;
   }
 
   #trustLogoGrid .tb-trusted-logo-card:last-child:nth-child(3n + 1) {
     grid-column: 3 / span 2;
-  }
+  } */
 
   #trustLogoGrid .tb-trusted-logo-card img {
     width: auto;
@@ -3074,6 +3075,11 @@ a {
     min-height: auto;
     height: auto;
     height: 55px;
+    border-radius: 12px;
+  }
+
+  .tb-lifecycle-item.is-active .tb-lifecycle-card {
+    border-radius: 12px;
   }
 
   .tb-hero-main>.col-lg-5 .tb-hero-art img {

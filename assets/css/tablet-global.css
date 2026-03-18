@@ -104,7 +104,7 @@
     padding-top: 60px;
   }
 
-  /* Trusted By section: ensure tablet layout matches desktop */
+  /* Trusted By section: exact desktop match for tablets */
   .tb-trusted-layout>.col-lg-4,
   .tb-trusted-layout>.col-lg-8 {
     display: flex;
@@ -130,33 +130,7 @@
 
   .tb-trusted-grid {
     width: 100%;
-    display: grid !important;
-    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-    gap: 0.95rem;
     align-content: start;
-  }
-
-  /* Override mobile scroll behavior on tablets */
-  #trustLogoGrid.tb-trusted-grid.is-mobile-scroll {
-    display: grid !important;
-    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-    gap: 0.95rem !important;
-    width: 100% !important;
-    overflow-x: visible !important;
-    overflow-y: visible !important;
-    scroll-snap-type: none !important;
-    -webkit-overflow-scrolling: auto !important;
-    touch-action: auto !important;
-    scrollbar-width: auto !important;
-    padding-bottom: 0 !important;
-  }
-
-  #trustLogoGrid.tb-trusted-grid.is-mobile-scroll .tb-trusted-logo-card {
-    width: auto !important;
-    min-width: auto !important;
-    flex: none !important;
-    min-height: 104px;
-    padding: 0.85rem;
   }
 
   .tb-trusted-grid.is-height-synced {
@@ -170,8 +144,37 @@
     height: 100%;
   }
 
-  .tb-trusted-pagination {
-    display: none;
+  /* Override mobile scroll behavior for tablets */
+  #trustLogoGrid.tb-trusted-grid.is-mobile-scroll {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 0.95rem !important;
+    width: 100% !important;
+    overflow: visible !important;
+    padding-bottom: 0 !important;
+  }
+
+  #trustLogoGrid.tb-trusted-grid.is-mobile-scroll .tb-trusted-logo-card {
+    width: auto !important;
+    min-width: auto !important;
+    flex: none !important;
+    min-height: 104px;
+    border-radius: 1rem;
+    border: 1px solid #edf1f7;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(12, 43, 115, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem;
+  }
+
+  #trustLogoGrid.tb-trusted-grid.is-mobile-scroll .tb-trusted-logo-card img {
+    width: 100%;
+    max-width: 180px;
+    max-height: 32px;
+    object-fit: contain;
+    display: block;
   }
 
   /* TruGenie page: fix AOS overflow issues */
