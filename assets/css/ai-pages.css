@@ -115,19 +115,23 @@
 
 .tb-ai-visual-shell {
     border-radius: 16px;
-    overflow: hidden;
+    /* overflow: hidden; */
     aspect-ratio: 16 / 10;
     /* background: linear-gradient(180deg, #f6f9ff 0%, #eef3fd 100%); */
     position: relative;
 }
 
 .tb-ai-visual-shell img {
-    /* width: 100%; */
-    height: 100%;
+    width: 100%;
+    /* height: 100%; */
     display: flex;
     margin: 0 auto;
     object-fit: cover;
-    opacity: 0.88;
+    /* opacity: 0.88; */
+}
+
+.tb-ai-mobile-image {
+    margin-top: 0;
 }
 
 .tb-ai-badge {
@@ -176,8 +180,8 @@
 
 @media (min-width: 992px) {
     .tb-ai-main {
-        height: fit-content;
-        /* min-height: 100svh; */
+        /* height: fit-content; */
+        min-height: 80vh;
         display: flex;
         align-items: center;
     }
@@ -333,7 +337,8 @@
     .tb-ai-launchpad {
         padding-top: 0;
     }
-        .tb-ai-mobile-image {
+
+    .tb-ai-mobile-image {
         order: 1;
     }
 
