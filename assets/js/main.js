@@ -21,6 +21,17 @@ function initFunctionalModules() {
 
   if (!section || !sidebar || !toggles.length || !title || !image || !points) return;
 
+  const preloadedImages = new Map();
+  const preloadImage = (src) => {
+    if (!src || preloadedImages.has(src)) return;
+    const img = new Image();
+    img.src = src;
+    preloadedImages.set(src, img);
+    if (typeof img.decode === "function") {
+      img.decode().catch(() => null);
+    }
+  };
+
   let pagination = section.querySelector("[data-module-pagination]");
   let dots = [];
   let scrollFrame = null;
@@ -76,8 +87,14 @@ function initFunctionalModules() {
       icon.setAttribute("alt", `${nextTitle} icon`);
     }
     if (nextImage) {
-      image.setAttribute("src", nextImage);
-      image.setAttribute("alt", `${nextTitle} preview`);
+      const cached = preloadedImages.get(nextImage);
+      if (cached?.complete && cached.naturalWidth > 0) {
+        image.setAttribute("src", nextImage);
+        image.setAttribute("alt", `${nextTitle} preview`);
+      } else {
+        image.setAttribute("src", nextImage);
+        image.setAttribute("alt", `${nextTitle} preview`);
+      }
     }
 
     points.innerHTML = "";
@@ -93,6 +110,14 @@ function initFunctionalModules() {
       scrollToggleIntoView(button, options.behavior || "smooth");
     }
   };
+
+  if (image) {
+    image.decoding = "sync";
+    image.loading = "eager";
+    image.fetchPriority = "high";
+  }
+
+  toggles.forEach((toggle) => preloadImage(toggle.getAttribute("data-image") || ""));
 
   const buildPagination = () => {
     pagination.innerHTML = "";
