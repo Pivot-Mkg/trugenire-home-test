@@ -579,7 +579,7 @@ a {
   }
 
   .tb-hero-main>.col-lg-6:first-child .tb-lifecycle {
-    margin-top: auto;
+    /* margin-top: auto; */
     margin-bottom: 0;
     padding-top: 0.9rem;
     margin-bottom: 40px;
