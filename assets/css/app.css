@@ -2927,6 +2927,9 @@ a {
   .tb-why-slider .swiper-slide {
     flex-shrink: 0;
     height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
   }
 
   .tb-why-card {
