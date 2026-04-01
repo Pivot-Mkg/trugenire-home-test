@@ -817,11 +817,12 @@
     }
 
     .tb-services-page .leadership-card .img-wrapper {
-        width: 100%;
+        width: auto;
+        margin: auto;
     }
 
     .tb-services-page .leadership-card img {
-        width: 20%;
+        /* width: 20%; */
         max-width: 100%;
         border-radius: 10px;
         object-fit: cover;
