@@ -1934,8 +1934,9 @@ body {
     }
 
 
-    .tb-truegenie-page .hero-section {
-        padding-top: 6.9rem;
+    .tb-truegenie-page .hero-section,
+    .tb-services-page .hero-section {
+        padding-top: 6.9rem !important;
     }
 
     .tb-truegenie-page .hero-heading,

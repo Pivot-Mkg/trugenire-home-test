@@ -36,7 +36,7 @@
 }
 
 .tb-services-page .tb-services-hero-art .hero-section-img {
-    width: min(100%, 27rem);
+    width: 100%;
     height: auto;
     display: block;
     object-fit: contain;
@@ -51,7 +51,8 @@
 }
 
 .hero-section .content {
-    margin-bottom: 9em;
+    margin-bottom: 1em;
+    /* margin-bottom: 9em; */
 }
 
 .secondary-feature-card-item-name {
@@ -247,6 +248,10 @@
     background: #286FED;
     clip-path: circle();
 }
+
+/* .tb-hero-main>.col-lg-6:first-child {
+    margin: auto;
+} */
 
 .primary-service-card-footer .point-list-item {
     display: flex;
@@ -904,7 +909,7 @@
     }
 
     .hero-section-img {
-        width: 50%;
+        /* width: 50%; */
     }
 }
 
