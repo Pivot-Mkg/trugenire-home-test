@@ -6,13 +6,48 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 header('Content-Type: application/json; charset=UTF-8');
 
-$SMTP_HOST = 'smtp.office365.com';
-$SMTP_PORT = 587;
-$SMTP_SECURE = PHPMailer::ENCRYPTION_STARTTLS;
-$SMTP_USERNAME = 'website-enquiry@truboardpartners.com';
-$SMTP_PASSWORD = 'hzhkdwmqskxjhysc';
-$FROM_EMAIL = 'website-enquiry@truboardpartners.com';
-$FROM_NAME = 'Website Enquiry';
+function loadEnvValues(string $filePath): array
+{
+    if (!is_file($filePath)) {
+        return [];
+    }
+
+    $lines = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if ($lines === false) {
+        return [];
+    }
+
+    $values = [];
+    foreach ($lines as $line) {
+        $trimmed = trim($line);
+        if ($trimmed === '' || str_starts_with($trimmed, '#')) {
+            continue;
+        }
+
+        $parts = explode('=', $trimmed, 2);
+        if (count($parts) !== 2) {
+            continue;
+        }
+
+        $key = trim($parts[0]);
+        $value = trim($parts[1]);
+        $value = trim($value, "\"'");
+        if ($key !== '') {
+            $values[$key] = $value;
+        }
+    }
+
+    return $values;
+}
+
+$env = loadEnvValues(__DIR__ . '/.env');
+$SMTP_HOST = trim((string) ($env['SMTP_HOST'] ?? 'smtp.office365.com'));
+$SMTP_PORT = (int) ($env['SMTP_PORT'] ?? 587);
+$SMTP_SECURE = trim((string) ($env['SMTP_SECURE'] ?? 'starttls'));
+$SMTP_USERNAME = trim((string) ($env['SMTP_USERNAME'] ?? ''));
+$SMTP_PASSWORD = trim((string) ($env['SMTP_PASSWORD'] ?? ''));
+$FROM_EMAIL = trim((string) ($env['SMTP_FROM_EMAIL'] ?? ''));
+$FROM_NAME = trim((string) ($env['SMTP_FROM_NAME'] ?? 'Website Enquiry'));
 $RECIPIENTS = [
     // ['email' => 'marketing@trugenie.com', 'name' => 'TruGenie Marketing'],
     ['email' => 'aakash@pivotmkg.com', 'name' => 'Aakash'],
@@ -85,7 +120,9 @@ function configureMailer(?string $replyTo = null): PHPMailer
     $mail->Username = $GLOBALS['SMTP_USERNAME'];
     $mail->Password = $GLOBALS['SMTP_PASSWORD'];
     $mail->Port = $GLOBALS['SMTP_PORT'];
-    $mail->SMTPSecure = $GLOBALS['SMTP_SECURE'];
+    $mail->SMTPSecure = $GLOBALS['SMTP_SECURE'] === 'starttls'
+        ? PHPMailer::ENCRYPTION_STARTTLS
+        : (string) $GLOBALS['SMTP_SECURE'];
     $mail->Timeout = 20;
 
     if ($GLOBALS['SMTP_USERNAME'] === '' || $GLOBALS['SMTP_PASSWORD'] === '' || $GLOBALS['FROM_EMAIL'] === '') {
@@ -153,47 +190,38 @@ function buildHomeCaptureEmailTemplate(string $safeUserEmail, string $safeSubmit
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Home Page Enquiry</title>
 </head>
-<body style="margin:0; padding:24px; background-color:#f4f7fb; font-family:Arial, Helvetica, sans-serif; color:#10233f;">
+<body style="margin:0; padding:24px; background:#f5f7fb; font-family:Arial, Helvetica, sans-serif; color:#10233f;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;">
         <tr>
             <td align="center">
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px; border-collapse:collapse; background-color:#ffffff; border:1px solid #dbe4f0; border-radius:16px; overflow:hidden;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:620px; border-collapse:collapse; background:#ffffff; border:1px solid #dbe4f0; border-radius:14px; overflow:hidden;">
                     <tr>
-                        <td style="padding:32px 32px 20px; background:linear-gradient(135deg, #10233f 0%, #286fed 100%); color:#ffffff;">
-                            <div style="font-size:12px; letter-spacing:0.18em; text-transform:uppercase; opacity:0.82;">TruBoard Technologies</div>
-                            <h1 style="margin:12px 0 8px; font-size:28px; line-height:1.2; font-weight:700;">New Home Page Enquiry</h1>
-                            <p style="margin:0; font-size:15px; line-height:1.6; color:#eaf1ff;">
-                                Unified Real Estate. Asset Management &amp; Intelligence.
-                            </p>
+                        <td style="padding:24px 28px; background:#10233f; color:#ffffff;">
+                            <p style="margin:0; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; opacity:0.85;">TruBoard Technologies</p>
+                            <h1 style="margin:10px 0 0; font-size:24px; line-height:1.25; font-weight:700;">New Home Page Enquiry</h1>
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding:28px 32px 12px;">
-                            <p style="margin:0 0 18px; font-size:15px; line-height:1.7; color:#42546d;">
-                                A visitor used the home page capture form after viewing the TruBoard positioning around
-                                execution, asset oversight, and real-time intelligence.
+                        <td style="padding:24px 28px;">
+                            <p style="margin:0 0 14px; font-size:15px; line-height:1.6; color:#42546d;">
+                                A visitor submitted the home page contact form.
                             </p>
-                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate; border-spacing:0; background-color:#f7faff; border:1px solid #dbe4f0; border-radius:12px;">
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse; background:#f7faff; border:1px solid #dbe4f0; border-radius:10px;">
                                 <tr>
-                                    <td style="padding:18px 20px; border-bottom:1px solid #dbe4f0;">
-                                        <div style="font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:#6a7a90; margin-bottom:6px;">Submitted email</div>
-                                        <div style="font-size:18px; line-height:1.5; font-weight:700; color:#10233f;">{$safeUserEmail}</div>
-                                    </td>
+                                    <td style="padding:14px 16px; border-bottom:1px solid #dbe4f0; font-size:13px; color:#6a7a90; width:160px;">Submitted Email</td>
+                                    <td style="padding:14px 16px; border-bottom:1px solid #dbe4f0; font-size:16px; font-weight:700; color:#10233f;">{$safeUserEmail}</td>
                                 </tr>
                                 <tr>
-                                    <td style="padding:18px 20px;">
-                                        <div style="font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:#6a7a90; margin-bottom:6px;">Submitted at</div>
-                                        <div style="font-size:15px; line-height:1.6; color:#10233f;">{$safeSubmittedAt}</div>
-                                    </td>
+                                    <td style="padding:14px 16px; font-size:13px; color:#6a7a90;">Submitted At</td>
+                                    <td style="padding:14px 16px; font-size:14px; color:#10233f;">{$safeSubmittedAt}</td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding:8px 32px 32px;">
-                            <p style="margin:0; font-size:14px; line-height:1.7; color:#42546d;">
-                                Suggested follow-up: reach out with the most relevant TruBoard conversation, whether that is
-                                services, TruGenie, or a broader asset management discussion.
+                        <td style="padding:0 28px 24px;">
+                            <p style="margin:0; font-size:13px; line-height:1.6; color:#6a7a90;">
+                                Follow up with the user on the relevant TruBoard service or product discussion.
                             </p>
                         </td>
                     </tr>

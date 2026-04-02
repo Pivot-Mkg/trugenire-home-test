@@ -1612,6 +1612,16 @@ function showToast(message, type = "success") {
   toast.addEventListener("click", dismiss, { once: true });
 }
 
+const TOAST_COPY = {
+  success: "Thanks. Your request has been received.",
+  error: "Technical error. Please try again later.",
+};
+
+function showStandardToast(type = "success") {
+  const normalizedType = type === "error" ? "error" : "success";
+  showToast(TOAST_COPY[normalizedType], normalizedType);
+}
+
 function initHeroEmailCapture() {
   const form = document.querySelector("[data-hero-email-form]");
   const input = document.querySelector("[data-hero-email-input]");
@@ -1685,15 +1695,10 @@ function initHeroEmailCapture() {
       }
 
       input.value = "";
-      showToast(result.message || "Mail sent successfully!", "success");
+      showStandardToast("success");
     } catch (error) {
       console.error("Hero email submission failed.", error);
-      showToast(
-        error instanceof Error && error.message
-          ? error.message
-          : "Technical error. Please try again later.",
-        "error",
-      );
+      showStandardToast("error");
     } finally {
       isSubmitting = false;
       submitTrigger.disabled = false;
@@ -1765,18 +1770,10 @@ function initAIEmailForms() {
         }
 
         input.value = "";
-        showToast(
-          result.message || "Thanks. Your email has been submitted.",
-          "success",
-        );
+        showStandardToast("success");
       } catch (error) {
         console.error("AI email form submission failed.", error);
-        showToast(
-          error instanceof Error && error.message
-            ? error.message
-            : "Technical error. Please try again later.",
-          "error",
-        );
+        showStandardToast("error");
       } finally {
         isSubmitting = false;
         submitButton.removeAttribute("aria-disabled");

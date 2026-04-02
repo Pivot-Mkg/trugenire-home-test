@@ -511,6 +511,40 @@
       const submitContactForm = async (form) => {
         const confirmation = form.querySelector("[data-form-confirmation]");
         const submitButton = form.querySelector('button[type="submit"]');
+        const nameInput = form.querySelector('input[name="name"]');
+        const emailInput = form.querySelector('input[name="email"]');
+        const messageInput = form.querySelector('textarea[name="message"]');
+
+        if (nameInput) {
+          nameInput.value = nameInput.value.trim().replace(/\s+/g, " ");
+          if (!nameInput.value) {
+            nameInput.setCustomValidity("Please enter your name.");
+          } else if (nameInput.value.length > 120) {
+            nameInput.setCustomValidity("Name must be 120 characters or fewer.");
+          } else {
+            nameInput.setCustomValidity("");
+          }
+        }
+
+        if (emailInput) {
+          emailInput.value = emailInput.value.trim();
+          if (emailInput.value.length > 254) {
+            emailInput.setCustomValidity("Email must be 254 characters or fewer.");
+          } else {
+            emailInput.setCustomValidity("");
+          }
+        }
+
+        if (messageInput) {
+          messageInput.value = messageInput.value.trim();
+          if (!messageInput.value) {
+            messageInput.setCustomValidity("Please enter your requirement details.");
+          } else if (messageInput.value.length > 3000) {
+            messageInput.setCustomValidity("Message must be 3000 characters or fewer.");
+          } else {
+            messageInput.setCustomValidity("");
+          }
+        }
 
         if (!form.reportValidity()) return;
         if (form.dataset.submitting === "true") return;
@@ -547,29 +581,21 @@
 
           form.reset();
 
-          if (confirmation) {
-            confirmation.textContent =
-              result.message ||
-              form.getAttribute("data-confirmation") ||
-              "Thanks. Your request has been received.";
-            confirmation.hidden = false;
+          if (confirmation) confirmation.hidden = true;
+
+          if (typeof showStandardToast === "function") {
+            showStandardToast("success");
           } else if (typeof showToast === "function") {
-            showToast(
-              result.message || "Thanks. Your request has been received.",
-              "success",
-            );
+            showToast("Thanks. Your request has been received.", "success");
           }
         } catch (error) {
           console.error("Contact form submission failed.", error);
           if (confirmation) confirmation.hidden = true;
 
-          if (typeof showToast === "function") {
-            showToast(
-              error instanceof Error && error.message
-                ? error.message
-                : "We could not submit your request right now.",
-              "error",
-            );
+          if (typeof showStandardToast === "function") {
+            showStandardToast("error");
+          } else if (typeof showToast === "function") {
+            showToast("Technical error. Please try again later.", "error");
           }
         } finally {
           delete form.dataset.submitting;

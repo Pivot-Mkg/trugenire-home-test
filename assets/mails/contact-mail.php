@@ -6,13 +6,48 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 header('Content-Type: application/json; charset=UTF-8');
 
-$SMTP_HOST = 'smtp.office365.com';
-$SMTP_PORT = 587;
-$SMTP_SECURE = PHPMailer::ENCRYPTION_STARTTLS;
-$SMTP_USERNAME = 'website-enquiry@truboardpartners.com';
-$SMTP_PASSWORD = 'hzhkdwmqskxjhysc';
-$FROM_EMAIL = 'website-enquiry@truboardpartners.com';
-$FROM_NAME = 'Website Enquiry';
+function loadEnvValues(string $filePath): array
+{
+    if (!is_file($filePath)) {
+        return [];
+    }
+
+    $lines = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if ($lines === false) {
+        return [];
+    }
+
+    $values = [];
+    foreach ($lines as $line) {
+        $trimmed = trim($line);
+        if ($trimmed === '' || str_starts_with($trimmed, '#')) {
+            continue;
+        }
+
+        $parts = explode('=', $trimmed, 2);
+        if (count($parts) !== 2) {
+            continue;
+        }
+
+        $key = trim($parts[0]);
+        $value = trim($parts[1]);
+        $value = trim($value, "\"'");
+        if ($key !== '') {
+            $values[$key] = $value;
+        }
+    }
+
+    return $values;
+}
+
+$env = loadEnvValues(__DIR__ . '/.env');
+$SMTP_HOST = trim((string) ($env['SMTP_HOST'] ?? 'smtp.office365.com'));
+$SMTP_PORT = (int) ($env['SMTP_PORT'] ?? 587);
+$SMTP_SECURE = trim((string) ($env['SMTP_SECURE'] ?? 'starttls'));
+$SMTP_USERNAME = trim((string) ($env['SMTP_USERNAME'] ?? ''));
+$SMTP_PASSWORD = trim((string) ($env['SMTP_PASSWORD'] ?? ''));
+$FROM_EMAIL = trim((string) ($env['SMTP_FROM_EMAIL'] ?? ''));
+$FROM_NAME = trim((string) ($env['SMTP_FROM_NAME'] ?? 'Website Enquiry'));
 $RECIPIENTS = [
     ['email' => 'aakash@pivotmkg.com', 'name' => 'Aakash'],
 ];
@@ -38,9 +73,18 @@ function requestMetaLines(): array
 {
     return [
         'Submitted at: ' . gmdate('Y-m-d H:i:s') . ' UTC',
-        'IP address: ' . (string) ($_SERVER['REMOTE_ADDR'] ?? 'Unavailable'),
-        'User agent: ' . (string) ($_SERVER['HTTP_USER_AGENT'] ?? 'Unavailable'),
+        // 'User agent: ' . (string) ($_SERVER['HTTP_USER_AGENT'] ?? 'Unavailable'),
     ];
+}
+
+function safeHtml(string $value): string
+{
+    return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+
+function hasVisibleText(string $value): bool
+{
+    return preg_match('/\S/u', $value) === 1;
 }
 
 function logMailError(string $detail): void
@@ -90,7 +134,9 @@ function configureMailer(?string $replyTo = null): PHPMailer
     $mail->Username = $GLOBALS['SMTP_USERNAME'];
     $mail->Password = $GLOBALS['SMTP_PASSWORD'];
     $mail->Port = $GLOBALS['SMTP_PORT'];
-    $mail->SMTPSecure = $GLOBALS['SMTP_SECURE'];
+    $mail->SMTPSecure = $GLOBALS['SMTP_SECURE'] === 'starttls'
+        ? PHPMailer::ENCRYPTION_STARTTLS
+        : (string) $GLOBALS['SMTP_SECURE'];
     $mail->Timeout = 20;
     $mail->setFrom($GLOBALS['FROM_EMAIL'], $GLOBALS['FROM_NAME']);
 
@@ -120,15 +166,14 @@ function configureMailer(?string $replyTo = null): PHPMailer
     return $mail;
 }
 
-function sendPlainMail(string $subject, array $bodyLines, ?string $replyTo = null): bool
+function sendMail(string $subject, string $htmlBody, string $altBody, ?string $replyTo = null): bool
 {
     try {
         $mail = configureMailer($replyTo);
-        $body = implode("\r\n", $bodyLines);
-        $mail->isHTML(false);
+        $mail->isHTML(true);
         $mail->Subject = $subject;
-        $mail->Body = $body;
-        $mail->AltBody = $body;
+        $mail->Body = $htmlBody;
+        $mail->AltBody = $altBody;
         return $mail->send();
     } catch (Exception $exception) {
         $detail = isset($mail) && $mail instanceof PHPMailer ? $mail->ErrorInfo : $exception->getMessage();
@@ -165,24 +210,42 @@ $selectedRoute = $routeConfig[$routing] ?? [
     'success_message' => 'Thanks. Your request has been received.',
 ];
 
-if ($name === '') {
+$name = trim((string) preg_replace('/\s+/u', ' ', $name));
+$email = trim($email);
+$message = trim($message);
+
+if (!hasVisibleText($name)) {
     jsonResponse(422, [
         'ok' => false,
         'message' => 'Please enter your name.',
     ]);
 }
 
-if ($email === '' || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+if (strlen($name) > 120) {
+    jsonResponse(422, [
+        'ok' => false,
+        'message' => 'Name must be 120 characters or fewer.',
+    ]);
+}
+
+if ($email === '' || strlen($email) > 254 || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
     jsonResponse(422, [
         'ok' => false,
         'message' => 'Please enter a valid email address.',
     ]);
 }
 
-if ($message === '') {
+if (!hasVisibleText($message)) {
     jsonResponse(422, [
         'ok' => false,
         'message' => 'Please enter your requirement details.',
+    ]);
+}
+
+if (strlen($message) > 3000) {
+    jsonResponse(422, [
+        'ok' => false,
+        'message' => 'Message must be 3000 characters or fewer.',
     ]);
 }
 
@@ -190,6 +253,7 @@ if ($inquiryType === '') {
     $inquiryType = 'Website Inquiry';
 }
 
+$metaLines = requestMetaLines();
 $bodyLines = [
     'A new Contact Us request was submitted from the website.',
     '',
@@ -203,9 +267,57 @@ $bodyLines = [
     '',
 ];
 
-$bodyLines = array_merge($bodyLines, requestMetaLines());
+$bodyLines = array_merge($bodyLines, $metaLines);
+$altBody = implode("\r\n", $bodyLines);
 
-$sent = sendPlainMail($selectedRoute['subject'], $bodyLines, $email);
+$safeName = safeHtml($name);
+$safeEmail = safeHtml($email);
+$safeInquiryType = safeHtml($inquiryType);
+$safeRouting = safeHtml($routing);
+$safeMessage = nl2br(safeHtml($message), false);
+$safeSubmittedAt = safeHtml($metaLines[0] ?? 'Submitted at: Unavailable');
+
+$htmlBody = <<<HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Contact Request</title>
+</head>
+<body style="margin:0; padding:24px; background:#f5f7fb; font-family:Arial, Helvetica, sans-serif; color:#10233f;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;">
+        <tr>
+            <td align="center">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:620px; border-collapse:collapse; background:#ffffff; border:1px solid #dbe4f0; border-radius:14px; overflow:hidden;">
+                    <tr>
+                        <td style="padding:20px 24px; background:#10233f; color:#ffffff;">
+                            <p style="margin:0; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; opacity:0.85;">TruBoard Technologies</p>
+                            <h1 style="margin:8px 0 0; font-size:22px; line-height:1.3; font-weight:700;">New Contact Request</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:20px 24px;">
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse; background:#f7faff; border:1px solid #dbe4f0; border-radius:10px;">
+                                <tr><td style="padding:12px 14px; border-bottom:1px solid #dbe4f0; font-size:13px; color:#6a7a90; width:165px;">Name</td><td style="padding:12px 14px; border-bottom:1px solid #dbe4f0; font-size:15px; color:#10233f;">{$safeName}</td></tr>
+                                <tr><td style="padding:12px 14px; border-bottom:1px solid #dbe4f0; font-size:13px; color:#6a7a90;">Email</td><td style="padding:12px 14px; border-bottom:1px solid #dbe4f0; font-size:15px; color:#10233f;">{$safeEmail}</td></tr>
+                                <tr><td style="padding:12px 14px; border-bottom:1px solid #dbe4f0; font-size:13px; color:#6a7a90;">Inquiry Type</td><td style="padding:12px 14px; border-bottom:1px solid #dbe4f0; font-size:15px; color:#10233f;">{$safeInquiryType}</td></tr>
+                                <tr><td style="padding:12px 14px; border-bottom:1px solid #dbe4f0; font-size:13px; color:#6a7a90;">Routing Key</td><td style="padding:12px 14px; border-bottom:1px solid #dbe4f0; font-size:15px; color:#10233f;">{$safeRouting}</td></tr>
+                                <tr><td style="padding:12px 14px; border-bottom:1px solid #dbe4f0; font-size:13px; color:#6a7a90;">Submitted At</td><td style="padding:12px 14px; border-bottom:1px solid #dbe4f0; font-size:14px; color:#10233f;">{$safeSubmittedAt}</td></tr>
+                            </table>
+                            <h2 style="margin:18px 0 8px; font-size:15px; color:#10233f;">Message</h2>
+                            <p style="margin:0; font-size:14px; line-height:1.6; color:#344764;">{$safeMessage}</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+HTML;
+
+$sent = sendMail($selectedRoute['subject'], $htmlBody, $altBody, $email);
 
 if (!$sent) {
     jsonResponse(500, [

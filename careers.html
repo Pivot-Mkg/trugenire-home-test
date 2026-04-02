@@ -619,6 +619,10 @@
                 const roleInput = form && form.querySelector("input[name='role_interest']");
                 const fileUpload = form && form.querySelector(".tb-careers-file-upload");
                 const roleSelect = form && form.querySelector("[data-careers-select]");
+                const firstNameInput = form && form.querySelector("input[name='first_name']");
+                const lastNameInput = form && form.querySelector("input[name='last_name']");
+                const emailInput = form && form.querySelector("input[name='email']");
+                const messageInput = form && form.querySelector("textarea[name='message']");
 
                 if (!form || !submitButton || typeof window.fetch !== "function") return;
 
@@ -626,6 +630,46 @@
 
                 form.addEventListener("submit", async (event) => {
                     event.preventDefault();
+
+                    if (firstNameInput) {
+                        firstNameInput.value = firstNameInput.value.trim().replace(/\s+/g, " ");
+                        if (!firstNameInput.value) {
+                            firstNameInput.setCustomValidity("Please enter the first name.");
+                        } else if (firstNameInput.value.length > 80) {
+                            firstNameInput.setCustomValidity("First name must be 80 characters or fewer.");
+                        } else {
+                            firstNameInput.setCustomValidity("");
+                        }
+                    }
+
+                    if (lastNameInput) {
+                        lastNameInput.value = lastNameInput.value.trim().replace(/\s+/g, " ");
+                        if (!lastNameInput.value) {
+                            lastNameInput.setCustomValidity("Please enter the last name.");
+                        } else if (lastNameInput.value.length > 80) {
+                            lastNameInput.setCustomValidity("Last name must be 80 characters or fewer.");
+                        } else {
+                            lastNameInput.setCustomValidity("");
+                        }
+                    }
+
+                    if (emailInput) {
+                        emailInput.value = emailInput.value.trim();
+                        if (emailInput.value.length > 254) {
+                            emailInput.setCustomValidity("Email must be 254 characters or fewer.");
+                        } else {
+                            emailInput.setCustomValidity("");
+                        }
+                    }
+
+                    if (messageInput) {
+                        messageInput.value = messageInput.value.trim();
+                        if (messageInput.value.length > 3000) {
+                            messageInput.setCustomValidity("Background summary must be 3000 characters or fewer.");
+                        } else {
+                            messageInput.setCustomValidity("");
+                        }
+                    }
 
                     if (!form.reportValidity()) return;
                     if (!roleInput || !roleInput.value) return;
@@ -671,22 +715,17 @@
                             fileUpload.resetControl();
                         }
 
-                        if (typeof showToast === "function") {
-                            showToast(
-                                result.message ||
-                                    "Thanks for sharing your profile. Our team will review it and reach out if there is a fit.",
-                                "success",
-                            );
+                        if (typeof showStandardToast === "function") {
+                            showStandardToast("success");
+                        } else if (typeof showToast === "function") {
+                            showToast("Thanks. Your request has been received.", "success");
                         }
                     } catch (error) {
                         console.error("Careers form submission failed.", error);
-                        if (typeof showToast === "function") {
-                            showToast(
-                                error instanceof Error && error.message
-                                    ? error.message
-                                    : "Technical error. Please try again later.",
-                                "error",
-                            );
+                        if (typeof showStandardToast === "function") {
+                            showStandardToast("error");
+                        } else if (typeof showToast === "function") {
+                            showToast("Technical error. Please try again later.", "error");
                         }
                     } finally {
                         isSubmitting = false;

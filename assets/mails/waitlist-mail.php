@@ -7,13 +7,48 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 header('Content-Type: application/json; charset=UTF-8');
 
-$SMTP_HOST = 'smtp.office365.com';
-$SMTP_PORT = 587;
-$SMTP_SECURE = PHPMailer::ENCRYPTION_STARTTLS;
-$SMTP_USERNAME = 'website-enquiry@truboardpartners.com';
-$SMTP_PASSWORD = 'hzhkdwmqskxjhysc';
-$FROM_EMAIL = 'website-enquiry@truboardpartners.com';
-$FROM_NAME = 'Website Enquiry';
+function loadEnvValues(string $filePath): array
+{
+    if (!is_file($filePath)) {
+        return [];
+    }
+
+    $lines = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if ($lines === false) {
+        return [];
+    }
+
+    $values = [];
+    foreach ($lines as $line) {
+        $trimmed = trim($line);
+        if ($trimmed === '' || str_starts_with($trimmed, '#')) {
+            continue;
+        }
+
+        $parts = explode('=', $trimmed, 2);
+        if (count($parts) !== 2) {
+            continue;
+        }
+
+        $key = trim($parts[0]);
+        $value = trim($parts[1]);
+        $value = trim($value, "\"'");
+        if ($key !== '') {
+            $values[$key] = $value;
+        }
+    }
+
+    return $values;
+}
+
+$env = loadEnvValues(__DIR__ . '/.env');
+$SMTP_HOST = trim((string) ($env['SMTP_HOST'] ?? 'smtp.office365.com'));
+$SMTP_PORT = (int) ($env['SMTP_PORT'] ?? 587);
+$SMTP_SECURE = trim((string) ($env['SMTP_SECURE'] ?? 'starttls'));
+$SMTP_USERNAME = trim((string) ($env['SMTP_USERNAME'] ?? ''));
+$SMTP_PASSWORD = trim((string) ($env['SMTP_PASSWORD'] ?? ''));
+$FROM_EMAIL = trim((string) ($env['SMTP_FROM_EMAIL'] ?? ''));
+$FROM_NAME = trim((string) ($env['SMTP_FROM_NAME'] ?? 'Website Enquiry'));
 $RECIPIENTS = [
     ['email' => 'aakash@pivotmkg.com', 'name' => 'Aakash'],
 ];
@@ -39,9 +74,13 @@ function requestMetaLines(): array
 {
     return [
         'Submitted at: ' . gmdate('Y-m-d H:i:s') . ' UTC',
-        'IP address: ' . (string) ($_SERVER['REMOTE_ADDR'] ?? 'Unavailable'),
-        'User agent: ' . (string) ($_SERVER['HTTP_USER_AGENT'] ?? 'Unavailable'),
+        // 'User agent: ' . (string) ($_SERVER['HTTP_USER_AGENT'] ?? 'Unavailable'),
     ];
+}
+
+function safeHtml(string $value): string
+{
+    return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
 function logMailError(string $detail): void
@@ -91,7 +130,9 @@ function configureMailer(?string $replyTo = null): PHPMailer
     $mail->Username = $GLOBALS['SMTP_USERNAME'];
     $mail->Password = $GLOBALS['SMTP_PASSWORD'];
     $mail->Port = $GLOBALS['SMTP_PORT'];
-    $mail->SMTPSecure = $GLOBALS['SMTP_SECURE'];
+    $mail->SMTPSecure = $GLOBALS['SMTP_SECURE'] === 'starttls'
+        ? PHPMailer::ENCRYPTION_STARTTLS
+        : (string) $GLOBALS['SMTP_SECURE'];
     $mail->Timeout = 20;
     $mail->setFrom($GLOBALS['FROM_EMAIL'], $GLOBALS['FROM_NAME']);
 
@@ -121,21 +162,65 @@ function configureMailer(?string $replyTo = null): PHPMailer
     return $mail;
 }
 
-function sendPlainMail(string $subject, array $bodyLines, ?string $replyTo = null): bool
+function sendMail(string $subject, string $htmlBody, string $altBody, ?string $replyTo = null): bool
 {
     try {
         $mail = configureMailer($replyTo);
-        $body = implode("\r\n", $bodyLines);
-        $mail->isHTML(false);
+        $mail->isHTML(true);
         $mail->Subject = $subject;
-        $mail->Body = $body;
-        $mail->AltBody = $body;
+        $mail->Body = $htmlBody;
+        $mail->AltBody = $altBody;
         return $mail->send();
     } catch (Exception $exception) {
         $detail = isset($mail) && $mail instanceof PHPMailer ? $mail->ErrorInfo : $exception->getMessage();
         logMailError($detail);
         return false;
     }
+}
+
+function buildWaitlistEmailTemplate(
+    string $safeHeading,
+    string $safeSummary,
+    string $safeEmail,
+    string $safeSource,
+    string $safeSubmittedAt
+): string {
+    return <<<HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Waitlist Submission</title>
+</head>
+<body style="margin:0; padding:24px; background:#f5f7fb; font-family:Arial, Helvetica, sans-serif; color:#10233f;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;">
+        <tr>
+            <td align="center">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:620px; border-collapse:collapse; background:#ffffff; border:1px solid #dbe4f0; border-radius:14px; overflow:hidden;">
+                    <tr>
+                        <td style="padding:20px 24px; background:#10233f; color:#ffffff;">
+                            <p style="margin:0; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; opacity:0.85;">TruBoard Technologies</p>
+                            <h1 style="margin:8px 0 0; font-size:22px; line-height:1.3; font-weight:700;">{$safeHeading}</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:20px 24px;">
+                            <p style="margin:0 0 14px; font-size:14px; line-height:1.6; color:#42546d;">{$safeSummary}</p>
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse; background:#f7faff; border:1px solid #dbe4f0; border-radius:10px;">
+                                <tr><td style="padding:12px 14px; border-bottom:1px solid #dbe4f0; font-size:13px; color:#6a7a90; width:165px;">Submitted Email</td><td style="padding:12px 14px; border-bottom:1px solid #dbe4f0; font-size:15px; color:#10233f;">{$safeEmail}</td></tr>
+                                <tr><td style="padding:12px 14px; border-bottom:1px solid #dbe4f0; font-size:13px; color:#6a7a90;">Source</td><td style="padding:12px 14px; border-bottom:1px solid #dbe4f0; font-size:15px; color:#10233f;">{$safeSource}</td></tr>
+                                <tr><td style="padding:12px 14px; font-size:13px; color:#6a7a90;">Submitted At</td><td style="padding:12px 14px; font-size:14px; color:#10233f;">{$safeSubmittedAt}</td></tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+HTML;
 }
 
 ensurePostRequest();
@@ -176,15 +261,32 @@ if ($email === '' || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
 
 $subject = $selectedSource['subject'];
 
+// Keep text fallback for inbox clients that block HTML.
+$metaLines = requestMetaLines();
 $bodyLines = [
     $selectedSource['summary'],
     '',
     'Submitted email: ' . $email,
     'Source: ' . $source,
 ];
-$bodyLines = array_merge($bodyLines, requestMetaLines());
+$bodyLines = array_merge($bodyLines, $metaLines);
+$altBody = implode("\r\n", $bodyLines);
 
-$sent = sendPlainMail($subject, $bodyLines, $email);
+$safeHeading = safeHtml($subject);
+$safeSummary = safeHtml($selectedSource['summary']);
+$safeEmail = safeHtml($email);
+$safeSource = safeHtml($source);
+$safeSubmittedAt = safeHtml($metaLines[0] ?? 'Submitted at: Unavailable');
+
+$htmlBody = buildWaitlistEmailTemplate(
+    $safeHeading,
+    $safeSummary,
+    $safeEmail,
+    $safeSource,
+    $safeSubmittedAt
+);
+
+$sent = sendMail($subject, $htmlBody, $altBody, $email);
 
 if (!$sent) {
     jsonResponse(500, [
