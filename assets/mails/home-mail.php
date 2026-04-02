@@ -49,6 +49,17 @@ function publicMailErrorMessage(): string
     return 'Technical error. Please try again later.';
 }
 
+function setLastMailError(string $detail): void
+{
+    $GLOBALS['LAST_MAIL_ERROR'] = trim($detail);
+}
+
+function getLastMailError(): string
+{
+    $value = $GLOBALS['LAST_MAIL_ERROR'] ?? '';
+    return is_string($value) ? trim($value) : '';
+}
+
 function requireMailerAutoload(): void
 {
     $autoload = __DIR__ . '/vendor/autoload.php';
@@ -115,6 +126,8 @@ function configureMailer(?string $replyTo = null): PHPMailer
 
 function sendHtmlMail(string $subject, string $htmlBody, string $altBody, ?string $replyTo = null): bool
 {
+    setLastMailError('');
+
     try {
         $mail = configureMailer($replyTo);
         $mail->isHTML(true);
@@ -124,6 +137,7 @@ function sendHtmlMail(string $subject, string $htmlBody, string $altBody, ?strin
         return $mail->send();
     } catch (Exception $exception) {
         $detail = isset($mail) && $mail instanceof PHPMailer ? $mail->ErrorInfo : $exception->getMessage();
+        setLastMailError($detail);
         logMailError($detail);
         return false;
     }
@@ -206,7 +220,7 @@ if ($userEmail === '' || filter_var($userEmail, FILTER_VALIDATE_EMAIL) === false
 $safeUserEmail = htmlspecialchars($userEmail, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 $submittedAt = date('d M Y, h:i A T');
 $safeSubmittedAt = htmlspecialchars($submittedAt, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-$sent = tb_send_html_mail(
+$sent = sendHtmlMail(
     'New Home Page Enquiry | Asset Management & Intelligence',
     buildHomeCaptureEmailTemplate($safeUserEmail, $safeSubmittedAt),
     "New home page enquiry\n"
@@ -218,9 +232,11 @@ $sent = tb_send_html_mail(
 );
 
 if (!$sent) {
+    $debugDetail = getLastMailError();
     jsonResponse(500, [
         'status' => 500,
         'message' => publicMailErrorMessage(),
+        'debug' => $debugDetail !== '' ? $debugDetail : 'Unknown home-mail.php failure',
     ]);
 }
 

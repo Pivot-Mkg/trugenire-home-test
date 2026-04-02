@@ -1651,9 +1651,33 @@ function initHeroEmailCapture() {
         credentials: "same-origin",
       });
 
-      const result = await response.json().catch(() => null);
+      const rawResponse = await response.text();
+      let result = null;
+
+      if (rawResponse) {
+        try {
+          result = JSON.parse(rawResponse);
+        } catch (parseError) {
+          console.error("Home mail response JSON parse failed.", {
+            status: response.status,
+            rawResponse,
+            parseError,
+          });
+        }
+      }
 
       if (!response.ok || !result || result.status !== 200) {
+        const debugCause =
+          result && typeof result.debug === "string" ? result.debug : "";
+
+        if (debugCause || rawResponse) {
+          console.error("Home mail backend failure detail.", {
+            status: response.status,
+            debug: debugCause || null,
+            rawResponse,
+          });
+        }
+
         throw new Error(
           (result && typeof result.message === "string" && result.message) ||
             "Technical error. Please try again later.",
