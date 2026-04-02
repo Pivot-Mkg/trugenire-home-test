@@ -1,9 +1,133 @@
 <?php
 declare(strict_types=1);
 
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+
 header('Content-Type: application/json; charset=UTF-8');
 
-require __DIR__ . '/mail-helper.php';
+$SMTP_HOST = 'smtp.office365.com';
+$SMTP_PORT = 587;
+$SMTP_SECURE = PHPMailer::ENCRYPTION_STARTTLS;
+$SMTP_USERNAME = 'website-enquiry@truboardpartners.com';
+$SMTP_PASSWORD = 'hzhkdwmqskxjhysc';
+$FROM_EMAIL = 'website-enquiry@truboardpartners.com';
+$FROM_NAME = 'Website Enquiry';
+$RECIPIENTS = [
+    // ['email' => 'marketing@trugenie.com', 'name' => 'TruGenie Marketing'],
+    ['email' => 'aakash@pivotmkg.com', 'name' => 'Aakash'],
+];
+
+function jsonResponse(int $statusCode, array $payload): never
+{
+    http_response_code($statusCode);
+    echo json_encode($payload);
+    exit;
+}
+
+function ensurePostRequest(): void
+{
+    if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+        jsonResponse(405, [
+            'status' => 405,
+            'message' => 'Invalid request method. Only POST allowed.',
+        ]);
+    }
+}
+
+function logMailError(string $detail): void
+{
+    $message = trim($detail);
+    if ($message === '') {
+        return;
+    }
+    error_log('[TruBoard Mail][home-mail.php] ' . $message);
+}
+
+function publicMailErrorMessage(): string
+{
+    return 'Technical error. Please try again later.';
+}
+
+function requireMailerAutoload(): void
+{
+    $autoload = __DIR__ . '/vendor/autoload.php';
+    if (!is_file($autoload)) {
+        logMailError('PHPMailer dependency is missing. Deploy assets/mails/vendor or run composer install in assets/mails.');
+        jsonResponse(500, [
+            'status' => 500,
+            'message' => publicMailErrorMessage(),
+        ]);
+    }
+    require_once $autoload;
+}
+
+function configureMailer(?string $replyTo = null): PHPMailer
+{
+    requireMailerAutoload();
+
+    $mail = new PHPMailer(true);
+    $mail->isSMTP();
+    $mail->CharSet = 'UTF-8';
+    $mail->Host = $GLOBALS['SMTP_HOST'];
+    $mail->SMTPAuth = true;
+    $mail->Username = $GLOBALS['SMTP_USERNAME'];
+    $mail->Password = $GLOBALS['SMTP_PASSWORD'];
+    $mail->Port = $GLOBALS['SMTP_PORT'];
+    $mail->SMTPSecure = $GLOBALS['SMTP_SECURE'];
+    $mail->Timeout = 20;
+
+    if ($GLOBALS['SMTP_USERNAME'] === '' || $GLOBALS['SMTP_PASSWORD'] === '' || $GLOBALS['FROM_EMAIL'] === '') {
+        logMailError('Mail service is not fully configured on this server.');
+        jsonResponse(500, [
+            'status' => 500,
+            'message' => publicMailErrorMessage(),
+        ]);
+    }
+
+    $mail->setFrom($GLOBALS['FROM_EMAIL'], $GLOBALS['FROM_NAME']);
+
+    $recipientCount = 0;
+    foreach ($GLOBALS['RECIPIENTS'] as $recipient) {
+        $email = trim((string) ($recipient['email'] ?? ''));
+        $name = trim((string) ($recipient['name'] ?? ''));
+        if ($email === '') {
+            continue;
+        }
+        $mail->addAddress($email, $name);
+        $recipientCount++;
+    }
+
+    if ($recipientCount === 0) {
+        logMailError('Mail service recipient list is empty on this server.');
+        jsonResponse(500, [
+            'status' => 500,
+            'message' => publicMailErrorMessage(),
+        ]);
+    }
+
+    if ($replyTo !== null && filter_var($replyTo, FILTER_VALIDATE_EMAIL)) {
+        $mail->addReplyTo($replyTo);
+    }
+
+    return $mail;
+}
+
+function sendHtmlMail(string $subject, string $htmlBody, string $altBody, ?string $replyTo = null): bool
+{
+    try {
+        $mail = configureMailer($replyTo);
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $htmlBody;
+        $mail->AltBody = $altBody;
+        return $mail->send();
+    } catch (Exception $exception) {
+        $detail = isset($mail) && $mail instanceof PHPMailer ? $mail->ErrorInfo : $exception->getMessage();
+        logMailError($detail);
+        return false;
+    }
+}
 
 function buildHomeCaptureEmailTemplate(string $safeUserEmail, string $safeSubmittedAt): string
 {
@@ -68,24 +192,15 @@ function buildHomeCaptureEmailTemplate(string $safeUserEmail, string $safeSubmit
 HTML;
 }
 
-function sendResponse(int $statusCode, string $message): never
-{
-    http_response_code($statusCode);
-    echo json_encode([
-        'status' => $statusCode,
-        'message' => $message,
-    ]);
-    exit;
-}
-
-if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
-    sendResponse(405, 'Invalid request method. Only POST allowed.');
-}
+ensurePostRequest();
 
 $userEmail = trim((string) ($_POST['userEmail'] ?? ''));
 
 if ($userEmail === '' || filter_var($userEmail, FILTER_VALIDATE_EMAIL) === false) {
-    sendResponse(400, 'Invalid email address.');
+    jsonResponse(400, [
+        'status' => 400,
+        'message' => 'Invalid email address.',
+    ]);
 }
 
 $safeUserEmail = htmlspecialchars($userEmail, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
@@ -103,7 +218,13 @@ $sent = tb_send_html_mail(
 );
 
 if (!$sent) {
-    sendResponse(500, tb_public_mail_error_message());
+    jsonResponse(500, [
+        'status' => 500,
+        'message' => publicMailErrorMessage(),
+    ]);
 }
 
-sendResponse(200, 'Mail sent successfully!');
+jsonResponse(200, [
+    'status' => 200,
+    'message' => 'Mail sent successfully!',
+]);

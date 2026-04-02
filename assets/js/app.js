@@ -165,9 +165,9 @@ const offerings = [
   },
   {
     tab: "PDMS",
-    title: "PDMS - Project Development Management",
+    title: "PDMS – Project Development & Monitoring Services",
     description:
-      "End-to-end project development management system for real estate.\n\nKey capabilities:",
+      "End-to-end project development & monitoring services for real estate.\n\nKey capabilities:",
     image: {
       src: "./assets/images/pdms-card-home.jpg",
       alt: "PDMS project planning and site execution visualization",
@@ -1656,17 +1656,18 @@ function initHeroEmailCapture() {
       if (!response.ok || !result || result.status !== 200) {
         throw new Error(
           (result && typeof result.message === "string" && result.message) ||
-            "Unable to submit your email right now.",
+            "Technical error. Please try again later.",
         );
       }
 
       input.value = "";
       showToast(result.message || "Mail sent successfully!", "success");
     } catch (error) {
+      console.error("Hero email submission failed.", error);
       showToast(
         error instanceof Error && error.message
           ? error.message
-          : "Unable to submit your email right now.",
+          : "Technical error. Please try again later.",
         "error",
       );
     } finally {
@@ -1735,7 +1736,7 @@ function initAIEmailForms() {
         if (!response.ok || !result || !result.ok) {
           throw new Error(
             (result && typeof result.message === "string" && result.message) ||
-              "We could not submit your email right now.",
+              "Technical error. Please try again later.",
           );
         }
 
@@ -1745,10 +1746,11 @@ function initAIEmailForms() {
           "success",
         );
       } catch (error) {
+        console.error("AI email form submission failed.", error);
         showToast(
           error instanceof Error && error.message
             ? error.message
-            : "We could not submit your email right now.",
+            : "Technical error. Please try again later.",
           "error",
         );
       } finally {

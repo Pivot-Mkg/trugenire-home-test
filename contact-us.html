@@ -560,6 +560,7 @@
             );
           }
         } catch (error) {
+          console.error("Contact form submission failed.", error);
           if (confirmation) confirmation.hidden = true;
 
           if (typeof showToast === "function") {

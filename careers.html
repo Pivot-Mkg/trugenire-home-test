@@ -633,7 +633,13 @@
                     if (isSubmitting) return;
 
                     isSubmitting = true;
+                    if (!submitButton.dataset.originalText) {
+                        submitButton.dataset.originalText = submitButton.textContent.trim();
+                    }
+                    submitButton.disabled = true;
                     submitButton.setAttribute("aria-disabled", "true");
+                    submitButton.textContent = "Submitting...";
+                    form.setAttribute("aria-busy", "true");
 
                     try {
                         const response = await window.fetch("./assets/mails/career-mail.php", {
@@ -651,7 +657,7 @@
                         if (!response.ok || !result || !result.ok) {
                             throw new Error(
                                 (result && typeof result.message === "string" && result.message) ||
-                                "We could not submit the profile right now.",
+                                "Technical error. Please try again later.",
                             );
                         }
 
@@ -667,22 +673,28 @@
 
                         if (typeof showToast === "function") {
                             showToast(
-                                result.message || "Thanks. Your profile has been submitted.",
+                                result.message ||
+                                    "Thanks for sharing your profile. Our team will review it and reach out if there is a fit.",
                                 "success",
                             );
                         }
                     } catch (error) {
+                        console.error("Careers form submission failed.", error);
                         if (typeof showToast === "function") {
                             showToast(
                                 error instanceof Error && error.message
                                     ? error.message
-                                    : "We could not submit the profile right now.",
+                                    : "Technical error. Please try again later.",
                                 "error",
                             );
                         }
                     } finally {
                         isSubmitting = false;
+                        submitButton.disabled = false;
                         submitButton.removeAttribute("aria-disabled");
+                        submitButton.textContent =
+                            submitButton.dataset.originalText || "Submit Profile";
+                        form.removeAttribute("aria-busy");
                     }
                 });
             };
