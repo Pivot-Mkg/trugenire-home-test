@@ -248,25 +248,6 @@ let offeringRenderToken = 0;
 const OFFERING_TRANSITION_OUT_MS = 170;
 const OFFERING_IMAGE_FADE_MS = 320;
 
-const heroStageImages = [
-  {
-    src: "assets/images/banners/hero-main-banner.png",
-    alt: "Monetize stage illustration",
-  },
-  {
-    src: "assets/images/banners/hero-main-banner.png",
-    alt: "Plan stage illustration",
-  },
-  {
-    src: "assets/images/banners/hero-main-banner.png",
-    alt: "Build stage illustration",
-  },
-  {
-    src: "assets/images/banners/hero-main-banner.png",
-    alt: "Exit stage illustration",
-  },
-];
-
 function initMenu() {
   const menuToggle = document.getElementById("menuToggle");
   const mainNav = document.getElementById("mainNav");
@@ -1232,7 +1213,6 @@ function initLifecycleToggles() {
     document.querySelectorAll(".tb-lifecycle-item[data-phase-index]"),
   );
   const grid = document.querySelector(".tb-lifecycle-grid");
-  const heroStageImage = document.getElementById("tbHeroStageImage");
   if (!toggles.length) return;
   const LIFECYCLE_AUTO_ADVANCE_MS = 3000;
   let activeIndex = 0;
@@ -1251,15 +1231,6 @@ function initLifecycleToggles() {
     if (grid) {
       grid.classList.remove("phase-0", "phase-1", "phase-2", "phase-3");
       grid.classList.add(`phase-${activeIndex}`);
-    }
-
-    if (heroStageImage && heroStageImages[activeIndex]) {
-      heroStageImage.style.opacity = "0.08";
-      heroStageImage.src = heroStageImages[activeIndex].src;
-      heroStageImage.alt = heroStageImages[activeIndex].alt;
-      heroStageImage.onload = () => {
-        heroStageImage.style.opacity = "1";
-      };
     }
   }
 

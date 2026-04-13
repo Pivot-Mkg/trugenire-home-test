@@ -6,40 +6,30 @@
   --tb-page-banner-hero-min-height-mobile: clamp(22rem, 108vw, 27rem);
   --tb-page-banner-hero-padding-top: clamp(5rem, 8vw, 6rem);
   --tb-page-banner-hero-padding-bottom: clamp(1.7rem, 4vw, 2.75rem);
-  --tb-page-banner-hero-padding-inline: max(
-    1rem,
-    calc((100vw - 1320px) / 2 + 0.75rem)
-  );
+  --tb-page-banner-hero-padding-inline: max(1rem,
+      calc((100vw - 1320px) / 2 + 0.75rem));
   --tb-page-banner-hero-overlay:
-    linear-gradient(
-      90deg,
+    linear-gradient(90deg,
       rgba(6, 18, 50, 0.84) 0%,
       rgba(6, 18, 50, 0.68) 34%,
       rgba(6, 18, 50, 0.34) 58%,
-      rgba(6, 18, 50, 0.12) 100%
-    ),
-    linear-gradient(
-      180deg,
+      rgba(6, 18, 50, 0.12) 100%),
+    linear-gradient(180deg,
       rgba(6, 18, 50, 0.08) 0%,
-      rgba(6, 18, 50, 0.38) 100%
-    );
+      rgba(6, 18, 50, 0.38) 100%);
   --tb-page-banner-hero-overlay-mobile:
-    linear-gradient(
-      180deg,
+    linear-gradient(180deg,
       rgba(6, 18, 50, 0.5) 0%,
       rgba(6, 18, 50, 0.7) 38%,
-      rgba(6, 18, 50, 0.8) 100%
-    ),
+      rgba(6, 18, 50, 0.8) 100%),
     linear-gradient(90deg, rgba(6, 18, 50, 0.72) 0%, rgba(6, 18, 50, 0.26) 100%);
 }
 
 /* about-us.html */
 .tb-about-top-shell {
-  background: radial-gradient(
-    74.52% 74.52% at 50% 25.48%,
-    #e9f0ff 0%,
-    #fff 100%
-  );
+  background: radial-gradient(74.52% 74.52% at 50% 25.48%,
+      #e9f0ff 0%,
+      #fff 100%);
 }
 
 .tb-about-hero {
@@ -48,7 +38,7 @@
   padding-bottom: 0;
 }
 
-.tb-about-hero > .container-xl {
+.tb-about-hero>.container-xl {
   max-width: none;
   padding-left: 0;
   padding-right: 0;
@@ -60,9 +50,7 @@
   overflow: hidden;
   min-height: var(--tb-page-banner-hero-min-height);
   width: 100%;
-  padding: var(--tb-page-banner-hero-padding-top)
-    var(--tb-page-banner-hero-padding-inline)
-    var(--tb-page-banner-hero-padding-bottom);
+  padding: var(--tb-page-banner-hero-padding-top) var(--tb-page-banner-hero-padding-inline) var(--tb-page-banner-hero-padding-bottom);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 0;
@@ -612,12 +600,10 @@
   right: 0;
   bottom: 0;
   height: 52%;
-  background: linear-gradient(
-    180deg,
-    rgba(9, 24, 59, 0) 0%,
-    rgba(9, 24, 59, 0.84) 66%,
-    rgba(9, 24, 59, 0.96) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(9, 24, 59, 0) 0%,
+      rgba(9, 24, 59, 0.84) 66%,
+      rgba(9, 24, 59, 0.96) 100%);
   z-index: 0;
 }
 
@@ -859,11 +845,9 @@
 
 .tb-about-presence {
   padding: clamp(1.6rem, 3.2vw, 2.3rem) 0;
-  background: radial-gradient(
-    74.52% 74.52% at 50% 24.48%,
-    #e9f0ff 0%,
-    #ffffff 100%
-  );
+  background: radial-gradient(74.52% 74.52% at 50% 24.48%,
+      #e9f0ff 0%,
+      #ffffff 100%);
 }
 
 .tb-about-presence-head {
@@ -888,11 +872,9 @@
   overflow: hidden;
   border: 1px solid #d5e2f7;
   background:
-    radial-gradient(
-      62% 62% at 50% 52%,
+    radial-gradient(62% 62% at 50% 52%,
       rgba(56, 116, 235, 0.12) 0%,
-      rgba(56, 116, 235, 0) 72%
-    ),
+      rgba(56, 116, 235, 0) 72%),
     linear-gradient(180deg, #f7fbff 0%, #edf4ff 100%);
   min-height: clamp(13.5rem, 38vw, 27rem);
 }
@@ -1182,6 +1164,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .tb-about-purpose-panel.is-active,
   .tb-about-purpose-panel.is-active .tb-about-purpose-copy,
   .tb-about-purpose-panel.is-active .tb-about-purpose-media {
@@ -1190,6 +1173,7 @@
 }
 
 @media (max-width: 1199.98px) {
+
   .tb-about-value-grid,
   .tb-about-team-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1274,17 +1258,13 @@
 
   .tb-about-hero-card::after {
     background:
-      linear-gradient(
-        180deg,
+      linear-gradient(180deg,
         rgba(6, 18, 50, 0.5) 0%,
         rgba(6, 18, 50, 0.7) 38%,
-        rgba(6, 18, 50, 0.8) 100%
-      ),
-      linear-gradient(
-        90deg,
+        rgba(6, 18, 50, 0.8) 100%),
+      linear-gradient(90deg,
         rgba(6, 18, 50, 0.72) 0%,
-        rgba(6, 18, 50, 0.26) 100%
-      );
+        rgba(6, 18, 50, 0.26) 100%);
   }
 
   .tb-about-purpose-tab {
@@ -1377,18 +1357,16 @@
 
 /* careers.html */
 .tb-careers-top-shell {
-  background: radial-gradient(
-    74.52% 74.52% at 50% 25.48%,
-    #e9f0ff 0%,
-    #fff 100%
-  );
+  background: radial-gradient(74.52% 74.52% at 50% 25.48%,
+      #e9f0ff 0%,
+      #fff 100%);
 }
 
 .tb-careers-hero {
   padding: 0;
 }
 
-.tb-careers-hero > .container-xl {
+.tb-careers-hero>.container-xl {
   max-width: none;
   padding-left: 0;
   padding-right: 0;
@@ -1400,9 +1378,7 @@
   overflow: hidden;
   min-height: var(--tb-page-banner-hero-min-height);
   width: 100%;
-  padding: var(--tb-page-banner-hero-padding-top)
-    var(--tb-page-banner-hero-padding-inline)
-    var(--tb-page-banner-hero-padding-bottom);
+  padding: var(--tb-page-banner-hero-padding-top) var(--tb-page-banner-hero-padding-inline) var(--tb-page-banner-hero-padding-bottom);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 0;
@@ -1492,12 +1468,10 @@
 .tb-careers-apply-card {
   border-radius: 22px;
   border: 1px solid #d5e2f8;
-  background: linear-gradient(
-    160deg,
-    rgba(255, 255, 255, 0.98) 0%,
-    rgba(244, 249, 255, 0.96) 44%,
-    rgba(255, 255, 255, 0.98) 100%
-  );
+  background: linear-gradient(160deg,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(244, 249, 255, 0.96) 44%,
+      rgba(255, 255, 255, 0.98) 100%);
   box-shadow:
     0 22px 54px rgba(12, 43, 115, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.88);
@@ -1519,11 +1493,9 @@
   width: 62%;
   height: 70%;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(47, 107, 228, 0.15) 0%,
-    rgba(47, 107, 228, 0) 74%
-  );
+  background: radial-gradient(circle,
+      rgba(47, 107, 228, 0.15) 0%,
+      rgba(47, 107, 228, 0) 74%);
   pointer-events: none;
 }
 
@@ -1535,15 +1507,13 @@
   width: 58%;
   height: 76%;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(15, 39, 111, 0.09) 0%,
-    rgba(15, 39, 111, 0) 74%
-  );
+  background: radial-gradient(circle,
+      rgba(15, 39, 111, 0.09) 0%,
+      rgba(15, 39, 111, 0) 74%);
   pointer-events: none;
 }
 
-.tb-careers-apply-card > * {
+.tb-careers-apply-card>* {
   position: relative;
   z-index: 1;
 }
@@ -1850,9 +1820,7 @@
   background-color: #fff;
 }
 
-.tb-careers-file-upload
-  input[type="file"]:focus-visible
-  + .tb-careers-file-label {
+.tb-careers-file-upload input[type="file"]:focus-visible+.tb-careers-file-label {
   border-color: #2f6be4;
   box-shadow:
     0 0 0 4px rgba(47, 107, 228, 0.15),
@@ -2211,6 +2179,7 @@
 }
 
 @media (max-width: 767.98px) {
+
   .tb-careers-shell,
   .tb-careers-top-shell,
   .tb-careers-hero,
@@ -2290,6 +2259,7 @@
 }
 
 @media (max-width: 575.98px) {
+
   .tb-about-hero-copy h1,
   .tb-careers-hero-copy h1 {
     font-size: 24px;
@@ -2317,11 +2287,13 @@
   .tb-careers-role-grid {
     grid-template-columns: 1fr;
   }
+
   .tb-careers-form-grid,
   .tb-careers-apply-card {
     overflow-x: hidden;
     overflow-y: clip;
   }
+
   .tb-careers-culture-body h3,
   .tb-careers-role-card h3,
   .tb-careers-form-head h2 {
@@ -2356,18 +2328,16 @@
 
 /* contact-us.html */
 .tb-contact-top-shell {
-  background: radial-gradient(
-    74.52% 74.52% at 50% 25.48%,
-    #e9f0ff 0%,
-    #fff 100%
-  );
+  background: radial-gradient(74.52% 74.52% at 50% 25.48%,
+      #e9f0ff 0%,
+      #fff 100%);
 }
 
 .tb-contact-hero {
   padding: 0;
 }
 
-.tb-contact-hero > .container-xl {
+.tb-contact-hero>.container-xl {
   max-width: none;
   padding-left: 0;
   padding-right: 0;
@@ -2379,9 +2349,7 @@
   overflow: hidden;
   min-height: var(--tb-page-banner-hero-min-height);
   width: 100%;
-  padding: var(--tb-page-banner-hero-padding-top)
-    var(--tb-page-banner-hero-padding-inline)
-    var(--tb-page-banner-hero-padding-bottom);
+  padding: var(--tb-page-banner-hero-padding-top) var(--tb-page-banner-hero-padding-inline) var(--tb-page-banner-hero-padding-bottom);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 0;
@@ -2457,7 +2425,7 @@
   overflow: visible;
 }
 
-.tb-contact-banner > * {
+.tb-contact-banner>* {
   position: relative;
   z-index: 1;
 }
@@ -2489,12 +2457,10 @@
 .tb-contact-form {
   border-radius: 22px;
   border: 1px solid #d5e2f8;
-  background: linear-gradient(
-    160deg,
-    rgba(255, 255, 255, 0.98) 0%,
-    rgba(244, 249, 255, 0.96) 44%,
-    rgba(255, 255, 255, 0.98) 100%
-  );
+  background: linear-gradient(160deg,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(244, 249, 255, 0.96) 44%,
+      rgba(255, 255, 255, 0.98) 100%);
   box-shadow:
     0 22px 54px rgba(12, 43, 115, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.88);
@@ -2519,11 +2485,9 @@
   width: 62%;
   height: 70%;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(47, 107, 228, 0.15) 0%,
-    rgba(47, 107, 228, 0) 74%
-  );
+  background: radial-gradient(circle,
+      rgba(47, 107, 228, 0.15) 0%,
+      rgba(47, 107, 228, 0) 74%);
   pointer-events: none;
 }
 
@@ -2535,15 +2499,13 @@
   width: 58%;
   height: 76%;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(15, 39, 111, 0.09) 0%,
-    rgba(15, 39, 111, 0) 74%
-  );
+  background: radial-gradient(circle,
+      rgba(15, 39, 111, 0.09) 0%,
+      rgba(15, 39, 111, 0) 74%);
   pointer-events: none;
 }
 
-.tb-contact-form > * {
+.tb-contact-form>* {
   position: relative;
   z-index: 1;
 }
@@ -2989,11 +2951,9 @@
 }
 
 .contact-con {
-  background: radial-gradient(
-    74.52% 74.52% at 50% 25.48%,
-    #e9f0ff 0%,
-    #fff 100%
-  );
+  background: radial-gradient(74.52% 74.52% at 50% 25.48%,
+      #e9f0ff 0%,
+      #fff 100%);
   padding: clamp(1rem, 2.8vw, 2.4rem) 0;
   padding-top: 0;
   padding-bottom: clamp(1rem, 2.8vw, 2.4rem);
@@ -3135,7 +3095,7 @@
     align-items: center;
     justify-content: center;
     flex: 0 0 50%;
-    max-width: 50%;
+    /* max-width: 50%; */
     text-align: center;
     scroll-snap-align: start;
     scroll-snap-stop: always;
@@ -3222,11 +3182,9 @@
 
 /* legal.html */
 .tb-legal-shell {
-  background: radial-gradient(
-    74.52% 74.52% at 50% 25.48%,
-    #e9f0ff 0%,
-    #fff 100%
-  );
+  background: radial-gradient(74.52% 74.52% at 50% 25.48%,
+      #e9f0ff 0%,
+      #fff 100%);
   padding-top: clamp(6.2rem, 9vh, 7.6rem);
   padding-bottom: clamp(2rem, 4vh, 3rem);
 }
@@ -3424,11 +3382,9 @@
 
 /* resources.html */
 .tb-res-top-shell {
-  background: radial-gradient(
-    74.52% 74.52% at 50% 25.48%,
-    #e9f0ff 0%,
-    #fff 100%
-  );
+  background: radial-gradient(74.52% 74.52% at 50% 25.48%,
+      #e9f0ff 0%,
+      #fff 100%);
 }
 
 .tb-res-hero {
@@ -3453,9 +3409,7 @@
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-  padding: var(--tb-page-banner-hero-padding-top)
-    var(--tb-page-banner-hero-padding-inline)
-    var(--tb-page-banner-hero-padding-bottom);
+  padding: var(--tb-page-banner-hero-padding-top) var(--tb-page-banner-hero-padding-inline) var(--tb-page-banner-hero-padding-bottom);
   display: grid;
   padding-left: 0;
   padding-right: 0;
@@ -3957,17 +3911,13 @@
 
   .tb-res-hero-card::after {
     background:
-      linear-gradient(
-        180deg,
+      linear-gradient(180deg,
         rgba(6, 18, 50, 0.5) 0%,
         rgba(6, 18, 50, 0.7) 38%,
-        rgba(6, 18, 50, 0.8) 100%
-      ),
-      linear-gradient(
-        90deg,
+        rgba(6, 18, 50, 0.8) 100%),
+      linear-gradient(90deg,
         rgba(6, 18, 50, 0.72) 0%,
-        rgba(6, 18, 50, 0.26) 100%
-      );
+        rgba(6, 18, 50, 0.26) 100%);
   }
 
   .tb-res-tabs-shell {
@@ -4008,11 +3958,9 @@
 
 /* blog page */
 .tb-blog-shell {
-  background: radial-gradient(
-    74.52% 74.52% at 50% 25.48%,
-    #e9f0ff 0%,
-    #fff 100%
-  );
+  background: radial-gradient(74.52% 74.52% at 50% 25.48%,
+      #e9f0ff 0%,
+      #fff 100%);
   padding-top: clamp(6.2rem, 9vh, 7.6rem);
   padding-bottom: clamp(2rem, 4vh, 3rem);
 }
@@ -4176,6 +4124,7 @@
 }
 
 @media (max-width: 991.98px) {
+
   .tb-about-hero-card,
   .tb-res-hero-card,
   .tb-contact-hero-card,
@@ -4283,13 +4232,14 @@
   .functional-modules-shell {
     grid-template-columns: 1fr 1fr;
   }
+
   .tb-careers-apply,
   .tb-careers-culture,
   .tb-careers-roles {
     overflow-x: hidden;
     overflow-y: clip;
   }
-  
+
   .tb-careers-role-grid {
     grid-template-columns: 1fr;
   }
