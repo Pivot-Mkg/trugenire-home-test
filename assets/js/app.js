@@ -427,14 +427,21 @@ function initActiveNavLink() {
   });
 }
 
-function animateCounter(element, target, durationMs) {
+function animateCounter(element, target, durationMs, onComplete) {
   const start = performance.now();
 
   function tick(now) {
     const progress = Math.min((now - start) / durationMs, 1);
     const eased = 1 - Math.pow(1 - progress, 3);
     element.textContent = String(Math.round(target * eased));
-    if (progress < 1) requestAnimationFrame(tick);
+    if (progress < 1) {
+      requestAnimationFrame(tick);
+      return;
+    }
+
+    if (typeof onComplete === "function") {
+      onComplete();
+    }
   }
 
   requestAnimationFrame(tick);
@@ -824,26 +831,66 @@ function initIntegratedSlider() {
 }
 
 function initImpactCounters() {
-  const counters = document.querySelectorAll(".count-up[data-target]");
-  if (!counters.length) return;
+  const impactSection = document.querySelector(".tb-impact");
+  const counters = impactSection
+    ? impactSection.querySelectorAll(".count-up")
+    : [];
+  if (!impactSection || !counters.length) return;
 
-  let played = false;
+  const reduceMotion =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const revealCounters = (shouldAnimate) => {
+    impactSection.classList.add("is-counters-visible");
+
+    if (!shouldAnimate) return;
+
+    counters.forEach((counter, index) => {
+      counter.style.setProperty("--tb-count-delay", `${index * 140}ms`);
+
+      const targetValue =
+        counter.getAttribute("value") ||
+        counter.getAttribute("data-target") ||
+        counter.textContent;
+      const target = Number(targetValue || "0");
+      if (!Number.isFinite(target)) return;
+
+      const overlay = document.createElement("span");
+      overlay.className = "count-up-overlay";
+      overlay.setAttribute("aria-hidden", "true");
+      overlay.textContent = "0";
+
+      counter.classList.add("has-overlay");
+      counter.appendChild(overlay);
+
+      const delayMs = index * 140;
+      window.setTimeout(() => {
+        animateCounter(overlay, target, 1200, () => {
+          overlay.remove();
+          counter.classList.remove("has-overlay");
+        });
+      }, delayMs);
+    });
+  };
+
+  if (reduceMotion || typeof IntersectionObserver !== "function") {
+    revealCounters(false);
+    return;
+  }
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting || played) return;
-        played = true;
-        counters.forEach((counter) => {
-          const target = Number(counter.getAttribute("data-target") || "0");
-          animateCounter(counter, target, 2000);
-        });
+        if (!entry.isIntersecting) return;
+        revealCounters(true);
         observer.disconnect();
       });
     },
     { threshold: 0.3 },
   );
 
-  observer.observe(counters[0]);
+  observer.observe(impactSection);
 }
 
 function initProblemSectionOrder() {

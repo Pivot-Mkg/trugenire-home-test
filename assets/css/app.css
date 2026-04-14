@@ -29,11 +29,6 @@
   --tb-mobile-inline-space: 1rem;
   --tb-container-wide: 1520px;
   --tb-container-ultra: 1700px;
-  --tb-hero-media-bg: #ecf2ff;
-  --tb-hero-seam-mask-px: 3px;
-  --tb-hero-seam-overscan-px: 3px;
-  --tb-hero-media-shell-width: 79%;
-  --tb-hero-media-shell-width-mobile: 75%;
 }
 
 *,
@@ -133,7 +128,7 @@ a {
 
 .tb-top-shell {
   /* background: radial-gradient(74.52% 74.52% at 50% 25.48%, #E9F0FF 0%, #FFF 100%); */
-  background: var(--tb-hero-media-bg);
+  background: #ecf2ff;
 }
 
 @media (min-width: 1600px) {
@@ -720,25 +715,12 @@ a {
 }
 
 .tb-hero-art {
-  width: var(--tb-hero-media-shell-width);
-  max-width: 100%;
+  width: 100%;
+  max-width: none;
   height: auto;
   position: relative;
   margin-left: auto;
   margin-right: 0;
-  overflow: hidden;
-  background: var(--tb-hero-media-bg);
-  isolation: isolate;
-  contain: paint;
-}
-
-.tb-hero-art::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border: var(--tb-hero-seam-mask-px) solid var(--tb-hero-media-bg);
-  z-index: 2;
 }
 
 .tb-hero-art img,
@@ -747,11 +729,8 @@ a {
   object-fit: contain;
   object-position: center bottom;
   transition: opacity 0.22s ease;
-  width: calc(100% + (var(--tb-hero-seam-overscan-px) * 2));
-  max-width: none;
-  margin: calc(var(--tb-hero-seam-overscan-px) * -1);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  /* test  */
+  width: 79%;
 }
 
 @media (min-width: 992px) {
@@ -760,12 +739,13 @@ a {
     justify-content: flex-end;
     align-items: flex-start;
     height: auto;
-    width: var(--tb-hero-media-shell-width);
   }
 
   .tb-hero-main>.col-lg-6:last-child .tb-hero-art>video,
   .tb-hero-main>.col-lg-6:last-child .tb-hero-art>img {
-    margin: calc(var(--tb-hero-seam-overscan-px) * -1);
+    margin-left: auto;
+    /* margin-right: 0; */
+    margin-right: auto;
     align-self: flex-start;
     height: auto;
     object-position: center top;
@@ -1150,6 +1130,55 @@ a {
   font-weight: 700;
   line-height: 60px;
   /* 100% */
+}
+
+.count-up {
+  position: relative;
+  display: inline-block;
+  opacity: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.tb-impact .count-up {
+  transform: translateY(0.45rem);
+  opacity: 0;
+  filter: blur(2px);
+}
+
+.tb-impact.is-counters-visible .count-up {
+  animation: tb-impact-count-reveal 650ms ease forwards;
+  animation-delay: var(--tb-count-delay, 0ms);
+}
+
+.count-up.has-overlay .count-up-overlay {
+  position: absolute;
+  inset: 0;
+  display: inline-block;
+  color: inherit;
+  background-color: #fff;
+}
+
+@keyframes tb-impact-count-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(0.45rem);
+    filter: blur(2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tb-impact .count-up {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    animation: none !important;
+  }
 }
 
 .tb-impact-label {
@@ -2700,8 +2729,10 @@ a {
     order: 20;
   }
 
-  .tb-hero-main>.col-lg-6:last-child .tb-hero-art {
+  .tb-hero-main>.col-lg-6:last-child .tb-hero-art img,
+  .tb-hero-main>.col-lg-6:last-child .tb-hero-art video {
     width: 100%;
+    height: auto;
   }
 
   .tb-lifecycle-grid {
@@ -3135,13 +3166,9 @@ a {
 
   .tb-hero-main>.col-lg-6:last-child .tb-hero-art img,
   .tb-hero-main>.col-lg-6:last-child .tb-hero-art video {
-    width: calc(100% + (var(--tb-hero-seam-overscan-px) * 2));
+    /* width: 90%; */
+    width: 75%;
     height: auto;
-    margin: calc(var(--tb-hero-seam-overscan-px) * -1);
-  }
-
-  .tb-hero-main>.col-lg-6:last-child .tb-hero-art {
-    width: var(--tb-hero-media-shell-width-mobile);
     margin: auto;
   }
 
@@ -3334,16 +3361,14 @@ a {
 
   .tb-hero-art {
     height: 100%;
-    width: 100%;
   }
 
   .tb-hero-art img,
   .tb-hero-art video,
   .tb-hero-main>.col-lg-6:last-child .tb-hero-art img,
   .tb-hero-main>.col-lg-6:last-child .tb-hero-art video {
-    width: calc(100% + (var(--tb-hero-seam-overscan-px) * 2));
-    max-width: none;
-    margin: calc(var(--tb-hero-seam-overscan-px) * -1);
+    width: auto;
+    max-width: 100%;
     /* height: 100%; */
   }
 
